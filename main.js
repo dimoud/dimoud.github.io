@@ -57,7 +57,7 @@ const LANG = {
     edu1_deg:'BEng', edu1_name:'Mechanical Engineering',
     edu2_deg:'MSc', edu2_name:'École Centrale Paris',
     edu3_deg:'MSc', edu3_name:'IFP School',
-    edu4_deg:'MSc', edu4_name:'Int\'l Hellenic University',
+    edu4_deg:'MSc', edu4_name:'International Hellenic University',
     edu5_deg:'MBA', edu5_name:'Washington Univ. of Science & Technology',
     about_heading:'About',
     about_p1:'<strong>Expertease Designs</strong> is an Athens-based mechanical engineering studio led by <strong>Dimitrios Moudiotis</strong> — Mechanical Engineer (AUTH), with 7 years of experience and four postgraduate degrees: MSc École Centrale Paris, MSc IFP School, MSc IHU, and MBA (USA).',
@@ -132,45 +132,29 @@ function applyLang(lang) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   CURSOR — mechanical crosshair with rotating ring
+   CURSOR — minimal circle
 ═══════════════════════════════════════════════════════════════ */
 function initCursor() {
-  const dot  = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  if (!dot || !ring) return;
-
-  let mx = window.innerWidth/2, my = window.innerHeight/2;
-  let rx = mx, ry = my;
+  const dot = document.getElementById('cursor');
+  if (!dot) return;
 
   document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    dot.style.left = mx + 'px';
-    dot.style.top  = my + 'px';
+    dot.style.left = e.clientX + 'px';
+    dot.style.top  = e.clientY + 'px';
   });
 
-  (function lerp() {
-    rx += (mx - rx) * 0.24;
-    ry += (my - ry) * 0.24;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(lerp);
-  })();
-
-  function addHover(sel) {
-    document.querySelectorAll(sel).forEach(el => {
-      el.addEventListener('mouseenter', () => { dot.classList.add('hover'); ring.classList.add('hover'); });
-      el.addEventListener('mouseleave', () => { dot.classList.remove('hover'); ring.classList.remove('hover'); });
-    });
-  }
-  addHover('a, button, .project-card, .skill-item, .vctrl, .edu-card, .filter-btn');
+  document.querySelectorAll('a, button, .project-card, .skill-item, .vctrl, .edu-card').forEach(el => {
+    el.addEventListener('mouseenter', () => dot.classList.add('hover'));
+    el.addEventListener('mouseleave', () => dot.classList.remove('hover'));
+  });
 
   document.addEventListener('mousedown', () => {
-    dot.classList.add('click'); ring.classList.add('click');
-    setTimeout(() => { dot.classList.remove('click'); ring.classList.remove('click'); }, 320);
+    dot.classList.add('click');
+    setTimeout(() => dot.classList.remove('click'), 200);
   });
 
-  document.addEventListener('mouseleave', () => { dot.style.opacity='0'; ring.style.opacity='0'; });
-  document.addEventListener('mouseenter', () => { dot.style.opacity='1'; ring.style.opacity='1'; });
+  document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; });
+  document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; });
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -599,21 +583,39 @@ function initCarousel() {
       if (dotsEl) dotsEl.querySelectorAll('.gallery-dot').forEach((d,i) => d.classList.toggle('active', i===current));
     }
 
-    if (prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); goTo(current-1); });
-    if (nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); goTo(current+1); });
+    if (prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); goTo(current-1); resetTimer(); });
+    if (nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); goTo(current+1); resetTimer(); });
     if (dotsEl)  dotsEl.addEventListener('click', e => {
       const dots = [...dotsEl.querySelectorAll('.gallery-dot')];
       const idx = dots.indexOf(e.target);
-      if (idx >= 0) { e.stopPropagation(); goTo(idx); }
+      if (idx >= 0) { e.stopPropagation(); goTo(idx); resetTimer(); }
     });
+
+    // Mouse drag / swipe
+    let msx = 0, mDrag = false;
+    gallery.addEventListener('mousedown', e => {
+      if (e.target.closest('.gallery-btn') || e.target.closest('.gallery-dots')) return;
+      msx = e.clientX; mDrag = true;
+    });
+    gallery.addEventListener('mouseup', e => {
+      if (!mDrag) return;
+      mDrag = false;
+      const dx = e.clientX - msx;
+      if (Math.abs(dx) > 30) { goTo(current + (dx < 0 ? 1 : -1)); resetTimer(); }
+    });
+    gallery.addEventListener('mouseleave', () => { mDrag = false; });
 
     // Touch swipe
     let startX = 0;
     gallery.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
     gallery.addEventListener('touchend',   e => {
       const dx = e.changedTouches[0].clientX - startX;
-      if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+      if (Math.abs(dx) > 40) { goTo(current + (dx < 0 ? 1 : -1)); resetTimer(); }
     }, {passive:true});
+
+    // Auto-advance every 2 s
+    let timer = setInterval(() => goTo(current + 1), 2000);
+    function resetTimer() { clearInterval(timer); timer = setInterval(() => goTo(current + 1), 2000); }
   });
 }
 
