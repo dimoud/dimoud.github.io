@@ -1,285 +1,606 @@
-// ── Language Data ──────────────────────────────────────────────
-const LANG = {
-  el: {
-    nav_about:      'Σχετικά',
-    nav_projects:   'Υπηρεσίες',
-    nav_experience: 'Σπουδές & Εμπειρία',
-    nav_contact:    'Επικοινωνία',
+/* ── TOKENS ─────────────────────────────────────────────────── */
+:root {
+  --bg:       #1c1f22;
+  --bg2:      #23272b;
+  --surface:  #2a2f35;
+  --surface2: #32383f;
+  --border:   #3d444d;
+  --border2:  #4a5260;
+  --text:     #d8dde3;
+  --muted:    #7a8693;
+  --faint:    #4a5260;
 
-    hero_tag:   '// Μηχανολόγος Μηχανικός — Παγκράτι, Αθήνα',
-    hero_title: 'Μηχανολογικός Σχεδιασμός · 3D Printing · Διαχείριση Έργων',
-    hero_desc:  'Ιδρυτής της <strong>Expertease</strong> — παρέχω ολοκληρωμένες μηχανολογικές λύσεις: σχεδιασμός μηχανών, εφαρμογές φύλλων μετάλλου, ταχεία πρωτοτυποποίηση, BOM και διαχείριση έργων.',
-    hero_cta_work:    'Δείτε τις Υπηρεσίες →',
-    hero_cta_contact: 'Επικοινωνήστε',
-    stat_years:    'Χρόνια Εμπειρίας',
-    stat_projects: 'Ολοκληρωμένα Έργα',
-    stat_degrees:  'Μεταπτυχιακοί Τίτλοι',
+  /* Accent palette: steel blue + pale red + warm grey */
+  --blue:     #5b8db8;
+  --blue-lt:  #7eaed4;
+  --blue-dim: rgba(91,141,184,0.12);
+  --red:      #b85b5b;
+  --red-lt:   #d47e7e;
+  --red-dim:  rgba(184,91,91,0.10);
+  --steel:    #8fa3b1;
+  --white:    #edf0f3;
 
-    about_heading: 'Σχετικά',
-    about_p1: 'Είμαι ο <strong>Δημήτριος Μουδιώτης</strong>, Μηχανολόγος Μηχανικός με πτυχίο από το <strong>ΑΠΘ</strong> και τέσσερις μεταπτυχιακούς τίτλους: δύο MSc στη Γαλλία, ένα MSc στον Σχεδιασμό Προϊόντων στην Ελλάδα και MBA σε Ηγεσία & Διαχείριση Έργων στις ΗΠΑ.',
-    about_quote: '«Η μηχανική δεν είναι μόνο τεχνική — είναι η τέχνη να μετατρέπεις μια ιδέα σε κάτι που μπορείς να κρατήσεις στα χέρια σου.»',
-    about_p2: 'Μέσω της <strong>Expertease</strong> προσφέρω υπηρεσίες μηχανολογικού σχεδιασμού, ανάπτυξης BOM, τρισδιάστατης εκτύπωσης, κατεργασίας φύλλων μετάλλου και διαχείρισης έργων — καλύπτοντας ολόκληρο τον κύκλο ζωής ενός προϊόντος.',
-    about_p3: 'Βάση: <strong>Παγκράτι, Αθήνα</strong> — Διαθέσιμος για έργα σε Ελλάδα και εξωτερικό.',
-
-    projects_heading: 'Υπηρεσίες',
-    proj1_cat:   'Μηχανολογικός Σχεδιασμός',
-    proj1_title: 'Σχεδιασμός Μηχανών & Κατασκευών',
-    proj1_desc:  'Πλήρης μηχανολογικός σχεδιασμός μηχανών, βιομηχανικών κατασκευών και εξαρτημάτων. Από το αρχικό concept έως τα έτοιμα τεχνικά σχέδια παραγωγής — με SolidWorks και CATIA.',
-    proj1_link:  'Μάθετε Περισσότερα →',
-    proj2_cat:   'Ταχεία Πρωτοτυποποίηση · 3D Printing',
-    proj2_title: 'Rapid Prototyping & Τρισδιάστατη Εκτύπωση',
-    proj2_desc:  'Ταχεία υλοποίηση ιδεών μέσω FDM, SLA και SLS τεχνολογιών. Από ένα αρχείο CAD στα χέρια σας σε ελάχιστο χρόνο — ιδανικό για δοκιμές, παρουσιάσεις και μικρές σειρές.',
-    proj2_link:  'Μάθετε Περισσότερα →',
-    proj3_cat:   'Κατεργασία Μετάλλου',
-    proj3_title: 'Εφαρμογές Φύλλων Μετάλλου',
-    proj3_desc:  'Σχεδιασμός και τεχνική τεκμηρίωση για κοπή, διαμόρφωση και συγκόλληση φύλλων μετάλλου. Βελτιστοποίηση για κατασκευασιμότητα (DFM) και μείωση αποβλήτων υλικού.',
-    proj3_link:  'Μάθετε Περισσότερα →',
-    proj4_cat:   'Τεκμηρίωση & BOM',
-    proj4_title: 'Bill of Materials & Τεχνική Τεκμηρίωση',
-    proj4_desc:  'Ανάπτυξη πλήρους BOM, τεχνικών σχεδίων, οδηγιών συναρμολόγησης και φακέλων προϊόντος. Δομημένη τεκμηρίωση που υποστηρίζει παραγωγή, προμήθειες και πιστοποίηση.',
-    proj4_link:  'Μάθετε Περισσότερα →',
-    proj5_cat:   'Διαχείριση Έργων',
-    proj5_title: 'Project Management & Ηγεσία Έργων',
-    proj5_desc:  'Διαχείριση μηχανολογικών έργων από την έναρξη έως την παράδοση. Εφαρμογή μεθοδολογιών PM, συντονισμός ομάδων, έλεγχος κόστους και χρονοδιαγράμματος — υποστηριζόμενη από MBA εξειδίκευση σε Leadership & Project Management.',
-    proj5_link:  'Μάθετε Περισσότερα →',
-
-    experience_heading: 'Σπουδές & Εμπειρία',
-    exp1_role:    'Ιδρυτής & Μηχανολόγος Μηχανικός',
-    exp1_company: 'Expertease — Παγκράτι, Αθήνα',
-    exp1_b1: 'Μηχανολογικός σχεδιασμός μηχανών, εξαρτημάτων και βιομηχανικών κατασκευών',
-    exp1_b2: 'Ταχεία πρωτοτυποποίηση με τρισδιάστατη εκτύπωση (FDM, SLA, SLS)',
-    exp1_b3: 'Εφαρμογές φύλλων μετάλλου — σχεδιασμός, DFM και τεχνική τεκμηρίωση',
-    exp1_b4: 'Ανάπτυξη BOM και διαχείριση τεχνικών έργων',
-
-    exp2_role:    'MBA — Ηγεσία & Διαχείριση Έργων',
-    exp2_company: 'Αμερικανικό Πανεπιστήμιο, ΗΠΑ',
-    exp2_b1: 'Εξειδίκευση σε στρατηγική ηγεσία, PM και επιχειρηματική ανάπτυξη',
-    exp2_b2: 'Εφαρμογή PMP framework, Agile, MS Project και risk management',
-    exp2_b3: 'Μελέτες περιπτώσεων σε διεθνές βιομηχανικό και τεχνολογικό περιβάλλον',
-
-    exp3_role:    'MSc — Σχεδιασμός Προϊόντων',
-    exp3_company: 'Ελληνικό Πανεπιστήμιο',
-    exp3_b1: 'Ανάπτυξη προϊόντων από τη σύλληψη έως την παραγωγή',
-    exp3_b2: 'Ειδίκευση σε DFM, DFA και μεθοδολογίες ανάπτυξης νέων προϊόντων',
-    exp3_b3: 'Διεπιστημονική προσέγγιση: μηχανική, αισθητική σχεδιασμού, εργονομία',
-
-    exp4_role:    '2× MSc & Πτυχίο Μηχανολόγου Μηχανικού',
-    exp4_company: 'Γαλλικά Πανεπιστήμια & ΑΠΘ, Θεσσαλονίκη',
-    exp4_b1: 'Πτυχίο Μηχανολόγου Μηχανικού — Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης (ΑΠΘ)',
-    exp4_b2: 'Δύο MSc από γαλλικά πανεπιστήμια — εξειδίκευση σε μηχανική & βιομηχανικές εφαρμογές',
-
-    contact_label:   '// Ας Δουλέψουμε Μαζί',
-    contact_heading: 'Έχετε ένα\nέργο στο νου;',
-    contact_sub:     'Από τον σχεδιασμό ενός εξαρτήματος έως τη διαχείριση ενός ολόκληρου έργου — η Expertease είναι εδώ. Επικοινωνήστε μαζί μας.',
-
-    footer_copy: '© 2026 Δημήτριος Μουδιώτης — Expertease',
-  },
-
-  en: {
-    nav_about:      'About',
-    nav_projects:   'Services',
-    nav_experience: 'Education & Experience',
-    nav_contact:    'Contact',
-
-    hero_tag:   '// Mechanical Engineer — Pagrati, Athens GR',
-    hero_title: 'Mechanical Design · 3D Printing · Project Management',
-    hero_desc:  'Founder of <strong>Expertease</strong> — delivering end-to-end mechanical engineering solutions: machine design, sheet metal applications, rapid prototyping, bill of materials, and project management.',
-    hero_cta_work:    'View Services →',
-    hero_cta_contact: 'Get in Touch',
-    stat_years:    'Years Experience',
-    stat_projects: 'Projects Delivered',
-    stat_degrees:  'Postgraduate Degrees',
-
-    about_heading: 'About',
-    about_p1: 'I\'m <strong>Dimitrios Moudiotis</strong>, a Mechanical Engineer with a degree from <strong>AUTH</strong> (Aristotle University of Thessaloniki) and four postgraduate degrees: two MSc in France, one MSc in Product Design in Greece, and an MBA in Leadership & Project Management in the USA.',
-    about_quote: '"Engineering is not just technical — it\'s the art of turning an idea into something you can hold in your hands."',
-    about_p2: 'Through <strong>Expertease</strong> I deliver mechanical design, BOM development, 3D printing, sheet metal work, and project management — covering the full product lifecycle from concept to production.',
-    about_p3: 'Based in <strong>Pagrati, Athens</strong> — available for projects across Greece and internationally.',
-
-    projects_heading: 'Services',
-    proj1_cat:   'Mechanical Design',
-    proj1_title: 'Machine & Component Design',
-    proj1_desc:  'Full mechanical design of machines, industrial structures, and components. From initial concept to production-ready technical drawings — using SolidWorks and CATIA.',
-    proj1_link:  'Learn More →',
-    proj2_cat:   'Rapid Prototyping · 3D Printing',
-    proj2_title: 'Rapid Prototyping & 3D Printing',
-    proj2_desc:  'Fast realization of ideas via FDM, SLA, and SLS technologies. From a CAD file to a physical part in minimal time — ideal for testing, presentations, and small production runs.',
-    proj2_link:  'Learn More →',
-    proj3_cat:   'Metal Fabrication',
-    proj3_title: 'Sheet Metal Applications',
-    proj3_desc:  'Design and technical documentation for sheet metal cutting, forming, and welding. Optimized for manufacturability (DFM) and material waste reduction.',
-    proj3_link:  'Learn More →',
-    proj4_cat:   'Documentation & BOM',
-    proj4_title: 'Bill of Materials & Technical Documentation',
-    proj4_desc:  'Full BOM development, technical drawings, assembly instructions, and product dossiers. Structured documentation supporting production, procurement, and certification.',
-    proj4_link:  'Learn More →',
-    proj5_cat:   'Project Management',
-    proj5_title: 'Project Management & Engineering Leadership',
-    proj5_desc:  'Managing mechanical engineering projects from kickoff to delivery. PM methodologies, team coordination, cost and schedule control — backed by an MBA in Leadership & Project Management.',
-    proj5_link:  'Learn More →',
-
-    experience_heading: 'Education & Experience',
-    exp1_role:    'Founder & Mechanical Engineer',
-    exp1_company: 'Expertease — Pagrati, Athens',
-    exp1_b1: 'Mechanical design of machines, components, and industrial structures',
-    exp1_b2: 'Rapid prototyping via 3D printing (FDM, SLA, SLS)',
-    exp1_b3: 'Sheet metal applications — design, DFM, and technical documentation',
-    exp1_b4: 'BOM development and technical project management',
-
-    exp2_role:    'MBA — Leadership & Project Management',
-    exp2_company: 'American University, USA',
-    exp2_b1: 'Specialization in strategic leadership, PM and business development',
-    exp2_b2: 'PMP framework, Agile, MS Project, and risk management',
-    exp2_b3: 'Case studies in international industrial and technology environments',
-
-    exp3_role:    'MSc — Product Design',
-    exp3_company: 'Greek University',
-    exp3_b1: 'Product development from concept to production',
-    exp3_b2: 'Specialization in DFM, DFA, and new product development methodologies',
-    exp3_b3: 'Interdisciplinary approach: engineering, design aesthetics, ergonomics',
-
-    exp4_role:    '2× MSc & BEng Mechanical Engineering',
-    exp4_company: 'French Universities & AUTH, Thessaloniki',
-    exp4_b1: 'BEng Mechanical Engineering — Aristotle University of Thessaloniki (AUTH)',
-    exp4_b2: 'Two MSc degrees from French universities — engineering & industrial applications',
-
-    contact_label:   '// Let\'s Work Together',
-    contact_heading: 'Got a project\nin mind?',
-    contact_sub:     'From designing a single component to managing an entire project — Expertease is here. Get in touch to discuss your needs.',
-
-    footer_copy: '© 2026 Dimitrios Moudiotis — Expertease',
-  }
-};
-
-// ── State ──────────────────────────────────────────────────────
-let currentLang = 'el';
-
-// ── Apply language to DOM ──────────────────────────────────────
-function applyLang(lang) {
-  const t = LANG[lang];
-  currentLang = lang;
-  document.documentElement.lang = lang === 'el' ? 'el' : 'en';
-
-  const set = (id, val, html = false) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    if (html) el.innerHTML = val;
-    else el.textContent = val;
-  };
-
-  set('nav-about',      t.nav_about);
-  set('nav-projects',   t.nav_projects);
-  set('nav-experience', t.nav_experience);
-  set('nav-contact',    t.nav_contact);
-
-  set('hero-tag',         t.hero_tag);
-  set('hero-title',       t.hero_title);
-  set('hero-desc',        t.hero_desc, true);
-  set('hero-cta-work',    t.hero_cta_work);
-  set('hero-cta-contact', t.hero_cta_contact);
-  set('stat-years',       t.stat_years);
-  set('stat-projects',    t.stat_projects);
-  set('stat-degrees',     t.stat_degrees);
-
-  set('about-heading', t.about_heading);
-  set('about-p1',  t.about_p1,  true);
-  set('about-quote', t.about_quote);
-  set('about-p2',  t.about_p2,  true);
-  set('about-p3',  t.about_p3,  true);
-
-  set('projects-heading', t.projects_heading);
-  ['proj1','proj2','proj3','proj4','proj5'].forEach(p => {
-    set(`${p}-cat`,   t[`${p}_cat`]);
-    set(`${p}-title`, t[`${p}_title`]);
-    set(`${p}-desc`,  t[`${p}_desc`]);
-    set(`${p}-link`,  t[`${p}_link`]);
-  });
-
-  set('experience-heading', t.experience_heading);
-  set('exp1-role', t.exp1_role); set('exp1-company', t.exp1_company);
-  set('exp1-b1', t.exp1_b1); set('exp1-b2', t.exp1_b2); set('exp1-b3', t.exp1_b3); set('exp1-b4', t.exp1_b4);
-  set('exp2-role', t.exp2_role); set('exp2-company', t.exp2_company);
-  set('exp2-b1', t.exp2_b1); set('exp2-b2', t.exp2_b2); set('exp2-b3', t.exp2_b3);
-  set('exp3-role', t.exp3_role); set('exp3-company', t.exp3_company);
-  set('exp3-b1', t.exp3_b1); set('exp3-b2', t.exp3_b2); set('exp3-b3', t.exp3_b3);
-  set('exp4-role', t.exp4_role); set('exp4-company', t.exp4_company);
-  set('exp4-b1', t.exp4_b1); set('exp4-b2', t.exp4_b2);
-
-  set('contact-label',   t.contact_label);
-  set('contact-heading', t.contact_heading);
-  set('contact-sub',     t.contact_sub);
-  set('footer-copy',     t.footer_copy);
-
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.lang === lang);
-  });
-
-  localStorage.setItem('lang', lang);
+  --radius: 2px;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-serif: 'DM Serif Display', serif;
+  --font-body: 'Barlow', sans-serif;
 }
 
-// ── Custom Cursor ──────────────────────────────────────────────
-function initCursor() {
-  const cursor = document.getElementById('cursor');
-  const ring   = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+::selection { background: var(--blue-dim); color: var(--blue-lt); }
 
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+/* ── CURSOR ──────────────────────────────────────────────────── */
+.cursor {
+  width: 10px; height: 10px;
+  background: var(--blue);
+  border-radius: 50%;
+  position: fixed; pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width .2s, height .2s, background .2s;
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(91,141,184,.45);
+  border-radius: 50%;
+  position: fixed; pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: width .3s, height .3s;
+}
+.cursor.hover { width: 18px; height: 18px; background: var(--red); }
+.cursor-ring.hover { width: 48px; height: 48px; border-color: rgba(184,91,91,.4); }
 
-  (function animCursor() {
-    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
-    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-    requestAnimationFrame(animCursor);
-  })();
+/* ── NAV ─────────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 56px;
+  background: rgba(28,31,34,.96);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 20px; letter-spacing: 4px;
+  color: var(--blue-lt); text-decoration: none;
+}
+.nav-right { display: flex; align-items: center; gap: 36px; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+  transition: color .25s;
+  position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute;
+  bottom: -3px; left: 0; right: 0; height: 1px;
+  background: var(--blue); transform: scaleX(0);
+  transition: transform .25s;
+}
+.nav-links a:hover { color: var(--blue-lt); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-links a.active { color: var(--blue-lt); }
 
-  document.querySelectorAll('a, button, .project-card, .skill-item, .lang-btn').forEach(el => {
-    el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
-    el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
-  });
+/* lang toggle */
+.lang-toggle {
+  display: flex; gap: 2px;
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 3px; border-radius: var(--radius);
+}
+.lang-btn {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 2px; font-weight: 500;
+  padding: 5px 9px; border: none; background: transparent;
+  color: var(--muted); cursor: none;
+  transition: color .2s, background .2s;
+  border-radius: 1px;
+}
+.lang-btn.active { background: var(--blue); color: var(--bg); }
+
+/* ── HERO ────────────────────────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  padding-top: 62px;
+  position: relative; overflow: hidden;
+}
+.hero-left {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 56px; position: relative; z-index: 2;
+}
+.hero-tag {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 3px; color: var(--blue);
+  text-transform: uppercase; margin-bottom: 28px;
+  opacity: 0; animation: fadeUp .7s .2s forwards;
+}
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(60px, 8vw, 110px);
+  line-height: .92; letter-spacing: 1px; color: var(--white);
+  opacity: 0; animation: fadeUp .8s .35s forwards;
+}
+.hero-name span { color: var(--blue-lt); }
+.hero-title {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: clamp(15px, 1.8vw, 22px);
+  color: var(--muted); margin-top: 18px;
+  opacity: 0; animation: fadeUp .8s .5s forwards;
+}
+.hero-desc {
+  font-size: 14px; line-height: 1.8;
+  color: rgba(216,221,227,.65);
+  margin-top: 28px; max-width: 420px;
+  opacity: 0; animation: fadeUp .8s .65s forwards;
+}
+.hero-desc strong { color: var(--blue-lt); font-weight: 500; }
+.hero-cta {
+  display: flex; gap: 16px; margin-top: 44px;
+  opacity: 0; animation: fadeUp .8s .8s forwards;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 28px;
+  background: var(--blue); color: var(--bg);
+  font-family: var(--font-mono); font-size: 11px;
+  font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+  text-decoration: none; border: 1px solid var(--blue);
+  transition: transform .3s, box-shadow .3s, background .2s;
+}
+.btn-primary:hover {
+  background: var(--blue-lt);
+  transform: translate(-2px,-2px);
+  box-shadow: 5px 5px 0 var(--red);
+}
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 28px;
+  border: 1px solid var(--border2); color: var(--muted);
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 2px; text-transform: uppercase;
+  text-decoration: none;
+  transition: border-color .25s, color .25s, transform .3s;
+}
+.btn-outline:hover {
+  border-color: var(--blue); color: var(--blue-lt);
+  transform: translate(-2px,-2px);
 }
 
-// ── Skill Bars ─────────────────────────────────────────────────
-function initSkillBars() {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting)
-        entry.target.querySelectorAll('.skill-bar').forEach(b => b.style.width = b.dataset.width);
-    });
-  }, { threshold: 0.3 });
-  const grid = document.getElementById('skillsGrid');
-  if (grid) observer.observe(grid);
+/* hero right — 3D viewer */
+.hero-right {
+  position: relative; display: flex;
+  align-items: center; justify-content: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 55% 45%, rgba(91,141,184,.07) 0%, transparent 65%);
+}
+#hero3d {
+  width: 100%; height: 100%;
+  min-height: 500px;
+}
+.viewer-hint {
+  position: absolute; bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--faint);
+  display: flex; align-items: center; gap: 8px;
+  animation: pulse 2.5s ease-in-out infinite;
+}
+.viewer-hint::before, .viewer-hint::after {
+  content: ''; display: block;
+  width: 20px; height: 1px; background: var(--faint);
+}
+.viewer-controls {
+  position: absolute; top: 24px; right: 24px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.vctrl {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 1px; padding: 6px 12px;
+  background: rgba(42,47,53,.85); border: 1px solid var(--border);
+  color: var(--muted); cursor: none;
+  transition: border-color .2s, color .2s;
+}
+.vctrl:hover, .vctrl.active {
+  border-color: var(--blue); color: var(--blue-lt);
 }
 
-// ── Timeline Reveal ────────────────────────────────────────────
-function initTimeline() {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting)
-        setTimeout(() => entry.target.classList.add('visible'), i * 150);
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.timeline-item').forEach(el => observer.observe(el));
+/* stats */
+.hero-stats {
+  position: absolute; bottom: 40px; left: 56px;
+  display: flex; gap: 44px;
+  opacity: 0; animation: fadeUp .8s 1s forwards;
+}
+.stat { display: flex; flex-direction: column; gap: 3px; }
+.stat-num {
+  font-family: var(--font-display); font-size: 38px;
+  color: var(--white); line-height: 1;
+}
+.stat-num span { color: var(--blue-lt); }
+.stat-label {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--muted);
 }
 
-// ── Active Nav ─────────────────────────────────────────────────
-function initActiveNav() {
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) current = s.id; });
-    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : ''; });
-  });
+/* ── TICKER ──────────────────────────────────────────────────── */
+.ticker {
+  background: var(--surface); border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 0; overflow: hidden;
+}
+.ticker-inner {
+  display: flex; animation: ticker 24s linear infinite;
+  white-space: nowrap;
+}
+.ticker-item {
+  font-family: var(--font-mono); font-size: 10px;
+  font-weight: 400; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); padding: 0 36px; flex-shrink: 0;
+}
+.ticker-item span { color: var(--blue); margin-left: 8px; }
+
+/* ── SECTION SHELL ───────────────────────────────────────────── */
+section { padding: 100px 56px; }
+.section-header {
+  display: flex; align-items: baseline; gap: 20px; margin-bottom: 72px;
+}
+.section-num {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 2px; color: var(--blue);
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 5.5vw, 72px);
+  letter-spacing: 2px; color: var(--white); line-height: 1;
+}
+.section-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(to right, var(--border), transparent);
+  margin-left: 20px;
 }
 
-// ── Boot ───────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.addEventListener('click', () => applyLang(btn.dataset.lang));
-  });
-  applyLang(localStorage.getItem('lang') || 'el');
-  initCursor();
-  initSkillBars();
-  initTimeline();
-  initActiveNav();
-});
+/* ── ABOUT ───────────────────────────────────────────────────── */
+#about { background: var(--bg2); }
+.about-grid {
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 72px; align-items: start;
+}
+.about-text p {
+  font-size: 15px; line-height: 1.9;
+  color: rgba(216,221,227,.72); margin-bottom: 20px;
+}
+.about-text p strong { color: var(--white); font-weight: 500; }
+.about-highlight {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 21px; line-height: 1.5; color: var(--white);
+  border-left: 2px solid var(--blue);
+  padding-left: 24px; margin: 36px 0;
+}
+.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+.skill-item {
+  background: var(--surface); padding: 16px 20px;
+  border: 1px solid var(--border);
+  transition: border-color .25s, transform .25s;
+  position: relative; overflow: hidden;
+}
+.skill-item::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 0; background: var(--blue);
+  transition: width .4s; opacity: .07;
+}
+.skill-item:hover::before { width: 100%; }
+.skill-item:hover { border-color: var(--blue); transform: translateX(3px); }
+.skill-name {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: .5px; color: var(--text);
+  display: block; margin-bottom: 8px;
+}
+.skill-bar-bg { height: 2px; background: var(--border); position: relative; }
+.skill-bar {
+  position: absolute; left: 0; top: 0; height: 100%;
+  background: linear-gradient(to right, var(--blue), var(--blue-lt));
+  width: 0; transition: width 1.4s cubic-bezier(.19,1,.22,1);
+}
+
+/* ── PORTFOLIO ───────────────────────────────────────────────── */
+#projects { background: var(--bg); }
+.portfolio-filter {
+  display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap;
+}
+.filter-btn {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 6px 14px; border: 1px solid var(--border);
+  background: transparent; color: var(--muted); cursor: none;
+  transition: all .2s;
+}
+.filter-btn:hover, .filter-btn.active {
+  border-color: var(--blue); color: var(--blue-lt);
+  background: var(--blue-dim);
+}
+.projects-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+}
+.project-card {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 32px; position: relative; overflow: hidden;
+  transition: transform .35s cubic-bezier(.19,1,.22,1), border-color .25s;
+  cursor: none;
+}
+.project-card:hover { transform: translateY(-6px); border-color: var(--border2); }
+.project-card.featured { grid-column: span 2; background: var(--bg2); }
+.project-card.software { border-color: var(--blue); background: rgba(91,141,184,.04); }
+.proj-badge {
+  display: inline-block;
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 3px 10px; margin-bottom: 16px;
+  border: 1px solid var(--blue-dim); color: var(--blue);
+  background: var(--blue-dim);
+}
+.proj-badge.red { border-color: var(--red-dim); color: var(--red-lt); background: var(--red-dim); }
+.project-category {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.project-category::before {
+  content: ''; display: inline-block;
+  width: 16px; height: 1px; background: var(--blue);
+}
+.project-title {
+  font-family: var(--font-display); font-size: 28px;
+  letter-spacing: 1px; color: var(--white); line-height: 1;
+  margin-bottom: 12px;
+}
+.project-card.featured .project-title { font-size: 38px; }
+.project-desc {
+  font-size: 13px; line-height: 1.7;
+  color: rgba(216,221,227,.5); margin-bottom: 24px;
+}
+.project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+.tag {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 1px; padding: 3px 10px;
+  border: 1px solid var(--border); color: var(--faint);
+}
+.project-link {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--blue); text-decoration: none;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: gap .25s, color .2s;
+}
+.project-link:hover { gap: 12px; color: var(--blue-lt); }
+.project-num {
+  position: absolute; top: 24px; right: 28px;
+  font-family: var(--font-display); font-size: 64px;
+  color: rgba(255,255,255,.025); line-height: 1; pointer-events: none;
+}
+
+/* ── SOFTWARE FEATURE CARD ───────────────────────────────────── */
+.software-card {
+  background: var(--bg2);
+  border: 1px solid var(--blue);
+  padding: 48px 56px;
+  margin-bottom: 2px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+  align-items: center;
+  position: relative; overflow: hidden;
+}
+.software-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(to right, var(--blue), var(--red), transparent);
+}
+.sw-label {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.sw-label::before { content: ''; width: 20px; height: 1px; background: var(--blue); }
+.sw-title {
+  font-family: var(--font-display); font-size: 44px;
+  letter-spacing: 1px; color: var(--white); line-height: 1;
+  margin-bottom: 20px;
+}
+.sw-desc {
+  font-size: 14px; line-height: 1.8;
+  color: rgba(216,221,227,.65); margin-bottom: 32px;
+}
+.sw-features {
+  list-style: none; display: grid;
+  grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.sw-features li {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: .5px; color: var(--muted);
+  display: flex; align-items: center; gap: 8px;
+}
+.sw-features li::before {
+  content: '▸'; color: var(--blue); font-size: 9px;
+}
+.sw-visual {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px; overflow: hidden;
+  aspect-ratio: 16/10; display: flex;
+  align-items: center; justify-content: center;
+  position: relative;
+}
+.sw-mockup {
+  width: 100%; height: 100%; padding: 20px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.sw-row {
+  height: 8px; background: var(--border);
+  border-radius: 2px; opacity: .5;
+}
+.sw-row.accent { background: var(--blue); opacity: .3; width: 60%; }
+.sw-row.short { width: 40%; }
+.sw-table {
+  flex: 1; border: 1px solid var(--border);
+  display: grid; grid-template-rows: 24px 1fr;
+  border-radius: 2px; overflow: hidden;
+}
+.sw-thead {
+  background: var(--surface2);
+  display: grid; grid-template-columns: repeat(4,1fr);
+  border-bottom: 1px solid var(--border);
+}
+.sw-th {
+  height: 100%; padding: 6px;
+  background: var(--blue-dim);
+  border-right: 1px solid var(--border);
+}
+.sw-tbody { display: flex; flex-direction: column; gap: 1px; padding: 4px; }
+.sw-tr {
+  height: 6px; background: var(--border); border-radius: 1px;
+  opacity: .4;
+}
+.sw-tr:nth-child(odd) { opacity: .25; }
+
+/* ── EXPERIENCE / EDUCATION ──────────────────────────────────── */
+#experience { background: var(--bg2); }
+.timeline { position: relative; padding-left: 36px; }
+.timeline::before {
+  content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--blue), var(--red), transparent);
+}
+.timeline-item {
+  position: relative; padding-bottom: 52px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .5s, transform .5s;
+}
+.timeline-item.visible { opacity: 1; transform: none; }
+.timeline-item::before {
+  content: ''; position: absolute;
+  left: -40px; top: 7px;
+  width: 8px; height: 8px;
+  background: var(--blue); border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(91,141,184,.18);
+}
+.timeline-period {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 2px; color: var(--blue); margin-bottom: 6px;
+}
+.timeline-role {
+  font-family: var(--font-display); font-size: 26px;
+  letter-spacing: 1px; color: var(--white); margin-bottom: 3px;
+}
+.timeline-company {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 16px; color: var(--muted); margin-bottom: 16px;
+}
+.timeline-desc { font-size: 13px; line-height: 1.8; color: rgba(216,221,227,.6); max-width: 580px; }
+.timeline-desc ul { list-style: none; }
+.timeline-desc li { padding: 3px 0 3px 14px; position: relative; }
+.timeline-desc li::before {
+  content: '→'; position: absolute; left: 0;
+  color: var(--blue); font-size: 11px;
+}
+
+/* ── CONTACT ─────────────────────────────────────────────────── */
+#contact {
+  background: var(--bg); text-align: center;
+  padding: 120px 56px; position: relative; overflow: hidden;
+}
+.contact-glow {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse, rgba(91,141,184,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.contact-label {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 20px;
+}
+.contact-heading {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 7.5vw, 92px);
+  letter-spacing: 2px; color: var(--white);
+  line-height: .95; margin-bottom: 28px;
+}
+.contact-sub {
+  font-size: 15px; color: var(--muted); line-height: 1.7;
+  max-width: 480px; margin: 0 auto 48px;
+}
+.contact-email {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: clamp(18px, 2.2vw, 26px);
+  color: var(--blue-lt); text-decoration: none;
+  border-bottom: 1px solid rgba(91,141,184,.3);
+  padding-bottom: 3px; transition: border-color .25s, color .25s;
+}
+.contact-email:hover { border-color: var(--blue-lt); color: var(--white); }
+.social-links {
+  display: flex; justify-content: center; gap: 28px; margin-top: 48px;
+}
+.social-link {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+  transition: color .25s;
+  display: flex; align-items: center; gap: 7px;
+}
+.social-link:hover { color: var(--blue-lt); }
+
+/* ── FOOTER ──────────────────────────────────────────────────── */
+footer {
+  background: var(--bg2);
+  padding: 28px 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--border);
+}
+.footer-logo {
+  font-family: var(--font-display); font-size: 16px;
+  letter-spacing: 3px; color: var(--blue-lt);
+}
+.footer-text {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 2px; color: var(--muted); text-transform: uppercase;
+}
+
+/* ── ANIMATIONS ──────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes pulse {
+  0%,100% { opacity: .4; } 50% { opacity: .9; }
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  nav { padding: 18px 20px; }
+  .nav-links { display: none; }
+  #hero { grid-template-columns: 1fr; }
+  .hero-left { padding: 80px 20px 60px; }
+  .hero-right { display: none; }
+  .hero-stats { left: 20px; bottom: 32px; gap: 28px; }
+  section { padding: 72px 20px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-card.featured { grid-column: span 1; }
+  .software-card { grid-template-columns: 1fr; gap: 32px; padding: 28px; }
+  footer { flex-direction: column; gap: 12px; text-align: center; }
+}
