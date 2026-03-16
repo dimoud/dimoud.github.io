@@ -1,154 +1,153 @@
 // ── Language Data ──────────────────────────────────────────────
 const LANG = {
   el: {
-    // Nav
     nav_about:      'Σχετικά',
-    nav_projects:   'Έργα',
-    nav_experience: 'Εμπειρία',
+    nav_projects:   'Υπηρεσίες',
+    nav_experience: 'Σπουδές & Εμπειρία',
     nav_contact:    'Επικοινωνία',
 
-    // Hero
-    hero_tag:   '// Μηχανολόγος Μηχανικός — Αθήνα, GR',
-    hero_title: 'Σχεδιασμός · Προσομοίωση · Κατασκευή',
-    hero_desc:  'Μετατρέπω σύνθετες μηχανολογικές προκλήσεις σε κομψές, κατασκευάσιμες λύσεις. Ειδίκευση στη δομική ανάλυση, CAD/CAM και ανάπτυξη προϊόντων για αεροναυπηγικές και βιομηχανικές εφαρμογές.',
-    hero_cta_work:    'Δείτε τα Έργα →',
-    hero_cta_contact: 'Επικοινωνία',
+    hero_tag:   '// Μηχανολόγος Μηχανικός — Παγκράτι, Αθήνα',
+    hero_title: 'Μηχανολογικός Σχεδιασμός · 3D Printing · Διαχείριση Έργων',
+    hero_desc:  'Ιδρυτής της <strong>Expertease</strong> — παρέχω ολοκληρωμένες μηχανολογικές λύσεις: σχεδιασμός μηχανών, εφαρμογές φύλλων μετάλλου, ταχεία πρωτοτυποποίηση, BOM και διαχείριση έργων.',
+    hero_cta_work:    'Δείτε τις Υπηρεσίες →',
+    hero_cta_contact: 'Επικοινωνήστε',
     stat_years:    'Χρόνια Εμπειρίας',
     stat_projects: 'Ολοκληρωμένα Έργα',
-    stat_patents:  'Κατατεθειμένα Πατέντα',
+    stat_degrees:  'Μεταπτυχιακοί Τίτλοι',
 
-    // About
     about_heading: 'Σχετικά',
-    about_p1: 'Είμαι <strong>Μηχανολόγος Μηχανικός</strong> με 7+ χρόνια εμπειρίας στο σχεδιασμό, προσομοίωση και υλοποίηση ακριβείας μηχανολογικών συστημάτων σε αεροναυπηγικό, αυτοκινητοβιομηχανικό και βιομηχανικό τομέα.',
-    about_quote: '«Η καλή μηχανική είναι αόρατη — όλα λειτουργούν, τίποτα δεν αποτυγχάνει, και η λύση φαίνεται αυτονόητη εκ των υστέρων.»',
-    about_p2: 'Η ροή εργασίας μου καλύπτει <strong>σύλληψη ιδέας → μοντελοποίηση CAD → προσομοίωση FEA/CFD → πρωτότυπο → παραγωγή</strong>. Αναλαμβάνω ολόκληρο τον κύκλο ζωής προϊόντος, σε στενή συνεργασία με ομάδες κατασκευής και ποιότητας.',
-    about_p3: 'Βάση: <strong>Αθήνα, Ελλάδα</strong> — Ανοιχτός σε θέσεις on-site, υβριδικές και πλήρως εξ αποστάσεως σε όλη την Ευρώπη.',
+    about_p1: 'Είμαι ο <strong>Δημήτριος Μουδιώτης</strong>, Μηχανολόγος Μηχανικός με πτυχίο από το <strong>ΑΠΘ</strong> και τέσσερις μεταπτυχιακούς τίτλους: δύο MSc στη Γαλλία, ένα MSc στον Σχεδιασμό Προϊόντων στην Ελλάδα και MBA σε Ηγεσία & Διαχείριση Έργων στις ΗΠΑ.',
+    about_quote: '«Η μηχανική δεν είναι μόνο τεχνική — είναι η τέχνη να μετατρέπεις μια ιδέα σε κάτι που μπορείς να κρατήσεις στα χέρια σου.»',
+    about_p2: 'Μέσω της <strong>Expertease</strong> προσφέρω υπηρεσίες μηχανολογικού σχεδιασμού, ανάπτυξης BOM, τρισδιάστατης εκτύπωσης, κατεργασίας φύλλων μετάλλου και διαχείρισης έργων — καλύπτοντας ολόκληρο τον κύκλο ζωής ενός προϊόντος.',
+    about_p3: 'Βάση: <strong>Παγκράτι, Αθήνα</strong> — Διαθέσιμος για έργα σε Ελλάδα και εξωτερικό.',
 
-    // Projects
-    projects_heading: 'Έργα',
-    proj1_cat:   'Αεροναυτική · Δομική Ανάλυση',
-    proj1_title: 'Επανασχεδιασμός Ελαφρού Βραχίονα\nγια Συναρμολόγηση Πόρτας Αεροσκάφους',
-    proj1_desc:  'Επανασχεδιασμός κρίσιμου φέροντος βραχίονα για μηχανισμό πόρτας εμπορικού αεροσκάφους, με μείωση βάρους 34% διατηρώντας όλα τα περιθώρια ασφαλείας. Πλήρης στατική ανάλυση κόπωσης FEA, επαληθευμένη σύμφωνα με MIL-SPEC και κανονισμούς EASA.',
-    proj1_link:  'Δείτε Μελέτη →',
-    proj2_cat:   'Θερμικά · CFD',
-    proj2_title: 'Βελτιστοποίηση Εναλλάκτη Θερμότητας',
-    proj2_desc:  'Επανασχεδιασμός βιομηχανικού εναλλάκτη θερμότητας πλακών με CFD. Βελτίωση θερμικής απόδοσης κατά 22% μέσω βελτιστοποίησης γεωμετρίας πτερυγίων, με μείωση πτώσης πίεσης κατά 15%.',
-    proj2_link:  'Δείτε Λεπτομέρειες →',
-    proj3_cat:   'Ανάπτυξη Προϊόντος',
-    proj3_title: 'Συναρμολόγηση Πνευματικού Ενεργοποιητή',
-    proj3_desc:  'Ολοκληρωμένος σχεδιασμός προσαρμοσμένου διπλής ενέργειας πνευματικού ενεργοποιητή για αυτοματοποιημένη γραμμή συσκευασίας τροφίμων. Βελτιστοποιημένο DFM για μαζική παραγωγή.',
-    proj3_link:  'Δείτε Λεπτομέρειες →',
-    proj4_cat:   'Δομικά · Πολιτικά',
-    proj4_title: 'Αρθρωτό Σύστημα Χαλύβδινου Πλαισίου',
-    proj4_desc:  'Παραμετρικός σχεδιασμός κλιμακούμενου αρθρωτού πλαισίου για προσωρινές βιομηχανικές κατασκευές. Σχεδιασμένο για γρήγορη συναρμολόγηση χωρίς εξειδικευμένα εργαλεία.',
-    proj4_link:  'Δείτε Λεπτομέρειες →',
-    proj5_cat:   'Ρομποτική · Σχεδιασμός Μηχανισμών',
-    proj5_title: 'Καρπός Ρομποτικού Βραχίονα 6-DOF',
-    proj5_desc:  'Σχεδιασμός συμπαγούς, backdrivable μηχανισμού καρπού για συνεργατικό ρομπότ. Βελτιστοποιημένος για ελάχιστο backlash με harmonic drive, επιτυγχάνοντας επαναληψιμότητα ±0.02mm.',
-    proj5_link:  'Δείτε Λεπτομέρειες →',
+    projects_heading: 'Υπηρεσίες',
+    proj1_cat:   'Μηχανολογικός Σχεδιασμός',
+    proj1_title: 'Σχεδιασμός Μηχανών & Κατασκευών',
+    proj1_desc:  'Πλήρης μηχανολογικός σχεδιασμός μηχανών, βιομηχανικών κατασκευών και εξαρτημάτων. Από το αρχικό concept έως τα έτοιμα τεχνικά σχέδια παραγωγής — με SolidWorks και CATIA.',
+    proj1_link:  'Μάθετε Περισσότερα →',
+    proj2_cat:   'Ταχεία Πρωτοτυποποίηση · 3D Printing',
+    proj2_title: 'Rapid Prototyping & Τρισδιάστατη Εκτύπωση',
+    proj2_desc:  'Ταχεία υλοποίηση ιδεών μέσω FDM, SLA και SLS τεχνολογιών. Από ένα αρχείο CAD στα χέρια σας σε ελάχιστο χρόνο — ιδανικό για δοκιμές, παρουσιάσεις και μικρές σειρές.',
+    proj2_link:  'Μάθετε Περισσότερα →',
+    proj3_cat:   'Κατεργασία Μετάλλου',
+    proj3_title: 'Εφαρμογές Φύλλων Μετάλλου',
+    proj3_desc:  'Σχεδιασμός και τεχνική τεκμηρίωση για κοπή, διαμόρφωση και συγκόλληση φύλλων μετάλλου. Βελτιστοποίηση για κατασκευασιμότητα (DFM) και μείωση αποβλήτων υλικού.',
+    proj3_link:  'Μάθετε Περισσότερα →',
+    proj4_cat:   'Τεκμηρίωση & BOM',
+    proj4_title: 'Bill of Materials & Τεχνική Τεκμηρίωση',
+    proj4_desc:  'Ανάπτυξη πλήρους BOM, τεχνικών σχεδίων, οδηγιών συναρμολόγησης και φακέλων προϊόντος. Δομημένη τεκμηρίωση που υποστηρίζει παραγωγή, προμήθειες και πιστοποίηση.',
+    proj4_link:  'Μάθετε Περισσότερα →',
+    proj5_cat:   'Διαχείριση Έργων',
+    proj5_title: 'Project Management & Ηγεσία Έργων',
+    proj5_desc:  'Διαχείριση μηχανολογικών έργων από την έναρξη έως την παράδοση. Εφαρμογή μεθοδολογιών PM, συντονισμός ομάδων, έλεγχος κόστους και χρονοδιαγράμματος — υποστηριζόμενη από MBA εξειδίκευση σε Leadership & Project Management.',
+    proj5_link:  'Μάθετε Περισσότερα →',
 
-    // Experience
-    experience_heading: 'Εμπειρία',
-    exp1_role:    'Ανώτερος Μηχανολόγος Σχεδιαστής',
-    exp1_company: 'Ελληνική Αεροπορική Βιομηχανία (ΕΑΒ), Αθήνα',
-    exp1_b1: 'Επικεφαλής δομικού σχεδιασμού και επικύρωσης FEA για εξαρτήματα ατράκτου αεροσκαφών',
-    exp1_b2: 'Διαχείριση ομάδας 3 ατόμων CAD σε πλήρεις κύκλους ανάπτυξης προϊόντος',
-    exp1_b3: 'Μείωση βάρους εξαρτημάτων κατά μέσο όρο 28% μέσω βελτιστοποίησης τοπολογίας',
-    exp1_b4: 'Συνεργασία με ομάδες πιστοποίησης για συμμόρφωση EASA Part-21',
-    exp2_role:    'Μηχανολόγος Μηχανικός',
-    exp2_company: 'IndustraTech Α.Ε., Πειραιάς',
-    exp2_b1: 'Σχεδιασμός βιομηχανικών μηχανημάτων και πνευματικών συστημάτων για αυτοματισμό',
-    exp2_b2: 'Θερμικές και ρευστομηχανικές προσομοιώσεις για συστήματα διαχείρισης θερμότητας',
-    exp2_b3: 'Ανάπτυξη οδηγιών DFM που μείωσαν το κόστος παραγωγής κατά 18%',
-    exp3_role:    'Νέος Μηχανικός / Ε&Α',
-    exp3_company: 'NovaMech Engineering, Αθήνα',
-    exp3_b1: 'Υποστήριξη ανωτέρων μηχανικών σε μοντελοποίηση CAD και τεχνική τεκμηρίωση',
-    exp3_b2: 'Εκτέλεση προσομοιώσεων ANSYS για στατική φόρτιση και ανάλυση κραδασμών',
-    exp3_b3: 'Συνεισφορά σε 2 κατατεθειμένες πατέντες για νέους μηχανισμούς σύνδεσης',
-    exp4_role:    'ΜΔΕ Μηχανολογία Μηχανικών',
-    exp4_company: 'Εθνικό Μετσόβιο Πολυτεχνείο (ΕΜΠ)',
-    exp4_b1: 'Ειδίκευση σε Εφαρμοσμένη Μηχανική & Ρευστομηχανική',
-    exp4_b2: 'Διπλωματική: «Βελτιστοποίηση Τοπολογίας Φερουσών Κατασκευών υπό Δυναμική Φόρτιση» — Βαθμός: 9.4/10',
+    experience_heading: 'Σπουδές & Εμπειρία',
+    exp1_role:    'Ιδρυτής & Μηχανολόγος Μηχανικός',
+    exp1_company: 'Expertease — Παγκράτι, Αθήνα',
+    exp1_b1: 'Μηχανολογικός σχεδιασμός μηχανών, εξαρτημάτων και βιομηχανικών κατασκευών',
+    exp1_b2: 'Ταχεία πρωτοτυποποίηση με τρισδιάστατη εκτύπωση (FDM, SLA, SLS)',
+    exp1_b3: 'Εφαρμογές φύλλων μετάλλου — σχεδιασμός, DFM και τεχνική τεκμηρίωση',
+    exp1_b4: 'Ανάπτυξη BOM και διαχείριση τεχνικών έργων',
 
-    // Contact
-    contact_label:   '// Ας Συνεργαστούμε',
+    exp2_role:    'MBA — Ηγεσία & Διαχείριση Έργων',
+    exp2_company: 'Αμερικανικό Πανεπιστήμιο, ΗΠΑ',
+    exp2_b1: 'Εξειδίκευση σε στρατηγική ηγεσία, PM και επιχειρηματική ανάπτυξη',
+    exp2_b2: 'Εφαρμογή PMP framework, Agile, MS Project και risk management',
+    exp2_b3: 'Μελέτες περιπτώσεων σε διεθνές βιομηχανικό και τεχνολογικό περιβάλλον',
+
+    exp3_role:    'MSc — Σχεδιασμός Προϊόντων',
+    exp3_company: 'Ελληνικό Πανεπιστήμιο',
+    exp3_b1: 'Ανάπτυξη προϊόντων από τη σύλληψη έως την παραγωγή',
+    exp3_b2: 'Ειδίκευση σε DFM, DFA και μεθοδολογίες ανάπτυξης νέων προϊόντων',
+    exp3_b3: 'Διεπιστημονική προσέγγιση: μηχανική, αισθητική σχεδιασμού, εργονομία',
+
+    exp4_role:    '2× MSc & Πτυχίο Μηχανολόγου Μηχανικού',
+    exp4_company: 'Γαλλικά Πανεπιστήμια & ΑΠΘ, Θεσσαλονίκη',
+    exp4_b1: 'Πτυχίο Μηχανολόγου Μηχανικού — Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης (ΑΠΘ)',
+    exp4_b2: 'Δύο MSc από γαλλικά πανεπιστήμια — εξειδίκευση σε μηχανική & βιομηχανικές εφαρμογές',
+
+    contact_label:   '// Ας Δουλέψουμε Μαζί',
     contact_heading: 'Έχετε ένα\nέργο στο νου;',
-    contact_sub:     'Είτε χρειάζεστε αναθεώρηση σχεδιασμού, συνεργάτη ανάπτυξης προϊόντος, είτε απλά θέλετε να μιλήσετε για μηχανική — το inbox μου είναι πάντα ανοιχτό.',
+    contact_sub:     'Από τον σχεδιασμό ενός εξαρτήματος έως τη διαχείριση ενός ολόκληρου έργου — η Expertease είναι εδώ. Επικοινωνήστε μαζί μας.',
 
-    // Footer
-    footer_copy: '© 2026 Alex Mercer — Μηχανολόγος Μηχανικός',
+    footer_copy: '© 2026 Δημήτριος Μουδιώτης — Expertease',
   },
 
   en: {
     nav_about:      'About',
-    nav_projects:   'Projects',
-    nav_experience: 'Experience',
+    nav_projects:   'Services',
+    nav_experience: 'Education & Experience',
     nav_contact:    'Contact',
 
-    hero_tag:   '// Mechanical Engineer — Athens, GR',
-    hero_title: 'Design · Simulation · Manufacturing',
-    hero_desc:  'Turning complex engineering challenges into elegant, manufacturable solutions. Specialized in structural analysis, CAD/CAM, and product development for aerospace and industrial applications.',
-    hero_cta_work:    'View Work →',
+    hero_tag:   '// Mechanical Engineer — Pagrati, Athens GR',
+    hero_title: 'Mechanical Design · 3D Printing · Project Management',
+    hero_desc:  'Founder of <strong>Expertease</strong> — delivering end-to-end mechanical engineering solutions: machine design, sheet metal applications, rapid prototyping, bill of materials, and project management.',
+    hero_cta_work:    'View Services →',
     hero_cta_contact: 'Get in Touch',
     stat_years:    'Years Experience',
     stat_projects: 'Projects Delivered',
-    stat_patents:  'Patents Filed',
+    stat_degrees:  'Postgraduate Degrees',
 
     about_heading: 'About',
-    about_p1: 'I\'m a <strong>Mechanical Engineer</strong> with 7+ years of experience designing, simulating, and delivering precision-engineered systems across aerospace, automotive, and industrial sectors.',
-    about_quote: '"Good engineering is invisible — everything works, nothing fails, and the solution looks obvious in hindsight."',
-    about_p2: 'My workflow spans <strong>concept ideation → CAD modeling → FEA/CFD simulation → prototype → production</strong>. I take ownership across the entire product lifecycle, collaborating closely with manufacturing and quality teams.',
-    about_p3: 'Based in <strong>Athens, Greece</strong> — open to on-site, hybrid, and fully remote opportunities across Europe.',
+    about_p1: 'I\'m <strong>Dimitrios Moudiotis</strong>, a Mechanical Engineer with a degree from <strong>AUTH</strong> (Aristotle University of Thessaloniki) and four postgraduate degrees: two MSc in France, one MSc in Product Design in Greece, and an MBA in Leadership & Project Management in the USA.',
+    about_quote: '"Engineering is not just technical — it\'s the art of turning an idea into something you can hold in your hands."',
+    about_p2: 'Through <strong>Expertease</strong> I deliver mechanical design, BOM development, 3D printing, sheet metal work, and project management — covering the full product lifecycle from concept to production.',
+    about_p3: 'Based in <strong>Pagrati, Athens</strong> — available for projects across Greece and internationally.',
 
-    projects_heading: 'Projects',
-    proj1_cat:   'Aerospace · Structural Analysis',
-    proj1_title: 'Lightweight Bracket Redesign\nfor Aircraft Door Assembly',
-    proj1_desc:  'Redesigned a critical load-bearing bracket for a commercial aircraft door mechanism, achieving a 34% weight reduction while maintaining all safety margins. Full static and fatigue FEA, validated against MIL-SPEC and EASA regulations.',
-    proj1_link:  'View Case Study →',
-    proj2_cat:   'Thermal · CFD',
-    proj2_title: 'Heat Exchanger Optimization',
-    proj2_desc:  'CFD-driven redesign of an industrial plate heat exchanger. Improved thermal efficiency by 22% through fin geometry optimization, reducing pressure drop by 15%.',
-    proj2_link:  'View Details →',
-    proj3_cat:   'Product Development',
-    proj3_title: 'Pneumatic Actuator Assembly',
-    proj3_desc:  'End-to-end design of a custom double-acting pneumatic actuator for a food-grade automated packaging line. DFM-optimized for high-volume production.',
-    proj3_link:  'View Details →',
-    proj4_cat:   'Structural · Civil',
-    proj4_title: 'Modular Steel Frame System',
-    proj4_desc:  'Parametric design of a scalable modular framing system for temporary industrial structures. Designed for rapid assembly with zero specialized tooling.',
-    proj4_link:  'View Details →',
-    proj5_cat:   'Robotics · Mechanism Design',
-    proj5_title: '6-DOF Robotic Arm Wrist',
-    proj5_desc:  'Designed a compact, backdrivable wrist mechanism for a collaborative robot. Optimized for minimal backlash using harmonic drive gearing, achieving ±0.02mm repeatability.',
-    proj5_link:  'View Details →',
+    projects_heading: 'Services',
+    proj1_cat:   'Mechanical Design',
+    proj1_title: 'Machine & Component Design',
+    proj1_desc:  'Full mechanical design of machines, industrial structures, and components. From initial concept to production-ready technical drawings — using SolidWorks and CATIA.',
+    proj1_link:  'Learn More →',
+    proj2_cat:   'Rapid Prototyping · 3D Printing',
+    proj2_title: 'Rapid Prototyping & 3D Printing',
+    proj2_desc:  'Fast realization of ideas via FDM, SLA, and SLS technologies. From a CAD file to a physical part in minimal time — ideal for testing, presentations, and small production runs.',
+    proj2_link:  'Learn More →',
+    proj3_cat:   'Metal Fabrication',
+    proj3_title: 'Sheet Metal Applications',
+    proj3_desc:  'Design and technical documentation for sheet metal cutting, forming, and welding. Optimized for manufacturability (DFM) and material waste reduction.',
+    proj3_link:  'Learn More →',
+    proj4_cat:   'Documentation & BOM',
+    proj4_title: 'Bill of Materials & Technical Documentation',
+    proj4_desc:  'Full BOM development, technical drawings, assembly instructions, and product dossiers. Structured documentation supporting production, procurement, and certification.',
+    proj4_link:  'Learn More →',
+    proj5_cat:   'Project Management',
+    proj5_title: 'Project Management & Engineering Leadership',
+    proj5_desc:  'Managing mechanical engineering projects from kickoff to delivery. PM methodologies, team coordination, cost and schedule control — backed by an MBA in Leadership & Project Management.',
+    proj5_link:  'Learn More →',
 
-    experience_heading: 'Experience',
-    exp1_role:    'Senior Mechanical Design Engineer',
-    exp1_company: 'Hellenic Aerospace Industry (HAI), Athens',
-    exp1_b1: 'Lead structural design and FEA validation for aircraft fuselage components',
-    exp1_b2: 'Manage a 3-person CAD team across full product development cycles',
-    exp1_b3: 'Reduced component weight by an average of 28% through topology optimization',
-    exp1_b4: 'Interface with certification teams to ensure EASA Part-21 compliance',
-    exp2_role:    'Mechanical Engineer',
-    exp2_company: 'IndustraTech S.A., Piraeus',
-    exp2_b1: 'Designed custom industrial machinery and pneumatic systems for process automation',
-    exp2_b2: 'Conducted thermal and fluid simulations for heat management systems',
-    exp2_b3: 'Developed DFM guidelines that cut production costs by 18% across product lines',
-    exp3_role:    'Junior Engineer / R&D',
-    exp3_company: 'NovaMech Engineering, Athens',
-    exp3_b1: 'Supported senior engineers in CAD modeling and technical documentation',
-    exp3_b2: 'Ran ANSYS simulations for static load and vibration analysis',
-    exp3_b3: 'Contributed to 2 filed patents for novel fastening mechanisms',
-    exp4_role:    'MEng Mechanical Engineering',
-    exp4_company: 'National Technical University of Athens (NTUA)',
-    exp4_b1: 'Specialization in Applied Mechanics & Fluid Dynamics',
-    exp4_b2: 'Thesis: "Topology Optimization of Load-Bearing Structures Under Dynamic Loading" — Grade: 9.4/10',
+    experience_heading: 'Education & Experience',
+    exp1_role:    'Founder & Mechanical Engineer',
+    exp1_company: 'Expertease — Pagrati, Athens',
+    exp1_b1: 'Mechanical design of machines, components, and industrial structures',
+    exp1_b2: 'Rapid prototyping via 3D printing (FDM, SLA, SLS)',
+    exp1_b3: 'Sheet metal applications — design, DFM, and technical documentation',
+    exp1_b4: 'BOM development and technical project management',
+
+    exp2_role:    'MBA — Leadership & Project Management',
+    exp2_company: 'American University, USA',
+    exp2_b1: 'Specialization in strategic leadership, PM and business development',
+    exp2_b2: 'PMP framework, Agile, MS Project, and risk management',
+    exp2_b3: 'Case studies in international industrial and technology environments',
+
+    exp3_role:    'MSc — Product Design',
+    exp3_company: 'Greek University',
+    exp3_b1: 'Product development from concept to production',
+    exp3_b2: 'Specialization in DFM, DFA, and new product development methodologies',
+    exp3_b3: 'Interdisciplinary approach: engineering, design aesthetics, ergonomics',
+
+    exp4_role:    '2× MSc & BEng Mechanical Engineering',
+    exp4_company: 'French Universities & AUTH, Thessaloniki',
+    exp4_b1: 'BEng Mechanical Engineering — Aristotle University of Thessaloniki (AUTH)',
+    exp4_b2: 'Two MSc degrees from French universities — engineering & industrial applications',
 
     contact_label:   '// Let\'s Work Together',
     contact_heading: 'Got a project\nin mind?',
-    contact_sub:     'Whether you need a design review, a full product development partner, or just want to talk engineering — my inbox is always open.',
+    contact_sub:     'From designing a single component to managing an entire project — Expertease is here. Get in touch to discuss your needs.',
 
-    footer_copy: '© 2026 Alex Mercer — Mechanical Engineer',
+    footer_copy: '© 2026 Dimitrios Moudiotis — Expertease',
   }
 };
 
@@ -159,11 +158,8 @@ let currentLang = 'el';
 function applyLang(lang) {
   const t = LANG[lang];
   currentLang = lang;
-
-  // Update html lang attribute
   document.documentElement.lang = lang === 'el' ? 'el' : 'en';
 
-  // Helper to set text (supports innerHTML for <strong> tags)
   const set = (id, val, html = false) => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -171,38 +167,34 @@ function applyLang(lang) {
     else el.textContent = val;
   };
 
-  // Nav
   set('nav-about',      t.nav_about);
   set('nav-projects',   t.nav_projects);
   set('nav-experience', t.nav_experience);
   set('nav-contact',    t.nav_contact);
 
-  // Hero
   set('hero-tag',         t.hero_tag);
   set('hero-title',       t.hero_title);
-  set('hero-desc',        t.hero_desc);
+  set('hero-desc',        t.hero_desc, true);
   set('hero-cta-work',    t.hero_cta_work);
   set('hero-cta-contact', t.hero_cta_contact);
   set('stat-years',       t.stat_years);
   set('stat-projects',    t.stat_projects);
-  set('stat-patents',     t.stat_patents);
+  set('stat-degrees',     t.stat_degrees);
 
-  // About
   set('about-heading', t.about_heading);
-  set('about-p1',      t.about_p1,    true);
-  set('about-quote',   t.about_quote);
-  set('about-p2',      t.about_p2,    true);
-  set('about-p3',      t.about_p3,    true);
+  set('about-p1',  t.about_p1,  true);
+  set('about-quote', t.about_quote);
+  set('about-p2',  t.about_p2,  true);
+  set('about-p3',  t.about_p3,  true);
 
-  // Projects
   set('projects-heading', t.projects_heading);
-  set('proj1-cat',   t.proj1_cat);   set('proj1-title', t.proj1_title); set('proj1-desc', t.proj1_desc); set('proj1-link', t.proj1_link);
-  set('proj2-cat',   t.proj2_cat);   set('proj2-title', t.proj2_title); set('proj2-desc', t.proj2_desc); set('proj2-link', t.proj2_link);
-  set('proj3-cat',   t.proj3_cat);   set('proj3-title', t.proj3_title); set('proj3-desc', t.proj3_desc); set('proj3-link', t.proj3_link);
-  set('proj4-cat',   t.proj4_cat);   set('proj4-title', t.proj4_title); set('proj4-desc', t.proj4_desc); set('proj4-link', t.proj4_link);
-  set('proj5-cat',   t.proj5_cat);   set('proj5-title', t.proj5_title); set('proj5-desc', t.proj5_desc); set('proj5-link', t.proj5_link);
+  ['proj1','proj2','proj3','proj4','proj5'].forEach(p => {
+    set(`${p}-cat`,   t[`${p}_cat`]);
+    set(`${p}-title`, t[`${p}_title`]);
+    set(`${p}-desc`,  t[`${p}_desc`]);
+    set(`${p}-link`,  t[`${p}_link`]);
+  });
 
-  // Experience
   set('experience-heading', t.experience_heading);
   set('exp1-role', t.exp1_role); set('exp1-company', t.exp1_company);
   set('exp1-b1', t.exp1_b1); set('exp1-b2', t.exp1_b2); set('exp1-b3', t.exp1_b3); set('exp1-b4', t.exp1_b4);
@@ -213,20 +205,15 @@ function applyLang(lang) {
   set('exp4-role', t.exp4_role); set('exp4-company', t.exp4_company);
   set('exp4-b1', t.exp4_b1); set('exp4-b2', t.exp4_b2);
 
-  // Contact
   set('contact-label',   t.contact_label);
   set('contact-heading', t.contact_heading);
   set('contact-sub',     t.contact_sub);
+  set('footer-copy',     t.footer_copy);
 
-  // Footer
-  set('footer-copy', t.footer_copy);
-
-  // Toggle button active states
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });
 
-  // Save preference
   localStorage.setItem('lang', lang);
 }
 
@@ -238,16 +225,12 @@ function initCursor() {
 
   document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
 
-  function animCursor() {
-    cursor.style.left = mx + 'px';
-    cursor.style.top  = my + 'px';
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
+  (function animCursor() {
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
     requestAnimationFrame(animCursor);
-  }
-  animCursor();
+  })();
 
   document.querySelectorAll('a, button, .project-card, .skill-item, .lang-btn').forEach(el => {
     el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
@@ -259,14 +242,10 @@ function initCursor() {
 function initSkillBars() {
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.querySelectorAll('.skill-bar').forEach(bar => {
-          bar.style.width = bar.dataset.width;
-        });
-      }
+      if (entry.isIntersecting)
+        entry.target.querySelectorAll('.skill-bar').forEach(b => b.style.width = b.dataset.width);
     });
   }, { threshold: 0.3 });
-
   const grid = document.getElementById('skillsGrid');
   if (grid) observer.observe(grid);
 }
@@ -275,42 +254,30 @@ function initSkillBars() {
 function initTimeline() {
   const observer = new IntersectionObserver(entries => {
     entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
+      if (entry.isIntersecting)
         setTimeout(() => entry.target.classList.add('visible'), i * 150);
-      }
     });
   }, { threshold: 0.1 });
-
   document.querySelectorAll('.timeline-item').forEach(el => observer.observe(el));
 }
 
 // ── Active Nav ─────────────────────────────────────────────────
 function initActiveNav() {
-  const sections  = document.querySelectorAll('section[id]');
-  const navLinks  = document.querySelectorAll('.nav-links a');
-
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
   window.addEventListener('scroll', () => {
     let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 200) current = s.id;
-    });
-    navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
-    });
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) current = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : ''; });
   });
 }
 
 // ── Boot ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  // Language buttons
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.addEventListener('click', () => applyLang(btn.dataset.lang));
   });
-
-  // Load saved or default language
-  const saved = localStorage.getItem('lang') || 'el';
-  applyLang(saved);
-
+  applyLang(localStorage.getItem('lang') || 'el');
   initCursor();
   initSkillBars();
   initTimeline();
