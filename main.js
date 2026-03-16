@@ -4,24 +4,24 @@
 const LANG = {
   el: {
     nav_about:'Σχετικά', nav_projects:'Έργα', nav_software:'Λογισμικό',
-    nav_experience:'Σπουδές', nav_contact:'Επικοινωνία',
-    hero_tag:'// Μηχανολόγος Μηχανικός — Παγκράτι, Αθήνα',
+    nav_experience:'Ομάδα', nav_contact:'Επικοινωνία',
+    hero_tag:'// Μηχανολογικό Studio — Αθήνα, Ελλάδα',
     hero_title:'Μηχανολογικός Σχεδιασμός · 3D Printing · Διαχείριση Έργων',
-    hero_desc:'Ιδρυτής της <strong>Expertease</strong> — σχεδιασμός μηχανών και κατασκευών, rapid prototyping, φύλλα μετάλλου, BOM και διαχείριση έργων, από την Αθήνα.',
+    hero_desc:'Η <strong>Expertease Designs</strong> είναι στούντιο μηχανολογικού σχεδιασμού και 3D printing — από το concept έως την κατασκευή.',
     hero_cta_work:'Δείτε τα Έργα →', hero_cta_contact:'Επικοινωνήστε',
     stat_years:'Χρόνια Εμπειρίας', stat_projects:'Ολοκληρωμένα Έργα', stat_degrees:'Μεταπτυχιακοί Τίτλοι',
     viewer_hint:'σύρτε για περιστροφή',
-    edu_strip:'Ακαδημαϊκό Υπόβαθρο — 5 Πανεπιστήμια σε 3 Χώρες',
+    edu_strip:'Ιδρυτής — Δημήτριος Μουδιώτης · 5 Πανεπιστήμια σε 3 Χώρες',
     edu1_deg:'BEng', edu1_name:'Μηχανολόγος Μηχανικός',
     edu2_deg:'MSc', edu2_name:'École Centrale Paris',
     edu3_deg:'MSc', edu3_name:'IFP School',
     edu4_deg:'MSc', edu4_name:'Διεθνές Πανεπιστήμιο Ελλάδος',
     edu5_deg:'MBA', edu5_name:'Washington Univ. of Science & Technology',
     about_heading:'Σχετικά',
-    about_p1:'Είμαι ο <strong>Δημήτριος Μουδιώτης</strong>, Μηχανολόγος Μηχανικός αποφοίτου <strong>ΑΠΘ</strong>, με 7 χρόνια εμπειρίας και τέσσερις μεταπτυχιακούς τίτλους: δύο MSc στη Γαλλία (École Centrale Paris & IFP School), MSc Σχεδιασμού Προϊόντων στο ΔΙΠαΕ και MBA Ηγεσίας & Project Management στις ΗΠΑ.',
+    about_p1:'Η <strong>Expertease Designs</strong> είναι studio μηχανολογικού σχεδιασμού με επικεφαλής τον <strong>Δημήτριο Μουδιώτη</strong>, Μηχανολόγο Μηχανικό ΑΠΘ με 7 χρόνια εμπειρίας και 4 μεταπτυχιακούς τίτλους: MSc École Centrale Paris, MSc IFP School, MSc ΔΙΠαΕ, MBA ΗΠΑ.',
     about_quote:'«Η μηχανική είναι η τέχνη να μετατρέπεις μια ιδέα σε κάτι που μπορείς να κρατήσεις στα χέρια σου.»',
-    about_p2:'Μέσω της <strong>Expertease</strong> αναλαμβάνω τον πλήρη κύκλο ζωής ενός προϊόντος — από τον αρχικό σχεδιασμό και το BOM, μέχρι την τρισδιάστατη εκτύπωση, την κατεργασία φύλλων μετάλλου και τη διαχείριση έργου.',
-    about_p3:'Έδρα: <strong>Παγκράτι, Αθήνα</strong> — Αναλαμβάνω έργα σε Ελλάδα και εξωτερικό.',
+    about_p2:'Αναλαμβάνουμε τον πλήρη κύκλο ζωής ενός προϊόντος — από τον αρχικό σχεδιασμό και το BOM, μέχρι την τρισδιάστατη εκτύπωση, την κατεργασία φύλλων μετάλλου και τη διαχείριση έργου.',
+    about_p3:'Έδρα: <strong>Αθήνα, Ελλάδα</strong> — Αναλαμβάνουμε έργα σε Ελλάδα και εξωτερικό.',
     projects_heading:'Έργα',
     filter_all:'Όλα', filter_robotics:'Ρομποτική', filter_safety:'Ασφάλεια', filter_metal:'Μέταλλο',
     p1_badge:'Ναυαρχίδα', p1_cat:'Ρομποτική · Ηλεκτρονικά · Κατασκευή', p1_title:'Αρθρωτό Ρομπότ',
@@ -42,28 +42,28 @@ const LANG = {
     contact_label:'// Ας Δουλέψουμε Μαζί',
     contact_heading:'Έχετε ένα\nέργο στο νου;',
     contact_sub:'Από τον σχεδιασμό ενός εξαρτήματος έως τη διαχείριση ολόκληρου έργου — η Expertease είναι εδώ. Επικοινωνήστε μαζί μας.',
-    footer_copy:'© 2026 Δημήτριος Μουδιώτης — Expertease', footer_loc:'Παγκράτι, Αθήνα',
+    footer_copy:'© 2026 Expertease Designs', footer_loc:'Αθήνα, Ελλάδα',
   },
   en: {
     nav_about:'About', nav_projects:'Work', nav_software:'Software',
-    nav_experience:'Education', nav_contact:'Contact',
-    hero_tag:'// Mechanical Engineer — Pagrati, Athens GR',
+    nav_experience:'Team', nav_contact:'Contact',
+    hero_tag:'// Mechanical Design & 3D Printing Studio — Athens, GR',
     hero_title:'Mechanical Design · 3D Printing · Project Management',
-    hero_desc:'Founder of <strong>Expertease</strong> — machine design, sheet metal, rapid prototyping, BOM, and project management. Based in Pagrati, Athens.',
+    hero_desc:'<strong>Expertease Designs</strong> — machine design, sheet metal, rapid prototyping, BOM, and project management. Athens-based, working internationally.',
     hero_cta_work:'View Work →', hero_cta_contact:'Get in Touch',
     stat_years:'Years Experience', stat_projects:'Projects Delivered', stat_degrees:'Postgrad Degrees',
     viewer_hint:'drag to rotate',
-    edu_strip:'Academic Background — 5 Universities in 3 Countries',
+    edu_strip:'Founder — Dimitrios Moudiotis · 5 Universities in 3 Countries',
     edu1_deg:'BEng', edu1_name:'Mechanical Engineering',
     edu2_deg:'MSc', edu2_name:'École Centrale Paris',
     edu3_deg:'MSc', edu3_name:'IFP School',
     edu4_deg:'MSc', edu4_name:'Int\'l Hellenic University',
     edu5_deg:'MBA', edu5_name:'Washington Univ. of Science & Technology',
     about_heading:'About',
-    about_p1:'I\'m <strong>Dimitrios Moudiotis</strong>, a Mechanical Engineer from <strong>AUTH</strong> with 7 years of experience and four postgraduate degrees: two MSc in France (École Centrale Paris & IFP School), an MSc in Product Design from IHU, and an MBA in Leadership & Project Management from the USA.',
+    about_p1:'<strong>Expertease Designs</strong> is an Athens-based mechanical engineering studio led by <strong>Dimitrios Moudiotis</strong> — Mechanical Engineer (AUTH), with 7 years of experience and four postgraduate degrees: MSc École Centrale Paris, MSc IFP School, MSc IHU, and MBA (USA).',
     about_quote:'"Engineering is the art of turning an idea into something you can hold in your hands."',
-    about_p2:'Through <strong>Expertease</strong> I cover the full product lifecycle — from initial design and BOM to 3D printing, sheet metal fabrication, and project management.',
-    about_p3:'Based in <strong>Pagrati, Athens</strong> — available for projects across Greece and internationally.',
+    about_p2:'We cover the full product lifecycle — from initial design and BOM to 3D printing, sheet metal fabrication, and project management.',
+    about_p3:'Based in <strong>Athens, Greece</strong> — available for projects across Greece and internationally.',
     projects_heading:'Work',
     filter_all:'All', filter_robotics:'Robotics', filter_safety:'Safety', filter_metal:'Metal',
     p1_badge:'Featured', p1_cat:'Robotics · Electronics · Fabrication', p1_title:'Modular Robot',
@@ -84,7 +84,7 @@ const LANG = {
     contact_label:'// Let\'s Work Together',
     contact_heading:'Got a project\nin mind?',
     contact_sub:'From designing a single component to managing an entire project — Expertease is here.',
-    footer_copy:'© 2026 Dimitrios Moudiotis — Expertease', footer_loc:'Pagrati, Athens',
+    footer_copy:'© 2026 Expertease Designs', footer_loc:'Athens, Greece',
   }
 };
 
@@ -121,6 +121,12 @@ function applyLang(lang) {
   set('contact-label',t.contact_label); set('contact-heading',t.contact_heading);
   set('contact-sub',t.contact_sub);
   set('footer-copy',t.footer_copy); set('footer-loc',t.footer_loc);
+  // sync mobile nav text
+  const mmap = {
+    'mnav-about':t.nav_about,'mnav-projects':t.nav_projects,
+    'mnav-software':t.nav_software,'mnav-experience':t.nav_experience,'mnav-contact':t.nav_contact
+  };
+  Object.entries(mmap).forEach(([id,val])=>{ const el=document.getElementById(id); if(el) el.textContent=val; });
   document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
   localStorage.setItem('lang',lang);
 }
@@ -244,34 +250,37 @@ function initThree() {
   camera.lookAt(0, 0.5, 0);
   clock = new THREE.Clock();
 
-  /* Lights */
-  scene.add(new THREE.AmbientLight(0x7090b8, 0.65));
-  const key = new THREE.DirectionalLight(0xffffff, 1.9);
+  /* Lights — brighter for lighter theme */
+  scene.add(new THREE.AmbientLight(0x9ab8d8, 1.1));
+  const key = new THREE.DirectionalLight(0xffffff, 2.4);
   key.position.set(8, 14, 10); key.castShadow = true;
   key.shadow.mapSize.set(2048,2048);
   scene.add(key);
-  const fill = new THREE.DirectionalLight(0x3a78d4, 0.6);
+  const fill = new THREE.DirectionalLight(0x5090e8, 0.9);
   fill.position.set(-9, 4, -7);
   scene.add(fill);
-  const rim = new THREE.PointLight(0xc83030, 0.9, 55);
+  const rim = new THREE.PointLight(0xe04040, 1.0, 55);
   rim.position.set(-5, 9, -10);
   scene.add(rim);
-  const bot = new THREE.PointLight(0x1a60c0, 0.5, 45);
+  const bot = new THREE.PointLight(0x2880e0, 0.7, 45);
   bot.position.set(5, -9, 5);
   scene.add(bot);
+  const top = new THREE.DirectionalLight(0xd0e8ff, 0.6);
+  top.position.set(0, 20, 0);
+  scene.add(top);
 
   rotGroup = new THREE.Group();
   rotGroup.rotation.x = 0.32;
   scene.add(rotGroup);
 
-  /* Materials */
-  const mSteel = new THREE.MeshStandardMaterial({color:0x4a5568, metalness:.95, roughness:.12});
-  const mBlue  = new THREE.MeshStandardMaterial({color:0x1a3570, metalness:.90, roughness:.14});
-  const mBrass = new THREE.MeshStandardMaterial({color:0xb89050, metalness:.97, roughness:.07});
-  const mGold  = new THREE.MeshStandardMaterial({color:0xc8a050, metalness:.96, roughness:.06});
-  const mShaft = new THREE.MeshStandardMaterial({color:0x505870, metalness:.97, roughness:.08});
-  const mCase  = new THREE.MeshStandardMaterial({color:0x1a2236, metalness:.75, roughness:.30});
-  const mRing  = new THREE.MeshStandardMaterial({color:0x2a3450, metalness:.88, roughness:.16});
+  /* Materials — brightened for lighter theme */
+  const mSteel = new THREE.MeshStandardMaterial({color:0x6a7888, metalness:.93, roughness:.14});
+  const mBlue  = new THREE.MeshStandardMaterial({color:0x2a50a0, metalness:.88, roughness:.16});
+  const mBrass = new THREE.MeshStandardMaterial({color:0xd4a860, metalness:.96, roughness:.08});
+  const mGold  = new THREE.MeshStandardMaterial({color:0xe8c070, metalness:.95, roughness:.07});
+  const mShaft = new THREE.MeshStandardMaterial({color:0x7080a0, metalness:.96, roughness:.10});
+  const mCase  = new THREE.MeshStandardMaterial({color:0x2e3f5e, metalness:.72, roughness:.32});
+  const mRing  = new THREE.MeshStandardMaterial({color:0x3a4d70, metalness:.86, roughness:.18});
 
   const extH = {depth:.75, bevelEnabled:true, bevelThickness:.05, bevelSize:.04, bevelSegments:4};
   const extM = {depth:.58, bevelEnabled:true, bevelThickness:.04, bevelSize:.03, bevelSegments:3};
@@ -559,6 +568,75 @@ function initScroll() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   IMAGE CAROUSEL
+═══════════════════════════════════════════════════════════════ */
+function initCarousel() {
+  document.querySelectorAll('.card-gallery').forEach(gallery => {
+    const track  = gallery.querySelector('.gallery-track');
+    const slides = gallery.querySelectorAll('.gallery-slide');
+    const dotsEl = gallery.querySelector('.gallery-dots');
+    const prevBtn= gallery.querySelector('.gallery-prev');
+    const nextBtn= gallery.querySelector('.gallery-next');
+    if (!track) return;
+
+    const count = slides.length;
+    if (count <= 1) { gallery.classList.add('gallery-single'); return; }
+
+    // Build dot indicators
+    if (dotsEl) {
+      for (let i=0; i<count; i++) {
+        const d = document.createElement('button');
+        d.className = 'gallery-dot' + (i===0?' active':'');
+        d.setAttribute('aria-label','Slide '+(i+1));
+        dotsEl.appendChild(d);
+      }
+    }
+
+    let current = 0;
+    function goTo(n) {
+      current = ((n % count) + count) % count;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      if (dotsEl) dotsEl.querySelectorAll('.gallery-dot').forEach((d,i) => d.classList.toggle('active', i===current));
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', e => { e.stopPropagation(); goTo(current-1); });
+    if (nextBtn) nextBtn.addEventListener('click', e => { e.stopPropagation(); goTo(current+1); });
+    if (dotsEl)  dotsEl.addEventListener('click', e => {
+      const dots = [...dotsEl.querySelectorAll('.gallery-dot')];
+      const idx = dots.indexOf(e.target);
+      if (idx >= 0) { e.stopPropagation(); goTo(idx); }
+    });
+
+    // Touch swipe
+    let startX = 0;
+    gallery.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+    gallery.addEventListener('touchend',   e => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+    }, {passive:true});
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE NAV
+═══════════════════════════════════════════════════════════════ */
+function initMobileNav() {
+  const btn    = document.getElementById('navHamburger');
+  const drawer = document.getElementById('navMobile');
+  if (!btn || !drawer) return;
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('open');
+    drawer.classList.toggle('open');
+  });
+}
+function closeMobileNav() {
+  const btn    = document.getElementById('navHamburger');
+  const drawer = document.getElementById('navMobile');
+  if (btn)    btn.classList.remove('open');
+  if (drawer) drawer.classList.remove('open');
+}
+
+/* ═══════════════════════════════════════════════════════════════
    BOOT
 ═══════════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
@@ -567,5 +645,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCursor();
   initScroll();
   initFilter();
+  initCarousel();
+  initMobileNav();
   setTimeout(initThree, 120);
 });
