@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Expertease Designs — Mechanical Engineering &amp; 3D Printing</title>
-<meta name="description" content="Expertease Designs — Mechanical design, 3D printing, sheet metal, rapid prototyping, project management. Athens, Greece.">
+<title>Expertease Designs — Mechanical Engineering Studio | Athens</title>
+<meta name="description" content="Expertease Designs — Mechanical design, 3D printing, sheet metal, BOM, project management. Athens, Greece.">
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -17,9 +18,9 @@
 
 <!-- ══ NAV ══════════════════════════════════════════════════════ -->
 <nav>
-  <a href="#hero" class="nav-logo"><img src="images/logo.png" alt="Expertease Designs"></a>
+  <a href="#hero" class="nav-logo"><img src="images/logo.png" alt="Expertease" fetchpriority="high"></a>
   <div class="nav-right">
-    <ul class="nav-links" id="navLinks">
+    <ul class="nav-links">
       <li><a href="#about"    id="nav-about">About</a></li>
       <li><a href="#projects" id="nav-projects">Work</a></li>
       <li><a href="#software" id="nav-software">Software</a></li>
@@ -30,13 +31,13 @@
       <button class="lang-btn"        data-lang="el">ΕΛ</button>
       <button class="lang-btn active" data-lang="en">EN</button>
     </div>
-    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
   </div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<!-- Mobile Nav Drawer -->
+<!-- Mobile nav drawer -->
 <div class="nav-mobile" id="navMobile">
   <ul>
     <li><a href="#about"    id="mnav-about"      onclick="closeMobileNav()">About</a></li>
@@ -52,7 +53,7 @@
   <div class="hero-left">
     <div class="hero-tag" id="hero-tag">// Mechanical Design &amp; 3D Printing Studio — Athens, GR</div>
     <h1 class="hero-name">Expertease<br><span>Designs</span></h1>
-    <p class="hero-title"   id="hero-title">Mechanical Design · 3D Printing · Project Management</p>
+    <p class="hero-title" id="hero-title">Mechanical Design · 3D Printing · Project Management</p>
     <p class="hero-tagline">from vision to reality</p>
     <p class="hero-desc" id="hero-desc"></p>
     <div class="hero-cta">
@@ -82,17 +83,14 @@
 <div class="ticker">
   <div class="ticker-inner">
     <span class="ticker-item">SolidWorks <span>✦</span></span>
-    <span class="ticker-item">CATIA <span>✦</span></span>
     <span class="ticker-item">3D Printing <span>✦</span></span>
     <span class="ticker-item">Sheet Metal <span>✦</span></span>
     <span class="ticker-item">Rapid Prototyping <span>✦</span></span>
     <span class="ticker-item">Bill of Materials <span>✦</span></span>
-    <span class="ticker-item">FDM · SLA · SLS <span>✦</span></span>
     <span class="ticker-item">Project Management <span>✦</span></span>
     <span class="ticker-item">FEA Analysis <span>✦</span></span>
     <span class="ticker-item">from vision to reality <span>✦</span></span>
     <span class="ticker-item">SolidWorks <span>✦</span></span>
-    <span class="ticker-item">CATIA <span>✦</span></span>
     <span class="ticker-item">3D Printing <span>✦</span></span>
     <span class="ticker-item">Sheet Metal <span>✦</span></span>
     <span class="ticker-item">Rapid Prototyping <span>✦</span></span>
@@ -120,12 +118,11 @@
     </div>
     <div>
       <div class="skills-grid" id="skillsGrid">
-        <div class="skill-item"><span class="skill-name">SolidWorks / CATIA</span><div class="skill-bar-bg"><div class="skill-bar" data-width="95%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">3D Printing (FDM/SLA/SLS)</span><div class="skill-bar-bg"><div class="skill-bar" data-width="93%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">SolidWorks</span><div class="skill-bar-bg"><div class="skill-bar" data-width="95%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">3D Printing</span><div class="skill-bar-bg"><div class="skill-bar" data-width="93%"></div></div></div>
         <div class="skill-item"><span class="skill-name">Sheet Metal Design</span><div class="skill-bar-bg"><div class="skill-bar" data-width="88%"></div></div></div>
         <div class="skill-item"><span class="skill-name">Rapid Prototyping</span><div class="skill-bar-bg"><div class="skill-bar" data-width="91%"></div></div></div>
         <div class="skill-item"><span class="skill-name">Bill of Materials (BOM)</span><div class="skill-bar-bg"><div class="skill-bar" data-width="94%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">DFM / DFA</span><div class="skill-bar-bg"><div class="skill-bar" data-width="86%"></div></div></div>
         <div class="skill-item"><span class="skill-name">Project Management</span><div class="skill-bar-bg"><div class="skill-bar" data-width="89%"></div></div></div>
         <div class="skill-item"><span class="skill-name">FEA Analysis</span><div class="skill-bar-bg"><div class="skill-bar" data-width="78%"></div></div></div>
       </div>
@@ -141,10 +138,10 @@
     <div class="section-line"></div>
   </div>
   <div class="portfolio-filter">
-    <button class="filter-btn active" data-filter="all"    id="filter-all">All</button>
-    <button class="filter-btn" data-filter="robotics"      id="filter-robotics">Robotics</button>
-    <button class="filter-btn" data-filter="safety"        id="filter-safety">Safety</button>
-    <button class="filter-btn" data-filter="metal"         id="filter-metal">Sheet Metal</button>
+    <button class="filter-btn active" data-filter="all"      id="filter-all">All</button>
+    <button class="filter-btn"        data-filter="robotics" id="filter-robotics">Robotics</button>
+    <button class="filter-btn"        data-filter="safety"   id="filter-safety">Safety</button>
+    <button class="filter-btn"        data-filter="metal"    id="filter-metal">Sheet Metal</button>
   </div>
   <div class="projects-grid">
 
@@ -152,21 +149,24 @@
     <div class="project-card featured" data-cat="robotics">
       <div class="card-gallery">
         <div class="gallery-track">
-          <div class="gallery-slide">
-            <img src="images/Picture1.png" alt="Modular Robot" loading="lazy">
-          </div>
+          <div class="gallery-slide"><img src="images/modular_robot/Untitled Project.png"   alt="Modular Robot" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/modular_robot/Untitled Project 2.png" alt="Modular Robot" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/modular_robot/Untitled Project 3.png" alt="Modular Robot" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/modular_robot/444.png"                alt="Modular Robot" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/tracked/Untitled Project 3.png"       alt="Tracked Robot" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/tracked/Untitled Project 5.png"       alt="Tracked Robot" loading="lazy"></div>
         </div>
-        <button class="gallery-btn gallery-prev" aria-label="Previous">&#8249;</button>
-        <button class="gallery-btn gallery-next" aria-label="Next">&#8250;</button>
+        <button class="gallery-btn gallery-prev">&#8249;</button>
+        <button class="gallery-btn gallery-next">&#8250;</button>
         <div class="gallery-dots"></div>
       </div>
       <div class="card-body">
         <div class="proj-badge" id="p1-badge">Featured</div>
         <div class="project-category" id="p1-cat">Robotics · Electronics · Fabrication</div>
         <h3 class="project-title" id="p1-title">Modular Robot</h3>
-        <p  class="project-desc"  id="p1-desc">Tracked robot with 3 lead-acid batteries, 36V supply, solar panel, 4 cameras, sensors, powerful LEDs. Laser-cut steel, biodegradable PLA, wood. Dustproof, waterproof, recyclable.</p>
+        <p  class="project-desc"  id="p1-desc">Tracked robot with 3 lead-acid batteries, 36V supply, solar panel, 4 cameras, sensors, and powerful LEDs. Laser-cut steel structure, biodegradable PLA 3D-printed parts, and wood panels. Dustproof, waterproof, and recyclable — designed for long-duration outdoor deployment.</p>
         <div class="project-tags"><span class="tag">SolidWorks</span><span class="tag">Laser Cut Steel</span><span class="tag">3D Print PLA</span><span class="tag">36V</span><span class="tag">Solar Panel</span><span class="tag">IP Rating</span></div>
-        <a href="https://sites.google.com/view/expertease/portfolio" target="_blank" class="project-link" id="p1-link">View Project →</a>
+        <a href="https://sites.google.com/view/expertease/portfolio" target="_blank" rel="noopener" class="project-link" id="p1-link">View Project →</a>
       </div>
     </div>
 
@@ -174,21 +174,23 @@
     <div class="project-card" data-cat="safety">
       <div class="card-gallery">
         <div class="gallery-track">
-          <div class="gallery-slide gallery-ph">
-            <span class="ph-icon">🪑</span>
-            <span class="ph-label">Seatbelt Convincer</span>
-          </div>
+          <div class="gallery-slide"><img src="images/double_seat_belt_convincer/1.png"  alt="Seatbelt Convincer" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/double_seat_belt_convincer/2.png"  alt="Seatbelt Convincer" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/double_seat_belt_convincer/3.png"  alt="Seatbelt Convincer" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/double_seat_belt_convincer/4.png"  alt="Seatbelt Convincer" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/impactor/impactor.png"             alt="Impactor" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/impactor/impactor 2.png"           alt="Impactor" loading="lazy"></div>
         </div>
-        <button class="gallery-btn gallery-prev" aria-label="Previous">&#8249;</button>
-        <button class="gallery-btn gallery-next" aria-label="Next">&#8250;</button>
+        <button class="gallery-btn gallery-prev">&#8249;</button>
+        <button class="gallery-btn gallery-next">&#8250;</button>
         <div class="gallery-dots"></div>
       </div>
       <div class="card-body">
         <div class="project-category" id="p2-cat">Safety · Driver Education</div>
         <h3 class="project-title" id="p2-title">Seatbelt Convincer</h3>
-        <p  class="project-desc"  id="p2-desc">Experience a controlled 12km/h impact. Available in single and double-seat versions — lightweight, durable, assembled by one person in half a day.</p>
+        <p  class="project-desc"  id="p2-desc">Experience a controlled 12 km/h impact in a safe environment. Available in single and double-seat versions — lightweight steel frame, quick assembly by one person in half a day. Used in road-safety education programmes across Greece.</p>
         <div class="project-tags"><span class="tag">Steel Structure</span><span class="tag">FEA</span><span class="tag">Safety Cert.</span></div>
-        <a href="https://sites.google.com/view/expertease/portfolio" target="_blank" class="project-link" id="p2-link">View →</a>
+        <a href="https://sites.google.com/view/expertease/portfolio" target="_blank" rel="noopener" class="project-link" id="p2-link">View →</a>
       </div>
     </div>
 
@@ -196,21 +198,23 @@
     <div class="project-card" data-cat="safety">
       <div class="card-gallery">
         <div class="gallery-track">
-          <div class="gallery-slide gallery-ph">
-            <span class="ph-icon">🚗</span>
-            <span class="ph-label">Rollcar Simulator</span>
-          </div>
+          <div class="gallery-slide"><img src="images/gear/Untitled Project.png"   alt="Rollcar Simulator" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/gear/Untitled Project 2.png" alt="Rollcar Simulator" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/gear/Untitled Project 3.png" alt="Rollcar Simulator" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/gear/Untitled Project 4.png" alt="Rollcar Simulator" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/gear/Untitled Project 5.png" alt="Rollcar Simulator" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/gear/Untitled Project 6.png" alt="Rollcar Simulator" loading="lazy"></div>
         </div>
-        <button class="gallery-btn gallery-prev" aria-label="Previous">&#8249;</button>
-        <button class="gallery-btn gallery-next" aria-label="Next">&#8250;</button>
+        <button class="gallery-btn gallery-prev">&#8249;</button>
+        <button class="gallery-btn gallery-next">&#8250;</button>
         <div class="gallery-dots"></div>
       </div>
       <div class="card-body">
         <div class="project-category" id="p3-cat">Safety · Educational Equipment</div>
         <h3 class="project-title" id="p3-title">Rollcar Simulator</h3>
-        <p  class="project-desc"  id="p3-desc">Vehicle rollover simulator — place a car on top and roll inside it. Versions I &amp; II, up to 20rpm.</p>
+        <p  class="project-desc"  id="p3-desc">Vehicle rollover simulator — place a car on top and roll inside it. Versions I &amp; II, up to 20 rpm. A powerful tool for driver-safety training that puts passengers inside a real car experiencing a rollover.</p>
         <div class="project-tags"><span class="tag">5mm Steel Plate</span><span class="tag">Rotation Mech.</span><span class="tag">Safety</span></div>
-        <a href="https://sites.google.com/view/expertease/portfolio" target="_blank" class="project-link" id="p3-link">View →</a>
+        <a href="https://sites.google.com/view/expertease/portfolio" target="_blank" rel="noopener" class="project-link" id="p3-link">View →</a>
       </div>
     </div>
 
@@ -218,22 +222,24 @@
     <div class="project-card" data-cat="metal">
       <div class="card-gallery">
         <div class="gallery-track">
-          <div class="gallery-slide gallery-ph">
-            <span class="ph-icon">⚙️</span>
-            <span class="ph-label">Sheet Metal</span>
-          </div>
+          <div class="gallery-slide"><img src="images/sheetmetal/1.png"               alt="Sheet Metal" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/sheetmetal/2.png"               alt="Sheet Metal" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/sheetmetal/a1.png"              alt="Sheet Metal" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/sheetmetal/a2.png"              alt="Sheet Metal" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/log_basket/καροτσακι.png"       alt="Log Basket" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/log_basket/καροτσακι 2.png"     alt="Log Basket" loading="lazy"></div>
         </div>
-        <button class="gallery-btn gallery-prev" aria-label="Previous">&#8249;</button>
-        <button class="gallery-btn gallery-next" aria-label="Next">&#8250;</button>
+        <button class="gallery-btn gallery-prev">&#8249;</button>
+        <button class="gallery-btn gallery-next">&#8250;</button>
         <div class="gallery-dots"></div>
       </div>
       <div class="card-body">
         <div class="proj-badge red" id="p4-badge">Sheet Metal</div>
         <div class="project-category" id="p4-cat">Laser Cutting · Brake Press · Welding</div>
         <h3 class="project-title" id="p4-title">Sheet Metal Applications</h3>
-        <p  class="project-desc"  id="p4-desc">From LED wall décor to log baskets and structural elements. 1.5–5mm steel, optimised design for fast fabrication.</p>
+        <p  class="project-desc"  id="p4-desc">From LED wall décor to log baskets and structural elements. 1.5–5mm steel, laser-cut and brake-pressed, optimised DFM for fast fabrication and minimal waste.</p>
         <div class="project-tags"><span class="tag">Laser Cut</span><span class="tag">Brake Press</span><span class="tag">1.5–5mm Steel</span><span class="tag">DFM</span></div>
-        <a href="https://sites.google.com/view/expertease/portfolio" target="_blank" class="project-link" id="p4-link">View →</a>
+        <a href="https://sites.google.com/view/expertease/portfolio" target="_blank" rel="noopener" class="project-link" id="p4-link">View →</a>
       </div>
     </div>
 
@@ -241,21 +247,23 @@
     <div class="project-card" data-cat="metal">
       <div class="card-gallery">
         <div class="gallery-track">
-          <div class="gallery-slide gallery-ph">
-            <span class="ph-icon">📳</span>
-            <span class="ph-label">Harmonic Exciter</span>
-          </div>
+          <div class="gallery-slide"><img src="images/harmonic_exhiter/he_1.png"              alt="Harmonic Exciter" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/harmonic_exhiter/1.png"                 alt="Harmonic Exciter" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/harmonic_exhiter/2.png"                 alt="Harmonic Exciter" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/harmonic_exhiter/3.png"                 alt="Harmonic Exciter" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/harmonic_exhiter/Untitled Project 6.png" alt="Harmonic Exciter" loading="lazy"></div>
+          <div class="gallery-slide"><img src="images/harmonic_exhiter/Untitled Project 7.png" alt="Harmonic Exciter" loading="lazy"></div>
         </div>
-        <button class="gallery-btn gallery-prev" aria-label="Previous">&#8249;</button>
-        <button class="gallery-btn gallery-next" aria-label="Next">&#8250;</button>
+        <button class="gallery-btn gallery-prev">&#8249;</button>
+        <button class="gallery-btn gallery-next">&#8250;</button>
         <div class="gallery-dots"></div>
       </div>
       <div class="card-body">
         <div class="project-category" id="p5-cat">Dynamic Loading · Structural Testing</div>
         <h3 class="project-title" id="p5-title">1D Harmonic Exciter</h3>
-        <p  class="project-desc"  id="p5-desc">Applies 450kg uni-directional vibration to structures, up to 20Hz. Flip it and it covers all three axes.</p>
+        <p  class="project-desc"  id="p5-desc">Applies 450 kg uni-directional vibration to structures at up to 20 Hz. Flip it over and it covers all three axes. Built for structural testing labs and research institutions.</p>
         <div class="project-tags"><span class="tag">450kg Load</span><span class="tag">20Hz</span><span class="tag">3-axis</span><span class="tag">Heavy Steel</span></div>
-        <a href="https://sites.google.com/view/expertease/portfolio" target="_blank" class="project-link" id="p5-link">View →</a>
+        <a href="https://sites.google.com/view/expertease/portfolio" target="_blank" rel="noopener" class="project-link" id="p5-link">View →</a>
       </div>
     </div>
 
@@ -281,9 +289,9 @@
         <li id="sw-f7">Welds &amp; springs</li><li id="sw-f8">Cranes &amp; platforms</li>
       </ul>
       <div style="display:flex;gap:12px;flex-wrap:wrap;">
-        <a href="https://www.easemanual.eu" target="_blank" class="btn-primary" id="sw-cta1">View Product →</a>
-        <a href="https://www.easemanual.eu/pricing" target="_blank"
-           style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:2px solid rgba(255,255,255,.22);color:rgba(255,255,255,.65);font-family:var(--font-mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:border-color .2s,color .2s;"
+        <a href="https://www.easemanual.eu" target="_blank" rel="noopener" class="btn-primary" id="sw-cta1">View Product →</a>
+        <a href="https://www.easemanual.eu/pricing" target="_blank" rel="noopener"
+           style="display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border:2px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);font-family:var(--font-mono);font-size:11px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:border-color .2s,color .2s;"
            id="sw-cta2">Pricing</a>
       </div>
     </div>
@@ -316,24 +324,24 @@
 </section>
 
 <!-- ══ TEAM ══════════════════════════════════════════════════════ -->
-<section id="team" style="padding:60px 56px;">
+<section id="team">
   <p class="edu-strip-title" id="edu-strip-title">Founder — Dimitrios Moudiotis · 5 Universities in 3 Countries</p>
   <div class="edu-cards">
 
     <!-- AUTH -->
     <div class="edu-card blue">
-      <div class="edu-logo-wrap" style="background:rgba(0,80,160,.22);">
-        <img src="images/LogoAUTH.png" alt="AUTH" onerror="this.parentElement.innerHTML='🎓'">
+      <div class="edu-logo-wrap" style="background:rgba(0,80,160,.18);">
+        <img src="images/LogoAUTH.png" alt="AUTH">
       </div>
-      <div class="edu-degree" id="edu1-deg">Dpl. Ing.</div>
+      <div class="edu-degree" id="edu1-deg">BEng</div>
       <div class="edu-name" id="edu1-name">Mechanical Engineering</div>
       <div class="edu-country">AUTH · Greece</div>
     </div>
 
     <!-- Ecole Centrale Paris -->
     <div class="edu-card red">
-      <div class="edu-logo-wrap" style="background:rgba(160,0,0,.18);">
-        <img src="images/ecole_centrale_paris_logo.png" alt="ECP" onerror="this.parentElement.innerHTML='🏛️'">
+      <div class="edu-logo-wrap" style="background:rgba(160,0,0,.15);">
+        <img src="images/ecole_centrale_paris_logo.png" alt="ECP">
       </div>
       <div class="edu-degree" id="edu2-deg">MSc</div>
       <div class="edu-name" id="edu2-name">École Centrale Paris</div>
@@ -342,8 +350,8 @@
 
     <!-- IFP School -->
     <div class="edu-card green">
-      <div class="edu-logo-wrap" style="background:rgba(0,120,60,.18);">
-        <img src="images/IFP_Logo.png" alt="IFP" onerror="this.parentElement.innerHTML='⚗️'">
+      <div class="edu-logo-wrap" style="background:rgba(0,120,60,.15);">
+        <img src="images/IFP_Logo.png" alt="IFP">
       </div>
       <div class="edu-degree" id="edu3-deg">MSc</div>
       <div class="edu-name" id="edu3-name">IFP School</div>
@@ -352,17 +360,17 @@
 
     <!-- IHU -->
     <div class="edu-card purple">
-      <div class="edu-logo-wrap" style="background:rgba(100,0,150,.18);">
-        <img src="images/ihu_logo.png" alt="IHU" onerror="this.parentElement.innerHTML='🏫'">
+      <div class="edu-logo-wrap" style="background:rgba(100,0,150,.15);">
+        <img src="images/ihu_logo.png" alt="IHU">
       </div>
       <div class="edu-degree" id="edu4-deg">MSc</div>
-      <div class="edu-name" id="edu4-name">International Hellenic University</div>
+      <div class="edu-name" id="edu4-name">Int'l Hellenic University</div>
       <div class="edu-country">Thessaloniki · Greece</div>
     </div>
 
     <!-- WUST -->
     <div class="edu-card navy">
-      <div class="edu-logo-wrap" style="background:rgba(0,40,120,.22);">
+      <div class="edu-logo-wrap" style="background:rgba(0,40,120,.2);">
         <img src="images/wust_logo.png" alt="WUST" onerror="this.parentElement.innerHTML='🎓'">
       </div>
       <div class="edu-degree" id="edu5-deg">MBA</div>
@@ -371,46 +379,73 @@
     </div>
 
   </div>
+
+  <div class="team-linkedin">
+    <a href="https://www.linkedin.com/in/moudiotis/" target="_blank" rel="noopener" class="team-linkedin-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19z"/></svg>
+      Connect on LinkedIn
+    </a>
+  </div>
 </section>
 
 <!-- ══ CONTACT ══════════════════════════════════════════════════ -->
 <section id="contact">
   <div class="contact-label"   id="contact-label">// Let's Work Together</div>
   <h2  class="contact-heading" id="contact-heading">Got a project<br>in mind?</h2>
-  <p   class="contact-sub"     id="contact-sub"></p>
-  <a href="mailto:info@expertease.eu" class="contact-email">info@expertease.eu</a>
-  <div class="contact-phone-row">
-    <a href="tel:+3021007561836" class="contact-phone-link">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
-      </svg>
-      210 075 61836
-    </a>
+  <p   class="contact-sub"     id="contact-sub">From designing a single component to managing an entire project — Expertease is here.</p>
+
+  <div class="contact-direct">
+    <a href="mailto:info@expertease.eu" class="contact-email">info@expertease.eu</a>
+    <div class="contact-phone-row">
+      <a href="tel:+3021007561836" class="contact-phone-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        210 075 61836
+      </a>
+    </div>
   </div>
-  <div class="social-links">
-    <a href="https://www.linkedin.com/in/moudiotis/" target="_blank" class="social-link">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5a5 5 0 00-5 5v14a5 5 0 005 5h14a5 5 0 005-5V5a5 5 0 00-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19z"/></svg>
-      LinkedIn
-    </a>
-    <a href="https://www.easemanual.eu" target="_blank" class="social-link">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-8v4h4l-5 8z"/></svg>
-      easemanual.eu
-    </a>
-    <a href="https://www.instagram.com/design_expertease/" target="_blank" class="social-link">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-      Instagram
-    </a>
+
+  <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form" novalidate>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="cf-name">Name</label>
+        <input type="text" id="cf-name" name="name" placeholder="Your name" required>
+      </div>
+      <div class="form-group">
+        <label for="cf-email">Email</label>
+        <input type="email" id="cf-email" name="email" placeholder="your@email.com" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="cf-phone">Phone</label>
+        <input type="tel" id="cf-phone" name="phone" placeholder="+30 ...">
+      </div>
+      <div class="form-group">
+        <label for="cf-subject">Subject</label>
+        <input type="text" id="cf-subject" name="subject" placeholder="Project enquiry">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cf-message">Message</label>
+      <textarea id="cf-message" name="message" rows="4" placeholder="Tell us about your project..." required></textarea>
+    </div>
+    <button type="submit" class="btn-primary form-submit">Send Message →</button>
+  </form>
+
+  <div class="form-success" id="formSuccess">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+    Message sent! We'll get back to you soon.
   </div>
 </section>
 
 <footer>
-  <a href="#hero" class="footer-logo"><img src="images/logo.png" alt="Expertease Designs"></a>
+  <a href="#hero" class="footer-logo"><img src="images/logo.png" alt="Expertease"></a>
   <div class="footer-text" id="footer-copy">© 2026 Expertease Designs</div>
   <div class="footer-text" id="footer-loc">Athens, Greece</div>
 </footer>
 
 <!-- Three.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+<script src="main.js" defer></script>
 </body>
 </html>

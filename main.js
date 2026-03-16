@@ -40,7 +40,7 @@ const LANG = {
     sw_f5:'Άξονες & εφεδρανισμοί', sw_f6:'Ευστάθεια & πέδηση', sw_f7:'Συγκολλήσεις & ελατήρια', sw_f8:'Γερανοί & καλαθοφόρα',
     sw_cta1:'Δείτε το Προϊόν →', sw_cta2:'Τιμολόγηση',
     contact_label:'// Ας Δουλέψουμε Μαζί',
-    contact_heading:'Έχετε ένα\nέργο στο νου;',
+    contact_heading:'Έχετε ένα<br>έργο στο νου;',
     contact_sub:'Από τον σχεδιασμό ενός εξαρτήματος έως τη διαχείριση ολόκληρου έργου — η Expertease είναι εδώ. Επικοινωνήστε μαζί μας.',
     footer_copy:'© 2026 Expertease Designs', footer_loc:'Αθήνα, Ελλάδα',
   },
@@ -82,7 +82,7 @@ const LANG = {
     sw_f5:'Shafts & bearings', sw_f6:'Stability & braking', sw_f7:'Welds & springs', sw_f8:'Cranes & platforms',
     sw_cta1:'View Product →', sw_cta2:'Pricing',
     contact_label:'// Let\'s Work Together',
-    contact_heading:'Got a project\nin mind?',
+    contact_heading:'Got a project<br>in mind?',
     contact_sub:'From designing a single component to managing an entire project — Expertease is here.',
     footer_copy:'© 2026 Expertease Designs', footer_loc:'Athens, Greece',
   }
@@ -118,7 +118,7 @@ function applyLang(lang) {
   set('sw-desc',t.sw_desc);
   for(let i=1;i<=8;i++) set('sw-f'+i,t['sw_f'+i]);
   set('sw-cta1',t.sw_cta1); set('sw-cta2',t.sw_cta2);
-  set('contact-label',t.contact_label); set('contact-heading',t.contact_heading);
+  set('contact-label',t.contact_label); set('contact-heading',t.contact_heading,true);
   set('contact-sub',t.contact_sub);
   set('footer-copy',t.footer_copy); set('footer-loc',t.footer_loc);
   // sync mobile nav text
@@ -149,8 +149,8 @@ function initCursor() {
   });
 
   (function lerp() {
-    rx += (mx - rx) * 0.14;
-    ry += (my - ry) * 0.14;
+    rx += (mx - rx) * 0.24;
+    ry += (my - ry) * 0.24;
     ring.style.left = rx + 'px';
     ring.style.top  = ry + 'px';
     requestAnimationFrame(lerp);
@@ -637,6 +637,40 @@ function closeMobileNav() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   CONTACT FORM — Formspree AJAX
+═══════════════════════════════════════════════════════════════ */
+function initContactForm() {
+  const form    = document.getElementById('contactForm');
+  const success = document.getElementById('formSuccess');
+  if (!form) return;
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = form.querySelector('.form-submit');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        if (success) success.style.display = 'flex';
+      } else {
+        btn.textContent = 'Error — try again';
+        btn.disabled = false;
+      }
+    } catch (_) {
+      btn.textContent = 'Error — try again';
+      btn.disabled = false;
+    }
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════════
    BOOT
 ═══════════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
@@ -647,5 +681,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initFilter();
   initCarousel();
   initMobileNav();
+  initContactForm();
   setTimeout(initThree, 120);
 });
