@@ -112,11 +112,11 @@ function applyLang(lang) {
   set('filter-all',t.filter_all); set('filter-robotics',t.filter_robotics);
   set('filter-safety',t.filter_safety); set('filter-metal',t.filter_metal);
   ['p1','p2','p3','p4','p5'].forEach(p=>{
-    ['badge','cat','title','desc','link'].forEach(k=>{ if(t[`${p}_${k}`]) set(`${p}-${k}`,t[`${p}_${k}`]); });
+    ['badge','cat','title','desc','link'].forEach(k=>{ if(t[p+'_'+k]) set(p+'-'+k,t[p+'_'+k]); });
   });
-  set('sw-heading',t.sw_heading); set('sw-label',t.sw_label); set('sw-desc',t.sw_desc,false);
+  set('sw-heading',t.sw_heading); set('sw-label',t.sw_label);
   set('sw-desc',t.sw_desc);
-  for(let i=1;i<=8;i++) set(`sw-f${i}`,t[`sw_f${i}`]);
+  for(let i=1;i<=8;i++) set('sw-f'+i,t['sw_f'+i]);
   set('sw-cta1',t.sw_cta1); set('sw-cta2',t.sw_cta2);
   set('contact-label',t.contact_label); set('contact-heading',t.contact_heading);
   set('contact-sub',t.contact_sub);
@@ -126,7 +126,7 @@ function applyLang(lang) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   CURSOR — direct position, lagging ring via RAF
+   CURSOR — mechanical crosshair with rotating ring
 ═══════════════════════════════════════════════════════════════ */
 function initCursor() {
   const dot  = document.getElementById('cursor');
@@ -136,14 +136,12 @@ function initCursor() {
   let mx = window.innerWidth/2, my = window.innerHeight/2;
   let rx = mx, ry = my;
 
-  // Move dot instantly
   document.addEventListener('mousemove', e => {
     mx = e.clientX; my = e.clientY;
     dot.style.left = mx + 'px';
     dot.style.top  = my + 'px';
   });
 
-  // Ring follows with lerp
   (function lerp() {
     rx += (mx - rx) * 0.14;
     ry += (my - ry) * 0.14;
@@ -152,7 +150,6 @@ function initCursor() {
     requestAnimationFrame(lerp);
   })();
 
-  // Hover states
   function addHover(sel) {
     document.querySelectorAll(sel).forEach(el => {
       el.addEventListener('mouseenter', () => { dot.classList.add('hover'); ring.classList.add('hover'); });
@@ -161,41 +158,68 @@ function initCursor() {
   }
   addHover('a, button, .project-card, .skill-item, .vctrl, .edu-card, .filter-btn');
 
-  // Hide when mouse leaves window
+  document.addEventListener('mousedown', () => {
+    dot.classList.add('click'); ring.classList.add('click');
+    setTimeout(() => { dot.classList.remove('click'); ring.classList.remove('click'); }, 320);
+  });
+
   document.addEventListener('mouseleave', () => { dot.style.opacity='0'; ring.style.opacity='0'; });
   document.addEventListener('mouseenter', () => { dot.style.opacity='1'; ring.style.opacity='1'; });
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   THREE.JS — COMPLEX FLOATING GEAR MACHINE
+   THREE.JS — PLANETARY GEAR BOX
+   Planetary gear set: sun + 3 planets + ring gear + housing
 ═══════════════════════════════════════════════════════════════ */
 let scene, camera, renderer, parts=[], clock;
 let explodeT=0, exploding=false, isDragging=false;
 let prevMouse={x:0,y:0}, rotGroup, floatT=0;
 let currentMode='rotate';
 
-function makeGear(teeth, innerR, toothH, hubR, spokes) {
+/* External spur gear shape */
+function makeGear(teeth, pitchR, toothH, hubR, spokes) {
   const s = new THREE.Shape();
-  const step = (Math.PI*2)/teeth;
-  for(let i=0;i<teeth;i++){
+  const step = (Math.PI*2) / teeth;
+  for (let i=0; i<teeth; i++) {
     const a0=i*step-step*.42, a1=i*step-step*.16;
     const a2=i*step+step*.16, a3=i*step+step*.42;
     const p = (a,r) => [Math.cos(a)*r, Math.sin(a)*r];
-    i===0 ? s.moveTo(...p(a0,innerR)) : s.lineTo(...p(a0,innerR));
-    s.lineTo(...p(a1,innerR+toothH));
-    s.lineTo(...p(a2,innerR+toothH));
-    s.lineTo(...p(a3,innerR));
+    i===0 ? s.moveTo(...p(a0,pitchR)) : s.lineTo(...p(a0,pitchR));
+    s.lineTo(...p(a1, pitchR+toothH));
+    s.lineTo(...p(a2, pitchR+toothH));
+    s.lineTo(...p(a3, pitchR));
   }
   s.closePath();
-  // Hub hole
-  const hub=new THREE.Path(); hub.absarc(0,0,hubR,0,Math.PI*2,true); s.holes.push(hub);
-  // Spoke holes
-  const n = spokes||Math.max(4,Math.floor(teeth/3));
-  for(let i=0;i<n;i++){
-    const a=(i/n)*Math.PI*2, r=innerR*.55, sr=innerR*.13;
-    const sh=new THREE.Path(); sh.absarc(Math.cos(a)*r,Math.sin(a)*r,sr,0,Math.PI*2,true);
+  const hub = new THREE.Path();
+  hub.absarc(0,0,hubR, 0, Math.PI*2, true);
+  s.holes.push(hub);
+  const n = spokes || Math.max(4, Math.floor(teeth/3));
+  for (let i=0; i<n; i++) {
+    const a=(i/n)*Math.PI*2, r=pitchR*.55, sr=pitchR*.13;
+    const sh = new THREE.Path();
+    sh.absarc(Math.cos(a)*r, Math.sin(a)*r, sr, 0, Math.PI*2, true);
     s.holes.push(sh);
   }
+  return s;
+}
+
+/* Internal ring gear shape (teeth point inward) */
+function makeRingGear(teeth, outerR, toothRootR, toothH) {
+  const s = new THREE.Shape();
+  s.absarc(0, 0, outerR, 0, Math.PI*2, false);
+  const step = (Math.PI*2) / teeth;
+  const inner = new THREE.Path();
+  for (let i=0; i<teeth; i++) {
+    const a0=i*step-step*.38, a1=i*step-step*.14;
+    const a2=i*step+step*.14, a3=i*step+step*.38;
+    const p = (a,r) => [Math.cos(a)*r, Math.sin(a)*r];
+    i===0 ? inner.moveTo(...p(a0, toothRootR)) : inner.lineTo(...p(a0, toothRootR));
+    inner.lineTo(...p(a1, toothRootR - toothH));
+    inner.lineTo(...p(a2, toothRootR - toothH));
+    inner.lineTo(...p(a3, toothRootR));
+  }
+  inner.closePath();
+  s.holes.push(inner);
   return s;
 }
 
@@ -210,160 +234,236 @@ function initThree() {
   renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.setSize(W, H);
-  renderer.setClearColor(0x000000, 0);   // fully transparent — hero bg shows through
+  renderer.setClearColor(0x000000, 0);
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-  scene = new THREE.Scene();           // no background, no fog
-
-  camera = new THREE.PerspectiveCamera(40, W/H, 0.1, 300);
-  camera.position.set(0, 1.5, 18);
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(38, W/H, 0.1, 300);
+  camera.position.set(0, 2.5, 20);
   camera.lookAt(0, 0.5, 0);
   clock = new THREE.Clock();
 
   /* Lights */
-  scene.add(new THREE.AmbientLight(0xb0c8e8, 0.55));
-  const key = new THREE.DirectionalLight(0xffffff, 1.5);
-  key.position.set(8, 14, 10); key.castShadow=true;
+  scene.add(new THREE.AmbientLight(0x7090b8, 0.65));
+  const key = new THREE.DirectionalLight(0xffffff, 1.9);
+  key.position.set(8, 14, 10); key.castShadow = true;
   key.shadow.mapSize.set(2048,2048);
   scene.add(key);
-  const fill = new THREE.DirectionalLight(0x4a80d0, 0.55);
-  fill.position.set(-10, 3, -7); scene.add(fill);
-  const rim  = new THREE.PointLight(0xc83030, 0.9, 40);
-  rim.position.set(-4, 7, -8); scene.add(rim);
-  const bot  = new THREE.PointLight(0x1a60c0, 0.45, 35);
-  bot.position.set(5, -7, 5); scene.add(bot);
+  const fill = new THREE.DirectionalLight(0x3a78d4, 0.6);
+  fill.position.set(-9, 4, -7);
+  scene.add(fill);
+  const rim = new THREE.PointLight(0xc83030, 0.9, 55);
+  rim.position.set(-5, 9, -10);
+  scene.add(rim);
+  const bot = new THREE.PointLight(0x1a60c0, 0.5, 45);
+  bot.position.set(5, -9, 5);
+  scene.add(bot);
 
   rotGroup = new THREE.Group();
-  rotGroup.rotation.x = 0.22;   // slight tilt so we see the top face
+  rotGroup.rotation.x = 0.32;
   scene.add(rotGroup);
 
   /* Materials */
-  const mSteel = new THREE.MeshStandardMaterial({color:0x4a5568,metalness:.93,roughness:.16});
-  const mBlue  = new THREE.MeshStandardMaterial({color:0x1a3a72,metalness:.9, roughness:.14});
-  const mRed   = new THREE.MeshStandardMaterial({color:0x7a1818,metalness:.88,roughness:.2});
-  const mBrass = new THREE.MeshStandardMaterial({color:0x8a7038,metalness:.96,roughness:.09});
-  const mShaft = new THREE.MeshStandardMaterial({color:0x58606e,metalness:.97,roughness:.09});
-  const mCase  = new THREE.MeshStandardMaterial({color:0x262e3e,metalness:.72,roughness:.32});
+  const mSteel = new THREE.MeshStandardMaterial({color:0x4a5568, metalness:.95, roughness:.12});
+  const mBlue  = new THREE.MeshStandardMaterial({color:0x1a3570, metalness:.90, roughness:.14});
+  const mBrass = new THREE.MeshStandardMaterial({color:0xb89050, metalness:.97, roughness:.07});
+  const mGold  = new THREE.MeshStandardMaterial({color:0xc8a050, metalness:.96, roughness:.06});
+  const mShaft = new THREE.MeshStandardMaterial({color:0x505870, metalness:.97, roughness:.08});
+  const mCase  = new THREE.MeshStandardMaterial({color:0x1a2236, metalness:.75, roughness:.30});
+  const mRing  = new THREE.MeshStandardMaterial({color:0x2a3450, metalness:.88, roughness:.16});
 
-  const ext  = {depth:.72,bevelEnabled:true,bevelThickness:.05,bevelSize:.04,bevelSegments:4};
-  const extS = {depth:.38,bevelEnabled:true,bevelThickness:.03,bevelSize:.03,bevelSegments:3};
+  const extH = {depth:.75, bevelEnabled:true, bevelThickness:.05, bevelSize:.04, bevelSegments:4};
+  const extM = {depth:.58, bevelEnabled:true, bevelThickness:.04, bevelSize:.03, bevelSegments:3};
+  const extR = {depth:.78, bevelEnabled:true, bevelThickness:.07, bevelSize:.06, bevelSegments:4};
 
-  /* ── GEARS ── */
-  // G1: big drive gear 20t
-  const g1 = new THREE.Mesh(new THREE.ExtrudeGeometry(makeGear(20,2.9,.52,.36,6),ext), mSteel);
-  g1.position.set(-1.6,0,0); g1.castShadow=true; rotGroup.add(g1);
-  parts.push({mesh:g1, o:g1.position.clone(), d:new THREE.Vector3(-2.8,0,1.4), spin:.32});
+  const OR = 2.8; // planet orbit radius
+  const pAngles = [0, Math.PI*2/3, Math.PI*4/3];
+  const pMats   = [mGold, mBrass, mSteel];
 
-  // G2: medium driven gear 13t
-  const g2 = new THREE.Mesh(new THREE.ExtrudeGeometry(makeGear(13,1.85,.48,.28,5),ext), mBlue);
-  g2.position.set(2.7,0,0); g2.castShadow=true; rotGroup.add(g2);
-  parts.push({mesh:g2, o:g2.position.clone(), d:new THREE.Vector3(2.4,.4,.9), spin:-.49});
+  /* SUN GEAR — 18 teeth, pitch radius 1.8 */
+  const gSun = new THREE.Mesh(
+    new THREE.ExtrudeGeometry(makeGear(18, 1.8, 0.46, 0.26, 6), extH),
+    mBlue
+  );
+  gSun.castShadow = true;
+  rotGroup.add(gSun);
+  parts.push({mesh:gSun, o:gSun.position.clone(), d:new THREE.Vector3(0,0,0), spin:.50});
 
-  // G3: small top gear 9t
-  const g3 = new THREE.Mesh(new THREE.ExtrudeGeometry(makeGear(9,1.15,.42,.22,4),extS), mBrass);
-  g3.position.set(2.7,3.2,.18); g3.castShadow=true; rotGroup.add(g3);
-  parts.push({mesh:g3, o:g3.position.clone(), d:new THREE.Vector3(1.8,3.4,1.8), spin:.78});
-
-  // G4: idler gear 11t
-  const g4 = new THREE.Mesh(new THREE.ExtrudeGeometry(makeGear(11,1.48,.44,.24,4),extS), mRed);
-  g4.position.set(.48,2.35,.12); g4.castShadow=true; rotGroup.add(g4);
-  parts.push({mesh:g4, o:g4.position.clone(), d:new THREE.Vector3(.2,3.0,-1.4), spin:-.63});
-
-  // G5: tiny output pinion 7t
-  const g5 = new THREE.Mesh(new THREE.ExtrudeGeometry(makeGear(7,.78,.38,.16,3),extS), mBrass);
-  g5.position.set(-1.6,2.9,.12); g5.castShadow=true; rotGroup.add(g5);
-  parts.push({mesh:g5, o:g5.position.clone(), d:new THREE.Vector3(-1.8,3.8,-1.2), spin:.54});
-
-  /* ── SHAFTS ── */
-  [[-.1.6,0,3.5,mShaft],[2.7,0,3.2,mShaft],[2.7,3.2,2.8,mShaft],[-1.6,2.9,2.6,mShaft]].forEach(([x,y,l,m])=>{
-    const sh = new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,l,20), m);
-    sh.rotation.x=Math.PI/2; sh.position.set(x,y,.36); rotGroup.add(sh);
-    parts.push({mesh:sh, o:sh.position.clone(), d:new THREE.Vector3(x*.2,y*.1,-2.5), spin:0});
-  });
-
-  /* ── HOUSING BACK PLATE ── */
-  const hShape = new THREE.Shape();
-  hShape.moveTo(-4.8,-2.6); hShape.lineTo(4.8,-2.6); hShape.lineTo(4.8,5.5); hShape.lineTo(-4.8,5.5); hShape.closePath();
-  [[−1.6,0,3.3],[2.7,0,2.3],[2.7,3.2,1.7],[.48,2.35,2.0],[-1.6,2.9,1.6]].forEach(([x,y,r])=>{
-    const h=new THREE.Path(); h.absarc(x,y,r,0,Math.PI*2,true); hShape.holes.push(h);
-  });
-  [[-4.2,-2.1],[4.2,-2.1],[4.2,5.0],[-4.2,5.0]].forEach(([x,y])=>{
-    const b=new THREE.Path(); b.absarc(x,y,.24,0,Math.PI*2,true); hShape.holes.push(b);
-  });
-  const bp = new THREE.Mesh(new THREE.ExtrudeGeometry(hShape,{depth:.28,bevelEnabled:false}),mCase);
-  bp.position.set(0,0,-.7); rotGroup.add(bp);
-  parts.push({mesh:bp, o:bp.position.clone(), d:new THREE.Vector3(0,0,-3.8), spin:0});
-
-  /* ── FRONT COVER ── */
-  const fShape = new THREE.Shape();
-  fShape.moveTo(-4.8,-2.6); fShape.lineTo(4.8,-2.6); fShape.lineTo(4.8,5.5); fShape.lineTo(-4.8,5.5); fShape.closePath();
-  [[−1.6,0,2.7],[2.7,0,1.65],[2.7,3.2,1.3],[.48,2.35,1.55],[-1.6,2.9,1.3]].forEach(([x,y,r])=>{
-    const h=new THREE.Path(); h.absarc(x,y,r,0,Math.PI*2,true); fShape.holes.push(h);
-  });
-  [[-4.2,-2.1],[4.2,-2.1],[4.2,5.0],[-4.2,5.0]].forEach(([x,y])=>{
-    const b=new THREE.Path(); b.absarc(x,y,.24,0,Math.PI*2,true); fShape.holes.push(b);
-  });
-  const fp = new THREE.Mesh(new THREE.ExtrudeGeometry(fShape,{depth:.22,bevelEnabled:false}),mCase);
-  fp.position.set(0,0,1.06); rotGroup.add(fp);
-  parts.push({mesh:fp, o:fp.position.clone(), d:new THREE.Vector3(0,0,3.5), spin:0});
-
-  /* ── BOLTS ── */
-  [[-4.2,-2.1],[4.2,-2.1],[4.2,5.0],[-4.2,5.0]].forEach(([x,y])=>{
-    const bolt=new THREE.Mesh(new THREE.CylinderGeometry(.18,.18,2.3,12),mBrass);
-    bolt.rotation.x=Math.PI/2; bolt.position.set(x,y,.18); rotGroup.add(bolt);
-    parts.push({mesh:bolt, o:bolt.position.clone(), d:new THREE.Vector3(x*.35,y*.28,0), spin:0});
-    // bolt head
-    const head=new THREE.Mesh(new THREE.CylinderGeometry(.28,.28,.14,6),mBrass);
-    head.rotation.x=Math.PI/2; head.position.set(x,y,1.22); rotGroup.add(head);
-    parts.push({mesh:head, o:head.position.clone(), d:new THREE.Vector3(x*.35,y*.28,1.5), spin:0});
-  });
-
-  /* ── BEARING RINGS ── */
-  [[−1.6,0],[2.7,0],[2.7,3.2],[-1.6,2.9]].forEach(([x,y])=>{
-    [-1.4,1.3].forEach(z=>{
-      const r=new THREE.Mesh(new THREE.TorusGeometry(.36,.1,12,30),mBrass);
-      r.position.set(x,y,z); rotGroup.add(r);
-      parts.push({mesh:r, o:r.position.clone(), d:new THREE.Vector3(x*.2,y*.12,z*1.9), spin:0});
+  /* 3 PLANET GEARS — 10 teeth, pitch radius 1.0 */
+  pAngles.forEach((a, i) => {
+    const pg = new THREE.Mesh(
+      new THREE.ExtrudeGeometry(makeGear(10, 1.0, 0.40, 0.16, 3), extM),
+      pMats[i]
+    );
+    pg.position.set(Math.cos(a)*OR, Math.sin(a)*OR, 0.09);
+    pg.castShadow = true;
+    rotGroup.add(pg);
+    parts.push({
+      mesh: pg,
+      o: pg.position.clone(),
+      d: new THREE.Vector3(Math.cos(a)*4.8, Math.sin(a)*4.8, 1.4 + i*0.7),
+      spin: -.90
     });
   });
 
-  /* ── OUTPUT FLANGE ── */
-  const fl=new THREE.Mesh(new THREE.CylinderGeometry(.88,.88,.38,20),mSteel);
-  fl.rotation.x=Math.PI/2; fl.position.set(-1.6,0,-1.3); rotGroup.add(fl);
-  parts.push({mesh:fl, o:fl.position.clone(), d:new THREE.Vector3(-1.6,0,-3.2), spin:.32});
+  /* RING GEAR — 38 internal teeth, inner root radius 3.78 */
+  const gRing = new THREE.Mesh(
+    new THREE.ExtrudeGeometry(makeRingGear(38, 4.28, 3.78, 0.46), extR),
+    mRing
+  );
+  gRing.castShadow = true;
+  rotGroup.add(gRing);
+  parts.push({mesh:gRing, o:gRing.position.clone(), d:new THREE.Vector3(0,0,-5.0), spin:-.09});
 
-  /* ── CHAIN/BELT LINK between g2 and g3 ── */
-  const lkGeo=new THREE.TorusGeometry(.22,.07,8,20);
-  for(let i=0;i<6;i++){
-    const t=i/6, a=t*Math.PI*.6+Math.PI*.7;
-    const lk=new THREE.Mesh(lkGeo,mShaft);
-    lk.position.set(2.4+Math.cos(a)*.3, 1.6+Math.sin(a)*1.5, .36);
-    lk.rotation.z=a; rotGroup.add(lk);
-    parts.push({mesh:lk, o:lk.position.clone(), d:new THREE.Vector3(3.5,1.5*t,1), spin:0});
-  }
+  /* CARRIER PLATE */
+  const cShape = new THREE.Shape();
+  cShape.absarc(0, 0, 3.5, 0, Math.PI*2, false);
+  const cHub = new THREE.Path();
+  cHub.absarc(0, 0, 2.0, 0, Math.PI*2, true);
+  cShape.holes.push(cHub);
+  pAngles.forEach(a => {
+    const ch = new THREE.Path();
+    ch.absarc(Math.cos(a)*OR, Math.sin(a)*OR, 0.34, 0, Math.PI*2, true);
+    cShape.holes.push(ch);
+  });
+  const gCarrier = new THREE.Mesh(
+    new THREE.ExtrudeGeometry(cShape, {depth:.24, bevelEnabled:false}),
+    mCase
+  );
+  gCarrier.position.set(0, 0, -0.56);
+  rotGroup.add(gCarrier);
+  parts.push({mesh:gCarrier, o:gCarrier.position.clone(), d:new THREE.Vector3(0,0,-2.8), spin:.167});
+
+  /* BACK PLATE — ring flange */
+  const bShape = new THREE.Shape();
+  bShape.absarc(0, 0, 4.9, 0, Math.PI*2, false);
+  const bRim = new THREE.Path();
+  bRim.absarc(0, 0, 4.35, 0, Math.PI*2, true);
+  bShape.holes.push(bRim);
+  [0,1,2,3,4,5].forEach(i => {
+    const a = (i/6)*Math.PI*2;
+    const bh = new THREE.Path();
+    bh.absarc(Math.cos(a)*4.62, Math.sin(a)*4.62, 0.20, 0, Math.PI*2, true);
+    bShape.holes.push(bh);
+  });
+  const gBack = new THREE.Mesh(
+    new THREE.ExtrudeGeometry(bShape, {depth:.36, bevelEnabled:false}),
+    mCase
+  );
+  gBack.position.set(0, 0, -0.88);
+  rotGroup.add(gBack);
+  parts.push({mesh:gBack, o:gBack.position.clone(), d:new THREE.Vector3(0,0,-5.8), spin:0});
+
+  /* FRONT COVER — ring with viewing window */
+  const fShape = new THREE.Shape();
+  fShape.absarc(0, 0, 4.9, 0, Math.PI*2, false);
+  const fRim = new THREE.Path();
+  fRim.absarc(0, 0, 3.9, 0, Math.PI*2, true);
+  fShape.holes.push(fRim);
+  [0,1,2,3,4,5].forEach(i => {
+    const a = (i/6)*Math.PI*2;
+    const bh = new THREE.Path();
+    bh.absarc(Math.cos(a)*4.62, Math.sin(a)*4.62, 0.20, 0, Math.PI*2, true);
+    fShape.holes.push(bh);
+  });
+  const gFront = new THREE.Mesh(
+    new THREE.ExtrudeGeometry(fShape, {depth:.30, bevelEnabled:false}),
+    mCase
+  );
+  gFront.position.set(0, 0, 0.87);
+  rotGroup.add(gFront);
+  parts.push({mesh:gFront, o:gFront.position.clone(), d:new THREE.Vector3(0,0,5.0), spin:0});
+
+  /* 6 MOUNTING BOLTS */
+  [0,1,2,3,4,5].forEach(i => {
+    const a  = (i/6)*Math.PI*2;
+    const bx = Math.cos(a)*4.62, by = Math.sin(a)*4.62;
+    const bolt = new THREE.Mesh(new THREE.CylinderGeometry(.14,.14,2.15,8), mBrass);
+    bolt.rotation.x = Math.PI/2;
+    bolt.position.set(bx, by, 0.1);
+    rotGroup.add(bolt);
+    parts.push({mesh:bolt, o:bolt.position.clone(), d:new THREE.Vector3(bx*.1,by*.1,0), spin:0});
+    const head = new THREE.Mesh(new THREE.CylinderGeometry(.24,.24,.18,6), mBrass);
+    head.rotation.x = Math.PI/2;
+    head.position.set(bx, by, 1.02);
+    rotGroup.add(head);
+    parts.push({mesh:head, o:head.position.clone(), d:new THREE.Vector3(bx*.1,by*.1,1.5), spin:0});
+  });
+
+  /* SUN SHAFT */
+  const sunShaft = new THREE.Mesh(new THREE.CylinderGeometry(.20,.20,5.2,16), mShaft);
+  sunShaft.rotation.x = Math.PI/2;
+  sunShaft.position.set(0, 0, 0.5);
+  rotGroup.add(sunShaft);
+  parts.push({mesh:sunShaft, o:sunShaft.position.clone(), d:new THREE.Vector3(0,0,0), spin:.50});
+
+  /* PLANET SHAFTS */
+  pAngles.forEach(a => {
+    const psh = new THREE.Mesh(new THREE.CylinderGeometry(.12,.12,2.2,12), mShaft);
+    psh.rotation.x = Math.PI/2;
+    psh.position.set(Math.cos(a)*OR, Math.sin(a)*OR, 0.09);
+    rotGroup.add(psh);
+    parts.push({mesh:psh, o:psh.position.clone(), d:new THREE.Vector3(Math.cos(a)*5.5,Math.sin(a)*5.5,1.5), spin:0});
+  });
+
+  /* BEARING RINGS on sun shaft */
+  [-0.52, 0.98].forEach(z => {
+    const br = new THREE.Mesh(new THREE.TorusGeometry(.34,.10,12,32), mBrass);
+    br.position.set(0, 0, z);
+    rotGroup.add(br);
+    parts.push({mesh:br, o:br.position.clone(), d:new THREE.Vector3(0,0,z*3.2), spin:0});
+  });
+
+  /* OUTPUT FLANGE */
+  const flange = new THREE.Mesh(new THREE.CylinderGeometry(.88,.88,.44,20), mSteel);
+  flange.rotation.x = Math.PI/2;
+  flange.position.set(0, 0, -1.55);
+  rotGroup.add(flange);
+  parts.push({mesh:flange, o:flange.position.clone(), d:new THREE.Vector3(0,0,-5.5), spin:.167});
+
+  /* KEYWAY detail on output flange */
+  const kw = new THREE.Mesh(new THREE.BoxGeometry(.14,.10,.46), mShaft);
+  kw.position.set(.22, 0, -1.55);
+  rotGroup.add(kw);
+  parts.push({mesh:kw, o:kw.position.clone(), d:new THREE.Vector3(.6,0,-5.5), spin:0});
+
+  /* INPUT SPROCKET ring */
+  const spk = new THREE.Mesh(new THREE.TorusGeometry(1.25,.14,8,24), mSteel);
+  spk.position.set(0, 0, 1.6);
+  rotGroup.add(spk);
+  parts.push({mesh:spk, o:spk.position.clone(), d:new THREE.Vector3(0,0,4.2), spin:.50});
+
+  /* OUTER HOUSING RING — cylindrical shell */
+  const hRing = new THREE.Mesh(new THREE.TorusGeometry(4.62,.28,16,48), mCase);
+  rotGroup.add(hRing);
+  parts.push({mesh:hRing, o:hRing.position.clone(), d:new THREE.Vector3(0,0,0), spin:0});
 
   /* Mouse / touch drag */
-  canvas.addEventListener('mousedown',  e=>{isDragging=true; prevMouse={x:e.clientX,y:e.clientY};});
-  window.addEventListener('mouseup',    ()=>isDragging=false);
-  window.addEventListener('mousemove',  e=>{
-    if(!isDragging) return;
-    rotGroup.rotation.y += (e.clientX-prevMouse.x)*.010;
-    rotGroup.rotation.x += (e.clientY-prevMouse.y)*.007;
-    rotGroup.rotation.x = Math.max(-.9,Math.min(.9,rotGroup.rotation.x));
-    prevMouse={x:e.clientX,y:e.clientY};
+  canvas.addEventListener('mousedown', e => {
+    isDragging = true; prevMouse = {x:e.clientX, y:e.clientY};
   });
-  canvas.addEventListener('touchstart', e=>{isDragging=true; prevMouse={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
-  window.addEventListener('touchend',   ()=>isDragging=false);
-  window.addEventListener('touchmove',  e=>{
-    if(!isDragging) return;
-    rotGroup.rotation.y+=(e.touches[0].clientX-prevMouse.x)*.010;
-    prevMouse={x:e.touches[0].clientX,y:e.touches[0].clientY};
-  },{passive:true});
+  window.addEventListener('mouseup', () => isDragging = false);
+  window.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    rotGroup.rotation.y += (e.clientX - prevMouse.x) * .010;
+    rotGroup.rotation.x += (e.clientY - prevMouse.y) * .007;
+    rotGroup.rotation.x = Math.max(-.9, Math.min(.9, rotGroup.rotation.x));
+    prevMouse = {x:e.clientX, y:e.clientY};
+  });
+  canvas.addEventListener('touchstart', e => {
+    isDragging = true; prevMouse = {x:e.touches[0].clientX, y:e.touches[0].clientY};
+  }, {passive:true});
+  window.addEventListener('touchend', () => isDragging = false);
+  window.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    rotGroup.rotation.y += (e.touches[0].clientX - prevMouse.x) * .010;
+    prevMouse = {x:e.touches[0].clientX, y:e.touches[0].clientY};
+  }, {passive:true});
 
-  window.addEventListener('resize',()=>{
-    const W2=parent.clientWidth||640, H2=parent.clientHeight||580;
-    camera.aspect=W2/H2; camera.updateProjectionMatrix(); renderer.setSize(W2,H2);
+  window.addEventListener('resize', () => {
+    const W2 = parent.clientWidth||640, H2 = parent.clientHeight||580;
+    camera.aspect = W2/H2; camera.updateProjectionMatrix(); renderer.setSize(W2, H2);
   });
 
   animate();
@@ -374,60 +474,63 @@ function animate() {
   const dt = Math.min(clock.getDelta(), .05);
   floatT += dt;
 
-  // Auto-rotate + float
-  if (!isDragging && currentMode==='rotate') {
-    rotGroup.rotation.y += .003;
-    rotGroup.position.y = Math.sin(floatT*.55)*.22;
-    rotGroup.position.x = Math.sin(floatT*.38)*.07;
+  if (!isDragging && currentMode === 'rotate') {
+    rotGroup.rotation.y += .004;
+    rotGroup.position.y = Math.sin(floatT*.52) * .20;
+    rotGroup.position.x = Math.sin(floatT*.38) * .06;
   }
 
-  // Spin gears
-  parts.forEach(p=>{ if(p.spin!==0) p.mesh.rotation.z += p.spin*dt; });
+  parts.forEach(p => { if (p.spin !== 0) p.mesh.rotation.z += p.spin * dt; });
 
-  // Explode/collapse
-  if (exploding && explodeT<1) { explodeT=Math.min(1,explodeT+dt*.6); applyExplode(explodeT); }
-  else if (!exploding && explodeT>0) { explodeT=Math.max(0,explodeT-dt*.85); applyExplode(explodeT); }
+  if (exploding && explodeT < 1) {
+    explodeT = Math.min(1, explodeT + dt*.55);
+    applyExplode(explodeT);
+  } else if (!exploding && explodeT > 0) {
+    explodeT = Math.max(0, explodeT - dt*.80);
+    applyExplode(explodeT);
+  }
 
   renderer.render(scene, camera);
 }
 
 function applyExplode(t) {
-  const e=t<.5?2*t*t:-1+(4-2*t)*t;
-  parts.forEach(p=>{
-    p.mesh.position.x=p.o.x+p.d.x*3.0*e;
-    p.mesh.position.y=p.o.y+p.d.y*3.0*e;
-    p.mesh.position.z=p.o.z+p.d.z*3.0*e;
+  const e = t < .5 ? 2*t*t : -1 + (4-2*t)*t;
+  parts.forEach(p => {
+    p.mesh.position.x = p.o.x + p.d.x * 3.0 * e;
+    p.mesh.position.y = p.o.y + p.d.y * 3.0 * e;
+    p.mesh.position.z = p.o.z + p.d.z * 3.0 * e;
   });
 }
 
 function setMode(m) {
-  currentMode=m;
-  if(m==='explode') exploding=true;
-  document.querySelectorAll('.vctrl').forEach(b=>b.classList.remove('active'));
-  const b=document.getElementById('btn-'+m); if(b) b.classList.add('active');
+  currentMode = m;
+  if (m === 'explode') exploding = true;
+  document.querySelectorAll('.vctrl').forEach(b => b.classList.remove('active'));
+  const b = document.getElementById('btn-'+m); if (b) b.classList.add('active');
 }
+
 function resetModel() {
-  exploding=false; currentMode='rotate';
-  rotGroup.rotation.set(.22,0,0); rotGroup.position.set(0,0,0);
-  document.querySelectorAll('.vctrl').forEach(b=>b.classList.remove('active'));
-  const rb=document.getElementById('btn-rotate'); if(rb) rb.classList.add('active');
+  exploding = false; currentMode = 'rotate';
+  rotGroup.rotation.set(.32, 0, 0); rotGroup.position.set(0,0,0);
+  document.querySelectorAll('.vctrl').forEach(b => b.classList.remove('active'));
+  const rb = document.getElementById('btn-rotate'); if (rb) rb.classList.add('active');
 }
 
 /* ═══════════════════════════════════════════════════════════════
    PORTFOLIO FILTER
 ═══════════════════════════════════════════════════════════════ */
 function initFilter() {
-  document.querySelectorAll('.filter-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const f=btn.dataset.filter;
-      document.querySelectorAll('.project-card').forEach(c=>{
-        const show=f==='all'||c.dataset.cat===f;
-        c.style.opacity=show?'1':'0.22';
-        c.style.transform=show?'':'scale(.97)';
-        c.style.transition='opacity .3s,transform .3s';
-        c.style.pointerEvents=show?'':'none';
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.project-card').forEach(c => {
+        const show = f === 'all' || c.dataset.cat === f;
+        c.style.opacity    = show ? '1' : '0.22';
+        c.style.transform  = show ? '' : 'scale(.97)';
+        c.style.transition = 'opacity .3s, transform .3s';
+        c.style.pointerEvents = show ? '' : 'none';
       });
     });
   });
@@ -437,29 +540,32 @@ function initFilter() {
    SCROLL ANIMATIONS
 ═══════════════════════════════════════════════════════════════ */
 function initScroll() {
-  const barObs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{ if(e.isIntersecting) e.target.querySelectorAll('.skill-bar').forEach(b=>b.style.width=b.dataset.width); });
-  },{threshold:.25});
-  const sg=document.getElementById('skillsGrid'); if(sg) barObs.observe(sg);
+  const barObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-bar').forEach(b => b.style.width = b.dataset.width);
+      }
+    });
+  }, {threshold:.25});
+  const sg = document.getElementById('skillsGrid'); if (sg) barObs.observe(sg);
 
-  const sections=document.querySelectorAll('section[id]');
-  const links=document.querySelectorAll('.nav-links a[href^="#"]');
-  window.addEventListener('scroll',()=>{
-    let cur='';
-    sections.forEach(s=>{ if(window.scrollY>=s.offsetTop-140) cur=s.id; });
-    links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+  const sections = document.querySelectorAll('section[id]');
+  const links    = document.querySelectorAll('.nav-links a[href^="#"]');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 140) cur = s.id; });
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+cur));
   });
 }
 
 /* ═══════════════════════════════════════════════════════════════
    BOOT
 ═══════════════════════════════════════════════════════════════ */
-document.addEventListener('DOMContentLoaded',()=>{
-  document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
-  applyLang(localStorage.getItem('lang')||'el');
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
+  applyLang(localStorage.getItem('lang') || 'en');
   initCursor();
   initScroll();
   initFilter();
-  // Delay Three.js slightly so DOM + fonts settle
   setTimeout(initThree, 120);
 });
