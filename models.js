@@ -28,48 +28,40 @@ let modelCycleTimer = null;
 
 let rightHalfX = 4.5;
 
-let scrollExplodeActive = false, scrollExplodeT = 0;
+let scrollExplodeActive = false, scrollExplodeT = 0, scrollTargetY = 0;
 
+let animRunning = false; // set true once initThree fires, paused when hero off-screen
+
+let _machinedTex = null;
 function createMachinedTexture() {
-  const size = 512;
+  if (_machinedTex) return _machinedTex;          // reuse — never create twice
+
+  const size = 256;                                // was 512: 4× fewer pixels
   const canvas = document.createElement('canvas');
-  canvas.width = size;
-  canvas.height = size;
+  canvas.width = size; canvas.height = size;
   const ctx = canvas.getContext('2d');
 
-  // base mid-grey
-  ctx.fillStyle = '#828282';
-  ctx.fillRect(0, 0, size, size);
-
-  // fine uniform granular speckle — thousands of tiny dots, varying brightness
-  for (let i = 0; i < 120000; i++) {
-    const x = Math.random() * size;
-    const y = Math.random() * size;
-    const r = Math.random() * 1.0 + 0.2;
-    const v = Math.floor(Math.random() * 70) + 72; // 72–142 grey range
-    ctx.fillStyle = `rgb(${v},${v},${v})`;
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fill();
+  // Direct pixel writes — no arc() overhead (~10× faster than original)
+  const id = ctx.createImageData(size, size);
+  const d  = id.data;
+  // Base mid-grey fill
+  for (let i = 0; i < d.length; i += 4) { d[i] = d[i+1] = d[i+2] = 130; d[i+3] = 255; }
+  // Fine speckle noise
+  for (let i = 0; i < 24000; i++) {
+    const x = (Math.random() * size) | 0;
+    const y = (Math.random() * size) | 0;
+    const v = ((Math.random() * 70) + 72) | 0;
+    const p = (y * size + x) << 2;
+    d[p] = d[p+1] = d[p+2] = v;
   }
-
-  // occasional slightly larger lighter grain for realism
-  for (let i = 0; i < 4000; i++) {
-    const x = Math.random() * size;
-    const y = Math.random() * size;
-    const r = Math.random() * 1.8 + 0.6;
-    const v = Math.floor(Math.random() * 40) + 120;
-    ctx.fillStyle = `rgba(${v},${v},${v},0.35)`;
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fill();
-  }
+  ctx.putImageData(id, 0, 0);
 
   const tex = new THREE.CanvasTexture(canvas);
   tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
   tex.repeat.set(4, 4);
-  tex.anisotropy = 16;
+  tex.anisotropy = 4;                              // was 16: much cheaper sampling
 
+  _machinedTex = tex;
   return tex;
 }
 
@@ -126,31 +118,17 @@ function makeMats() {
 /* ── Lights ─────────────────────────────────────────────────── */
 
 function addLights(s) {
+  // 4 lights instead of 7 — no shadows — big GPU savings
+  s.add(new THREE.AmbientLight(0x8090a8, 4.2));
 
-  s.add(new THREE.AmbientLight(0x8090a8, 3.2));
+  const key = new THREE.DirectionalLight(0xfff8f0, 8.5);
+  key.position.set(10, 16, 12); s.add(key);   // no castShadow
 
-  const key = new THREE.DirectionalLight(0xfff8f0, 9.0);
-
-  key.position.set(10, 16, 12); key.castShadow = true;
-
-  key.shadow.mapSize.set(2048, 2048); s.add(key);
-
-  const fill = new THREE.DirectionalLight(0x4878c8, 3.2);
-
+  const fill = new THREE.DirectionalLight(0x4878c8, 3.5);
   fill.position.set(-10, 6, -8); s.add(fill);
 
-  const rim = new THREE.PointLight(0x50a8e8, 4.2, 65);
-
+  const rim = new THREE.PointLight(0x50a8e8, 4.5, 65);
   rim.position.set(-6, 12, -12); s.add(rim);
-
-  const bot = new THREE.PointLight(0x3060d8, 2.4, 55);
-
-  bot.position.set(6, -10, 6); s.add(bot);
-
-  const top = new THREE.DirectionalLight(0xe8f2ff, 3.0);
-
-  top.position.set(0, 20, 0); s.add(top);
-
 }
 
 
@@ -346,23 +324,17 @@ function buildGearbox(group, m) {
     color: 0x090d10, metalness: .48, roughness: .94, map: createMachinedTexture()
   });
 
-  // Main annular ring: 12 bolt holes + 6 small vent holes at inner bolt circle
+  // Back plate — wide annular disk (large inner opening) with 12 bolt holes
   const bS = new THREE.Shape(); bS.absarc(0,0,bPR,0,Math.PI*2,false);
-  const bRim = new THREE.Path(); bRim.absarc(0,0,bPR-0.52,0,Math.PI*2,true); bS.holes.push(bRim);
+  const bRim = new THREE.Path(); bRim.absarc(0,0,ringRoot,0,Math.PI*2,true); bS.holes.push(bRim);
   for (let i=0; i<12; i++) {
     const a=(i/12)*Math.PI*2;
     const h=new THREE.Path(); h.absarc(Math.cos(a)*bBC,Math.sin(a)*bBC,.16,0,Math.PI*2,true);
     bS.holes.push(h);
   }
-  for (let i=0; i<6; i++) {
-    const a=(i/6)*Math.PI*2+Math.PI/12;
-    const vr = bBC - 0.36;
-    const h=new THREE.Path(); h.absarc(Math.cos(a)*vr,Math.sin(a)*vr,.09,0,Math.PI*2,true);
-    bS.holes.push(h);
-  }
   const gBack = new THREE.Mesh(
-    new THREE.ExtrudeGeometry(bS, { depth:.52, bevelEnabled:true, bevelThickness:.04, bevelSize:.025, bevelSegments:2 }), backMat);
-  gBack.position.z = -0.45;
+    new THREE.ExtrudeGeometry(bS, { depth:1.04, bevelEnabled:true, bevelThickness:.06, bevelSize:.04, bevelSegments:2 }), backMat);
+  gBack.position.z = -0.97;
   group.add(gBack);
   ps.push({ mesh:gBack, o:gBack.position.clone(), d:new THREE.Vector3(0,0,-6.2), spin:0 });
 
@@ -371,22 +343,9 @@ function buildGearbox(group, m) {
   const bossH = new THREE.Path(); bossH.absarc(0,0,0.82,0,Math.PI*2,true); bossS.holes.push(bossH);
   const boss = new THREE.Mesh(
     new THREE.ExtrudeGeometry(bossS, { depth:.18, bevelEnabled:false }), backMat);
-  boss.position.z = -0.45 + 0.52;
+  boss.position.z = 0.07;
   group.add(boss);
   ps.push({ mesh:boss, o:boss.position.clone(), d:new THREE.Vector3(0,0,-6.2), spin:0 });
-
-  // 6 radial ribs between bolt holes
-  for (let i=0; i<6; i++) {
-    const a = (i/6)*Math.PI*2 + Math.PI/12;
-    const rStart = 1.20, rEnd = bBC - 0.24;
-    const ribLen = rEnd - rStart;
-    const rib = new THREE.Mesh(new THREE.BoxGeometry(0.08, ribLen, 0.14), backMat);
-    rib.rotation.z = a;
-    const midR = rStart + ribLen/2;
-    rib.position.set(Math.cos(a)*midR, Math.sin(a)*midR, -0.45 + 0.52);
-    group.add(rib);
-    ps.push({ mesh:rib, o:rib.position.clone(), d:new THREE.Vector3(0,0,-6.2), spin:0 });
-  }
 
   /* -- Front cover (silver) -- */
   const fS = new THREE.Shape(); fS.absarc(0,0,bPR,0,Math.PI*2,false);
@@ -428,7 +387,7 @@ function buildGearbox(group, m) {
 
   /* -- Input shaft: geometry rotation baked in, spins correctly on Z axis -- */
   const shaftR = 0.34;
-  const shaftGeo = new THREE.CylinderGeometry(shaftR, shaftR, 4.6, 22);
+  const shaftGeo = new THREE.CylinderGeometry(shaftR, shaftR, 3.0, 22);
   shaftGeo.applyMatrix4(new THREE.Matrix4().makeRotationX(Math.PI/2));
   const shaft = new THREE.Mesh(shaftGeo, m.chrome);
   shaft.position.z = -0.40;
@@ -947,6 +906,8 @@ function initThree() {
 
   if (!canvas || typeof THREE==='undefined') { console.warn('Three.js not ready'); return; }
 
+  animRunning = true;
+
   const parent=canvas.parentElement, W=parent.clientWidth||1280, H=parent.clientHeight||700;
 
   const dragEl=document.getElementById('hero3d-drag')||canvas;
@@ -955,13 +916,9 @@ function initThree() {
 
   renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
 
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // was 2: saves GPU fill-rate
   renderer.setSize(W,H); renderer.setClearColor(0x000000,0);
-
-  renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-
-
+  // No shadow map — display model only, saves a full render pass
 
   camera=new THREE.PerspectiveCamera(38,W/H,.1,300);
 
@@ -979,7 +936,17 @@ function initThree() {
 
   animate();
 
-
+  // Pause render loop when hero is off-screen (e.g. user scrolled past)
+  const heroSection = document.getElementById('hero');
+  if (heroSection) {
+    new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        if (!animRunning) { animRunning = true; animate(); }
+      } else {
+        animRunning = false;
+      }
+    }, { threshold: 0 }).observe(heroSection);
+  }
 
   // Cycle models disabled; keep only gearbox.
   modelCycleTimer = null;
@@ -1091,6 +1058,8 @@ function setupDrag(dragEl, parent) {
 
 function animate() {
 
+  if (!animRunning) return;          // paused when hero off-screen
+
   requestAnimationFrame(animate);
 
   const dt=Math.min(clock.getDelta(),.05);
@@ -1099,7 +1068,14 @@ function animate() {
 
 
 
-  if (!isDragging && currentMode==='rotate') {
+  if (scrollExplodeActive) {
+
+    /* fast snap toward the pre-explode angle */
+    rotGroup.rotation.y += (scrollTargetY - rotGroup.rotation.y) * Math.min(1, dt * 14);
+    rotGroup.position.y = 0;
+    rotGroup.position.x = rightHalfX;
+
+  } else if (!isDragging && currentMode==='rotate') {
 
     rotGroup.rotation.y+=.0007;
 
@@ -1247,10 +1223,27 @@ function resetModel() {
 
 function setScrollExplode(t) {
 
+  const SPIN_END = 0.25; /* first 25 % of scroll = fast spin to 3/4 angle */
+  const TARGET_Y = -0.92; /* ~-53°: nice 3/4 side view */
+
+  if (t < 0.005) {
+    scrollExplodeActive = false; exploding = false;
+    scrollExplodeT = 0; scrollTargetY = 0;
+    return;
+  }
+
   scrollExplodeActive = true;
 
-  scrollExplodeT = Math.max(0, Math.min(1, t));
-
-  if (scrollExplodeT < 0.005) { scrollExplodeActive = false; exploding = false; }
+  if (t <= SPIN_END) {
+    /* spin phase — ease toward target angle, no explode yet */
+    const sp = t / SPIN_END;
+    const ease = sp < 0.5 ? 2*sp*sp : -1+(4-2*sp)*sp;
+    scrollTargetY = ease * TARGET_Y;
+    scrollExplodeT = 0;
+  } else {
+    /* explode phase — angle locked, expand */
+    scrollTargetY = TARGET_Y;
+    scrollExplodeT = Math.min(1, (t - SPIN_END) / (1 - SPIN_END));
+  }
 
 }

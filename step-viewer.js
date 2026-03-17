@@ -10,7 +10,7 @@
   'use strict';
 
   const STEP_FILE = 'step/gym_rack.STEP';
-  const OC_CDN   = 'https://cdn.jsdelivr.net/npm/opencascade.js@0.0.22/dist/opencascade.full.js';
+  const OC_CDN   = 'https://cdn.jsdelivr.net/npm/opencascade.js@1.1.1/dist/opencascade.wasm.js';
 
   let oc  = null;
   let svScene, svCamera, svRenderer, svControls;
@@ -89,12 +89,12 @@
   /* ── Main init ───────────────────────────────────────────── */
   async function initViewer() {
     initThree();
-    setStatus('Loading CAD engine… (~30 MB, one-time)');
+    setStatus('Loading CAD engine… (~63 MB, one-time)');
 
     try {
       await loadScript(OC_CDN);
       setStatus('Initialising OpenCascade kernel…');
-      oc = await window.initOpenCascade();
+      oc = await opencascade();
       setStatus('Fetching STEP file…');
       await loadStep(STEP_FILE);
     } catch (err) {

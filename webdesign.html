@@ -18,7 +18,7 @@
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="index.html#about"    id="nav-about">About</a></li>
-      <li><a href="index.html#projects" id="nav-projects">Work</a></li>
+      <li><a href="index.html#projects" id="nav-projects">Projects</a></li>
       <li><a href="software.html"       id="nav-software">Software</a></li>
       <li><a href="webdesign.html"      id="nav-webdesign" class="active">Web Design</a></li>
       <li><a href="team.html"           id="nav-experience">Team</a></li>
@@ -38,7 +38,7 @@
 <div class="nav-mobile" id="navMobile">
   <ul>
     <li><a href="index.html#about"    id="mnav-about"      onclick="closeMobileNav()">About</a></li>
-    <li><a href="index.html#projects" id="mnav-projects"   onclick="closeMobileNav()">Work</a></li>
+    <li><a href="index.html#projects" id="mnav-projects"   onclick="closeMobileNav()">Projects</a></li>
     <li><a href="software.html"       id="mnav-software"   onclick="closeMobileNav()">Software</a></li>
     <li><a href="webdesign.html"      id="mnav-webdesign"  onclick="closeMobileNav()">Web Design</a></li>
     <li><a href="team.html"           id="mnav-experience" onclick="closeMobileNav()">Team</a></li>
@@ -52,7 +52,7 @@
 
     <div class="wd-page-left">
       <div class="wd-page-label" id="wd-label">Bespoke Digital · No Templates</div>
-      <h1 class="wd-page-title">Web<br>Design</h1>
+      <h1 class="wd-page-title">Web Design</h1>
       <p class="wd-page-desc" id="wd-desc">We build fully custom websites from scratch — no templates, no page builders, no shortcuts. Every pixel is intentional. Every interaction is designed.</p>
       <ul class="wd-page-features">
         <li id="wd-f1">Custom HTML &amp; CSS</li>
@@ -66,116 +66,93 @@
       </ul>
       <div class="wd-page-cta">
         <a href="index.html#contact" class="btn-primary" id="wd-cta1">Get in Touch →</a>
-        <a href="index.html#projects" class="btn-outline" id="wd-cta2">View Our Work</a>
       </div>
     </div>
 
     <div class="wd-page-right">
-      <div class="wd-code-preview">
-        <div class="wd-code-bar">
-          <span class="wd-code-dot wd-dot-r"></span>
-          <span class="wd-code-dot wd-dot-y"></span>
-          <span class="wd-code-dot wd-dot-g"></span>
-          <span class="wd-code-filename">index.html</span>
+      <div class="wd-hero-canvas-wrap">
+        <canvas id="wdAnimCanvas"></canvas>
+        <div class="wd-build-phase-row">
+          <div class="wd-build-phase-track">
+            <span class="wd-build-phase-dot" data-ph="chaos"></span>
+            <span class="wd-build-phase-dot" data-ph="assemble"></span>
+            <span class="wd-build-phase-dot" data-ph="wireframe"></span>
+            <span class="wd-build-phase-dot" data-ph="render"></span>
+            <span class="wd-build-phase-dot" data-ph="hold"></span>
+            <span class="wd-build-phase-dot" data-ph="dissolve"></span>
+          </div>
+          <span class="wd-build-phase-name" id="wdPhaseLabel">—</span>
         </div>
-        <pre class="wd-code-body"><code><span class="wc-tag">&lt;!DOCTYPE</span> <span class="wc-attr">html</span><span class="wc-tag">&gt;</span>
-<span class="wc-tag">&lt;html</span> <span class="wc-attr">lang</span><span class="wc-eq">=</span><span class="wc-str">"en"</span><span class="wc-tag">&gt;</span>
-<span class="wc-comment">&lt;!-- crafted by hand, not generated --&gt;</span>
-<span class="wc-tag">&lt;body&gt;</span>
-
-  <span class="wc-tag">&lt;nav&gt;</span>
-    <span class="wc-tag">&lt;a</span> <span class="wc-attr">href</span><span class="wc-eq">=</span><span class="wc-str">"#hero"</span><span class="wc-tag">&gt;</span><span class="wc-text">Your Brand</span><span class="wc-tag">&lt;/a&gt;</span>
-  <span class="wc-tag">&lt;/nav&gt;</span>
-
-  <span class="wc-tag">&lt;section</span> <span class="wc-attr">id</span><span class="wc-eq">=</span><span class="wc-str">"hero"</span><span class="wc-tag">&gt;</span>
-    <span class="wc-tag">&lt;canvas</span> <span class="wc-attr">id</span><span class="wc-eq">=</span><span class="wc-str">"hero3d"</span><span class="wc-tag">&gt;&lt;/canvas&gt;</span>
-    <span class="wc-tag">&lt;h1&gt;</span><span class="wc-text">Your Story.</span><span class="wc-tag">&lt;/h1&gt;</span>
-    <span class="wc-tag">&lt;p&gt;</span><span class="wc-text">Built from zero.</span><span class="wc-tag">&lt;/p&gt;</span>
-  <span class="wc-tag">&lt;/section&gt;</span>
-
-  <span class="wc-tag">&lt;section</span> <span class="wc-attr">id</span><span class="wc-eq">=</span><span class="wc-str">"work"</span><span class="wc-tag">&gt;</span>
-    <span class="wc-comment">&lt;!-- no templates. no builders. --&gt;</span>
-    <span class="wc-comment">&lt;!-- no compromise.             --&gt;</span>
-  <span class="wc-tag">&lt;/section&gt;</span>
-
-<span class="wc-tag">&lt;/body&gt;</span>
-<span class="wc-tag">&lt;/html&gt;</span></code></pre>
       </div>
     </div>
 
   </div>
 </div>
 
+<!-- ══ TICKER ══════════════════════════════════════════════════ -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Custom HTML &amp; CSS <span>✦</span></span>
+    <span class="ticker-item">No Templates <span>✦</span></span>
+    <span class="ticker-item">Three.js &amp; WebGL <span>✦</span></span>
+    <span class="ticker-item">Mobile-First <span>✦</span></span>
+    <span class="ticker-item">Bilingual EN / EL <span>✦</span></span>
+    <span class="ticker-item">SEO-Ready <span>✦</span></span>
+    <span class="ticker-item">Zero CMS Overhead <span>✦</span></span>
+    <span class="ticker-item">Hand-Coded From Scratch <span>✦</span></span>
+    <span class="ticker-item">Custom HTML &amp; CSS <span>✦</span></span>
+    <span class="ticker-item">No Templates <span>✦</span></span>
+    <span class="ticker-item">Three.js &amp; WebGL <span>✦</span></span>
+    <span class="ticker-item">Mobile-First <span>✦</span></span>
+    <span class="ticker-item">Bilingual EN / EL <span>✦</span></span>
+    <span class="ticker-item">SEO-Ready <span>✦</span></span>
+    <span class="ticker-item">Zero CMS Overhead <span>✦</span></span>
+    <span class="ticker-item">Hand-Coded From Scratch <span>✦</span></span>
+  </div>
+</div>
+
 <!-- ══ WHAT WE BUILD ════════════════════════════════════════════ -->
 <section class="wd-offerings">
   <div class="wd-offerings-inner">
-    <div class="wd-offerings-label">// What We Build</div>
+    <div class="wd-offerings-label" id="wd-off-label">// What We Build</div>
     <div class="wd-offerings-grid">
 
       <div class="wd-offer-card">
         <div class="wd-offer-num">01</div>
-        <div class="wd-offer-name">Business Websites</div>
-        <p class="wd-offer-text">Professional, conversion-focused sites for studios, agencies, consultancies, and freelancers. Built to stand out, not blend in.</p>
+        <div class="wd-offer-name" id="wd-off1-name">Business Websites</div>
+        <p class="wd-offer-text" id="wd-off1-text">Professional, conversion-focused sites for studios, agencies, consultancies, and freelancers. Built to stand out, not blend in.</p>
       </div>
 
       <div class="wd-offer-card">
         <div class="wd-offer-num">02</div>
-        <div class="wd-offer-name">Portfolio &amp; Showcase</div>
-        <p class="wd-offer-text">High-impact project galleries and personal portfolios with immersive layouts, custom animations, and precise typographic detail.</p>
+        <div class="wd-offer-name" id="wd-off2-name">Portfolio &amp; Showcase</div>
+        <p class="wd-offer-text" id="wd-off2-text">High-impact project galleries and personal portfolios with immersive layouts, custom animations, and precise typographic detail.</p>
       </div>
 
       <div class="wd-offer-card">
         <div class="wd-offer-num">03</div>
-        <div class="wd-offer-name">Landing Pages</div>
-        <p class="wd-offer-text">Fast, targeted single-page sites for product launches, events, or campaigns — designed to inform and convert.</p>
+        <div class="wd-offer-name" id="wd-off3-name">Landing Pages</div>
+        <p class="wd-offer-text" id="wd-off3-text">Fast, targeted single-page sites for product launches, events, or campaigns — designed to inform and convert.</p>
       </div>
 
       <div class="wd-offer-card wd-offer-card--hl">
         <div class="wd-offer-num">04</div>
-        <div class="wd-offer-name">3D &amp; Interactive</div>
-        <p class="wd-offer-text">WebGL-powered 3D scenes, particle effects, and scroll-driven interactions — like the hero on this very site.</p>
+        <div class="wd-offer-name" id="wd-off4-name">3D &amp; Interactive</div>
+        <p class="wd-offer-text" id="wd-off4-text">WebGL-powered 3D scenes, particle effects, and scroll-driven interactions — like the hero on this very site.</p>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ══ TECH STACK ════════════════════════════════════════════════ -->
-<section class="wd-stack">
-  <div class="wd-stack-inner">
-    <div class="wd-stack-label">// Tech Stack</div>
-    <div class="wd-stack-grid">
-      <div class="wd-stack-card wd-stack-card--hl">
-        <div class="wd-stack-name">HTML5 / CSS3</div>
-        <div class="wd-stack-cat">Semantic markup · Custom layouts</div>
-      </div>
-      <div class="wd-stack-card">
-        <div class="wd-stack-name">Vanilla JS</div>
-        <div class="wd-stack-cat">No framework overhead · Fast load</div>
-      </div>
-      <div class="wd-stack-card wd-stack-card--hl">
-        <div class="wd-stack-name">Three.js / WebGL</div>
-        <div class="wd-stack-cat">3D scenes · Particle systems</div>
-      </div>
-      <div class="wd-stack-card">
-        <div class="wd-stack-name">CSS Animations</div>
-        <div class="wd-stack-cat">Scroll-reveal · Transitions · Keyframes</div>
-      </div>
-      <div class="wd-stack-card">
-        <div class="wd-stack-name">Responsive Design</div>
-        <div class="wd-stack-cat">Mobile-first · Fluid grids</div>
-      </div>
-      <div class="wd-stack-card">
-        <div class="wd-stack-name">Formspree / APIs</div>
-        <div class="wd-stack-cat">Contact forms · Third-party integrations</div>
-      </div>
-      <div class="wd-stack-card">
-        <div class="wd-stack-name">Git / GitHub Pages</div>
-        <div class="wd-stack-cat">Version control · Zero-cost hosting</div>
-      </div>
-    </div>
-    <div class="wd-stack-note">
-      This site — the one you're reading right now — is hand-coded from scratch. No WordPress, no Webflow, no Wix. Pure HTML, CSS, and JavaScript. That's exactly what we build for you.
+<!-- ══ CTA ══════════════════════════════════════════════════════ -->
+<section class="wd-cta">
+  <div class="wd-cta-inner">
+    <div class="wd-cta-label" id="wd-cta-label">// Let's Build Something</div>
+    <h2 class="wd-cta-title" id="wd-cta-title">Got a website in mind?</h2>
+    <p class="wd-cta-text" id="wd-cta-text">Tell us about your business and what you need. We'll design and build a website that genuinely represents you — from the first pixel to the final deploy.</p>
+    <div class="wd-cta-actions">
+      <a href="index.html#contact" class="btn-primary" id="wd-cta-btn1">Get in Touch →</a>
     </div>
   </div>
 </section>
@@ -187,5 +164,6 @@
 </footer>
 
 <script src="main.js" defer></script>
+<script src="wd-animation.js" defer></script>
 </body>
 </html>

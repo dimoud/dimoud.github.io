@@ -9,6 +9,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" as="script" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js" defer></script>
+<script src="models.js" defer></script>
+<script src="projects.js" defer></script>
+<script src="main.js" defer></script>
+<script src="step-viewer.js" defer></script>
 </head>
 <body>
 
@@ -18,7 +25,7 @@
   <div class="nav-right">
     <ul class="nav-links">
       <li><a href="#about"        id="nav-about">About</a></li>
-      <li><a href="#projects"     id="nav-projects">Work</a></li>
+      <li><a href="#projects"     id="nav-projects">Projects</a></li>
       <li><a href="software.html"  id="nav-software">Software</a></li>
       <li><a href="webdesign.html" id="nav-webdesign">Web Design</a></li>
       <li><a href="#team-index"    id="nav-experience">Team</a></li>
@@ -37,7 +44,7 @@
 <div class="nav-mobile" id="navMobile">
   <ul>
     <li><a href="#about"        id="mnav-about"      onclick="closeMobileNav()">About</a></li>
-    <li><a href="#projects"     id="mnav-projects"   onclick="closeMobileNav()">Work</a></li>
+    <li><a href="#projects"     id="mnav-projects"   onclick="closeMobileNav()">Projects</a></li>
     <li><a href="software.html"  id="mnav-software"   onclick="closeMobileNav()">Software</a></li>
     <li><a href="webdesign.html" id="mnav-webdesign"  onclick="closeMobileNav()">Web Design</a></li>
     <li><a href="#team-index"    id="mnav-experience" onclick="closeMobileNav()">Team</a></li>
@@ -56,7 +63,7 @@
     <p class="hero-tagline">from vision to reality</p>
     <p class="hero-desc" id="hero-desc"></p>
     <div class="hero-cta">
-      <a href="#projects" class="btn-primary" id="hero-cta-work">View Work →</a>
+      <a href="#projects" class="btn-primary" id="hero-cta-work">View Projects →</a>
       <a href="#contact"  class="btn-outline"  id="hero-cta-contact">Get in Touch</a>
     </div>
   </div>
@@ -145,23 +152,6 @@
 <!-- PROCESS -->
 <section id="process">
   <div class="process-label" id="proc-label">How We Work</div>
-  <div class="process-cols">
-    <div class="process-step">
-      <div class="process-num">01</div>
-      <h3 class="process-title" id="proc-1-title">Brief</h3>
-      <p class="process-text" id="proc-1-text">We take time to understand your <span class="accent-blue">requirements</span>, <span class="accent-blue">constraints</span>, and <span class="accent-blue">goals</span> before committing to any design direction — because the <span class="accent-green">right brief</span> leads to the <span class="accent-green">right outcome</span>.</p>
-    </div>
-    <div class="process-step">
-      <div class="process-num">02</div>
-      <h3 class="process-title" id="proc-2-title">Design</h3>
-      <p class="process-text" id="proc-2-text">Full 3D model in <span class="accent-blue">SolidWorks</span>, <span class="accent-green">FEA validation</span>, complete <span class="accent-blue">BOM</span>, and technical drawings (<span class="accent-blue">part</span>, <span class="accent-blue">assembly</span>, <span class="accent-blue">instructions</span>) — every deliverable <span class="accent-green">ready for production</span>.</p>
-    </div>
-    <div class="process-step">
-      <div class="process-num">03</div>
-      <h3 class="process-title" id="proc-3-title">Deliver</h3>
-      <p class="process-text" id="proc-3-text">We coordinate <span class="accent-blue">subcontractors</span>, supervise <span class="accent-blue">fabrication</span>, and make sure <span class="accent-green">quality</span>, <span class="accent-green">reliability</span>, and <span class="accent-green">safety standards</span> are met — then hand over a <span class="accent-green">tested, production-ready assembly</span>.</p>
-    </div>
-  </div>
 
   <!-- Animated process flow diagram -->
   <div class="process-flow">
@@ -225,11 +215,7 @@
       <h3 class="principle-title" id="prin-3-title">Innovation</h3>
       <p class="principle-text" id="prin-3-text">We constantly explore new tools, materials, and methods to deliver <span class="accent-green">smarter solutions</span> — <span class="accent-green">FEA</span>, <span class="accent-green">advanced manufacturing</span>, and <span class="accent-green">design optimisation</span> built into every workflow.</p>
     </div>
-    <div class="principle-card reveal-up">
-      <span class="principle-num">04</span>
-      <h3 class="principle-title" id="prin-4-title">Web Design</h3>
-      <p class="principle-text" id="prin-4-text">Liked this page? It's entirely <span class="accent-green">custom-built HTML</span> — no templates, no page builders. We design <span class="accent-green">fully interactive, unique business websites</span> from scratch. <a href="#contact" class="principle-cta" id="prin-4-cta">Get in touch →</a></p>
-    </div>
+
   </div>
 </section>
 
@@ -237,7 +223,7 @@
 <section id="projects">
   <div class="section-header">
     <span class="section-num">02</span>
-    <h2 class="section-title" id="projects-heading">Work</h2>
+    <h2 class="section-title" id="projects-heading">Projects</h2>
     <div class="section-line"></div>
   </div>
 
@@ -324,7 +310,7 @@
 
   <div class="founder-card">
     <div class="founder-card-photo">
-      <img src="images/founder.png" alt="Dimitrios Moudiotis — Founder &amp; Lead Engineer">
+      <img src="images/founder.png" alt="Dimitrios Moudiotis — Founder &amp; Lead Engineer" loading="lazy" decoding="async">
     </div>
     <div class="founder-card-info">
       <div class="founder-card-label">Founder &amp; Lead Engineer</div>
@@ -375,7 +361,7 @@
     <div class="edu-cards">
       <div class="edu-card blue">
         <div class="edu-logo-wrap">
-          <img src="images/LogoAUTH.png" alt="AUTH">
+          <img src="images/LogoAUTH.png" alt="AUTH" loading="lazy" decoding="async">
         </div>
         <div class="edu-degree" id="edu1-deg">BEng</div>
         <div class="edu-name" id="edu1-name">Mechanical Engineering</div>
@@ -383,7 +369,7 @@
       </div>
       <div class="edu-card red">
         <div class="edu-logo-wrap">
-          <img src="images/ecole_centrale_paris_logo.png" alt="ECP">
+          <img src="images/ecole_centrale_paris_logo.png" alt="ECP" loading="lazy" decoding="async">
         </div>
         <div class="edu-degree" id="edu2-deg">MSc</div>
         <div class="edu-name" id="edu2-name">École Centrale Paris</div>
@@ -391,7 +377,7 @@
       </div>
       <div class="edu-card green">
         <div class="edu-logo-wrap">
-          <img src="images/IFP_Logo.png" alt="IFP">
+          <img src="images/IFP_Logo.png" alt="IFP" loading="lazy" decoding="async">
         </div>
         <div class="edu-degree" id="edu3-deg">MSc</div>
         <div class="edu-name" id="edu3-name">IFP School</div>
@@ -399,7 +385,7 @@
       </div>
       <div class="edu-card purple">
         <div class="edu-logo-wrap">
-          <img src="images/ihu_logo.png" alt="IHU">
+          <img src="images/ihu_logo.png" alt="IHU" loading="lazy" decoding="async">
         </div>
         <div class="edu-degree" id="edu4-deg">MSc</div>
         <div class="edu-name" id="edu4-name">International Hellenic University</div>
@@ -407,7 +393,7 @@
       </div>
       <div class="edu-card navy">
         <div class="edu-logo-wrap">
-          <img src="images/wust_logo.png" alt="WUST" onerror="this.parentElement.innerHTML='&#127891;'">
+          <img src="images/wust_logo.png" alt="WUST" loading="lazy" decoding="async" onerror="this.parentElement.innerHTML='&#127891;'">
         </div>
         <div class="edu-degree" id="edu5-deg">MBA</div>
         <div class="edu-name" id="edu5-name">Washington Univ. of Science &amp; Technology</div>
@@ -460,16 +446,10 @@
 </section>
 
 <footer>
-  <a href="#hero" class="footer-logo"><img src="images/logo.png" alt="Expertease"></a>
+  <a href="#hero" class="footer-logo"><img src="images/logo.png" alt="Expertease" loading="lazy"></a>
   <div class="footer-text" id="footer-copy">© 2026 Expertease Designs</div>
   <div class="footer-text" id="footer-loc">Athens, Greece</div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js" defer></script>
-<script src="models.js" defer></script>
-<script src="projects.js" defer></script>
-<script src="main.js" defer></script>
-<script src="step-viewer.js" defer></script>
 </body>
 </html>

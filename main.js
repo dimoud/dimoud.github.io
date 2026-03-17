@@ -34,7 +34,49 @@ const LANG = {
     prin_1_title:'Ακρίβεια', prin_1_text:'Κάθε διάσταση μετράει. Σχεδιάζουμε με ανοχές, ελέγχουμε με πρωτότυπα, παραδίδουμε μέρη που <span class="accent-red">ταιριάζουν από την πρώτη</span>.',
     prin_2_title:'Ειλικρίνεια', prin_2_text:'<span class="accent-red">Ρεαλιστικά χρονοδιαγράμματα, διαφανές κόστος</span> — χωρίς εκπλήξεις, μόνο αποτελέσματα.',
     prin_3_title:'Καινοτομία', prin_3_text:'Νέα εργαλεία, υλικά, μεθόδους — FEA, <span class="accent-red">προηγμένη κατασκευή</span> και design optimization σε κάθε project.',
-    prin_4_title:'Web Design', prin_4_text:'Σας άρεσε αυτή η σελίδα; Είναι εξ ολοκλήρου <span class="accent-green">custom HTML</span> — χωρίς templates. Σχεδιάζουμε <span class="accent-green">μοναδικές, διαδραστικές επαγγελματικές ιστοσελίδες</span> από το μηδέν. <a href="#contact" class="principle-cta" id="prin-4-cta-el">Επικοινωνήστε →</a>',
+    prin_4_title:'Web Design', prin_4_text:'Φτιάχνουμε <span class="accent-green">πλήρως custom ιστοσελίδες</span> — χειρόγραφο κώδικα, χωρίς templates, χωρίς builders. <a href="webdesign.html" class="principle-cta" id="prin-4-cta-el">Δείτε τις Υπηρεσίες Web Design →</a>',
+    wd_label:'Αποκλειστικό Digital · Χωρίς Templates',
+    wd_desc:'Φτιάχνουμε πλήρως custom ιστοσελίδες από το μηδέν — χωρίς templates, χωρίς page builders, χωρίς συμβιβασμούς. Κάθε pixel είναι σκόπιμο. Κάθε αλληλεπίδραση σχεδιάζεται.',
+    wd_f1:'Custom HTML & CSS', wd_f2:'Διαδραστικά animations',
+    wd_f3:'WebGL / 3D στοιχεία', wd_f4:'Mobile-first layout',
+    wd_f5:'Δίγλωσσο (EN / EL)', wd_f6:'SEO-έτοιμη δομή',
+    wd_f7:'Ενσωμάτωση φόρμας επικοινωνίας', wd_f8:'Μηδέν CMS overhead',
+    wd_cta1:'Επικοινωνήστε →', wd_cta2:'Δείτε τα Έργα μας',
+    wd_codebox_label:'// Χειρόγραφος. Πάντα.',
+    wd_codebox_body:'Αυτό είναι κυριολεκτικά αυτό που γράφουμε. Καθαρό HTML, CSS και JavaScript — χωρίς generators, χωρίς εργαλεία export, χωρίς συντομεύσεις. Κάθε tag τοποθετείται σκόπιμα. Αυτό ακριβώς παραδίδουμε για εσάς.',
+    wd_build_label:'// Πώς Γίνεται',
+    wd_build_title:'Από Κώδικα<br>σε Εμπειρία',
+    wd_build_caption:'Δείτε τα raw particles να οργανώνονται σε wireframe ιστοσελίδας, να αποδίδονται σε πλήρες layout, και να διαλύονται — ξανά και ξανά.',
+    wd_off_label:'// Τι Φτιάχνουμε',
+    wd_off1_name:'Επαγγελματικές Ιστοσελίδες',
+    wd_off1_text:'Επαγγελματικές, conversion-focused σελίδες για studios, agencies, συμβούλους και freelancers. Σχεδιασμένες να ξεχωρίζουν, όχι να χάνονται.',
+    wd_off2_name:'Portfolio & Showcase',
+    wd_off2_text:'Galleries έργων και προσωπικά portfolios με εντυπωσιακά layouts, custom animations και ακριβή τυπογραφική επεξεργασία.',
+    wd_off3_name:'Landing Pages',
+    wd_off3_text:'Γρήγορες, στοχευμένες single-page σελίδες για λανσαρίσματα προϊόντων, εκδηλώσεις ή campaigns — σχεδιασμένες να πείθουν.',
+    wd_off4_name:'3D & Διαδραστικό',
+    wd_off4_text:'WebGL-powered 3D σκηνές, particle effects και scroll-driven αλληλεπιδράσεις — όπως το hero σε αυτό ακριβώς το site.',
+    wd_why_label:'// Γιατί Custom Κώδικας;',
+    wd_why_bad_head:'⬜ Template / Page Builder',
+    wd_why_bad_1:'Μοιάζει με κάθε άλλη σελίδα — οι πελάτες το αντιλαμβάνονται',
+    wd_why_bad_2:'Φουσκωμένος κώδικας, αργή φόρτωση, κακά Core Web Vitals',
+    wd_why_bad_3:'Εξάρτηση από πλατφόρμα — αυξήσεις τιμών, αναγκαστικές αλλαγές',
+    wd_why_bad_4:'Περιορισμένα animations — drag-and-drop δεν κάνει WebGL',
+    wd_why_bad_5:'Γενικά breakpoints, όχι πραγματικά responsive',
+    wd_why_bad_6:'Plugins δημιουργούν κινδύνους ασφαλείας & maintenance',
+    wd_why_bad_7:'Αγοράζεις άδεια χρήσης, όχι τον κώδικά σου',
+    wd_why_good_head:'▸ Expertease Custom Build',
+    wd_why_good_1:'Μοναδικό — σχεδιασμένο γύρω από το brand σου',
+    wd_why_good_2:'Λιτός, βελτιστοποιημένος κώδικας — γρήγορος παντού',
+    wd_why_good_3:'Μηδενική εξάρτηση — hosting παντού δωρεάν',
+    wd_why_good_4:'Αληθινή διαδραστικότητα: 3D, scroll-driven, particle systems',
+    wd_why_good_5:'Pixel-perfect σε κάθε συσκευή και μέγεθος οθόνης',
+    wd_why_good_6:'Χωρίς plugins, χωρίς βάρος — μόνο ό,τι χρειάζεται',
+    wd_why_good_7:'Κατέχεις πλήρως τα source files',
+    wd_cta_label:'// Ας Φτιάξουμε Κάτι',
+    wd_cta_title:'Έχεις μια ιστοσελίδα<br>στο μυαλό σου;',
+    wd_cta_text:'Πες μας για την επιχείρησή σου και τι χρειάζεσαι. Θα σχεδιάσουμε και θα φτιάξουμε μια ιστοσελίδα που σε αντιπροσωπεύει πραγματικά — από το πρώτο pixel ως το τελευταίο deploy.',
+    wd_cta_btn1:'Επικοινωνήστε →', wd_cta_btn2:'Δείτε τα Έργα μας',
     projects_heading:'Έργα',
     sw_heading:'Λογισμικό', sw_label:'Ενεργό Προϊόν · easemanual.eu',
     sw_desc:'Λογισμικό που αυτοματοποιεί την τεχνική μελέτη για άδεια κυκλοφορίας οχημάτων ειδικής χρήσης — βάσει ΥΑ 80255/4693/19/2020. Φτιαγμένο από μηχανικούς για μηχανικούς.',
@@ -47,12 +89,12 @@ const LANG = {
     footer_copy:'© 2026 Expertease Designs', footer_loc:'Αθήνα, Ελλάδα',
   },
   en: {
-    nav_about:'About', nav_projects:'Work', nav_software:'Software',
+    nav_about:'About', nav_projects:'Projects', nav_software:'Software',
     nav_webdesign:'Web Design', nav_experience:'Team', nav_contact:'Contact',
     hero_tag:'// Mechanical Design & 3D Printing Studio — Athens, GR',
     hero_title:'Mechanical Design · 3D Printing · Project Management',
     hero_desc:'<strong>Expertease Designs</strong> — machine design, sheet metal, rapid prototyping, BOM, and project management. Athens-based, working internationally.',
-    hero_cta_work:'View Work →', hero_cta_contact:'Get in Touch',
+    hero_cta_work:'View Projects →', hero_cta_contact:'Get in Touch',
     stat_years:'Years Experience', stat_projects:'Projects Delivered', stat_degrees:'Postgrad Degrees',
     edu_strip:'Founder — Dimitrios Moudiotis · 5 Universities in 3 Countries',
     edu1_deg:'Dipl.-Ing.', edu1_name:'Mechanical Engineering',
@@ -78,8 +120,50 @@ const LANG = {
     prin_1_title:'Precision', prin_1_text:'Every dimension matters. We design to tolerance, prototype to verify, and deliver parts that <span class="accent-red">fit first time</span>.',
     prin_2_title:'Integrity', prin_2_text:'<span class="accent-red">Honest timelines, transparent costs</span>, and direct communication — no surprises, just results.',
     prin_3_title:'Innovation', prin_3_text:'We constantly explore new tools, materials, and methods to deliver smarter solutions — FEA, <span class="accent-red">advanced manufacturing</span>, and design optimisation built into every workflow.',
-    prin_4_title:'Web Design', prin_4_text:'Liked this page? It\'s entirely <span class="accent-green">custom-built HTML</span> — no templates, no page builders. We design <span class="accent-green">fully interactive, unique business websites</span> from scratch. <a href="#contact" class="principle-cta" id="prin-4-cta-en">Get in touch →</a>',
-    projects_heading:'Work',
+    prin_4_title:'Web Design', prin_4_text:'We also build <span class="accent-green">fully custom websites</span> — hand-coded from scratch. No templates, no builders, no limits. <a href="webdesign.html" class="principle-cta" id="prin-4-cta-en">See our Web Design →</a>',
+    wd_label:'Bespoke Digital · No Templates',
+    wd_desc:'We build fully custom websites from scratch — no templates, no page builders, no shortcuts. Every pixel is intentional. Every interaction is designed.',
+    wd_f1:'Custom HTML & CSS', wd_f2:'Interactive animations',
+    wd_f3:'WebGL / 3D elements', wd_f4:'Mobile-first layout',
+    wd_f5:'Bilingual (EN / EL)', wd_f6:'SEO-ready structure',
+    wd_f7:'Contact form integration', wd_f8:'Zero CMS overhead',
+    wd_cta1:'Get in Touch →', wd_cta2:'View Our Projects',
+    wd_codebox_label:'// Hand-Coded. Always.',
+    wd_codebox_body:'This is literally what we write. Pure HTML, CSS, and JavaScript — no generators, no export tools, no shortcuts. Every tag placed intentionally. That\'s exactly what we deliver for you.',
+    wd_build_label:'// How It Comes Together',
+    wd_build_title:'From Code<br>to Experience',
+    wd_build_caption:'Watch raw particles organize into a website wireframe, render into a complete layout, then dissolve — and do it all over again.',
+    wd_off_label:'// What We Build',
+    wd_off1_name:'Business Websites',
+    wd_off1_text:'Professional, conversion-focused sites for studios, agencies, consultancies, and freelancers. Built to stand out, not blend in.',
+    wd_off2_name:'Portfolio & Showcase',
+    wd_off2_text:'High-impact project galleries and personal portfolios with immersive layouts, custom animations, and precise typographic detail.',
+    wd_off3_name:'Landing Pages',
+    wd_off3_text:'Fast, targeted single-page sites for product launches, events, or campaigns — designed to inform and convert.',
+    wd_off4_name:'3D & Interactive',
+    wd_off4_text:'WebGL-powered 3D scenes, particle effects, and scroll-driven interactions — like the hero on this very site.',
+    wd_why_label:'// Why Custom Code?',
+    wd_why_bad_head:'⬜ Template / Page Builder',
+    wd_why_bad_1:'Looks like every other site — clients notice',
+    wd_why_bad_2:'Bloated code, slow load times, poor Core Web Vitals',
+    wd_why_bad_3:'Locked into platform — pricing hikes, forced updates',
+    wd_why_bad_4:'Limited animations — drag-and-drop can\'t do real WebGL',
+    wd_why_bad_5:'Generic mobile breakpoints, not truly responsive',
+    wd_why_bad_6:'Plugin sprawl creates security surface & maintenance debt',
+    wd_why_bad_7:'You own a licence, not your own code',
+    wd_why_good_head:'▸ Expertease Custom Build',
+    wd_why_good_1:'Unique — designed around your brand, not a template',
+    wd_why_good_2:'Lean, hand-optimised code — fast everywhere',
+    wd_why_good_3:'Zero vendor lock-in — host it anywhere for free',
+    wd_why_good_4:'Real interactivity: 3D, scroll-driven, particle systems',
+    wd_why_good_5:'Pixel-perfect on every device and screen size',
+    wd_why_good_6:'No plugins, no bloat — just what the project needs',
+    wd_why_good_7:'You own the source files, completely',
+    wd_cta_label:'// Let\'s Build Something',
+    wd_cta_title:'Got a website<br>in mind?',
+    wd_cta_text:'Tell us about your business and what you need. We\'ll design and build a website that genuinely represents you — from the first pixel to the final deploy.',
+    wd_cta_btn1:'Get in Touch →', wd_cta_btn2:'See Our Projects',
+    projects_heading:'Projects',
     sw_heading:'Software', sw_label:'Active Product · easemanual.eu',
     sw_desc:'Powerful software automating the creation of technical studies for special-purpose vehicle licensing — per Greek regulation YA 80255/4693/19/2020. Built by engineers for engineers.',
     sw_f1:'Technical calculations', sw_f2:'Load diagrams', sw_f3:'A3 vehicle drawings', sw_f4:'Auto Word report',
@@ -137,6 +221,21 @@ function applyLang(lang) {
   set('sw-desc',t.sw_desc);
   for(let i=1;i<=8;i++) set('sw-f'+i,t['sw_f'+i]);
   set('sw-cta1',t.sw_cta1); set('sw-cta2',t.sw_cta2);
+  // webdesign.html
+  set('wd-codebox-label',t.wd_codebox_label); set('wd-codebox-body',t.wd_codebox_body);
+  set('wd-label',t.wd_label); set('wd-desc',t.wd_desc);
+  for(let i=1;i<=8;i++) set('wd-f'+i,t['wd_f'+i]);
+  set('wd-cta1',t.wd_cta1); set('wd-cta2',t.wd_cta2);
+  set('wd-off-label',t.wd_off_label);
+  set('wd-off1-name',t.wd_off1_name); set('wd-off1-text',t.wd_off1_text);
+  set('wd-off2-name',t.wd_off2_name); set('wd-off2-text',t.wd_off2_text);
+  set('wd-off3-name',t.wd_off3_name); set('wd-off3-text',t.wd_off3_text);
+  set('wd-off4-name',t.wd_off4_name); set('wd-off4-text',t.wd_off4_text);
+  set('wd-why-label',t.wd_why_label);
+  set('wd-why-bad-head',t.wd_why_bad_head); set('wd-why-good-head',t.wd_why_good_head);
+  for(let i=1;i<=7;i++){ set('wd-why-bad-'+i,t['wd_why_bad_'+i]); set('wd-why-good-'+i,t['wd_why_good_'+i]); }
+  set('wd-cta-label',t.wd_cta_label); set('wd-cta-title',t.wd_cta_title,true);
+  set('wd-cta-text',t.wd_cta_text); set('wd-cta-btn1',t.wd_cta_btn1); set('wd-cta-btn2',t.wd_cta_btn2);
   set('contact-label',t.contact_label); set('contact-heading',t.contact_heading,true);
   set('contact-sub',t.contact_sub);
   set('footer-copy',t.footer_copy); set('footer-loc',t.footer_loc);
@@ -277,73 +376,6 @@ function nextProjectForColumn(colId) {
   resetPortTimer();
 }
 
-function initCustomCursor() {
-  if (window.matchMedia('(pointer: coarse)').matches) return;
-
-  const cursor = document.createElement('div');
-  const ring = document.createElement('div');
-  cursor.id = 'custom-cursor';
-  ring.id = 'custom-cursor-ring';
-  document.body.appendChild(ring);
-  document.body.appendChild(cursor);
-
-  let targetX = window.innerWidth / 2;
-  let targetY = window.innerHeight / 2;
-  let currentX = targetX;
-  let currentY = targetY;
-  let ringX = targetX;
-  let ringY = targetY;
-
-  const darkSections = '#hero, #process, #principles, #cad-viewer';
-
-  document.addEventListener('mousemove', e => {
-    targetX = e.clientX;
-    targetY = e.clientY;
-    const onDark = !!e.target.closest(darkSections);
-    cursor.classList.toggle('on-dark', onDark);
-    ring.classList.toggle('on-dark', onDark);
-  });
-
-  function animate() {
-    currentX += (targetX - currentX) * 0.35;
-    currentY += (targetY - currentY) * 0.35;
-
-    // Magnetic ring: faster overall, accelerates as it closes in
-    const dx = currentX - ringX;
-    const dy = currentY - ringY;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    const factor = dist < 0.5 ? 1 : Math.min(0.9, 0.18 + 7 / (dist + 3));
-    ringX += dx * factor;
-    ringY += dy * factor;
-
-    cursor.style.transform = `translate3d(${currentX - 4}px, ${currentY - 4}px, 0)`;
-    ring.style.transform = `translate3d(${ringX - 16}px, ${ringY - 16}px, 0)`;
-
-    requestAnimationFrame(animate);
-  }
-  requestAnimationFrame(animate);
-
-  const interactiveSelector = 'a, button, .port-image-wrap, .project-link, .lang-btn, .nav-hamburger';
-
-  function setHover(on) {
-    cursor.classList.toggle('hover', on);
-    ring.classList.toggle('hover', on);
-  }
-  function setActive(on) {
-    cursor.classList.toggle('active', on);
-    ring.classList.toggle('active', on);
-  }
-
-  document.addEventListener('mouseover', e => {
-    if (e.target.closest(interactiveSelector)) setHover(true);
-  });
-  document.addEventListener('mouseout', e => {
-    if (e.target.closest(interactiveSelector)) setHover(false);
-  });
-
-  document.addEventListener('mousedown', () => setActive(true));
-  document.addEventListener('mouseup', () => setActive(false));
-}
 
 function initPortDots() {
   const container = document.getElementById('portDots');
@@ -609,6 +641,17 @@ function initContactForm() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   PROCESS FLOW ANIMATION — activate only when section is visible
+═══════════════════════════════════════════════════════════════ */
+function initProcessAnimations() {
+  const proc = document.getElementById('process');
+  if (!proc) return;
+  new IntersectionObserver(entries => {
+    proc.classList.toggle('anim-active', entries[0].isIntersecting);
+  }, { threshold: 0.05 }).observe(proc);
+}
+
+/* ═══════════════════════════════════════════════════════════════
    BOOT
 ═══════════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
@@ -621,6 +664,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileNav();
   initContactForm();
   initScrollReveal();
-  initCustomCursor();
+  initProcessAnimations();
   setTimeout(initThree, 120);
 });
