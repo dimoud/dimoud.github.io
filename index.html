@@ -12,20 +12,19 @@
 </head>
 <body>
 
-<!-- Custom cursor -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- ══ NAV ══════════════════════════════════════════════════════ -->
+<!-- NAV -->
 <nav>
   <a href="#hero" class="nav-logo"><img src="images/logo.png" alt="Expertease" fetchpriority="high"></a>
   <div class="nav-right">
     <ul class="nav-links">
-      <li><a href="#about"    id="nav-about">About</a></li>
-      <li><a href="#projects" id="nav-projects">Work</a></li>
+      <li><a href="#about"        id="nav-about">About</a></li>
+      <li><a href="#projects"     id="nav-projects">Work</a></li>
       <li><a href="software.html" id="nav-software">Software</a></li>
       <li><a href="team.html"     id="nav-experience">Team</a></li>
-      <li><a href="#contact"  id="nav-contact">Contact</a></li>
+      <li><a href="#contact"      id="nav-contact">Contact</a></li>
     </ul>
     <div class="lang-toggle">
       <button class="lang-btn"        data-lang="el">ΕΛ</button>
@@ -37,7 +36,6 @@
   </button>
 </nav>
 
-<!-- Mobile nav drawer -->
 <div class="nav-mobile" id="navMobile">
   <ul>
     <li><a href="#about"        id="mnav-about"      onclick="closeMobileNav()">About</a></li>
@@ -48,7 +46,7 @@
   </ul>
 </div>
 
-<!-- ══ HERO ═════════════════════════════════════════════════════ -->
+<!-- HERO -->
 <section id="hero">
   <div class="hero-left">
     <div class="hero-tag" id="hero-tag">// Mechanical Design &amp; 3D Printing Studio — Athens, GR</div>
@@ -61,7 +59,6 @@
       <a href="#contact"  class="btn-outline"  id="hero-cta-contact">Get in Touch</a>
     </div>
   </div>
-
   <div class="hero-right">
     <canvas id="hero3d"></canvas>
     <div class="viewer-controls">
@@ -71,7 +68,6 @@
     </div>
     <div class="viewer-hint" id="viewer-hint">drag to rotate</div>
   </div>
-
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">7<span>+</span></div><div class="stat-label" id="stat-years">Years Experience</div></div>
     <div class="stat"><div class="stat-num">50<span>+</span></div><div class="stat-label" id="stat-projects">Projects Delivered</div></div>
@@ -102,7 +98,7 @@
   </div>
 </div>
 
-<!-- ══ ABOUT ════════════════════════════════════════════════════ -->
+<!-- ABOUT -->
 <section id="about">
   <div class="section-header">
     <span class="section-num">01</span>
@@ -115,161 +111,108 @@
       <blockquote class="about-highlight" id="about-quote"></blockquote>
       <p id="about-p2"></p>
       <p id="about-p3"></p>
+      <p id="about-p4"></p>
     </div>
-    <div>
-      <div class="skills-grid" id="skillsGrid">
-        <div class="skill-item"><span class="skill-name">SolidWorks</span><div class="skill-bar-bg"><div class="skill-bar" data-width="95%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">3D Printing</span><div class="skill-bar-bg"><div class="skill-bar" data-width="93%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">Sheet Metal Design</span><div class="skill-bar-bg"><div class="skill-bar" data-width="88%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">Rapid Prototyping</span><div class="skill-bar-bg"><div class="skill-bar" data-width="91%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">Bill of Materials (BOM)</span><div class="skill-bar-bg"><div class="skill-bar" data-width="94%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">Project Management</span><div class="skill-bar-bg"><div class="skill-bar" data-width="89%"></div></div></div>
-        <div class="skill-item"><span class="skill-name">FEA Analysis</span><div class="skill-bar-bg"><div class="skill-bar" data-width="78%"></div></div></div>
+    <div class="values-col">
+      <div class="values-grid">
+        <div class="value-item">
+          <span class="value-num">01</span>
+          <div class="value-title" id="val-1-title">Precision</div>
+          <p class="value-text" id="val-1-text">FEA-verified, tolerance-stacked, tested in real conditions. We don't approximate.</p>
+        </div>
+        <div class="value-item">
+          <span class="value-num">02</span>
+          <div class="value-title" id="val-2-title">Full Lifecycle</div>
+          <p class="value-text" id="val-2-text">From sketch to assembly — design, BOM, fabrication, and handover. We deliver, we don't hand off.</p>
+        </div>
+        <div class="value-item">
+          <span class="value-num">03</span>
+          <div class="value-title" id="val-3-title">Global Standards</div>
+          <p class="value-text" id="val-3-text">Educated across 3 countries. International engineering rigour applied to every local project.</p>
+        </div>
+        <div class="value-item">
+          <span class="value-num">04</span>
+          <div class="value-title" id="val-4-title">Built to Make</div>
+          <p class="value-text" id="val-4-text">DFM from day one. Designs optimised for fast fabrication, minimal waste, and real-world assembly.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══ PORTFOLIO ═════════════════════════════════════════════════ -->
+<!-- PROCESS -->
+<section id="process">
+  <div class="process-label" id="proc-label">How We Work</div>
+  <div class="process-cols">
+    <div class="process-step">
+      <div class="process-num">01</div>
+      <h3 class="process-title" id="proc-1-title">Brief</h3>
+      <p class="process-text" id="proc-1-text">We study your constraints, material, environment, and timeline before drawing a single line.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-num">02</div>
+      <h3 class="process-title" id="proc-2-title">Design</h3>
+      <p class="process-text" id="proc-2-text">Full 3D model in SolidWorks, FEA validation, complete BOM, and technical drawings — every deliverable ready for production.</p>
+    </div>
+    <div class="process-step">
+      <div class="process-num">03</div>
+      <h3 class="process-title" id="proc-3-title">Deliver</h3>
+      <p class="process-text" id="proc-3-text">We supervise fabrication, manage suppliers, and hand over a tested, production-ready assembly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
 <section id="projects">
   <div class="section-header">
     <span class="section-num">02</span>
     <h2 class="section-title" id="projects-heading">Work</h2>
     <div class="section-line"></div>
   </div>
-  <div class="projects-grid">
 
-    <!-- Modular Robot — FEATURED -->
-    <div class="project-card featured" data-cat="robotics">
-      <div class="card-gallery">
-        <div class="gallery-track">
-          <div class="gallery-slide"><img src="images/modular_robot/Untitled Project.png"   alt="Modular Robot" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/modular_robot/Untitled Project 2.png" alt="Modular Robot" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/modular_robot/Untitled Project 3.png" alt="Modular Robot" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/modular_robot/444.png"                alt="Modular Robot" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/tracked/Untitled Project 3.png"       alt="Tracked Robot" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/tracked/Untitled Project 5.png"       alt="Tracked Robot" loading="lazy"></div>
-        </div>
-        <button class="gallery-btn gallery-prev">&#8249;</button>
-        <button class="gallery-btn gallery-next">&#8250;</button>
-        <div class="gallery-dots"></div>
+  <div class="portfolio-stage">
+    <div class="portfolio-col" id="portColLeft" draggable="false">
+      <div class="port-image-wrap">
+        <img class="port-img" src="" alt="">
+        <div class="port-img-gradient"></div>
       </div>
-      <div class="card-body">
-        <div class="proj-badge" id="p1-badge">Featured</div>
-        <div class="project-category" id="p1-cat">Robotics · Electronics · Fabrication</div>
-        <h3 class="project-title" id="p1-title">Modular Robot</h3>
-        <p  class="project-desc"  id="p1-desc">Tracked robot with 3 lead-acid batteries, 36V supply, solar panel, 4 cameras, sensors, and powerful LEDs. Laser-cut steel structure, biodegradable PLA 3D-printed parts, and wood panels. Dustproof, waterproof, and recyclable — designed for long-duration outdoor deployment.</p>
-        <div class="project-tags"><span class="tag">SolidWorks</span><span class="tag">Laser Cut Steel</span><span class="tag">3D Print PLA</span><span class="tag">36V</span><span class="tag">Solar Panel</span><span class="tag">IP Rating</span></div>
-        <a href="https://sites.google.com/view/expertease/portfolio" target="_blank" rel="noopener" class="project-link" id="p1-link">View Project →</a>
+      <div class="port-info">
+        <div class="port-badge" style="display:none"></div>
+        <div class="port-cat"></div>
+        <h3 class="port-title"></h3>
+        <p class="port-desc"></p>
+        <a href="#" class="project-link port-link" target="_blank" rel="noopener">View Project →</a>
       </div>
     </div>
 
-    <!-- Seatbelt Convincer -->
-    <div class="project-card" data-cat="safety">
-      <div class="card-gallery">
-        <div class="gallery-track">
-          <div class="gallery-slide"><img src="images/double_seat_belt_convincer/1.png"  alt="Seatbelt Convincer" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/double_seat_belt_convincer/2.png"  alt="Seatbelt Convincer" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/double_seat_belt_convincer/3.png"  alt="Seatbelt Convincer" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/double_seat_belt_convincer/4.png"  alt="Seatbelt Convincer" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/impactor/impactor.png"             alt="Impactor" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/impactor/impactor 2.png"           alt="Impactor" loading="lazy"></div>
-        </div>
-        <button class="gallery-btn gallery-prev">&#8249;</button>
-        <button class="gallery-btn gallery-next">&#8250;</button>
-        <div class="gallery-dots"></div>
+    <div class="port-sep"></div>
+
+    <div class="portfolio-col" id="portColRight" draggable="false">
+      <div class="port-image-wrap">
+        <img class="port-img" src="" alt="">
+        <div class="port-img-gradient"></div>
       </div>
-      <div class="card-body">
-        <div class="project-category" id="p2-cat">Safety · Driver Education</div>
-        <h3 class="project-title" id="p2-title">Seatbelt Convincer</h3>
-        <p  class="project-desc"  id="p2-desc">Experience a controlled 12 km/h impact in a safe environment. Available in single and double-seat versions — lightweight steel frame, quick assembly by one person in half a day. Used in road-safety education programmes across Greece.</p>
-        <div class="project-tags"><span class="tag">Steel Structure</span><span class="tag">FEA</span><span class="tag">Safety Cert.</span></div>
-        <a href="https://sites.google.com/view/expertease/portfolio" target="_blank" rel="noopener" class="project-link" id="p2-link">View →</a>
+      <div class="port-info">
+        <div class="port-badge" style="display:none"></div>
+        <div class="port-cat"></div>
+        <h3 class="port-title"></h3>
+        <p class="port-desc"></p>
+        <a href="#" class="project-link port-link" target="_blank" rel="noopener">View Project →</a>
       </div>
     </div>
+  </div>
 
-    <!-- Rollcar Simulator -->
-    <div class="project-card" data-cat="safety">
-      <div class="card-gallery">
-        <div class="gallery-track">
-          <div class="gallery-slide"><img src="images/gear/Untitled Project.png"   alt="Rollcar Simulator" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/gear/Untitled Project 2.png" alt="Rollcar Simulator" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/gear/Untitled Project 3.png" alt="Rollcar Simulator" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/gear/Untitled Project 4.png" alt="Rollcar Simulator" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/gear/Untitled Project 5.png" alt="Rollcar Simulator" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/gear/Untitled Project 6.png" alt="Rollcar Simulator" loading="lazy"></div>
-        </div>
-        <button class="gallery-btn gallery-prev">&#8249;</button>
-        <button class="gallery-btn gallery-next">&#8250;</button>
-        <div class="gallery-dots"></div>
-      </div>
-      <div class="card-body">
-        <div class="project-category" id="p3-cat">Safety · Educational Equipment</div>
-        <h3 class="project-title" id="p3-title">Rollcar Simulator</h3>
-        <p  class="project-desc"  id="p3-desc">Vehicle rollover simulator — place a car on top and roll inside it. Versions I &amp; II, up to 20 rpm. A powerful tool for driver-safety training that puts passengers inside a real car experiencing a rollover.</p>
-        <div class="project-tags"><span class="tag">5mm Steel Plate</span><span class="tag">Rotation Mech.</span><span class="tag">Safety</span></div>
-        <a href="https://sites.google.com/view/expertease/portfolio" target="_blank" rel="noopener" class="project-link" id="p3-link">View →</a>
-      </div>
-    </div>
-
-    <!-- Sheet Metal -->
-    <div class="project-card" data-cat="metal">
-      <div class="card-gallery">
-        <div class="gallery-track">
-          <div class="gallery-slide"><img src="images/sheetmetal/1.png"               alt="Sheet Metal" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/sheetmetal/2.png"               alt="Sheet Metal" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/sheetmetal/a1.png"              alt="Sheet Metal" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/sheetmetal/a2.png"              alt="Sheet Metal" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/log_basket/καροτσακι.png"       alt="Log Basket" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/log_basket/καροτσακι 2.png"     alt="Log Basket" loading="lazy"></div>
-        </div>
-        <button class="gallery-btn gallery-prev">&#8249;</button>
-        <button class="gallery-btn gallery-next">&#8250;</button>
-        <div class="gallery-dots"></div>
-      </div>
-      <div class="card-body">
-        <div class="proj-badge red" id="p4-badge">Sheet Metal</div>
-        <div class="project-category" id="p4-cat">Laser Cutting · Brake Press · Welding</div>
-        <h3 class="project-title" id="p4-title">Sheet Metal Applications</h3>
-        <p  class="project-desc"  id="p4-desc">From LED wall décor to log baskets and structural elements. 1.5–5mm steel, laser-cut and brake-pressed, optimised DFM for fast fabrication and minimal waste.</p>
-        <div class="project-tags"><span class="tag">Laser Cut</span><span class="tag">Brake Press</span><span class="tag">1.5–5mm Steel</span><span class="tag">DFM</span></div>
-        <a href="https://sites.google.com/view/expertease/portfolio" target="_blank" rel="noopener" class="project-link" id="p4-link">View →</a>
-      </div>
-    </div>
-
-    <!-- Harmonic Exciter -->
-    <div class="project-card" data-cat="metal">
-      <div class="card-gallery">
-        <div class="gallery-track">
-          <div class="gallery-slide"><img src="images/harmonic_exhiter/he_1.png"              alt="Harmonic Exciter" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/harmonic_exhiter/1.png"                 alt="Harmonic Exciter" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/harmonic_exhiter/2.png"                 alt="Harmonic Exciter" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/harmonic_exhiter/3.png"                 alt="Harmonic Exciter" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/harmonic_exhiter/Untitled Project 6.png" alt="Harmonic Exciter" loading="lazy"></div>
-          <div class="gallery-slide"><img src="images/harmonic_exhiter/Untitled Project 7.png" alt="Harmonic Exciter" loading="lazy"></div>
-        </div>
-        <button class="gallery-btn gallery-prev">&#8249;</button>
-        <button class="gallery-btn gallery-next">&#8250;</button>
-        <div class="gallery-dots"></div>
-      </div>
-      <div class="card-body">
-        <div class="project-category" id="p5-cat">Dynamic Loading · Structural Testing</div>
-        <h3 class="project-title" id="p5-title">1D Harmonic Exciter</h3>
-        <p  class="project-desc"  id="p5-desc">Applies 450 kg uni-directional vibration to structures at up to 20 Hz. Flip it over and it covers all three axes. Built for structural testing labs and research institutions.</p>
-        <div class="project-tags"><span class="tag">450kg Load</span><span class="tag">20Hz</span><span class="tag">3-axis</span><span class="tag">Heavy Steel</span></div>
-        <a href="https://sites.google.com/view/expertease/portfolio" target="_blank" rel="noopener" class="project-link" id="p5-link">View →</a>
-      </div>
-    </div>
-
+  <div class="port-footer">
+    <div class="port-dots" id="portDots"></div>
+    <div class="port-hint-txt">↔ drag to swap &nbsp;·&nbsp; cycles every 5s</div>
   </div>
 </section>
 
-<!-- ══ CONTACT ══════════════════════════════════════════════════ -->
+<!-- CONTACT -->
 <section id="contact">
   <div class="contact-label"   id="contact-label">// Let's Work Together</div>
   <h2  class="contact-heading" id="contact-heading">Got a project<br>in mind?</h2>
   <p   class="contact-sub"     id="contact-sub">From designing a single component to managing an entire project — Expertease is here.</p>
-
   <div class="contact-direct">
     <a href="mailto:info@expertease.eu" class="contact-email">info@expertease.eu</a>
     <div class="contact-phone-row">
@@ -279,27 +222,14 @@
       </a>
     </div>
   </div>
-
   <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form" novalidate>
     <div class="form-row">
-      <div class="form-group">
-        <label for="cf-name">Name</label>
-        <input type="text" id="cf-name" name="name" placeholder="Your name" required>
-      </div>
-      <div class="form-group">
-        <label for="cf-email">Email</label>
-        <input type="email" id="cf-email" name="email" placeholder="your@email.com" required>
-      </div>
+      <div class="form-group"><label for="cf-name">Name</label><input type="text" id="cf-name" name="name" placeholder="Your name" required></div>
+      <div class="form-group"><label for="cf-email">Email</label><input type="email" id="cf-email" name="email" placeholder="your@email.com" required></div>
     </div>
     <div class="form-row">
-      <div class="form-group">
-        <label for="cf-phone">Phone</label>
-        <input type="tel" id="cf-phone" name="phone" placeholder="+30 ...">
-      </div>
-      <div class="form-group">
-        <label for="cf-subject">Subject</label>
-        <input type="text" id="cf-subject" name="subject" placeholder="Project enquiry">
-      </div>
+      <div class="form-group"><label for="cf-phone">Phone</label><input type="tel" id="cf-phone" name="phone" placeholder="+30 ..."></div>
+      <div class="form-group"><label for="cf-subject">Subject</label><input type="text" id="cf-subject" name="subject" placeholder="Project enquiry"></div>
     </div>
     <div class="form-group">
       <label for="cf-message">Message</label>
@@ -307,7 +237,6 @@
     </div>
     <button type="submit" class="btn-primary form-submit">Send Message →</button>
   </form>
-
   <div class="form-success" id="formSuccess">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
     Message sent! We'll get back to you soon.
@@ -320,7 +249,6 @@
   <div class="footer-text" id="footer-loc">Athens, Greece</div>
 </footer>
 
-<!-- Three.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 <script src="main.js" defer></script>
 </body>
