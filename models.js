@@ -1,14 +1,14 @@
 /* ═══════════════════════════════════════════════════════════════
    models.js — Three 3D models cycling every 10 s
-   Planetary Gearbox · Turbofan Engine · V4 Piston Engine
+   Precision Planetary · Turbofan w/ Stators · DOHC Inline-4
 ═══════════════════════════════════════════════════════════════ */
 
 let scene, camera, renderer, clock;
 let rotGroup = null, parts = [];
 let explodeT = 0, exploding = false, isDragging = false;
-let prevMouse = { x: 0, y: 0 }, floatT = 0, crankT = 0;
-/* global crank/crank-rod defaults (used by piston kinematics) */
-let crankCenterY = -1.5, crankRadius = 0.72, conrodLen = 1.6;
+let prevMouse = { x: 0, y: 0 }, floatT = 0, mechT = 0;
+
+/* Global Settings */
 let currentMode = 'rotate';
 let currentModelIdx = 0;
 let modelCycleTimer = null;
@@ -16,52 +16,43 @@ let modelCycleTimer = null;
 /* ── Materials ──────────────────────────────────────────────── */
 function makeMats() {
   return {
-    chrome:   new THREE.MeshStandardMaterial({ color: 0xe8f4ff, metalness: 1.00, roughness: .03 }),
-    steel:    new THREE.MeshStandardMaterial({ color: 0xaac4d8, metalness: .97,  roughness: .07 }),
-    blue:     new THREE.MeshStandardMaterial({ color: 0x1a55d0, metalness: .88,  roughness: .18 }),
-    blueB:    new THREE.MeshStandardMaterial({ color: 0x3a8aff, metalness: .85,  roughness: .16 }),
-    gold:     new THREE.MeshStandardMaterial({ color: 0xf0c030, metalness: .96,  roughness: .07 }),
-    brass:    new THREE.MeshStandardMaterial({ color: 0xd4a030, metalness: .97,  roughness: .09 }),
-    orange:   new THREE.MeshStandardMaterial({ color: 0xff6820, metalness: .65,  roughness: .38, emissive: 0x441500 }),
-    dark:     new THREE.MeshStandardMaterial({ color: 0x1e2a3c, metalness: .87,  roughness: .28 }),
-    darkB:    new THREE.MeshStandardMaterial({ color: 0x0c1828, metalness: .90,  roughness: .22 }),
-    titanium: new THREE.MeshStandardMaterial({ color: 0x8899aa, metalness: .95,  roughness: .12 }),
-    silver:   new THREE.MeshStandardMaterial({ color: 0xddeeff, metalness: .99,  roughness: .04 }),
-    red:      new THREE.MeshStandardMaterial({ color: 0xdd2020, metalness: .80,  roughness: .28 }),
+    chrome:   new THREE.MeshStandardMaterial({ color: 0xe8f4ff, metalness: 1.0, roughness: 0.1 }),
+    steel:    new THREE.MeshStandardMaterial({ color: 0xb0c4de, metalness: 0.8, roughness: 0.35 }),
+    blue:     new THREE.MeshStandardMaterial({ color: 0x1a55d0, metalness: 0.6, roughness: 0.4 }),
+    gold:     new THREE.MeshStandardMaterial({ color: 0xffd700, metalness: 0.9, roughness: 0.2 }),
+    brass:    new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 0.8, roughness: 0.3 }),
+    orange:   new THREE.MeshStandardMaterial({ color: 0xff4400, metalness: 0.4, roughness: 0.6, emissive: 0x551100 }),
+    dark:     new THREE.MeshStandardMaterial({ color: 0x222222, metalness: 0.7, roughness: 0.7 }),
+    darkB:    new THREE.MeshStandardMaterial({ color: 0x111111, metalness: 0.9, roughness: 0.5 }),
+    titanium: new THREE.MeshStandardMaterial({ color: 0x778899, metalness: 0.7, roughness: 0.3 }),
+    glass:    new THREE.MeshPhysicalMaterial({ color: 0xffffff, metalness: 0.1, roughness: 0.1, transmission: 0.9, transparent: true })
   };
 }
 
 /* ── Lights ─────────────────────────────────────────────────── */
 function addLights(s) {
-  s.add(new THREE.AmbientLight(0x7090c0, 1.4));
-  const key = new THREE.DirectionalLight(0xffffff, 5.5);
-  key.position.set(10, 16, 12); key.castShadow = true;
-  key.shadow.mapSize.set(2048, 2048); s.add(key);
-  const fill = new THREE.DirectionalLight(0x5090e0, 2.2);
-  fill.position.set(-10, 6, -8); s.add(fill);
-  const rim = new THREE.PointLight(0x40b0ff, 3.5, 65);
-  rim.position.set(-6, 12, -12); s.add(rim);
-  const bot = new THREE.PointLight(0x3070ff, 1.8, 55);
-  bot.position.set(6, -10, 6); s.add(bot);
-  const top = new THREE.DirectionalLight(0xe0f0ff, 1.8);
-  top.position.set(0, 20, 0); s.add(top);
+  s.add(new THREE.AmbientLight(0xffffff, 1.2));
+  const key = new THREE.DirectionalLight(0xffffff, 4.0);
+  key.position.set(10, 15, 12); key.castShadow = true;
+  s.add(key);
+  const fill = new THREE.DirectionalLight(0xaaccff, 2.5);
+  fill.position.set(-10, 5, -10); s.add(fill);
+  const back = new THREE.PointLight(0xffaa55, 4.0, 50);
+  back.position.set(0, -5, -15); s.add(back);
 }
 
 /* ── Gear shape helpers ─────────────────────────────────────── */
-function gearShape(teeth, pR, tH, hR, spokes) {
+function gearShape(teeth, pR, tH, hR) {
   const s = new THREE.Shape(), step = (Math.PI * 2) / teeth;
   for (let i = 0; i < teeth; i++) {
-    const a0=i*step-step*.42, a1=i*step-step*.16, a2=i*step+step*.16, a3=i*step+step*.42;
+    const a0=i*step-step*.4, a1=i*step-step*.15, a2=i*step+step*.15, a3=i*step+step*.4;
     const p = (a, r) => [Math.cos(a)*r, Math.sin(a)*r];
     i===0 ? s.moveTo(...p(a0,pR)) : s.lineTo(...p(a0,pR));
     s.lineTo(...p(a1,pR+tH)); s.lineTo(...p(a2,pR+tH)); s.lineTo(...p(a3,pR));
   }
   s.closePath();
-  const hub = new THREE.Path(); hub.absarc(0,0,hR,0,Math.PI*2,true); s.holes.push(hub);
-  const n = spokes || Math.max(4, Math.floor(teeth/3));
-  for (let i=0; i<n; i++) {
-    const a=(i/n)*Math.PI*2, r=pR*.55, sr=pR*.13;
-    const sh = new THREE.Path(); sh.absarc(Math.cos(a)*r,Math.sin(a)*r,sr,0,Math.PI*2,true); s.holes.push(sh);
+  if (hR > 0) {
+    const hub = new THREE.Path(); hub.absarc(0,0,hR,0,Math.PI*2,true); s.holes.push(hub);
   }
   return s;
 }
@@ -70,7 +61,7 @@ function ringShape(teeth, oR, tRR, tH) {
   const s = new THREE.Shape(); s.absarc(0,0,oR,0,Math.PI*2,false);
   const step = (Math.PI*2)/teeth, inner = new THREE.Path();
   for (let i=0; i<teeth; i++) {
-    const a0=i*step-step*.38, a1=i*step-step*.14, a2=i*step+step*.14, a3=i*step+step*.38;
+    const a0=i*step-step*.4, a1=i*step-step*.15, a2=i*step+step*.15, a3=i*step+step*.4;
     const p = (a,r) => [Math.cos(a)*r, Math.sin(a)*r];
     i===0 ? inner.moveTo(...p(a0,tRR)) : inner.lineTo(...p(a0,tRR));
     inner.lineTo(...p(a1,tRR-tH)); inner.lineTo(...p(a2,tRR-tH)); inner.lineTo(...p(a3,tRR));
@@ -79,396 +70,282 @@ function ringShape(teeth, oR, tRR, tH) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   MODEL 0 — PLANETARY GEARBOX
+   MODEL 0 — PRECISION PLANETARY GEARBOX
 ═══════════════════════════════════════════════════════════════ */
 function buildGearbox(group, m) {
   const ps = [];
-  const eH={depth:.78,bevelEnabled:true,bevelThickness:.055,bevelSize:.044,bevelSegments:4};
-  const eM={depth:.60,bevelEnabled:true,bevelThickness:.042,bevelSize:.032,bevelSegments:3};
-  const eR={depth:.82,bevelEnabled:true,bevelThickness:.072,bevelSize:.062,bevelSegments:4};
-  const OR = 2.85, pA = [0, Math.PI*2/3, Math.PI*4/3], pM = [m.gold, m.brass, m.silver];
+  const ext = { depth: 0.6, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.02, bevelSegments: 2 };
+  
+  // Exact Kinematics: Ts=18, Tp=12, Tr=42 (18 + 2*12 = 42). Modulus = 0.2
+  const Ts = 18, Tp = 12, Tr = 42;
+  const Rs = 1.8, Rp = 1.2, Rr = 4.2; 
+  const orbitR = Rs + Rp; // 3.0
 
-  /* Sun gear */
-  const gs = new THREE.Mesh(new THREE.ExtrudeGeometry(gearShape(20,1.9,.52,.29,6),eH), m.blueB);
-  gs.castShadow=true; group.add(gs); ps.push({mesh:gs,o:gs.position.clone(),d:new THREE.Vector3(0,0,0),spin:.58});
+  /* Sun Gear */
+  const sun = new THREE.Mesh(new THREE.ExtrudeGeometry(gearShape(Ts, Rs, 0.25, 0.6), ext), m.gold);
+  group.add(sun);
+  
+  const sunShaft = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 3.0, 32), m.chrome);
+  sunShaft.rotation.x = Math.PI/2; sunShaft.position.z = 1.5; group.add(sunShaft);
+  
+  ps.push({mesh: sun, isSun: true, o: sun.position.clone(), d: new THREE.Vector3(0,0,2)});
+  ps.push({mesh: sunShaft, isSun: true, o: sunShaft.position.clone(), d: new THREE.Vector3(0,0,4)});
 
-  /* 3 Planet gears */
-  pA.forEach((a,i)=>{
-    const pg=new THREE.Mesh(new THREE.ExtrudeGeometry(gearShape(11,1.05,.43,.17,3),eM),pM[i]);
-    pg.position.set(Math.cos(a)*OR,Math.sin(a)*OR,.09); pg.castShadow=true; group.add(pg);
-    ps.push({mesh:pg,o:pg.position.clone(),d:new THREE.Vector3(Math.cos(a)*5.0,Math.sin(a)*5.0,1.5+i*.7),spin:-.97});
+  /* Planets & Carrier */
+  const carrierGroup = new THREE.Group(); group.add(carrierGroup);
+  ps.push({mesh: carrierGroup, isCarrier: true, o: carrierGroup.position.clone(), d: new THREE.Vector3(0,0,0)});
+
+  const pAngles = [0, Math.PI*2/3, Math.PI*4/3];
+  pAngles.forEach((a, i) => {
+    const planet = new THREE.Mesh(new THREE.ExtrudeGeometry(gearShape(Tp, Rp, 0.25, 0.4), ext), m.steel);
+    // Initial position aligned mathematically
+    planet.position.set(Math.cos(a)*orbitR, Math.sin(a)*orbitR, 0);
+    
+    // To mesh perfectly at t=0, rotate planet so a tooth points at the sun
+    // For Tp=12, teeth are every PI/6. 
+    planet.rotation.z = a + (Math.PI / Tp); 
+    group.add(planet);
+    
+    ps.push({
+      mesh: planet, isPlanet: true, angle: a,
+      o: planet.position.clone(), d: new THREE.Vector3(Math.cos(a)*5, Math.sin(a)*5, 0)
+    });
+
+    const pin = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.38, 1.4, 16), m.titanium);
+    pin.rotation.x = Math.PI/2; pin.position.set(Math.cos(a)*orbitR, Math.sin(a)*orbitR, 0.3);
+    carrierGroup.add(pin);
   });
 
-  /* Ring gear */
-  const gr=new THREE.Mesh(new THREE.ExtrudeGeometry(ringShape(40,4.4,3.88,.50),eR), m.darkB);
-  gr.castShadow=true; group.add(gr); ps.push({mesh:gr,o:gr.position.clone(),d:new THREE.Vector3(0,0,-5.4),spin:-.09});
+  /* Carrier Plates */
+  const cShape = new THREE.Shape(); cShape.absarc(0,0, 3.8, 0, Math.PI*2, false);
+  const cHub = new THREE.Path(); cHub.absarc(0,0, 0.7, 0, Math.PI*2, true); cShape.holes.push(cHub);
+  const carrierPlate = new THREE.Mesh(new THREE.ExtrudeGeometry(cShape, {depth: 0.2, bevelEnabled: false}), m.dark);
+  carrierPlate.position.z = -0.4; carrierGroup.add(carrierPlate);
+  
+  const outputShaft = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 3.0, 32), m.darkB);
+  outputShaft.rotation.x = Math.PI/2; outputShaft.position.z = -1.5; carrierGroup.add(outputShaft);
 
-  /* Carrier plate */
-  const cS=new THREE.Shape(); cS.absarc(0,0,3.65,0,Math.PI*2,false);
-  const cHub=new THREE.Path(); cHub.absarc(0,0,2.15,0,Math.PI*2,true); cS.holes.push(cHub);
-  pA.forEach(a=>{const h=new THREE.Path();h.absarc(Math.cos(a)*OR,Math.sin(a)*OR,.37,0,Math.PI*2,true);cS.holes.push(h);});
-  const gc=new THREE.Mesh(new THREE.ExtrudeGeometry(cS,{depth:.28,bevelEnabled:false}),m.dark);
-  gc.position.z=-.60; group.add(gc); ps.push({mesh:gc,o:gc.position.clone(),d:new THREE.Vector3(0,0,-2.9),spin:.17});
+  /* Ring Gear (Fixed) */
+  const ring = new THREE.Mesh(new THREE.ExtrudeGeometry(ringShape(Tr, 4.8, Rr, 0.25), ext), m.blue);
+  group.add(ring);
+  ps.push({mesh: ring, o: ring.position.clone(), d: new THREE.Vector3(0,0,-3)});
 
-  /* Back plate */
-  const bS=new THREE.Shape(); bS.absarc(0,0,5.05,0,Math.PI*2,false);
-  const bRim=new THREE.Path(); bRim.absarc(0,0,4.52,0,Math.PI*2,true); bS.holes.push(bRim);
-  [0,1,2,3,4,5,6,7].forEach(i=>{const a=(i/8)*Math.PI*2;const h=new THREE.Path();h.absarc(Math.cos(a)*4.76,Math.sin(a)*4.76,.21,0,Math.PI*2,true);bS.holes.push(h);});
-  const gBack=new THREE.Mesh(new THREE.ExtrudeGeometry(bS,{depth:.38,bevelEnabled:false}),m.dark);
-  gBack.position.z=-.94; group.add(gBack); ps.push({mesh:gBack,o:gBack.position.clone(),d:new THREE.Vector3(0,0,-6.2),spin:0});
-
-  /* Front cover */
-  const fS=new THREE.Shape(); fS.absarc(0,0,5.05,0,Math.PI*2,false);
-  const fRim=new THREE.Path(); fRim.absarc(0,0,4.02,0,Math.PI*2,true); fS.holes.push(fRim);
-  [0,1,2,3,4,5,6,7].forEach(i=>{const a=(i/8)*Math.PI*2;const h=new THREE.Path();h.absarc(Math.cos(a)*4.76,Math.sin(a)*4.76,.21,0,Math.PI*2,true);fS.holes.push(h);});
-  const gFront=new THREE.Mesh(new THREE.ExtrudeGeometry(fS,{depth:.32,bevelEnabled:false}),m.dark);
-  gFront.position.z=.93; group.add(gFront); ps.push({mesh:gFront,o:gFront.position.clone(),d:new THREE.Vector3(0,0,5.4),spin:0});
-
-  /* 8 bolts */
-  [0,1,2,3,4,5,6,7].forEach(i=>{
-    const a=(i/8)*Math.PI*2, bx=Math.cos(a)*4.76, by=Math.sin(a)*4.76;
-    const bolt=new THREE.Mesh(new THREE.CylinderGeometry(.135,.135,2.28,8),m.brass);
-    bolt.rotation.x=Math.PI/2; bolt.position.set(bx,by,.1); group.add(bolt);
-    ps.push({mesh:bolt,o:bolt.position.clone(),d:new THREE.Vector3(bx*.14,by*.14,0),spin:0});
-    const head=new THREE.Mesh(new THREE.CylinderGeometry(.23,.23,.21,6),m.gold);
-    head.rotation.x=Math.PI/2; head.position.set(bx,by,1.07); group.add(head);
-    ps.push({mesh:head,o:head.position.clone(),d:new THREE.Vector3(bx*.14,by*.14,1.75),spin:0});
-  });
-
-  /* Planet shafts */
-  pA.forEach(a=>{
-    const sh=new THREE.Mesh(new THREE.CylinderGeometry(.13,.13,2.35,12),m.chrome);
-    sh.rotation.x=Math.PI/2; sh.position.set(Math.cos(a)*OR,Math.sin(a)*OR,.09); group.add(sh);
-    ps.push({mesh:sh,o:sh.position.clone(),d:new THREE.Vector3(Math.cos(a)*5.6,Math.sin(a)*5.6,1.5),spin:0});
-  });
-
-  /* Bearing rings */
-  [-.56,1.01].forEach(z=>{
-    const br=new THREE.Mesh(new THREE.TorusGeometry(.37,.12,14,36),m.gold);
-    br.position.z=z; group.add(br); ps.push({mesh:br,o:br.position.clone(),d:new THREE.Vector3(0,0,z*3.5),spin:0});
-  });
-
-  /* Output flange */
-  const fl=new THREE.Mesh(new THREE.CylinderGeometry(.94,.94,.48,24),m.chrome);
-  fl.rotation.x=Math.PI/2; fl.position.z=-1.62; group.add(fl);
-  ps.push({mesh:fl,o:fl.position.clone(),d:new THREE.Vector3(0,0,-5.9),spin:.17});
-
-  /* Keyway */
-  const kw=new THREE.Mesh(new THREE.BoxGeometry(.15,.11,.50),m.steel);
-  kw.position.set(.25,0,-1.62); group.add(kw);
-  ps.push({mesh:kw,o:kw.position.clone(),d:new THREE.Vector3(.7,0,-5.9),spin:0});
-
-  /* Input sprocket */
-  const sp=new THREE.Mesh(new THREE.TorusGeometry(1.34,.16,12,30),m.chrome);
-  sp.position.z=1.68; group.add(sp); ps.push({mesh:sp,o:sp.position.clone(),d:new THREE.Vector3(0,0,4.6),spin:.58});
-
-  /* Outer housing ring */
-  const hr=new THREE.Mesh(new THREE.TorusGeometry(4.76,.31,18,52),m.dark);
-  group.add(hr); ps.push({mesh:hr,o:hr.position.clone(),d:new THREE.Vector3(0,0,0),spin:0});
-
-  /* Inner spacer ring */
-  const sr=new THREE.Mesh(new THREE.TorusGeometry(4.0,.12,10,40),m.steel);
-  group.add(sr); ps.push({mesh:sr,o:sr.position.clone(),d:new THREE.Vector3(0,0,0),spin:-.04});
+  // Store kinematic constants
+  group.userData = { Ts, Tp, Tr, orbitR };
 
   return ps;
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   MODEL 1 — TURBOFAN ENGINE
+   MODEL 1 — TURBOFAN ENGINE (Rotors + Stators)
 ═══════════════════════════════════════════════════════════════ */
 function buildTurbofan(group, m) {
   const ps = [];
+  
+  // Cutaway Casings (1/4 sliced out)
+  const cutStart = Math.PI * 0.25, cutLen = Math.PI * 1.5;
+  const outerCase = new THREE.Mesh(new THREE.CylinderGeometry(3.6, 3.2, 11.0, 36, 1, false, cutStart, cutLen), m.titanium);
+  outerCase.rotation.x = Math.PI / 2; group.add(outerCase);
+  ps.push({mesh: outerCase, o: outerCase.position.clone(), d: new THREE.Vector3(0, 5, 0)});
 
-  /* Outer nacelle casing */
-  const nacelle=new THREE.Mesh(new THREE.CylinderGeometry(3.1,2.6,10.0,36,1,true),m.titanium);
-  nacelle.rotation.x=Math.PI/2; group.add(nacelle);
-  ps.push({mesh:nacelle,o:nacelle.position.clone(),d:new THREE.Vector3(0,0,0),spin:0});
+  const innerCase = new THREE.Mesh(new THREE.CylinderGeometry(2.4, 2.2, 6.0, 32, 1, false, cutStart, cutLen), m.steel);
+  innerCase.rotation.x = Math.PI/2; innerCase.position.z = -1.0; group.add(innerCase);
+  ps.push({mesh: innerCase, o: innerCase.position.clone(), d: new THREE.Vector3(0, -5, 0)});
 
-  /* Front nacelle lip */
-  const frontLip=new THREE.Mesh(new THREE.TorusGeometry(3.1,.18,18,52),m.chrome);
-  frontLip.position.z=5.0; group.add(frontLip);
-  ps.push({mesh:frontLip,o:frontLip.position.clone(),d:new THREE.Vector3(0,0,4.5),spin:0});
+  // Spools
+  const lpSpool = new THREE.Group(); group.add(lpSpool);
+  const hpSpool = new THREE.Group(); group.add(hpSpool);
+  ps.push({mesh: lpSpool, isSpool: true, speed: -2.0, o: lpSpool.position.clone(), d: new THREE.Vector3(0,0, 3)});
+  ps.push({mesh: hpSpool, isSpool: true, speed: -4.5, o: hpSpool.position.clone(), d: new THREE.Vector3(0,0,-3)});
 
-  /* Rear nacelle lip */
-  const rearLip=new THREE.Mesh(new THREE.TorusGeometry(2.6,.15,14,44),m.steel);
-  rearLip.position.z=-5.0; group.add(rearLip);
-  ps.push({mesh:rearLip,o:rearLip.position.clone(),d:new THREE.Vector3(0,0,-5.5),spin:0});
+  lpSpool.add(new THREE.Mesh(new THREE.ConeGeometry(0.9, 2.5, 24), m.chrome)).children[0].rotation.x = -Math.PI/2;
+  lpSpool.children[0].position.z = 5.5;
 
-  /* Nose cone (spinner) */
-  const cone=new THREE.Mesh(new THREE.ConeGeometry(.82,1.9,22),m.silver);
-  cone.rotation.x=-Math.PI/2; cone.position.z=5.6; group.add(cone);
-  ps.push({mesh:cone,o:cone.position.clone(),d:new THREE.Vector3(0,0,8.0),spin:2.2});
-
-  /* Fan hub disk */
-  const fanHub=new THREE.Mesh(new THREE.CylinderGeometry(.76,.76,.5,24),m.steel);
-  fanHub.rotation.x=Math.PI/2; fanHub.position.z=4.6; group.add(fanHub);
-  ps.push({mesh:fanHub,o:fanHub.position.clone(),d:new THREE.Vector3(0,0,5.5),spin:2.2});
-
-  /* 20 Fan blades */
-  const fanDisc=new THREE.Group(); fanDisc.position.z=4.5; group.add(fanDisc);
-  for (let i=0; i<20; i++) {
-    const a=(i/20)*Math.PI*2;
-    /* Blade: thin tapered box */
-    const blade=new THREE.Mesh(new THREE.BoxGeometry(.20,2.1,.09),m.chrome);
-    blade.position.set(Math.cos(a)*1.72,Math.sin(a)*1.72,0);
-    blade.rotation.z=a+Math.PI*0.12; /* slight twist */
-    fanDisc.add(blade);
+  // Fan (LP)
+  for(let i=0; i<24; i++) {
+    const a = (i/24)*Math.PI*2;
+    const b = new THREE.Mesh(new THREE.BoxGeometry(0.15, 2.6, 0.4), m.chrome);
+    b.position.set(Math.cos(a)*2.1, Math.sin(a)*2.1, 4.2); b.rotation.set(0.4, 0, a); lpSpool.add(b);
   }
-  ps.push({mesh:fanDisc,o:fanDisc.position.clone(),d:new THREE.Vector3(0,0,5.5),spin:2.2});
 
-  /* Fan blade tips ring */
-  const tipRing=new THREE.Mesh(new THREE.TorusGeometry(2.85,.06,8,44),m.silver);
-  tipRing.position.z=4.5; group.add(tipRing);
-  ps.push({mesh:tipRing,o:tipRing.position.clone(),d:new THREE.Vector3(0,0,5.5),spin:2.2});
+  // HP Compressor Rotors & Stators
+  const statorGroup = new THREE.Group(); group.add(statorGroup);
+  ps.push({mesh: statorGroup, o: statorGroup.position.clone(), d: new THREE.Vector3(0, 5, 0)});
 
-  /* 3 Compressor stages */
-  for (let s=0; s<3; s++) {
-    const z=2.8-s*1.4, R=2.65-s*.22, nB=26+s*4;
-    const disc=new THREE.Group(); disc.position.z=z; group.add(disc);
-    for (let i=0; i<nB; i++) {
-      const a=(i/nB)*Math.PI*2;
-      const b=new THREE.Mesh(new THREE.BoxGeometry(.068,.52,.26),s%2===0?m.steel:m.titanium);
-      b.position.set(Math.cos(a)*R,Math.sin(a)*R,0);
-      b.rotation.z=a+Math.PI/2; disc.add(b);
+  for (let s = 0; s < 4; s++) {
+    const z = 1.0 - s * 0.6;
+    const r = 2.2 - s * 0.1;
+    
+    // Rotor (Spins)
+    const rotor = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 0.2, 24), m.dark);
+    rotor.rotation.x = Math.PI/2; rotor.position.z = z; hpSpool.add(rotor);
+    for (let i = 0; i < 36; i++) {
+      const a = (i/36)*Math.PI*2;
+      const b = new THREE.Mesh(new THREE.BoxGeometry(0.05, r - 0.7, 0.15), m.steel);
+      b.position.set(Math.cos(a)*(r+0.7)/2, Math.sin(a)*(r+0.7)/2, z);
+      b.rotation.set(0.25, 0, a); hpSpool.add(b);
     }
-    /* Hub spool */
-    const spool=new THREE.Mesh(new THREE.CylinderGeometry(.40,.40,.26,18),m.dark);
-    disc.add(spool);
-    const rate=.7+s*.35;
-    ps.push({mesh:disc,o:disc.position.clone(),d:new THREE.Vector3(0,0,z-4.0),spin:s%2===0?rate:-rate});
-  }
 
-  /* Diffuser ring between compressor and combustor */
-  const diffuser=new THREE.Mesh(new THREE.TorusGeometry(2.4,.22,12,44),m.steel);
-  diffuser.position.z=.5; group.add(diffuser);
-  ps.push({mesh:diffuser,o:diffuser.position.clone(),d:new THREE.Vector3(0,0,-2.5),spin:0});
-
-  /* Combustion chamber (annular) */
-  const comb=new THREE.Mesh(new THREE.TorusGeometry(1.85,.62,18,52),m.orange);
-  comb.rotation.x=Math.PI/2; comb.position.z=-0.9; group.add(comb);
-  ps.push({mesh:comb,o:comb.position.clone(),d:new THREE.Vector3(0,0,-4.0),spin:.07});
-
-  /* 8 combustion cans */
-  for (let i=0; i<8; i++) {
-    const a=(i/8)*Math.PI*2;
-    const can=new THREE.Mesh(new THREE.CylinderGeometry(.30,.26,1.55,14),m.orange);
-    can.rotation.x=Math.PI/2; can.position.set(Math.cos(a)*1.85,Math.sin(a)*1.85,-.9); group.add(can);
-    ps.push({mesh:can,o:can.position.clone(),d:new THREE.Vector3(Math.cos(a)*4.5,Math.sin(a)*4.5,-4.0),spin:.07});
-  }
-
-  /* 2 Turbine stages (gold blades — bright!) */
-  for (let s=0; s<2; s++) {
-    const z=-2.6-s*1.2, nB=36+s*4;
-    const disc=new THREE.Group(); disc.position.z=z; group.add(disc);
-    for (let i=0; i<nB; i++) {
-      const a=(i/nB)*Math.PI*2;
-      const b=new THREE.Mesh(new THREE.BoxGeometry(.060,.65,.24),s===0?m.gold:m.brass);
-      b.position.set(Math.cos(a)*2.05,Math.sin(a)*2.05,0);
-      b.rotation.z=a+Math.PI/2; disc.add(b);
+    // Stator (Fixed to casing, cutaway matched)
+    if (s < 3) {
+      const sz = z - 0.3;
+      for (let i = 0; i < 36; i++) {
+        const a = (i/36)*Math.PI*2;
+        if (a > cutStart && a < cutStart + cutLen) {
+          const st = new THREE.Mesh(new THREE.BoxGeometry(0.04, r - 0.72, 0.15), m.brass);
+          st.position.set(Math.cos(a)*(r+0.72)/2, Math.sin(a)*(r+0.72)/2, sz);
+          st.rotation.set(-0.25, 0, a); statorGroup.add(st);
+        }
+      }
     }
-    disc.add(new THREE.Mesh(new THREE.CylinderGeometry(.40,.40,.24,18),m.dark));
-    const rate=1.4-s*.5;
-    ps.push({mesh:disc,o:disc.position.clone(),d:new THREE.Vector3(0,0,z-3.5),spin:rate});
   }
 
-  /* Exhaust nozzle */
-  const nozzle=new THREE.Mesh(new THREE.CylinderGeometry(2.2,1.5,2.2,28,1,true),m.steel);
-  nozzle.rotation.x=Math.PI/2; nozzle.position.z=-5.8; group.add(nozzle);
-  ps.push({mesh:nozzle,o:nozzle.position.clone(),d:new THREE.Vector3(0,0,-9.0),spin:0});
+  // Combustor
+  const combustor = new THREE.Mesh(new THREE.CylinderGeometry(1.8, 1.8, 1.5, 32, 1, false, cutStart, cutLen), m.orange);
+  combustor.rotation.x = Math.PI/2; combustor.position.z = -2.5; group.add(combustor);
+  ps.push({mesh: combustor, o: combustor.position.clone(), d: new THREE.Vector3(0, 0, -5)});
 
-  /* Inner nozzle cone */
-  const nCone=new THREE.Mesh(new THREE.ConeGeometry(.65,1.8,18),m.titanium);
-  nCone.rotation.x=Math.PI/2; nCone.position.z=-5.9; group.add(nCone);
-  ps.push({mesh:nCone,o:nCone.position.clone(),d:new THREE.Vector3(0,0,-8.5),spin:0});
-
-  /* Central shaft */
-  const shaft=new THREE.Mesh(new THREE.CylinderGeometry(.18,.18,12.5,12),m.chrome);
-  shaft.rotation.x=Math.PI/2; group.add(shaft);
-  ps.push({mesh:shaft,o:shaft.position.clone(),d:new THREE.Vector3(0,0,0),spin:2.2});
-
-  /* Rear bearing support ring */
-  const bearRing=new THREE.Mesh(new THREE.TorusGeometry(.80,.08,10,32),m.steel);
-  bearRing.position.z=-4.2; group.add(bearRing);
-  ps.push({mesh:bearRing,o:bearRing.position.clone(),d:new THREE.Vector3(0,0,-5.5),spin:0});
+  // LP Turbine
+  for (let s = 0; s < 3; s++) {
+    const z = -4.5 - s * 0.6;
+    for (let i = 0; i < 48; i++) {
+      const a = (i/48)*Math.PI*2;
+      const b = new THREE.Mesh(new THREE.BoxGeometry(0.06, 1.6, 0.25), m.gold);
+      b.position.set(Math.cos(a)*1.4, Math.sin(a)*1.4, z);
+      b.rotation.set(-0.35, 0, a); lpSpool.add(b);
+    }
+  }
 
   return ps;
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   MODEL 2 — V4 PISTON ENGINE
+   MODEL 2 — DOHC INLINE-4 ENGINE (Valves & Pistons)
 ═══════════════════════════════════════════════════════════════ */
 function buildPistonEngine(group, m) {
   const ps = [];
-  const CX = [-2.1, -0.7, 0.7, 2.1];
+  const crankY = -1.2, crankR = 0.6, conrodL = 2.4;
+  
+  // Firing order 1-3-4-2. Phases relative to crank (0 to 4PI for full cycle)
+  const cyls = [
+    { x: -2.25, crankPhase: 0,       cyclePhase: 0 },         // Cyl 1
+    { x: -0.75, crankPhase: Math.PI, cyclePhase: Math.PI*3 }, // Cyl 2
+    { x:  0.75, crankPhase: Math.PI, cyclePhase: Math.PI },   // Cyl 3
+    { x:  2.25, crankPhase: 0,       cyclePhase: Math.PI*2 }  // Cyl 4
+  ];
 
-  /* Engine block */
-  const block=new THREE.Mesh(new THREE.BoxGeometry(6.0,2.6,3.0),m.dark);
-  block.position.y=-.4; group.add(block);
-  ps.push({mesh:block,o:block.position.clone(),d:new THREE.Vector3(0,-5.0,0),spin:0});
+  /* Block & Head */
+  const block = new THREE.Mesh(new THREE.BoxGeometry(6.5, 3.5, 2.5), m.dark);
+  block.position.y = 1.0; group.add(block);
+  ps.push({mesh: block, o: block.position.clone(), d: new THREE.Vector3(0, 0, 4)});
 
-  /* Block ribbing lines */
-  for (let i=0; i<5; i++) {
-    const rib=new THREE.Mesh(new THREE.BoxGeometry(.055,2.62,3.05),m.darkB);
-    rib.position.set(-2.52+i*1.26,-.4,0); group.add(rib);
-  }
+  const head = new THREE.Mesh(new THREE.BoxGeometry(6.5, 1.5, 2.4), m.titanium);
+  head.position.y = 3.5; group.add(head);
+  ps.push({mesh: head, o: head.position.clone(), d: new THREE.Vector3(0, 0, -4)});
 
-  /* 4 Cylinder liners */
-  CX.forEach((cx,i)=>{
-    const liner=new THREE.Mesh(new THREE.CylinderGeometry(.50,.50,3.0,24,1,true),m.steel);
-    liner.position.set(cx,1.0,0); group.add(liner);
-    ps.push({mesh:liner,o:liner.position.clone(),d:new THREE.Vector3(cx*1.5,5.5,i*.5-.75),spin:0});
-    /* Cylinder head per cylinder */
-    const head=new THREE.Mesh(new THREE.BoxGeometry(1.05,.35,2.92),m.titanium);
-    head.position.set(cx,2.66,0); group.add(head);
-    ps.push({mesh:head,o:head.position.clone(),d:new THREE.Vector3(cx*1.5,6.0,i*.5-.75),spin:0});
+  /* Crankshaft */
+  const crankGroup = new THREE.Group(); crankGroup.position.y = crankY; group.add(crankGroup);
+  ps.push({mesh: crankGroup, isCrank: true, o: crankGroup.position.clone(), d: new THREE.Vector3(0, -5, 0)});
+  
+  const mainCrank = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 6.8, 16), m.steel);
+  mainCrank.rotation.z = Math.PI/2; crankGroup.add(mainCrank);
+
+  /* Camshafts (Intake & Exhaust) */
+  const inCam = new THREE.Group(), exCam = new THREE.Group();
+  inCam.position.set(0, 4.4, 0.5); exCam.position.set(0, 4.4, -0.5);
+  group.add(inCam); group.add(exCam);
+  ps.push({mesh: inCam, isCam: true, o: inCam.position.clone(), d: new THREE.Vector3(0, 6, 2)});
+  ps.push({mesh: exCam, isCam: true, o: exCam.position.clone(), d: new THREE.Vector3(0, 6, -2)});
+
+  [inCam, exCam].forEach(cam => {
+    const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 6.6, 16), m.chrome);
+    shaft.rotation.z = Math.PI/2; cam.add(shaft);
   });
 
-  /* 4 Pistons + connecting rods (paired objects for correct kinematics) */
-  CX.forEach((cx,i)=>{
-    const piston=new THREE.Mesh(new THREE.CylinderGeometry(.44,.44,.65,24),m.chrome);
-    piston.position.set(cx,.5,0); group.add(piston);
+  cyls.forEach((cyl) => {
+    /* Piston & Rod */
+    const pinY = Math.cos(cyl.crankPhase) * crankR;
+    const pinZ = Math.sin(cyl.crankPhase) * crankR;
+    
+    const pin = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.8, 16), m.brass);
+    pin.rotation.z = Math.PI/2; pin.position.set(cyl.x, pinY, pinZ); crankGroup.add(pin);
+    
+    const web = new THREE.Mesh(new THREE.BoxGeometry(0.3, crankR+0.3, 0.5), m.steel);
+    web.position.set(cyl.x - 0.4, pinY/2, pinZ/2); crankGroup.add(web);
 
-    const rodGeom=new THREE.BoxGeometry(.12,1.4,.12);
-    const rod=new THREE.Mesh(rodGeom,m.steel);
-    rod.position.set(cx,-.1,0); group.add(rod);
+    const piston = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 0.8, 0.9, 32), m.chrome);
+    group.add(piston);
+    const rod = new THREE.Mesh(new THREE.BoxGeometry(0.25, conrodL, 0.35), m.titanium);
+    group.add(rod);
+
+    /* Valves (2 per cylinder) */
+    const inValve = new THREE.Group(), exValve = new THREE.Group();
+    group.add(inValve); group.add(exValve);
+    
+    [inValve, exValve].forEach((v, idx) => {
+      const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 1.2, 8), m.steel);
+      const vHead = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.35, 0.1, 16), m.chrome);
+      vHead.position.y = -0.6; v.add(stem); v.add(vHead);
+      v.position.set(cyl.x, 3.8, idx === 0 ? 0.5 : -0.5);
+    });
+
+    /* Cam Lobes */
+    const inLobe = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.25, 16), m.darkB);
+    inLobe.rotation.z = Math.PI/2; inLobe.position.set(cyl.x, 0, 0); inCam.add(inLobe);
+    
+    const exLobe = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.25, 16), m.darkB);
+    exLobe.rotation.z = Math.PI/2; exLobe.position.set(cyl.x, 0, 0); exCam.add(exLobe);
 
     ps.push({
-      pistonMesh: piston,
-      rodMesh: rod,
-      oP: piston.position.clone(),
-      oR: rod.position.clone(),
-      d: new THREE.Vector3(cx*1.5,5.5,i*.5-.75),
-      spin: 0,
-      pistonPhase: (i/4)*Math.PI*2,
-      conrodPhase: (i/4)*Math.PI*2,
-      cx: cx
+      isEngineKinematic: true, cx: cyl.x, crankPhase: cyl.crankPhase, cyclePhase: cyl.cyclePhase,
+      piston, rod, inValve, exValve, inLobe, exLobe,
+      oP: piston.position.clone(), oR: rod.position.clone()
     });
   });
-
-  /* Crankshaft main journal */
-  const crankMain=new THREE.Mesh(new THREE.CylinderGeometry(.16,.16,4.8,14),m.brass);
-  crankMain.rotation.z=Math.PI/2; crankMain.position.y=-1.5; group.add(crankMain);
-  ps.push({mesh:crankMain,o:crankMain.position.clone(),d:new THREE.Vector3(0,-5.5,0),spin:1.5});
-
-  /* Crank webs + pins */
-  const crankGroup=new THREE.Group(); crankGroup.position.y=-1.5; group.add(crankGroup);
-  CX.forEach((cx,i)=>{
-    const w1=new THREE.Mesh(new THREE.BoxGeometry(.22,.72,.28),m.gold);
-    w1.position.set(cx,.36,0); crankGroup.add(w1);
-    const pin=new THREE.Mesh(new THREE.CylinderGeometry(.13,.13,.38,12),m.brass);
-    pin.rotation.z=Math.PI/2; pin.position.set(cx,.72,0); crankGroup.add(pin);
-    const w2=new THREE.Mesh(new THREE.BoxGeometry(.22,.72,.28),m.gold);
-    w2.position.set(cx,-.36,0); crankGroup.add(w2);
-    /* Main bearing webs between cylinders */
-    const bWeb=new THREE.Mesh(new THREE.BoxGeometry(.14,.50,.32),m.brass);
-    bWeb.position.set(cx-.7,0,0); crankGroup.add(bWeb);
-  });
-  ps.push({mesh:crankGroup,o:crankGroup.position.clone(),d:new THREE.Vector3(0,-5.0,0),spin:1.5});
-
-  /* Valve cover */
-  const valveCover=new THREE.Mesh(new THREE.BoxGeometry(6.2,.38,3.0),m.blue);
-  valveCover.position.y=2.88; group.add(valveCover);
-  ps.push({mesh:valveCover,o:valveCover.position.clone(),d:new THREE.Vector3(0,5.5,0),spin:0});
-
-  /* Cam cover bolts */
-  for (let i=0; i<7; i++) {
-    const cb=new THREE.Mesh(new THREE.CylinderGeometry(.07,.07,.58,8),m.brass);
-    cb.position.set(-2.7+i*.9,3.04,1.25); group.add(cb);
-  }
-
-  /* Intake manifold */
-  const intake=new THREE.Mesh(new THREE.BoxGeometry(5.2,.55,1.0),m.blue);
-  intake.position.set(0,3.5,1.4); intake.rotation.x=-.2; group.add(intake);
-  ps.push({mesh:intake,o:intake.position.clone(),d:new THREE.Vector3(0,6.0,3.0),spin:0});
-
-  /* Intake runners */
-  CX.forEach((cx,i)=>{
-    const runner=new THREE.Mesh(new THREE.CylinderGeometry(.18,.22,.9,12),m.blueB);
-    runner.rotation.x=-.3; runner.position.set(cx,3.12,.95); group.add(runner);
-  });
-
-  /* Exhaust headers (gold — bright!) */
-  CX.forEach((cx,i)=>{
-    const header=new THREE.Mesh(new THREE.CylinderGeometry(.15,.15,1.1,10),m.gold);
-    header.rotation.x=.3; header.position.set(cx,2.88,-1.1); group.add(header);
-  });
-
-  /* Flywheel */
-  const fw=new THREE.Mesh(new THREE.CylinderGeometry(1.3,1.3,.30,36),m.dark);
-  fw.rotation.z=Math.PI/2; fw.position.set(-3.25,-1.5,0); group.add(fw);
-  ps.push({mesh:fw,o:fw.position.clone(),d:new THREE.Vector3(-6.5,-2.0,0),spin:1.5});
-
-  /* Flywheel ring gear teeth */
-  const fwRing=new THREE.Mesh(new THREE.TorusGeometry(1.3,.09,10,44),m.chrome);
-  fwRing.rotation.x=Math.PI/2; fwRing.position.set(-3.25,-1.5,0); group.add(fwRing);
-  ps.push({mesh:fwRing,o:fwRing.position.clone(),d:new THREE.Vector3(-6.5,-2.0,0),spin:1.5});
-
-  /* Oil pan */
-  const oilPan=new THREE.Mesh(new THREE.BoxGeometry(5.8,.72,2.8),m.darkB);
-  oilPan.position.y=-2.42; group.add(oilPan);
-  ps.push({mesh:oilPan,o:oilPan.position.clone(),d:new THREE.Vector3(0,-6.5,0),spin:0});
-
-  /* Oil drain bolt */
-  const drain=new THREE.Mesh(new THREE.CylinderGeometry(.10,.10,.28,8),m.brass);
-  drain.position.set(0,-2.85,0); group.add(drain);
 
   return ps;
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   INIT — shared renderer, camera, controls
+   INIT & KINEMATICS ENGINE
 ═══════════════════════════════════════════════════════════════ */
 function initThree() {
   const canvas=document.getElementById('hero3d');
-  if (!canvas || typeof THREE==='undefined') { console.warn('Three.js not ready'); return; }
+  if (!canvas || typeof THREE==='undefined') return;
   const parent=canvas.parentElement, W=parent.clientWidth||640, H=parent.clientHeight||580;
 
   renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
   renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
   renderer.setSize(W,H); renderer.setClearColor(0x000000,0);
-  renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-
   camera=new THREE.PerspectiveCamera(38,W/H,.1,300);
-  camera.position.set(0,2.5,20); camera.lookAt(0,.5,0);
+  camera.position.set(0, 2, 22); camera.lookAt(0,0,0);
   clock=new THREE.Clock();
 
   loadModel(0);
   setupDrag(canvas, parent);
   animate();
 
-  /* Cycle models every 10 s */
-  modelCycleTimer=setInterval(()=>{
-    currentModelIdx=(currentModelIdx+1)%3;
-    loadModel(currentModelIdx);
-  }, 10000);
+  modelCycleTimer=setInterval(()=>loadModel((currentModelIdx+1)%3), 10000);
 }
 
 function loadModel(idx) {
-  scene=new THREE.Scene();
-  addLights(scene);
-  rotGroup=new THREE.Group();
-  rotGroup.rotation.x=0.32; rotGroup.scale.set(0.7,0.7,0.7);
+  currentModelIdx = idx;
+  scene=new THREE.Scene(); addLights(scene);
+  rotGroup=new THREE.Group(); rotGroup.rotation.x=0.25; rotGroup.scale.set(0.7,0.7,0.7);
   scene.add(rotGroup);
-  parts=[];
-  explodeT=0; exploding=false; floatT=0; crankT=0;
-  currentMode='rotate';
+  parts=[]; explodeT=0; exploding=false; floatT=0; mechT=0; currentMode='rotate';
 
   const m=makeMats();
   if (idx===0)      parts=buildGearbox(rotGroup,m);
   else if (idx===1) parts=buildTurbofan(rotGroup,m);
   else              parts=buildPistonEngine(rotGroup,m);
 
-  /* Reset controls UI */
   document.querySelectorAll('.vctrl').forEach(b=>b.classList.remove('active'));
   const rb=document.getElementById('btn-rotate'); if(rb) rb.classList.add('active');
-
-  /* Update model indicator */
-  const labels=['PLANETARY GEARBOX','TURBOFAN ENGINE','V4 PISTON ENGINE'];
-  const ind=document.getElementById('model-indicator');
-  if (ind) ind.textContent=labels[idx];
+  const labels=['PRECISION PLANETARY','TURBOFAN W/ STATORS','DOHC INLINE-4'];
+  const ind=document.getElementById('model-indicator'); if (ind) ind.textContent=labels[idx];
 }
 
-/* ── Drag controls ──────────────────────────────────────────── */
 function setupDrag(canvas, parent) {
   let msx=0, msy=0, didDrag=false;
   canvas.addEventListener('mousedown',e=>{isDragging=true;didDrag=false;msx=e.clientX;msy=e.clientY;prevMouse={x:e.clientX,y:e.clientY};});
@@ -478,87 +355,95 @@ function setupDrag(canvas, parent) {
     if(Math.abs(e.clientX-msx)>4||Math.abs(e.clientY-msy)>4) didDrag=true;
     rotGroup.rotation.y+=(e.clientX-prevMouse.x)*.010;
     rotGroup.rotation.x+=(e.clientY-prevMouse.y)*.007;
-    rotGroup.rotation.x=Math.max(-.9,Math.min(.9,rotGroup.rotation.x));
+    rotGroup.rotation.x=Math.max(-1.2,Math.min(1.2,rotGroup.rotation.x));
     prevMouse={x:e.clientX,y:e.clientY};
   });
-  canvas.addEventListener('click',()=>{if(didDrag)return;if(currentMode!=='explode')setMode('explode');else resetModel();});
-  canvas.addEventListener('touchstart',e=>{isDragging=true;prevMouse={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
-  window.addEventListener('touchend',()=>isDragging=false);
-  window.addEventListener('touchmove',e=>{if(!isDragging)return;rotGroup.rotation.y+=(e.touches[0].clientX-prevMouse.x)*.010;prevMouse={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
-  window.addEventListener('resize',()=>{const W2=parent.clientWidth||640,H2=parent.clientHeight||580;camera.aspect=W2/H2;camera.updateProjectionMatrix();renderer.setSize(W2,H2);});
+  canvas.addEventListener('click',()=>{if(!didDrag) exploding=!exploding;});
 }
 
-/* ── Render loop ────────────────────────────────────────────── */
 function animate() {
   requestAnimationFrame(animate);
   const dt=Math.min(clock.getDelta(),.05);
-  floatT+=dt; crankT+=dt;
+  floatT+=dt; if (explodeT < 0.1) mechT += dt;
 
   if (!isDragging && currentMode==='rotate') {
-    rotGroup.rotation.y+=.004;
-    rotGroup.position.y=Math.sin(floatT*.52)*.04;
-    rotGroup.position.x=0;
+    rotGroup.rotation.y+=0.005; rotGroup.position.y=Math.sin(floatT*.8)*.05;
   }
 
-  parts.forEach(p=>{
-    if (p.spin && p.mesh) p.mesh.rotation.z += p.spin * dt;
+  // --- MODEL 0: Planetary Math ---
+  if (currentModelIdx === 0 && rotGroup.userData.Ts) {
+    const { Ts, Tp, Tr, orbitR } = rotGroup.userData;
+    const sunSpeed = 2.0;
+    const sunAngle = mechT * sunSpeed;
+    const carrierAngle = sunAngle * (Ts / (Ts + Tr));
+    const planetSpinRel = (sunAngle - carrierAngle) * (-Ts / Tp);
 
-    /* Piston + connecting-rod kinematics (only when assembled) */
-    if (p.pistonMesh !== undefined && explodeT < .01) {
-      const crankAngle = crankT * 3.0 + p.pistonPhase;
-      const pistonY = p.oP.y + Math.sin(crankAngle) * 0.65;
-      p.pistonMesh.position.y = pistonY;
+    parts.forEach(p => {
+      if (p.isSun) p.mesh.rotation.z = sunAngle;
+      if (p.isCarrier) p.mesh.rotation.z = carrierAngle;
+      if (p.isPlanet) {
+        // Absolute position based on carrier, absolute spin based on relative gear math
+        p.mesh.position.set(Math.cos(p.angle + carrierAngle)*orbitR, Math.sin(p.angle + carrierAngle)*orbitR, 0);
+        p.mesh.rotation.z = p.angle + carrierAngle + planetSpinRel + (Math.PI / Tp);
+      }
+    });
+  }
 
-      /* simple crank pin position (small X offset to give rod an angle) */
-      const pinX = p.cx + Math.cos(crankAngle) * (crankRadius * 0.5);
-      const pinY = crankCenterY + Math.sin(crankAngle) * crankRadius;
-      const pistonPos = new THREE.Vector3(p.cx, pistonY, 0);
-      const pinPos = new THREE.Vector3(pinX, pinY, 0);
+  // --- MODEL 1: Turbofan Math ---
+  if (currentModelIdx === 1) {
+    parts.forEach(p => { if (p.isSpool) p.mesh.rotation.z = mechT * p.speed; });
+  }
 
-      const rodVec = new THREE.Vector3().subVectors(pistonPos, pinPos);
-      const rodLen = rodVec.length();
-      const baseLen = 1.4; /* original rod geometry length */
+  // --- MODEL 2: DOHC Engine Math ---
+  if (currentModelIdx === 2) {
+    const crankSpeed = -4.0, crankAngle = mechT * crankSpeed, camAngle = crankAngle * 0.5;
+    const crankY = -1.2, crankR = 0.6, conrodL = 2.4;
 
-      p.rodMesh.position.set((pistonPos.x + pinPos.x) * 0.5, (pistonPos.y + pinPos.y) * 0.5, 0);
-      p.rodMesh.scale.y = rodLen / baseLen;
-      p.rodMesh.rotation.z = Math.atan2(rodVec.x, rodVec.y);
+    parts.forEach(p => {
+      if (p.isCrank) p.mesh.rotation.x = crankAngle;
+      if (p.isCam) p.mesh.rotation.x = camAngle;
+      if (p.isEngineKinematic) {
+        // Piston & Rod Slider-Crank
+        const lA = crankAngle + p.crankPhase;
+        const pinY = crankY + Math.cos(lA) * crankR, pinZ = Math.sin(lA) * crankR;
+        const pistonY = pinY + Math.sqrt(conrodL*conrodL - pinZ*pinZ);
+        
+        p.piston.position.set(p.cx, pistonY, 0);
+        p.rod.position.set(p.cx, (pinY + pistonY)/2, pinZ/2);
+        p.rod.rotation.x = -Math.atan2(pinZ, pistonY - pinY);
+
+        // Valvetrain & Cams
+        // Intake opens during stroke 0-PI. Exhaust during 3PI-4PI.
+        const cPhase = (camAngle - p.cyclePhase/2) % (Math.PI*2);
+        
+        // Calculate cam lobe rotation and visual offset
+        p.inLobe.position.y = Math.cos(cPhase) * 0.08;
+        p.inLobe.position.z = Math.sin(cPhase) * 0.08;
+        
+        const exPhase = cPhase - Math.PI*1.5; // Offset by 3 strokes
+        p.exLobe.position.y = Math.cos(exPhase) * 0.08;
+        p.exLobe.position.z = Math.sin(exPhase) * 0.08;
+
+        // Simple valve lift based on lobe position pointing down
+        p.inValve.position.y = 3.8 - Math.max(0, Math.cos(cPhase) * 0.25);
+        p.exValve.position.y = 3.8 - Math.max(0, Math.cos(exPhase) * 0.25);
+      }
+    });
+  }
+
+  // Explode lerping
+  if (exploding&&explodeT<1) explodeT=Math.min(1,explodeT+dt*0.8);
+  else if (!exploding&&explodeT>0) explodeT=Math.max(0,explodeT-dt*1.2);
+  
+  const e = explodeT < 0.5 ? 2*explodeT*explodeT : -1+(4-2*explodeT)*explodeT;
+  parts.forEach(p => {
+    if (p.mesh && p.d && !p.isPlanet) { // Planets managed dynamically above
+      p.mesh.position.lerpVectors(p.o, new THREE.Vector3().copy(p.o).add(p.d), e);
     }
   });
-
-  if (exploding&&explodeT<1)      { explodeT=Math.min(1,explodeT+dt*.55); applyExplode(explodeT); }
-  else if (!exploding&&explodeT>0) { explodeT=Math.max(0,explodeT-dt*.80); applyExplode(explodeT); }
 
   renderer.render(scene,camera);
 }
 
-function applyExplode(t) {
-  const e=t<.5?2*t*t:-1+(4-2*t)*t;
-  parts.forEach(p=>{
-    if (p.mesh) {
-      p.mesh.position.x = p.o.x + p.d.x * 3.0 * e;
-      p.mesh.position.y = p.o.y + p.d.y * 3.0 * e;
-      p.mesh.position.z = p.o.z + p.d.z * 3.0 * e;
-    } else if (p.pistonMesh !== undefined) {
-      p.pistonMesh.position.x = p.oP.x + p.d.x * 3.0 * e;
-      p.pistonMesh.position.y = p.oP.y + p.d.y * 3.0 * e;
-      p.pistonMesh.position.z = p.oP.z + p.d.z * 3.0 * e;
-      p.rodMesh.position.x = p.oR.x + p.d.x * 3.0 * e;
-      p.rodMesh.position.y = p.oR.y + p.d.y * 3.0 * e;
-      p.rodMesh.position.z = p.oR.z + p.d.z * 3.0 * e;
-    }
-  });
-}
-
-/* ── Public API (called from HTML buttons) ──────────────────── */
-function setMode(mode) {
-  currentMode=mode; if(mode==='explode') exploding=true;
-  document.querySelectorAll('.vctrl').forEach(b=>b.classList.remove('active'));
-  const b=document.getElementById('btn-'+mode); if(b) b.classList.add('active');
-}
-
-function resetModel() {
-  exploding=false; currentMode='rotate';
-  if(rotGroup) rotGroup.rotation.set(.32,0,0), rotGroup.position.set(0,0,0);
-  document.querySelectorAll('.vctrl').forEach(b=>b.classList.remove('active'));
-  const rb=document.getElementById('btn-rotate'); if(rb) rb.classList.add('active');
-}
+function setMode(mode) { currentMode=mode; if(mode==='explode') exploding=true; }
+function resetModel() { exploding=false; currentMode='rotate'; if(rotGroup) rotGroup.rotation.set(.25,0,0); }
