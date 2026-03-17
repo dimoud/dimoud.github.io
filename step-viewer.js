@@ -103,7 +103,9 @@
         await loadScript(OC_CDN);
         opencascadeInit = window.opencascade;
       }
-      oc = await opencascadeInit();
+      oc = await opencascadeInit({
+        locateFile: (file) => `https://cdn.jsdelivr.net/npm/opencascade.js@1.1.1/dist/${file}`
+      });
       setStatus('Fetching STEP file…');
       await loadStep(STEP_FILE);
     } catch (err) {
