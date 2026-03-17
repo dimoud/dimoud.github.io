@@ -12,9 +12,6 @@
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
 <!-- NAV -->
 <nav>
   <a href="#hero" class="nav-logo"><img src="images/logo.png" alt="Expertease" fetchpriority="high"></a>
@@ -23,7 +20,7 @@
       <li><a href="#about"        id="nav-about">About</a></li>
       <li><a href="#projects"     id="nav-projects">Work</a></li>
       <li><a href="software.html" id="nav-software">Software</a></li>
-      <li><a href="team.html"     id="nav-experience">Team</a></li>
+      <li><a href="#team-index"   id="nav-experience">Team</a></li>
       <li><a href="#contact"      id="nav-contact">Contact</a></li>
     </ul>
     <div class="lang-toggle">
@@ -41,7 +38,7 @@
     <li><a href="#about"        id="mnav-about"      onclick="closeMobileNav()">About</a></li>
     <li><a href="#projects"     id="mnav-projects"   onclick="closeMobileNav()">Work</a></li>
     <li><a href="software.html" id="mnav-software"   onclick="closeMobileNav()">Software</a></li>
-    <li><a href="team.html"     id="mnav-experience" onclick="closeMobileNav()">Team</a></li>
+    <li><a href="#team-index"   id="mnav-experience" onclick="closeMobileNav()">Team</a></li>
     <li><a href="#contact"      id="mnav-contact"    onclick="closeMobileNav()">Contact</a></li>
   </ul>
 </div>
@@ -66,6 +63,7 @@
       <button class="vctrl"        id="btn-explode" onclick="setMode('explode')">⊕ EXPLODE</button>
       <button class="vctrl"        id="btn-reset"   onclick="resetModel()">↺ RESET</button>
     </div>
+    <div class="model-indicator" id="model-indicator">PLANETARY GEARBOX</div>
     <div class="viewer-hint" id="viewer-hint">drag to rotate</div>
   </div>
   <div class="hero-stats">
@@ -160,6 +158,52 @@
       <p class="process-text" id="proc-3-text">We supervise fabrication, manage suppliers, and hand over a tested, production-ready assembly.</p>
     </div>
   </div>
+
+  <!-- Animated process flow diagram -->
+  <div class="process-flow">
+    <div class="process-flow-inner">
+      <div class="pf-node">
+        <div class="pf-icon"><div class="pf-icon-pulse"></div>💡</div>
+        <div class="pf-label">Concept</div>
+        <div class="pf-sub">Requirements &amp; brief</div>
+      </div>
+      <div class="pf-arrow"><div class="pf-arrow-dot"></div></div>
+      <div class="pf-node">
+        <div class="pf-icon"><div class="pf-icon-pulse"></div>📐</div>
+        <div class="pf-label">CAD Design</div>
+        <div class="pf-sub">3D model · BOM · drawings</div>
+      </div>
+      <div class="pf-arrow"><div class="pf-arrow-dot"></div></div>
+      <div class="pf-node">
+        <div class="pf-icon"><div class="pf-icon-pulse"></div>🔬</div>
+        <div class="pf-label">FEA &amp; Simulation</div>
+        <div class="pf-sub">Stress · fatigue · DFM</div>
+      </div>
+      <div class="pf-arrow"><div class="pf-arrow-dot"></div></div>
+      <div class="pf-node">
+        <div class="pf-icon"><div class="pf-icon-pulse"></div>🏭</div>
+        <div class="pf-label">Fabrication</div>
+        <div class="pf-sub">Machining · printing · welding</div>
+      </div>
+      <div class="pf-arrow"><div class="pf-arrow-dot"></div></div>
+      <div class="pf-node">
+        <div class="pf-icon"><div class="pf-icon-pulse"></div>✅</div>
+        <div class="pf-label">Quality Check</div>
+        <div class="pf-sub">Testing · inspection · sign-off</div>
+      </div>
+      <div class="pf-arrow"><div class="pf-arrow-dot"></div></div>
+      <div class="pf-node">
+        <div class="pf-icon"><div class="pf-icon-pulse"></div>🤝</div>
+        <div class="pf-label">Customer</div>
+        <div class="pf-sub">Delivery &amp; feedback</div>
+      </div>
+    </div>
+    <div class="pf-loop">
+      <div class="pf-loop-line"></div>
+      <div class="pf-loop-label">Continuous improvement loop</div>
+      <div class="pf-loop-line"></div>
+    </div>
+  </div>
 </section>
 
 <!-- PORTFOLIO -->
@@ -181,7 +225,7 @@
         <div class="port-cat"></div>
         <h3 class="port-title"></h3>
         <p class="port-desc"></p>
-        <a href="#" class="project-link port-link" target="_blank" rel="noopener">View Project →</a>
+        <a href="#contact" class="project-link port-link">Get in Touch →</a>
       </div>
     </div>
 
@@ -197,7 +241,7 @@
         <div class="port-cat"></div>
         <h3 class="port-title"></h3>
         <p class="port-desc"></p>
-        <a href="#" class="project-link port-link" target="_blank" rel="noopener">View Project →</a>
+        <a href="#contact" class="project-link port-link">Get in Touch →</a>
       </div>
     </div>
   </div>
@@ -205,6 +249,91 @@
   <div class="port-footer">
     <div class="port-dots" id="portDots"></div>
     <div class="port-hint-txt">↔ drag to swap &nbsp;·&nbsp; cycles every 5s</div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team-index">
+  <div class="section-header team-index-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Team</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="founder-card">
+    <div class="founder-card-photo">
+      <img src="images/founder.png" alt="Dimitrios Moudiotis — Founder &amp; Lead Engineer">
+    </div>
+    <div class="founder-card-info">
+      <div class="founder-card-label">Founder &amp; Lead Engineer</div>
+      <h3 class="founder-card-name">Dimitrios<br>Moudiotis</h3>
+      <p class="founder-card-bio">Mechanical Engineer (AUTH) with 7+ years of experience across robotics, safety equipment, sheet metal, and precision 3D printing. Four postgraduate degrees from institutions in Greece, France, and the USA.</p>
+      <div class="founder-card-stats">
+        <div class="founder-card-stat">
+          <div class="fcs-num">7<span>+</span></div>
+          <div class="fcs-label">Years</div>
+        </div>
+        <div class="founder-card-stat">
+          <div class="fcs-num">50<span>+</span></div>
+          <div class="fcs-label">Projects</div>
+        </div>
+        <div class="founder-card-stat">
+          <div class="fcs-num">4</div>
+          <div class="fcs-label">PG Degrees</div>
+        </div>
+      </div>
+      <div class="founder-card-actions">
+        <a href="team.html" class="btn-primary" style="font-size:9px;padding:11px 24px;">Full Profile →</a>
+        <a href="https://www.linkedin.com/in/moudiotis/" target="_blank" rel="noopener" class="btn-outline" style="font-size:9px;padding:11px 24px;">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Education strip -->
+  <div id="team" style="margin-top:52px;">
+    <div class="edu-strip-title" id="edu-strip-title">Founder — Dimitrios Moudiotis · 5 Universities in 3 Countries</div>
+    <div class="edu-cards">
+      <div class="edu-card blue">
+        <div class="edu-logo-wrap" style="background:rgba(0,80,160,.18);">
+          <img src="images/LogoAUTH.png" alt="AUTH">
+        </div>
+        <div class="edu-degree" id="edu1-deg">BEng</div>
+        <div class="edu-name" id="edu1-name">Mechanical Engineering</div>
+        <div class="edu-country">AUTH · Greece</div>
+      </div>
+      <div class="edu-card red">
+        <div class="edu-logo-wrap" style="background:rgba(160,0,0,.15);">
+          <img src="images/ecole_centrale_paris_logo.png" alt="ECP">
+        </div>
+        <div class="edu-degree" id="edu2-deg">MSc</div>
+        <div class="edu-name" id="edu2-name">École Centrale Paris</div>
+        <div class="edu-country">Paris · France</div>
+      </div>
+      <div class="edu-card green">
+        <div class="edu-logo-wrap" style="background:rgba(0,120,60,.15);">
+          <img src="images/IFP_Logo.png" alt="IFP">
+        </div>
+        <div class="edu-degree" id="edu3-deg">MSc</div>
+        <div class="edu-name" id="edu3-name">IFP School</div>
+        <div class="edu-country">Paris · France</div>
+      </div>
+      <div class="edu-card purple">
+        <div class="edu-logo-wrap" style="background:rgba(100,0,150,.15);">
+          <img src="images/ihu_logo.png" alt="IHU">
+        </div>
+        <div class="edu-degree" id="edu4-deg">MSc</div>
+        <div class="edu-name" id="edu4-name">International Hellenic University</div>
+        <div class="edu-country">Thessaloniki · Greece</div>
+      </div>
+      <div class="edu-card navy">
+        <div class="edu-logo-wrap" style="background:rgba(0,40,120,.2);">
+          <img src="images/wust_logo.png" alt="WUST" onerror="this.parentElement.innerHTML='&#127891;'">
+        </div>
+        <div class="edu-degree" id="edu5-deg">MBA</div>
+        <div class="edu-name" id="edu5-name">Washington Univ. of Science &amp; Technology</div>
+        <div class="edu-country">Washington · USA</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -250,6 +379,7 @@
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+<script src="models.js" defer></script>
 <script src="main.js" defer></script>
 </body>
 </html>

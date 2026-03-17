@@ -135,231 +135,6 @@ function applyLang(lang) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   CURSOR
-═══════════════════════════════════════════════════════════════ */
-function initCursor() {
-  const dot=document.getElementById('cursor'), ring=document.getElementById('cursorRing');
-  if(!dot)return;
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
-  if(ring){(function lerpRing(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(lerpRing);})();}
-  document.querySelectorAll('a,button,.portfolio-col,.vctrl,.edu-card').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{dot.classList.add('hover');if(ring)ring.classList.add('hover');});
-    el.addEventListener('mouseleave',()=>{dot.classList.remove('hover');if(ring)ring.classList.remove('hover');});
-  });
-  document.addEventListener('mousedown',()=>{dot.classList.add('click');setTimeout(()=>dot.classList.remove('click'),200);});
-  document.addEventListener('mouseleave',()=>{dot.style.opacity='0';if(ring)ring.style.opacity='0';});
-  document.addEventListener('mouseenter',()=>{dot.style.opacity='1';if(ring)ring.style.opacity='1';});
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   THREE.JS — PLANETARY GEAR BOX (central shaft removed)
-═══════════════════════════════════════════════════════════════ */
-let scene,camera,renderer,parts=[],clock;
-let explodeT=0,exploding=false,isDragging=false;
-let prevMouse={x:0,y:0},rotGroup,floatT=0;
-let currentMode='rotate';
-
-function makeGear(teeth,pitchR,toothH,hubR,spokes){
-  const s=new THREE.Shape(), step=(Math.PI*2)/teeth;
-  for(let i=0;i<teeth;i++){
-    const a0=i*step-step*.42,a1=i*step-step*.16,a2=i*step+step*.16,a3=i*step+step*.42;
-    const p=(a,r)=>[Math.cos(a)*r,Math.sin(a)*r];
-    i===0?s.moveTo(...p(a0,pitchR)):s.lineTo(...p(a0,pitchR));
-    s.lineTo(...p(a1,pitchR+toothH));s.lineTo(...p(a2,pitchR+toothH));s.lineTo(...p(a3,pitchR));
-  }
-  s.closePath();
-  const hub=new THREE.Path();hub.absarc(0,0,hubR,0,Math.PI*2,true);s.holes.push(hub);
-  const n=spokes||Math.max(4,Math.floor(teeth/3));
-  for(let i=0;i<n;i++){const a=(i/n)*Math.PI*2,r=pitchR*.55,sr=pitchR*.13;const sh=new THREE.Path();sh.absarc(Math.cos(a)*r,Math.sin(a)*r,sr,0,Math.PI*2,true);s.holes.push(sh);}
-  return s;
-}
-
-function makeRingGear(teeth,outerR,toothRootR,toothH){
-  const s=new THREE.Shape();s.absarc(0,0,outerR,0,Math.PI*2,false);
-  const step=(Math.PI*2)/teeth, inner=new THREE.Path();
-  for(let i=0;i<teeth;i++){
-    const a0=i*step-step*.38,a1=i*step-step*.14,a2=i*step+step*.14,a3=i*step+step*.38;
-    const p=(a,r)=>[Math.cos(a)*r,Math.sin(a)*r];
-    i===0?inner.moveTo(...p(a0,toothRootR)):inner.lineTo(...p(a0,toothRootR));
-    inner.lineTo(...p(a1,toothRootR-toothH));inner.lineTo(...p(a2,toothRootR-toothH));inner.lineTo(...p(a3,toothRootR));
-  }
-  inner.closePath();s.holes.push(inner);return s;
-}
-
-function initThree(){
-  const canvas=document.getElementById('hero3d');
-  if(!canvas||typeof THREE==='undefined'){console.warn('Three.js not ready');return;}
-  const parent=canvas.parentElement, W=parent.clientWidth||640, H=parent.clientHeight||580;
-  renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  renderer.setSize(W,H);renderer.setClearColor(0x000000,0);
-  renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-  scene=new THREE.Scene();
-  camera=new THREE.PerspectiveCamera(38,W/H,0.1,300);
-  camera.position.set(0,2.5,20);camera.lookAt(0,0.5,0);
-  clock=new THREE.Clock();
-
-  /* Lights — blue-toned metallic */
-  scene.add(new THREE.AmbientLight(0x506878,0.85));
-  const key=new THREE.DirectionalLight(0xffffff,3.4);
-  key.position.set(8,14,10);key.castShadow=true;key.shadow.mapSize.set(2048,2048);scene.add(key);
-  const fill=new THREE.DirectionalLight(0x4080d0,1.1);fill.position.set(-9,4,-7);scene.add(fill);
-  const rim=new THREE.PointLight(0x2060ff,1.8,55);rim.position.set(-5,9,-10);scene.add(rim);
-  const bot=new THREE.PointLight(0x1040c0,0.9,45);bot.position.set(5,-9,5);scene.add(bot);
-  const spec=new THREE.DirectionalLight(0xd0e8ff,0.9);spec.position.set(-2,-8,14);scene.add(spec);
-
-  rotGroup=new THREE.Group();rotGroup.rotation.x=0.32;rotGroup.scale.set(0.7,0.7,0.7);scene.add(rotGroup);
-
-  const mSteel =new THREE.MeshStandardMaterial({color:0x7c8c9a,metalness:.97,roughness:.09});
-  const mBlue  =new THREE.MeshStandardMaterial({color:0x0d2a7c,metalness:.86,roughness:.24});
-  const mBrass =new THREE.MeshStandardMaterial({color:0xbe9228,metalness:.97,roughness:.09});
-  const mGold  =new THREE.MeshStandardMaterial({color:0xd4a820,metalness:.96,roughness:.07});
-  const mShaft =new THREE.MeshStandardMaterial({color:0x4870b0,metalness:.98,roughness:.07});
-  const mCase  =new THREE.MeshStandardMaterial({color:0x1c2028,metalness:.82,roughness:.28});
-  const mRing  =new THREE.MeshStandardMaterial({color:0x091848,metalness:.89,roughness:.20});
-
-  const extH={depth:.75,bevelEnabled:true,bevelThickness:.05,bevelSize:.04,bevelSegments:4};
-  const extM={depth:.58,bevelEnabled:true,bevelThickness:.04,bevelSize:.03,bevelSegments:3};
-  const extR={depth:.78,bevelEnabled:true,bevelThickness:.07,bevelSize:.06,bevelSegments:4};
-  const OR=2.8, pAngles=[0,Math.PI*2/3,Math.PI*4/3], pMats=[mGold,mBrass,mSteel];
-
-  /* SUN GEAR */
-  const gSun=new THREE.Mesh(new THREE.ExtrudeGeometry(makeGear(18,1.8,0.46,0.26,6),extH),mBlue);
-  gSun.castShadow=true;rotGroup.add(gSun);
-  parts.push({mesh:gSun,o:gSun.position.clone(),d:new THREE.Vector3(0,0,0),spin:.50});
-
-  /* 3 PLANET GEARS */
-  pAngles.forEach((a,i)=>{
-    const pg=new THREE.Mesh(new THREE.ExtrudeGeometry(makeGear(10,1.0,0.40,0.16,3),extM),pMats[i]);
-    pg.position.set(Math.cos(a)*OR,Math.sin(a)*OR,0.09);pg.castShadow=true;rotGroup.add(pg);
-    parts.push({mesh:pg,o:pg.position.clone(),d:new THREE.Vector3(Math.cos(a)*4.8,Math.sin(a)*4.8,1.4+i*0.7),spin:-.90});
-  });
-
-  /* RING GEAR */
-  const gRing=new THREE.Mesh(new THREE.ExtrudeGeometry(makeRingGear(38,4.28,3.78,0.46),extR),mRing);
-  gRing.castShadow=true;rotGroup.add(gRing);
-  parts.push({mesh:gRing,o:gRing.position.clone(),d:new THREE.Vector3(0,0,-5.0),spin:-.09});
-
-  /* CARRIER PLATE */
-  const cShape=new THREE.Shape();cShape.absarc(0,0,3.5,0,Math.PI*2,false);
-  const cHub=new THREE.Path();cHub.absarc(0,0,2.0,0,Math.PI*2,true);cShape.holes.push(cHub);
-  pAngles.forEach(a=>{const ch=new THREE.Path();ch.absarc(Math.cos(a)*OR,Math.sin(a)*OR,0.34,0,Math.PI*2,true);cShape.holes.push(ch);});
-  const gCarrier=new THREE.Mesh(new THREE.ExtrudeGeometry(cShape,{depth:.24,bevelEnabled:false}),mCase);
-  gCarrier.position.set(0,0,-0.56);rotGroup.add(gCarrier);
-  parts.push({mesh:gCarrier,o:gCarrier.position.clone(),d:new THREE.Vector3(0,0,-2.8),spin:.167});
-
-  /* BACK PLATE */
-  const bShape=new THREE.Shape();bShape.absarc(0,0,4.9,0,Math.PI*2,false);
-  const bRim=new THREE.Path();bRim.absarc(0,0,4.35,0,Math.PI*2,true);bShape.holes.push(bRim);
-  [0,1,2,3,4,5].forEach(i=>{const a=(i/6)*Math.PI*2;const bh=new THREE.Path();bh.absarc(Math.cos(a)*4.62,Math.sin(a)*4.62,0.20,0,Math.PI*2,true);bShape.holes.push(bh);});
-  const gBack=new THREE.Mesh(new THREE.ExtrudeGeometry(bShape,{depth:.36,bevelEnabled:false}),mCase);
-  gBack.position.set(0,0,-0.88);rotGroup.add(gBack);
-  parts.push({mesh:gBack,o:gBack.position.clone(),d:new THREE.Vector3(0,0,-5.8),spin:0});
-
-  /* FRONT COVER */
-  const fShape=new THREE.Shape();fShape.absarc(0,0,4.9,0,Math.PI*2,false);
-  const fRim=new THREE.Path();fRim.absarc(0,0,3.9,0,Math.PI*2,true);fShape.holes.push(fRim);
-  [0,1,2,3,4,5].forEach(i=>{const a=(i/6)*Math.PI*2;const bh=new THREE.Path();bh.absarc(Math.cos(a)*4.62,Math.sin(a)*4.62,0.20,0,Math.PI*2,true);fShape.holes.push(bh);});
-  const gFront=new THREE.Mesh(new THREE.ExtrudeGeometry(fShape,{depth:.30,bevelEnabled:false}),mCase);
-  gFront.position.set(0,0,0.87);rotGroup.add(gFront);
-  parts.push({mesh:gFront,o:gFront.position.clone(),d:new THREE.Vector3(0,0,5.0),spin:0});
-
-  /* 6 MOUNTING BOLTS */
-  [0,1,2,3,4,5].forEach(i=>{
-    const a=(i/6)*Math.PI*2,bx=Math.cos(a)*4.62,by=Math.sin(a)*4.62;
-    const bolt=new THREE.Mesh(new THREE.CylinderGeometry(.14,.14,2.15,8),mBrass);
-    bolt.rotation.x=Math.PI/2;bolt.position.set(bx,by,0.1);rotGroup.add(bolt);
-    parts.push({mesh:bolt,o:bolt.position.clone(),d:new THREE.Vector3(bx*.1,by*.1,0),spin:0});
-    const head=new THREE.Mesh(new THREE.CylinderGeometry(.24,.24,.18,6),mBrass);
-    head.rotation.x=Math.PI/2;head.position.set(bx,by,1.02);rotGroup.add(head);
-    parts.push({mesh:head,o:head.position.clone(),d:new THREE.Vector3(bx*.1,by*.1,1.5),spin:0});
-  });
-
-  /* PLANET SHAFTS */
-  pAngles.forEach(a=>{
-    const psh=new THREE.Mesh(new THREE.CylinderGeometry(.12,.12,2.2,12),mShaft);
-    psh.rotation.x=Math.PI/2;psh.position.set(Math.cos(a)*OR,Math.sin(a)*OR,0.09);rotGroup.add(psh);
-    parts.push({mesh:psh,o:psh.position.clone(),d:new THREE.Vector3(Math.cos(a)*5.5,Math.sin(a)*5.5,1.5),spin:0});
-  });
-
-  /* BEARING RINGS */
-  [-0.52,0.98].forEach(z=>{
-    const br=new THREE.Mesh(new THREE.TorusGeometry(.34,.10,12,32),mBrass);
-    br.position.set(0,0,z);rotGroup.add(br);
-    parts.push({mesh:br,o:br.position.clone(),d:new THREE.Vector3(0,0,z*3.2),spin:0});
-  });
-
-  /* OUTPUT FLANGE */
-  const flange=new THREE.Mesh(new THREE.CylinderGeometry(.88,.88,.44,20),mSteel);
-  flange.rotation.x=Math.PI/2;flange.position.set(0,0,-1.55);rotGroup.add(flange);
-  parts.push({mesh:flange,o:flange.position.clone(),d:new THREE.Vector3(0,0,-5.5),spin:.167});
-
-  /* KEYWAY */
-  const kw=new THREE.Mesh(new THREE.BoxGeometry(.14,.10,.46),mShaft);
-  kw.position.set(.22,0,-1.55);rotGroup.add(kw);
-  parts.push({mesh:kw,o:kw.position.clone(),d:new THREE.Vector3(.6,0,-5.5),spin:0});
-
-  /* INPUT SPROCKET */
-  const spk=new THREE.Mesh(new THREE.TorusGeometry(1.25,.14,8,24),mSteel);
-  spk.position.set(0,0,1.6);rotGroup.add(spk);
-  parts.push({mesh:spk,o:spk.position.clone(),d:new THREE.Vector3(0,0,4.2),spin:.50});
-
-  /* OUTER HOUSING RING */
-  const hRing=new THREE.Mesh(new THREE.TorusGeometry(4.62,.28,16,48),mCase);
-  rotGroup.add(hRing);
-  parts.push({mesh:hRing,o:hRing.position.clone(),d:new THREE.Vector3(0,0,0),spin:0});
-
-  /* Drag to rotate */
-  let msx=0,msy=0,didDrag=false;
-  canvas.addEventListener('mousedown',e=>{isDragging=true;didDrag=false;msx=e.clientX;msy=e.clientY;prevMouse={x:e.clientX,y:e.clientY};});
-  window.addEventListener('mouseup',()=>{isDragging=false;});
-  window.addEventListener('mousemove',e=>{
-    if(!isDragging)return;
-    if(Math.abs(e.clientX-msx)>4||Math.abs(e.clientY-msy)>4)didDrag=true;
-    rotGroup.rotation.y+=(e.clientX-prevMouse.x)*.010;
-    rotGroup.rotation.x+=(e.clientY-prevMouse.y)*.007;
-    rotGroup.rotation.x=Math.max(-.9,Math.min(.9,rotGroup.rotation.x));
-    prevMouse={x:e.clientX,y:e.clientY};
-  });
-  canvas.addEventListener('click',()=>{if(didDrag)return;if(currentMode!=='explode')setMode('explode');else resetModel();});
-  canvas.addEventListener('touchstart',e=>{isDragging=true;prevMouse={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
-  window.addEventListener('touchend',()=>isDragging=false);
-  window.addEventListener('touchmove',e=>{if(!isDragging)return;rotGroup.rotation.y+=(e.touches[0].clientX-prevMouse.x)*.010;prevMouse={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
-  window.addEventListener('resize',()=>{const W2=parent.clientWidth||640,H2=parent.clientHeight||580;camera.aspect=W2/H2;camera.updateProjectionMatrix();renderer.setSize(W2,H2);});
-  animate();
-}
-
-function animate(){
-  requestAnimationFrame(animate);
-  const dt=Math.min(clock.getDelta(),.05);
-  floatT+=dt;
-  if(!isDragging&&currentMode==='rotate'){rotGroup.rotation.y+=.004;rotGroup.position.y=Math.sin(floatT*.52)*.04;rotGroup.position.x=0;}
-  parts.forEach(p=>{if(p.spin!==0)p.mesh.rotation.z+=p.spin*dt;});
-  if(exploding&&explodeT<1){explodeT=Math.min(1,explodeT+dt*.55);applyExplode(explodeT);}
-  else if(!exploding&&explodeT>0){explodeT=Math.max(0,explodeT-dt*.80);applyExplode(explodeT);}
-  renderer.render(scene,camera);
-}
-
-function applyExplode(t){
-  const e=t<.5?2*t*t:-1+(4-2*t)*t;
-  parts.forEach(p=>{p.mesh.position.x=p.o.x+p.d.x*3.0*e;p.mesh.position.y=p.o.y+p.d.y*3.0*e;p.mesh.position.z=p.o.z+p.d.z*3.0*e;});
-}
-
-function setMode(m){
-  currentMode=m;if(m==='explode')exploding=true;
-  document.querySelectorAll('.vctrl').forEach(b=>b.classList.remove('active'));
-  const b=document.getElementById('btn-'+m);if(b)b.classList.add('active');
-}
-
-function resetModel(){
-  exploding=false;currentMode='rotate';
-  rotGroup.rotation.set(.32,0,0);rotGroup.position.set(0,0,0);
-  document.querySelectorAll('.vctrl').forEach(b=>b.classList.remove('active'));
-  const rb=document.getElementById('btn-rotate');if(rb)rb.classList.add('active');
-}
-
-/* ═══════════════════════════════════════════════════════════════
    PORTFOLIO DATA
 ═══════════════════════════════════════════════════════════════ */
 const PORTFOLIO_DATA = [
@@ -369,8 +144,17 @@ const PORTFOLIO_DATA = [
     descEn:'Tracked robot with 3 lead-acid batteries, 36V supply, solar panel, 4 cameras, sensors, and powerful LEDs. Laser-cut steel, biodegradable PLA parts, wood panels. Dustproof, waterproof, recyclable.',
     descEl:'Τροχήλατο ρομπότ με 3 μπαταρίες μολύβδου, τροφοδοσία 36V, ηλιακό πάνελ, 4 κάμερες, αισθητήρες και ισχυρά LED. Laser cut χάλυβας, βιοδιασπάσιμη PLA. Αδιάβροχο, αντισκονικό.',
     badgeEn:'Featured', badgeEl:'Ναυαρχίδα',
-    images:['images/modular_robot/Untitled Project.png','images/modular_robot/Untitled Project 2.png','images/modular_robot/Untitled Project 3.png','images/modular_robot/444.png','images/tracked/Untitled Project 3.png','images/tracked/Untitled Project 5.png'],
-    link:'https://sites.google.com/view/expertease/portfolio'
+    images:[
+      'images/modular_robot/Untitled Project.png',
+      'images/modular_robot/Untitled Project 2.png',
+      'images/modular_robot/Untitled Project 3.png',
+      'images/modular_robot/444.png',
+      'images/modular_robot/Untitled Project 4.png',
+      'images/modular_robot/Untitled Project 5.png',
+      'images/tracked/Untitled Project 3.png',
+      'images/tracked/Untitled Project 5.png'
+    ],
+    link:'#contact'
   },
   {
     catEn:'Safety · Driver Education', catEl:'Ασφάλεια · Εκπαίδευση Οδηγών',
@@ -378,8 +162,15 @@ const PORTFOLIO_DATA = [
     descEn:'Experience a controlled 12 km/h impact in a safe environment. Single and double-seat versions — lightweight steel frame, assembled by one person in half a day.',
     descEl:'Νιώστε μια σύγκρουση στα 12km/h σε ελεγχόμενο περιβάλλον. Εκδόσεις μονής και διπλής θέσης — ελαφρύ, συναρμολογείται σε μισή μέρα.',
     badgeEn:'', badgeEl:'',
-    images:['images/double_seat_belt_convincer/1.png','images/double_seat_belt_convincer/2.png','images/double_seat_belt_convincer/3.png','images/double_seat_belt_convincer/4.png','images/impactor/impactor.png','images/impactor/impactor 2.png'],
-    link:'https://sites.google.com/view/expertease/portfolio'
+    images:[
+      'images/double_seat_belt_convincer/1.png',
+      'images/double_seat_belt_convincer/2.png',
+      'images/double_seat_belt_convincer/3.png',
+      'images/double_seat_belt_convincer/4.png',
+      'images/double_seat_belt_convincer/5.png',
+      'images/double_seat_belt_convincer/6.png'
+    ],
+    link:'#contact'
   },
   {
     catEn:'Safety · Educational Equipment', catEl:'Ασφάλεια · Εκπαιδευτικός Εξοπλισμός',
@@ -387,17 +178,33 @@ const PORTFOLIO_DATA = [
     descEn:'Vehicle rollover simulator — place a car on top and roll inside it. Versions I & II, up to 20 rpm. Powerful tool for driver-safety training programmes.',
     descEl:'Προσομοιωτής ανατροπής οχήματος. Τοποθετείτε αυτοκίνητο στην κορυφή. Εκδόσεις Ι & ΙΙ, έως 20rpm. Ισχυρό εργαλείο εκπαίδευσης οδηγών.',
     badgeEn:'', badgeEl:'',
-    images:['images/gear/Untitled Project.png','images/gear/Untitled Project 2.png','images/gear/Untitled Project 3.png','images/gear/Untitled Project 4.png','images/gear/Untitled Project 5.png','images/gear/Untitled Project 6.png'],
-    link:'https://sites.google.com/view/expertease/portfolio'
+    images:[
+      'images/gear/Untitled Project.png',
+      'images/gear/Untitled Project 2.png',
+      'images/gear/Untitled Project 3.png',
+      'images/gear/Untitled Project 4.png',
+      'images/gear/Untitled Project 5.png',
+      'images/gear/Untitled Project 6.png'
+    ],
+    link:'#contact'
   },
   {
     catEn:'Laser Cutting · Brake Press · Welding', catEl:'Laser Cutting · Brake Press · Συγκόλληση',
     titleEn:'Sheet Metal Applications', titleEl:'Εφαρμογές Φύλλων Μετάλλου',
-    descEn:'From LED wall décor to log baskets and structural elements. 1.5–5mm steel, optimised DFM for fast fabrication and minimal waste.',
-    descEl:'Από διακοσμητικά τοίχου με LED μέχρι καλάθια καυσόξυλων. Χάλυβας 1.5–5mm, βελτιστοποιημένο DFM για ταχεία κατασκευή.',
+    descEn:'From LED wall décor to log baskets, anchor brackets, and structural steel bases. 1.5–5mm steel, optimised DFM for fast fabrication and minimal waste.',
+    descEl:'Από διακοσμητικά τοίχου με LED μέχρι καλάθια καυσόξυλων, αγκύρια και χαλύβδινες βάσεις. Χάλυβας 1.5–5mm, βελτιστοποιημένο DFM.',
     badgeEn:'Sheet Metal', badgeEl:'Sheet Metal',
-    images:['images/sheetmetal/1.png','images/sheetmetal/2.png','images/sheetmetal/a1.png','images/sheetmetal/a2.png','images/log_basket/καροτσακι.png','images/log_basket/καροτσακι 2.png'],
-    link:'https://sites.google.com/view/expertease/portfolio'
+    images:[
+      'images/sheetmetal/1.png',
+      'images/sheetmetal/2.png',
+      'images/sheetmetal/a1.png',
+      'images/sheetmetal/a2.png',
+      'images/log_basket/καροτσακι.png',
+      'images/ancor/1.png',
+      'images/steel_base/Untitled Project_left.png',
+      'images/sheetmetal/3.png'
+    ],
+    link:'#contact'
   },
   {
     catEn:'Dynamic Loading · Structural Testing', catEl:'Δυναμική Φόρτιση · Δομικές Δοκιμές',
@@ -405,8 +212,17 @@ const PORTFOLIO_DATA = [
     descEn:'Applies 450 kg uni-directional vibration to structures at up to 20 Hz. Flip it over and it covers all three axes. Built for structural testing labs and research institutions.',
     descEl:'Μονοδιευθυντική δόνηση 450kg σε κατασκευές, έως 20Hz. Αναποδογυρίστε τον και καλύπτει και τις τρεις κατευθύνσεις.',
     badgeEn:'', badgeEl:'',
-    images:['images/harmonic_exhiter/he_1.png','images/harmonic_exhiter/1.png','images/harmonic_exhiter/2.png','images/harmonic_exhiter/3.png','images/harmonic_exhiter/Untitled Project 6.png','images/harmonic_exhiter/Untitled Project 7.png'],
-    link:'https://sites.google.com/view/expertease/portfolio'
+    images:[
+      'images/harmonic_exhiter/he_1.png',
+      'images/harmonic_exhiter/1.png',
+      'images/harmonic_exhiter/2.png',
+      'images/harmonic_exhiter/3.png',
+      'images/harmonic_exhiter/Untitled Project 6.png',
+      'images/harmonic_exhiter/Untitled Project 7.png',
+      'images/harmonic_exhiter/4.png',
+      'images/harmonic_exhiter/5.png'
+    ],
+    link:'#contact'
   }
 ];
 
@@ -455,7 +271,7 @@ function renderPortfolioCol(colEl, idx) {
     const desc = colEl.querySelector('.port-desc');
     if (desc) desc.textContent = lang === 'el' ? p.descEl : p.descEn;
     const link = colEl.querySelector('.port-link');
-    if (link) { link.href = p.link; link.textContent = lang === 'el' ? 'Δείτε Έργο →' : 'View Project →'; }
+    if (link) { link.href = p.link; link.textContent = lang === 'el' ? 'Επικοινωνήστε →' : 'Get in Touch →'; }
     colEl.classList.remove('port-fade-out');
     startColImageCycle(colEl, p);
   }, 280);
@@ -609,7 +425,6 @@ function initContactForm() {
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
   applyLang(localStorage.getItem('lang') || 'en');
-  initCursor();
   initScroll();
   initPortfolio();
   initMobileNav();
