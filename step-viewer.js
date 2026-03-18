@@ -133,29 +133,18 @@
       return;
     }
 
-    /* Fallback palette for parts with no STEP colour */
-    const PALETTE = [0x5b8dd9, 0xe07b54, 0x5bbf8a, 0xe0c254, 0xa07cc5, 0x4fb8cc,
-                     0xd9695b, 0x7bbf5b, 0xcc8844, 0x7799cc];
+    /* Accent palette — copper, gold, dark red, silver, dark grey */
+    const ACCENTS  = [0xb87040, 0xc8a030, 0x7a1c1c, 0xb0b4b8, 0x4a4f57];
+    const NEUTRAL  = 0x9098a4;   /* mid blue-grey for the remaining 70% */
+    const N        = result.meshes.length;
+    /* Spread accents evenly so ≤30% of parts are coloured */
+    const step     = Math.ceil(N / Math.max(1, Math.floor(N * 0.30)));
     svModel = new THREE.Group();
 
     result.meshes.forEach((mesh, idx) => {
-      let hexColor = PALETTE[idx % PALETTE.length];
-
-      if (mesh.color) {
-        let { r, g, b } = mesh.color;
-        const maxCh = Math.max(r, g, b);
-        if (maxCh > 0.01) {
-          /* Preserve hue but ensure the brightest channel is at least 0.55 */
-          const scale = Math.max(1, 0.55 / maxCh);
-          r = Math.min(r * scale, 1);
-          g = Math.min(g * scale, 1);
-          b = Math.min(b * scale, 1);
-          hexColor = (Math.round(r * 255) << 16) |
-                     (Math.round(g * 255) <<  8) |
-                      Math.round(b * 255);
-        }
-        /* if maxCh ≤ 0.01 the part is black — keep palette colour */
-      }
+      const hexColor = (idx % step === 0)
+        ? ACCENTS[Math.floor(idx / step) % ACCENTS.length]
+        : NEUTRAL;
 
       const positions = mesh.position_array ||
         (mesh.attributes && mesh.attributes.position && mesh.attributes.position.array);
