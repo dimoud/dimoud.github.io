@@ -1228,8 +1228,8 @@ function resetModel() {
 
 function setScrollExplode(t) {
 
-  const SPIN_END = 0.25; /* first 25 % of scroll = fast spin to 3/4 angle */
-  const TARGET_Y = -0.92; /* ~-53°: nice 3/4 side view */
+  const SPIN_END = 0.30; /* first 30 % of scroll = spin phase */
+  const TARGET_Y = -1.27; /* ~-73°: 20° more before explode */
 
   if (t < 0.005) {
     scrollExplodeActive = false; exploding = false;

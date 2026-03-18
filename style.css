@@ -1593,7 +1593,7 @@ footer {
 @media (max-width: 960px) {
   .sw-page-inner { grid-template-columns: 1fr; gap: 40px; padding: 50px 24px; }
   .sw-page-right { order: -1; }
-  .sw-page-img { width: 140%; margin-left: -10%; display: block; }
+  .sw-page-img { width: 140%; margin-left: calc(-10% + 8px); display: block; }
 }
 @media (max-width: 640px) {
   .sw-page-inner { padding: 40px 16px; }
