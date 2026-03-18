@@ -240,10 +240,11 @@
     svCamera.far  = maxDim * 200;
     svCamera.updateProjectionMatrix();
 
+    /* 45° elevation: Y = sqrt(X²+Z²), here X=Z=0.7 → diag ≈ 0.99 ≈ Y */
     svCamera.position.set(
-      center.x + maxDim * 0.85,
-      center.y + maxDim * 0.55,
-      center.z + maxDim * 0.85
+      center.x + maxDim * 0.7,
+      center.y + maxDim * 1.0,
+      center.z + maxDim * 0.7
     );
     svCamera.lookAt(center);
 
