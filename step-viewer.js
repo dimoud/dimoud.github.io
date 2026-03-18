@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  const STEP_FILE  = 'step/gym_rack.STEP';
+  const STEP_FILE  = 'step/shaft_3.STEP';
   const OCCT_JS    = 'https://cdn.jsdelivr.net/npm/occt-import-js@0.0.23/dist/occt-import-js.js';
   const OCCT_WASM  = 'https://cdn.jsdelivr.net/npm/occt-import-js@0.0.23/dist/occt-import-js.wasm';
 
@@ -114,7 +114,7 @@
       if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${STEP_FILE}`);
       const buf = new Uint8Array(await res.arrayBuffer());
 
-      await loadStepFromBuffer(buf, 'gym_rack.STEP');
+      await loadStepFromBuffer(buf, 'shaft_3.STEP');
 
     } catch (err) {
       setStatus('Error: ' + err.message);
@@ -145,9 +145,14 @@
     result.meshes.forEach((mesh, idx) => {
       let hexColor = PALETTE[idx % PALETTE.length];
       if (mesh.color) {
-        hexColor = (Math.round(mesh.color.r * 255) << 16) |
-                   (Math.round(mesh.color.g * 255) <<  8) |
-                    Math.round(mesh.color.b * 255);
+        /* Clamp each channel to minimum brightness so dark STEP colours don't go black */
+        const MIN = 0.38;
+        const r = Math.max(mesh.color.r, MIN);
+        const g = Math.max(mesh.color.g, MIN);
+        const b = Math.max(mesh.color.b, MIN);
+        hexColor = (Math.round(r * 255) << 16) |
+                   (Math.round(g * 255) <<  8) |
+                    Math.round(b * 255);
       }
 
       const positions = mesh.position_array ||
@@ -169,8 +174,8 @@
       }
       if (!normals || normals.length === 0) geo.computeVertexNormals();
 
-      svModel.add(new THREE.Mesh(geo, new THREE.MeshStandardMaterial({
-        color: hexColor, metalness: 0, roughness: 1.0, side: THREE.DoubleSide,
+      svModel.add(new THREE.Mesh(geo, new THREE.MeshPhongMaterial({
+        color: hexColor, shininess: 0, side: THREE.DoubleSide,
       })));
     });
 
@@ -251,9 +256,9 @@
     svCamera.updateProjectionMatrix();
 
     svCamera.position.set(
-      center.x + maxDim * 1.4,
-      center.y + maxDim * 0.9,
-      center.z + maxDim * 1.4
+      center.x + maxDim * 2.0,
+      center.y + maxDim * 1.3,
+      center.z + maxDim * 2.0
     );
     svCamera.lookAt(center);
 
