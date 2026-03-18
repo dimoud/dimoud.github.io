@@ -8,7 +8,6 @@
   const STEP_FILE  = 'step/gym_rack.STEP';
   const OCCT_JS    = 'https://cdn.jsdelivr.net/npm/occt-import-js@0.0.23/dist/occt-import-js.js';
   const OCCT_WASM  = 'https://cdn.jsdelivr.net/npm/occt-import-js@0.0.23/dist/occt-import-js.wasm';
-  const BG_COLOR   = 0xf0f2f5;
 
   let occt        = null;   /* engine, kept alive for re-use */
   let svScene, svCamera, svRenderer, svControls;
@@ -39,24 +38,26 @@
     const W = wrap.clientWidth  || 700;
     const H = wrap.clientHeight || 520;
 
-    svRenderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+    svRenderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     svRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     svRenderer.setSize(W, H);
-    svRenderer.setClearColor(BG_COLOR, 1);
+    svRenderer.setClearColor(0x000000, 0);   /* transparent */
 
     svCamera = new THREE.PerspectiveCamera(45, W / H, 0.01, 1e6);
     svCamera.position.set(800, 600, 800);
 
     svScene = new THREE.Scene();
-    svScene.background = new THREE.Color(BG_COLOR);
 
-    svScene.add(new THREE.AmbientLight(0xffffff, 1.4));
-    const key = new THREE.DirectionalLight(0xffffff, 2.0);
-    key.position.set(2, 3, 4); svScene.add(key);
-    const fill = new THREE.DirectionalLight(0xc8d8ff, 0.9);
-    fill.position.set(-3, 1, -2); svScene.add(fill);
-    const rim = new THREE.DirectionalLight(0xfff0d0, 0.6);
-    rim.position.set(0, -2, -4); svScene.add(rim);
+    /* Bright lighting so the piece pops on any dark background */
+    svScene.add(new THREE.AmbientLight(0xffffff, 2.2));
+    const key = new THREE.DirectionalLight(0xffffff, 3.5);
+    key.position.set(3, 5, 4); svScene.add(key);
+    const fill = new THREE.DirectionalLight(0xc8d8ff, 2.0);
+    fill.position.set(-4, 2, -3); svScene.add(fill);
+    const top = new THREE.DirectionalLight(0xffffff, 1.8);
+    top.position.set(0, 10, 0); svScene.add(top);
+    const rim = new THREE.DirectionalLight(0xffd0a0, 1.2);
+    rim.position.set(2, -3, -5); svScene.add(rim);
 
     if (typeof THREE.OrbitControls !== 'undefined') {
       svControls = new THREE.OrbitControls(svCamera, svRenderer.domElement);
@@ -231,11 +232,6 @@
   function fitCamera () {
     if (!svModel) return;
 
-    /* Remove old grid if any */
-    svScene.children
-      .filter(c => c.isGridHelper)
-      .forEach(g => svScene.remove(g));
-
     const box    = new THREE.Box3().setFromObject(svModel);
     const center = box.getCenter(new THREE.Vector3());
     const size   = box.getSize(new THREE.Vector3());
@@ -253,10 +249,6 @@
     svCamera.lookAt(center);
 
     if (svControls) { svControls.target.copy(center); svControls.update(); }
-
-    const grid = new THREE.GridHelper(maxDim * 3, 20, 0xaaaaaa, 0xcccccc);
-    grid.position.set(center.x, box.min.y, center.z);
-    svScene.add(grid);
   }
 
   /* ── UI helpers ───────────────────────────────────────────── */
