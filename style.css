@@ -1215,8 +1215,10 @@ footer {
   .hero-right { display: none; }
   #hero3d { display: none; }
   #hero3d-drag { display: none; }
-  .hero-stats { left: 0; right: 0; padding: 18px 28px; gap: 28px; }
-  .stat-num { font-size: 22px; }
+  .hero-stats { left: 0; right: 0; padding: 14px 0; gap: 0; justify-content: center; background: transparent; border-top: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .hero-stats .stat { align-items: center; padding: 0 20px; }
+  .hero-stats .stat + .stat { border-left: 1px solid rgba(255,255,255,.25); }
+  .stat-num { font-size: 15px; }
 
   section { padding: 64px 24px; }
   #process { padding: 48px 24px; }
@@ -1249,8 +1251,8 @@ footer {
 @media (max-width: 640px) {
   nav { padding: 0 16px; }
   .hero-left { padding: 48px 16px 32px; }
-  .hero-stats { gap: 20px; padding: 16px; }
-  .stat-num { font-size: 20px; }
+  .hero-stats { padding: 12px 0; }
+  .stat-num { font-size: 14px; }
 
   section { padding: 52px 16px; }
   #process { padding: 40px 16px; }
@@ -2090,7 +2092,7 @@ hr.ec-rule { position: relative; z-index: 2; }
   .hero-tag     { text-shadow: 0 1px 12px rgba(0,5,30,0.45); }
   .hero-tagline { text-shadow: 0 1px 10px rgba(0,5,30,0.4); }
   .hero-desc    { color: rgba(255,255,255,0.78) !important; text-shadow: 0 1px 10px rgba(0,5,30,0.35); }
-  .hero-stats   { background: rgba(0,0,0,0.62); }
+  .hero-stats   { background: transparent; }
 
   /* Sections: sit above the fixed canvas; slight transparency lets model show faintly */
   #about        { position: relative; z-index: 1; background: rgba(242,246,252,0.93); }
