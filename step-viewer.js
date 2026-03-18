@@ -8,8 +8,8 @@
   'use strict';
 
   const STEP_FILE  = 'step/gym_rack.STEP';
-  const OCCT_JS    = 'https://cdn.jsdelivr.net/npm/occt-import-js@0.0.26/dist/occt-import-js.js';
-  const OCCT_WASM  = 'https://cdn.jsdelivr.net/npm/occt-import-js@0.0.26/dist/occt-import-js.wasm';
+  const OCCT_JS    = 'https://cdn.jsdelivr.net/npm/occt-import-js@0.0.23/dist/occt-import-js.js';
+  const OCCT_WASM  = 'https://cdn.jsdelivr.net/npm/occt-import-js@0.0.23/dist/occt-import-js.wasm';
 
   let svScene, svCamera, svRenderer, svControls;
   let svModel    = null;
@@ -83,7 +83,7 @@
   /* ── Main init ────────────────────────────────────────────── */
   async function initViewer () {
     initThree();
-    setStatus('Loading CAD engine… (~15 MB, one-time)');
+    setStatus('Loading CAD engine… (~7 MB, one-time)');
 
     try {
       /* Load occt-import-js runtime */
