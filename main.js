@@ -1,6 +1,8 @@
 /* ═══════════════════════════════════════════════════════════════
    LANGUAGE DATA
 ═══════════════════════════════════════════════════════════════ */
+const EXP_YEARS = new Date().getFullYear() - 2019;
+
 const LANG = {
   el: {
     nav_about:'Σχετικά', nav_projects:'Έργα', nav_software:'Λογισμικό',
@@ -85,7 +87,7 @@ const LANG = {
     team_heading:'Ομάδα',
     founder_name:'Δημήτρης<br>Μουδιώτης',
     founder_label:'Ιδρυτής &amp; Επικεφαλής Μηχανικός',
-    founder_bio:'Μηχανολόγος Μηχανικός (ΑΠΘ) με 7+ χρόνια εμπειρίας σε ρομποτική, εξοπλισμό ασφαλείας, βιομηχανικά μηχανήματα και ακριβή κατασκευή. Σπούδασε σε πέντε πανεπιστήμια στην Ελλάδα, τη Γαλλία και τις ΗΠΑ.',
+    founder_bio:'Μηχανολόγος Μηχανικός (ΑΠΘ) με ' + EXP_YEARS + '+ χρόνια εμπειρίας σε ρομποτική, εξοπλισμό ασφαλείας, βιομηχανικά μηχανήματα και ακριβή κατασκευή. Σπούδασε σε πέντε πανεπιστήμια στην Ελλάδα, τη Γαλλία και τις ΗΠΑ.',
     fcs_years:'Χρόνια', fcs_projects:'Έργα', fcs_degrees:'Μεταπτυχιακά', fcs_scholarships:'Υποτροφίες',
     founder_profile_btn:'Πλήρες Προφίλ →',
     contact_label:'// Ας Δουλέψουμε Μαζί',
@@ -176,7 +178,7 @@ const LANG = {
     team_heading:'Team',
     founder_name:'Dimitrios<br>Moudiotis',
     founder_label:'Founder &amp; Lead Engineer',
-    founder_bio:'Mechanical Engineer (AUTH) with 7+ years of experience across robotics, safety equipment, industrial machinery, and precision fabrication. Studied at five universities in Greece, France, and the USA.',
+    founder_bio:'Mechanical Engineer (AUTH) with ' + EXP_YEARS + '+ years of experience across robotics, safety equipment, industrial machinery, and precision fabrication. Studied at five universities in Greece, France, and the USA.',
     fcs_years:'Years', fcs_projects:'Projects', fcs_degrees:'PG Degrees', fcs_scholarships:'Scholarships',
     founder_profile_btn:'Full Profile →',
     contact_label:'// Let\'s Work Together',

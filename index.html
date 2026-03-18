@@ -9,13 +9,106 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="expertease-credit.css">
+<style>
+/* ── eng-animations hooks ── */
+#progress{position:fixed;top:0;left:0;z-index:2001;height:2px;width:0%;background:linear-gradient(90deg,#2563eb,#60a5fa);pointer-events:none;}
+#scrollElev{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:900;width:2px;height:100px;background:rgba(255,255,255,.06);border-radius:2px;opacity:0;transition:opacity .5s ease;pointer-events:none;}
+#scrollElev.show{opacity:1;}
+#elevFill{position:absolute;bottom:0;left:0;width:100%;height:0%;background:linear-gradient(to top,#60a5fa,#2563eb);border-radius:2px;}
+#elevDot{position:absolute;left:50%;bottom:0%;transform:translateX(-50%) translateY(50%);width:6px;height:6px;border-radius:50%;background:#60a5fa;box-shadow:0 0 8px rgba(96,165,250,.75);}
+[data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease;}
+[data-reveal].visible{opacity:1;transform:none;}
+[data-reveal-r]{opacity:0;transform:translateX(22px);transition:opacity .65s ease,transform .65s ease;}
+[data-reveal-r].visible{opacity:1;transform:none;}
+/* ── ec-rule sits in body; give credit banner the same navy base ── */
+hr.ec-rule{background:linear-gradient(90deg,transparent,rgba(201,168,108,.25),transparent);}
+.expertease-credit{background:var(--navy);}
+/* ── footer social ── */
+.footer-social{display:flex;gap:10px;align-items:center;}
+.footer-social-link{color:rgba(255,255,255,.28);display:flex;align-items:center;transition:color .3s ease;}
+.footer-social-link:hover{color:rgba(255,255,255,.7);}
+@media(max-width:600px){#scrollElev{display:none;}}
+
+/* ── SCROLL RULER (fixed bottom) ── */
+#scrollRuler{
+  position:fixed;bottom:0;left:0;right:0;z-index:950;
+  padding:4px 24px 6px;
+  background:rgba(8,15,30,.92);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-top:1px solid rgba(37,99,235,.18);
+  font-family:'IBM Plex Mono',monospace;
+  display:flex;flex-direction:column;gap:2px;
+  opacity:0;transform:translateY(10px);
+  transition:opacity .4s ease,transform .4s ease;
+  pointer-events:none;
+}
+#scrollRuler.show{opacity:1;transform:none;}
+.sr-bar{display:flex;align-items:center;gap:8px;width:100%;}
+.sr-cap{color:rgba(37,99,235,.8);font-size:10px;flex-shrink:0;letter-spacing:0;}
+.sr-track{flex:1;position:relative;height:1px;background:rgba(255,255,255,.07);}
+#srFill{position:absolute;left:0;top:0;height:1px;width:0%;background:linear-gradient(90deg,#1a3d7e,#60a5fa);}
+#srValue{flex-shrink:0;font-size:10px;font-weight:500;color:#60a5fa;letter-spacing:1.5px;min-width:76px;text-align:right;}
+#srTicksRow{display:flex;width:100%;height:6px;align-items:flex-end;}
+.sr-sub{flex:1;border-right:1px solid rgba(96,165,250,.15);height:3px;}
+.sr-sub.maj{height:6px;border-right-color:rgba(96,165,250,.4);}
+@media(max-width:600px){#scrollRuler{padding:3px 12px 4px;}}
+
+/* ── SECTION MEASUREMENT LINES ── */
+.sec-meas{
+  padding:22px 0 4px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  overflow:hidden;
+}
+.sm-inner{display:flex;align-items:center;gap:8px;}
+.sm-arr{
+  flex-shrink:0;color:rgba(37,99,235,.75);font-size:10px;
+  opacity:0;transition:opacity .5s ease .35s;
+}
+.sec-meas.ready .sm-arr{opacity:1;}
+.sm-rule{
+  flex:1;height:1px;background:rgba(37,99,235,.22);
+  transform:scaleX(0);transform-origin:center;
+  transition:transform .85s cubic-bezier(.4,0,.2,1);
+}
+.sec-meas.ready .sm-rule{transform:scaleX(1);}
+.sm-label{
+  flex-shrink:0;white-space:nowrap;
+  color:rgba(37,99,235,.55);
+  opacity:0;transform:translateY(5px);
+  transition:opacity .5s ease .45s,transform .5s ease .45s;
+}
+.sec-meas.ready .sm-label{opacity:1;transform:none;}
+/* on dark sections (process = navy-mid), use lighter tones */
+#process .sm-arr{color:rgba(96,165,250,.8);}
+#process .sm-rule{background:rgba(96,165,250,.25);}
+#process .sm-label{color:rgba(96,165,250,.55);}
+#process .sm-label strong{color:#93c5fd;}
+.sm-label strong{color:#2563eb;font-weight:500;}
+@media(max-width:480px){.sm-label{font-size:8px;letter-spacing:1px;}.sec-meas{padding:16px 0 2px;}}
+</style>
 <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js" defer></script>
 <script src="projects.js" defer></script>
 <script src="models.js" defer></script>
 <script src="main.js" defer></script>
 <script src="step-viewer.js" defer></script>
+<script src="eng-animations.js" defer></script>
 </head>
 <body>
+
+<!-- SCROLL PROGRESS + ELEVATION METER -->
+<div id="progress"></div>
+<div id="scrollElev"><div id="elevFill"></div><div id="elevDot"></div></div>
+<div id="scrollRuler">
+  <div id="srTicksRow"></div>
+  <div class="sr-bar">
+    <span class="sr-cap">◄</span>
+    <div class="sr-track"><div id="srFill"></div></div>
+    <span id="srValue">0.000 m</span>
+    <span class="sr-cap">►</span>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -69,7 +162,7 @@
   </div>
   <div class="hero-right"></div>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-num">7<span>+</span></div><div class="stat-label" id="stat-years">Years Experience</div></div>
+    <div class="stat"><div class="stat-num" id="hero-exp-stat">7<span>+</span></div><div class="stat-label" id="stat-years">Years Experience</div></div>
     <div class="stat"><div class="stat-num">20<span>+</span></div><div class="stat-label" id="stat-projects">Projects Delivered</div></div>
   </div>
 </section>
@@ -165,11 +258,20 @@
       </div>
     </div>
   </div>
+  <div class="sec-meas" data-sec-meas>
+    <div class="sm-inner">
+      <span class="sm-arr">◄</span>
+      <div class="sm-rule"></div>
+      <span class="sm-label">STUDIO SPAN · <strong><span id="sec-meas-exp">7</span>+ YRS FIELD EXPERIENCE</strong></span>
+      <div class="sm-rule"></div>
+      <span class="sm-arr">►</span>
+    </div>
+  </div>
 </section>
 
 <!-- PROCESS -->
 <section id="process">
-  <div class="process-label" id="proc-label">How We Work</div>
+  <div class="process-label" id="proc-label" data-reveal>How We Work</div>
 
   <!-- Animated process flow diagram -->
   <div class="process-flow">
@@ -228,7 +330,7 @@
             <span class="en">Knowledge</span>
             <span class="el">Γνώση</span>
           </div>
-          <p class="value-text">Seven years of hands-on engineering across robotics, safety equipment, and precision fabrication — backed by five university degrees from three countries. Deep technical knowledge applied to every brief.</p>
+          <p class="value-text" id="proc-exp-text">Seven years of hands-on engineering across robotics, safety equipment, and precision fabrication — backed by five university degrees from three countries. Deep technical knowledge applied to every brief.</p>
         </div>
         <div class="value-card vc-red">
           <div class="value-icon">02</div>
@@ -268,6 +370,15 @@
         </div>
 
       </div>
+    </div>
+  </div>
+  <div class="sec-meas" data-sec-meas>
+    <div class="sm-inner">
+      <span class="sm-arr">◄</span>
+      <div class="sm-rule"></div>
+      <span class="sm-label">WORKFLOW DEPTH · <strong>6 PHASES · CONCEPT TO DELIVERY</strong></span>
+      <div class="sm-rule"></div>
+      <span class="sm-arr">►</span>
     </div>
   </div>
 </section>
@@ -322,6 +433,15 @@
     <div class="port-dots" id="portDots"></div>
     <div class="port-hint-txt">↔ drag to swap &nbsp;·&nbsp; cycles every 5s</div>
   </div>
+  <div class="sec-meas" data-sec-meas>
+    <div class="sm-inner">
+      <span class="sm-arr">◄</span>
+      <div class="sm-rule"></div>
+      <span class="sm-label">PROJECT OUTPUT · <strong>20+ BUILDS DELIVERED</strong></span>
+      <div class="sm-rule"></div>
+      <span class="sm-arr">►</span>
+    </div>
+  </div>
 </section>
 
 
@@ -343,7 +463,7 @@
       <p class="founder-card-bio" id="founder-bio">Mechanical Engineer (AUTH) with 7+ years of experience across robotics, safety equipment, industrial machinery, and precision fabrication. Studied at five universities in Greece, France, and the USA.</p>
 <div class="founder-card-stats">
         <div class="founder-card-stat">
-          <div class="fcs-num">7<span>+</span></div>
+          <div class="fcs-num" id="card-exp-stat">7<span>+</span></div>
           <div class="fcs-label" id="fcs-years">Years</div>
         </div>
         <div class="founder-card-stat">
@@ -359,11 +479,7 @@
           <div class="fcs-label" id="fcs-scholarships">Scholarships</div>
         </div>
       </div>
-      <div class="founder-achievements">
-        <div class="founder-ach-item">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
-        </div>
-      </div>
+
       <div class="founder-card-actions">
         <a href="team.html" class="btn-primary" id="founder-profile-btn" style="font-size:9px;padding:11px 24px;">Full Profile →</a>
         <a href="https://www.linkedin.com/in/moudiotis/" target="_blank" rel="noopener" class="btn-outline" style="font-size:9px;padding:11px 24px;">LinkedIn</a>
@@ -416,13 +532,22 @@
       </div>
     </div>
   </div>
+  <div class="sec-meas" data-sec-meas>
+    <div class="sm-inner">
+      <span class="sm-arr">◄</span>
+      <div class="sm-rule"></div>
+      <span class="sm-label">ACADEMIC REACH · <strong>3 COUNTRIES · 5 DEGREES · 9 SCHOLARSHIPS</strong></span>
+      <div class="sm-rule"></div>
+      <span class="sm-arr">►</span>
+    </div>
+  </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="contact-label"   id="contact-label">// Let's Work Together</div>
-  <h2  class="contact-heading" id="contact-heading">Got a project in mind?</h2>
-  <p   class="contact-sub"     id="contact-sub">From designing a single component to managing an entire project — Expertease is here.</p>
+  <div class="contact-label"   id="contact-label" data-reveal>// Let's Work Together</div>
+  <h2  class="contact-heading" id="contact-heading" data-reveal>Got a project in mind?</h2>
+  <p   class="contact-sub"     id="contact-sub" data-reveal>From designing a single component to managing an entire project — Expertease is here.</p>
   <div class="contact-direct">
     <div class="contact-info-row">
       <a href="mailto:info@expertease.eu" class="contact-info-item contact-email">
@@ -464,7 +589,45 @@
   <a href="#hero" class="footer-logo"><img src="images/logo.png" alt="Expertease" loading="lazy"></a>
   <div class="footer-text" id="footer-copy">© 2026 Expertease Designs</div>
   <div class="footer-text" id="footer-loc">Athens, Greece</div>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/design_expertease/" target="_blank" rel="noopener" aria-label="Instagram @design_expertease" class="footer-social-link">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+  </div>
 </footer>
+
+
+<script>
+(function(){
+  var yrs = new Date().getFullYear() - 2019;
+  /* hero stat */
+  var h = document.getElementById('hero-exp-stat');
+  if(h){ h.childNodes[0].textContent = yrs; }
+  /* founder card stat */
+  var c = document.getElementById('card-exp-stat');
+  if(c){ c.childNodes[0].textContent = yrs; }
+  /* process value card — word-form for small numbers, digit otherwise */
+  var words = ['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten'];
+  var p = document.getElementById('proc-exp-text');
+  if(p){ p.textContent = p.textContent.replace('Seven', yrs < 11 ? words[yrs] : yrs); }
+  /* sec-meas label */
+  var m = document.getElementById('sec-meas-exp');
+  if(m){ m.textContent = yrs; }
+})();
+</script>
+
+<hr class="ec-rule">
+<div class="expertease-credit">
+  <div class="ec-inner">
+    <span class="ec-copy">© 2026 · All Rights Reserved</span>
+    <span class="ec-divider"></span>
+    <a href="https://expertease.eu/webdesign" target="_blank" rel="noopener" class="ec-brand">
+      <span class="ec-label">Designed by</span>
+      <img src="images/logo.png" alt="Design Expertease" class="ec-logo">
+      <span class="ec-name">Design Expertease</span>
+    </a>
+  </div>
+</div>
 
 </body>
 </html>
