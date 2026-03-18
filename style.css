@@ -1451,14 +1451,14 @@ footer {
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   gap: 16px;
-  background: var(--navy);
+  background: #f0f2f5;
   transition: opacity .4s;
   z-index: 5;
 }
 .cad-spinner {
   width: 32px; height: 32px;
-  border: 2px solid rgba(96,165,250,.2);
-  border-top-color: #60a5fa;
+  border: 2px solid rgba(59,130,246,.2);
+  border-top-color: #3b82f6;
   border-radius: 50%;
   animation: cadSpin 1s linear infinite;
 }
@@ -1466,7 +1466,7 @@ footer {
 .cad-loading-text {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: rgba(255,255,255,.45);
+  color: #555;
   letter-spacing: 1px;
 }
 
@@ -1994,9 +1994,22 @@ footer {
   display: flex; align-items: stretch;
 }
 .cadpg-canvas-wrap {
+  background: #f0f2f5;
   height: auto !important;
   min-height: 520px;
   flex: 1;
+  transition: box-shadow .2s;
+}
+.cadpg-canvas-wrap.drop-hover {
+  box-shadow: inset 0 0 0 3px #3b82f6;
+}
+.cadpg-canvas-wrap.drop-hover::after {
+  content: 'Drop STEP file here';
+  position: absolute; inset: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 14px; letter-spacing: 2px;
+  color: #3b82f6; background: rgba(240,242,245,.85);
+  pointer-events: none;
 }
 @media (max-width: 960px) {
   .cadpg-page { overflow: visible; }
