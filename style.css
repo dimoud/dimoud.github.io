@@ -1015,71 +1015,125 @@ section { padding: 100px 64px; position: relative; z-index: 1; }
 }
 
 @media (max-width: 600px) {
-  .port-modal-panel { height: 96vh; border-radius: 4px; }
-  .port-modal-info { padding: 12px 16px 16px; }
-  .port-modal-desc { font-size: 12px; }
+  .port-modal-info { padding: 10px 18px 18px; }
+  .port-modal-desc { font-size: 12.5px; }
 }
 
-/* ── MOBILE COVERFLOW ───────────────────────────────────────── */
+/* ── MOBILE PEEK CAROUSEL ───────────────────────────────────── */
 .cflow-stage { display: none; }
 
 @media (max-width: 768px) {
-  /* Gallery becomes the 3-D stage container */
-  .port-modal-gallery {
-    background: #0c1420;
-    height: 58vw;
-    max-height: 300px;
-    overflow: visible;
-    perspective: 1100px;
-    perspective-origin: 50% 55%;
+  /* Panel: frosted glass card — not full screen */
+  .port-modal-panel {
+    height: auto !important;
+    max-height: 88vh;
+    width: 90vw;
+    max-width: 430px;
+    border-radius: 22px;
+    background: rgba(238, 241, 248, 0.93);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: 0 24px 64px rgba(0,0,0,.45);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
+
+  /* Close button: visible on frosted glass */
+  .port-modal-close {
+    color: #5a6070;
+    background: rgba(255,255,255,0.55);
+    border-radius: 50%;
+    width: 30px; height: 30px;
+    padding: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .port-modal-close:hover {
+    background: rgba(255,255,255,0.85);
+    color: #111;
+  }
+
+  /* Gallery: dark strip, contains the peek carousel */
+  .port-modal-gallery {
+    background: #0d1520;
+    height: 52vw;
+    max-height: 260px;
+    min-height: 175px;
+    overflow: hidden;
+    position: relative;
+    perspective: none;
+    perspective-origin: unset;
+    flex-shrink: 0;
+  }
+
   /* Hide the desktop single-image controls */
   .port-modal-img,
   .port-modal-nav,
   .port-modal-img-counter { display: none !important; }
 
-  /* 3-D stage — children live in the same perspective space */
+  /* Stage fills the gallery */
   .cflow-stage {
     display: block;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
+    position: absolute;
+    inset: 0;
+    transform-style: flat;
   }
 
-  /* Each image card */
+  /* Each peek card */
   .cflow-card {
     position: absolute;
-    width: 64%;
-    height: 100%;
-    left: 18%;          /* centred horizontally */
-    top: 0;
-    border-radius: 12px;
+    width: 76%;
+    height: calc(100% - 18px);
+    left: 12%;
+    top: 9px;
+    border-radius: 14px;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 0 14px 44px rgba(0,0,0,.32);
+    box-shadow: 0 6px 24px rgba(0,0,0,.45);
     will-change: transform, opacity;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
   }
 
   .cflow-card img {
     width: 100%; height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    background: #0d1520;
     display: block;
     pointer-events: none;
     -webkit-user-select: none; user-select: none;
     -webkit-user-drag: none;
   }
 
-  /* Snap-to class: added only during the settle animation */
+  /* Snap animation */
   .cflow-card.cflow-snap {
-    transition: transform .44s cubic-bezier(.25,.46,.45,.94),
-                opacity   .44s ease;
+    transition: transform .38s cubic-bezier(.25,.46,.45,.94),
+                opacity   .38s ease;
   }
 
-  /* Slightly larger dot targets on mobile */
-  .port-modal-dot { width: 8px; height: 8px; }
+  /* Dots row: transparent bg on frosted panel */
+  .port-modal-dots-row {
+    background: transparent;
+    padding: 10px 0 6px;
+  }
+  .port-modal-dot { width: 7px; height: 7px; }
+
+  /* Info: clean typography on frosted glass */
+  .port-modal-info {
+    padding: 4px 22px 22px;
+  }
+  .port-modal-title {
+    font-size: clamp(18px, 5vw, 26px);
+    color: #111;
+  }
+  .port-modal-cat {
+    color: #7a8498;
+  }
+  .port-modal-desc {
+    font-size: 13px;
+    color: #4a5260;
+    line-height: 1.55;
+  }
 }
 
 .port-info { padding: 28px 36px 36px; flex: 1; }

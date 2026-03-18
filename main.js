@@ -584,7 +584,7 @@ function buildProjectModal() {
     if (!touchActive || window.innerWidth > 768) return;
     const dx = e.touches[0].clientX - touchStartX;
     const stage = document.getElementById('cflowStage');
-    const w = stage ? stage.offsetWidth * 0.62 : 220;
+    const w = stage ? stage.offsetWidth * 0.74 : 220;
     cflowRender(-(dx / w));
   }, { passive: true });
   gallery.addEventListener('touchend', e => {
@@ -593,7 +593,7 @@ function buildProjectModal() {
     const dx = e.changedTouches[0].clientX - touchStartX;
     if (window.innerWidth <= 768) {
       const stage = document.getElementById('cflowStage');
-      const w = stage ? stage.offsetWidth * 0.62 : 220;
+      const w = stage ? stage.offsetWidth * 0.74 : 220;
       const progress = -(dx / w);
       if (progress > 0.28 && cflowIdx < cflowImages.length - 1) modalNav(1);
       else if (progress < -0.28 && cflowIdx > 0) modalNav(-1);
@@ -616,29 +616,25 @@ function buildProjectModal() {
   }, { passive: false });
 }
 
-/* ── MOBILE COVERFLOW CAROUSEL ──────────────────────────────── */
-function cflowCardTransform(offset) {
-  // Large cylinder radius = gentle "big radius" arc
-  const R       = 440;
-  const stepRad = 38 * Math.PI / 180; // degrees between cards
-  const theta   = offset * stepRad;
-  const tx      = R * Math.sin(theta);
-  const tz      = R * Math.cos(theta) - R; // 0 at center, recedes at sides
-  const absOff  = Math.abs(offset);
-  const ty      = -Math.max(0, 1 - absOff * 2.8) * 20; // center card rises
-  const scale   = Math.max(0.45, 1 - absOff * 0.155);
-  const opacity = Math.max(0, 1 - absOff * 0.44);
-  return { tx, ty, tz, rotY: offset * 38, scale, opacity };
+/* ── MOBILE PEEK CAROUSEL (iOS Photos style) ─────────────────── */
+function cflowCardTransform(offset, stageW) {
+  const absOff = Math.abs(offset);
+  const tx     = offset * (stageW * 0.74); // ~16% of adjacent card peeks at each side
+  const scale  = Math.max(0.86, 1 - absOff * 0.08);
+  const opacity = Math.max(0, 1 - absOff * 0.52);
+  return { tx, scale, opacity };
 }
 
 function cflowRender(dragOffset) {
   const stage = document.getElementById('cflowStage');
   if (!stage) return;
+  const stageW = stage.offsetWidth || 300;
   stage.querySelectorAll('.cflow-card').forEach((card, i) => {
-    const { tx, ty, tz, rotY, scale, opacity } = cflowCardTransform(i - cflowIdx - (dragOffset || 0));
-    card.style.transform = `translateX(${tx.toFixed(1)}px) translateY(${ty.toFixed(1)}px) translateZ(${tz.toFixed(1)}px) rotateY(${rotY.toFixed(1)}deg) scale(${scale.toFixed(3)})`;
+    const offset = i - cflowIdx - (dragOffset || 0);
+    const { tx, scale, opacity } = cflowCardTransform(offset, stageW);
+    card.style.transform = `translateX(${tx.toFixed(1)}px) scale(${scale.toFixed(3)})`;
     card.style.opacity   = opacity.toFixed(3);
-    card.style.zIndex    = Math.round(100 - Math.abs(i - cflowIdx - (dragOffset || 0)) * 18);
+    card.style.zIndex    = Math.round(100 - Math.abs(offset) * 18);
   });
 }
 
