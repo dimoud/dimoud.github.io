@@ -48,17 +48,25 @@
 
     svScene = new THREE.Scene();
 
-    /* Bright lighting so the piece pops on any dark background */
-    svScene.add(new THREE.HemisphereLight(0xffffff, 0x334466, 2.5));
-    svScene.add(new THREE.AmbientLight(0xffffff, 2.0));
-    const key = new THREE.DirectionalLight(0xffffff, 3.5);
-    key.position.set(3, 5, 4); svScene.add(key);
-    const fill = new THREE.DirectionalLight(0xc8d8ff, 2.0);
-    fill.position.set(-4, 2, -3); svScene.add(fill);
-    const top = new THREE.DirectionalLight(0xffffff, 1.8);
-    top.position.set(0, 10, 0); svScene.add(top);
-    const rim = new THREE.DirectionalLight(0xffd0a0, 1.2);
-    rim.position.set(2, -3, -5); svScene.add(rim);
+    /* Even multi-directional lighting */
+    svScene.add(new THREE.HemisphereLight(0xffffff, 0xaabbcc, 1.8));
+    svScene.add(new THREE.AmbientLight(0xffffff, 1.5));
+
+    const lights = [
+      { color: 0xffffff, intensity: 2.8, pos: [ 5,  8,  5] },  /* key — top-front-right */
+      { color: 0xddeeff, intensity: 2.0, pos: [-5,  4, -4] },  /* fill — top-back-left  */
+      { color: 0xffffff, intensity: 1.6, pos: [ 0, 10,  0] },  /* top                   */
+      { color: 0xffeedd, intensity: 1.4, pos: [ 0, -8,  0] },  /* bottom bounce         */
+      { color: 0xeef4ff, intensity: 1.6, pos: [-6,  0,  6] },  /* left-front            */
+      { color: 0xffffff, intensity: 1.4, pos: [ 6,  0, -6] },  /* right-back            */
+      { color: 0xffd8a0, intensity: 1.2, pos: [ 0,  2, 10] },  /* front warm            */
+      { color: 0xccddff, intensity: 1.0, pos: [ 0,  2,-10] },  /* back cool             */
+    ];
+    lights.forEach(({ color, intensity, pos }) => {
+      const l = new THREE.DirectionalLight(color, intensity);
+      l.position.set(...pos);
+      svScene.add(l);
+    });
 
     if (typeof THREE.OrbitControls !== 'undefined') {
       svControls = new THREE.OrbitControls(svCamera, svRenderer.domElement);

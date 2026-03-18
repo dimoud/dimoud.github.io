@@ -1451,7 +1451,7 @@ footer {
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   gap: 16px;
-  background: var(--navy-mid);
+  background: radial-gradient(ellipse at 60% 40%, #d8dde6 0%, #b0b8c4 45%, #868e99 100%);
   transition: opacity .4s;
   z-index: 5;
 }
@@ -1466,7 +1466,7 @@ footer {
 .cad-loading-text {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: rgba(255,255,255,.5);
+  color: rgba(0,0,0,.5);
   letter-spacing: 1px;
 }
 
@@ -1994,7 +1994,7 @@ footer {
   display: flex; align-items: stretch;
 }
 .cadpg-canvas-wrap {
-  background: transparent;
+  background: radial-gradient(ellipse at 60% 40%, #d8dde6 0%, #b0b8c4 45%, #868e99 100%);
   height: auto !important;
   min-height: 520px;
   flex: 1;
