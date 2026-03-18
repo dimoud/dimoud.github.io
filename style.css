@@ -1758,7 +1758,6 @@ footer {
 
 @media (max-width: 960px) {
   .wd-page-inner { grid-template-columns: 1fr; gap: 32px; padding: 50px 24px; align-items: start; }
-  .wd-page-right { order: -1; }
   .wd-hero-canvas-wrap { min-height: 300px; }
   .wd-page-left { text-align: center; align-items: center; }
   .wd-page-cta { justify-content: center; }
