@@ -139,21 +139,12 @@
       return;
     }
 
-    const PALETTE = [0x5b9cf6, 0x90a8c0, 0xc8daf0, 0x4477e0, 0xe8c84a, 0x8899aa];
+    /* Grey-scale palette — guaranteed visible regardless of STEP file colours */
+    const PALETTE = [0xb0b8c2, 0x9aa3ae, 0xc8cfd6, 0xa8b0bc, 0xd0d5db, 0x8891a0];
     svModel = new THREE.Group();
 
     result.meshes.forEach((mesh, idx) => {
-      let hexColor = PALETTE[idx % PALETTE.length];
-      if (mesh.color) {
-        /* Clamp each channel to minimum brightness so dark STEP colours don't go black */
-        const MIN = 0.38;
-        const r = Math.max(mesh.color.r, MIN);
-        const g = Math.max(mesh.color.g, MIN);
-        const b = Math.max(mesh.color.b, MIN);
-        hexColor = (Math.round(r * 255) << 16) |
-                   (Math.round(g * 255) <<  8) |
-                    Math.round(b * 255);
-      }
+      const hexColor = PALETTE[idx % PALETTE.length];
 
       const positions = mesh.position_array ||
         (mesh.attributes && mesh.attributes.position && mesh.attributes.position.array);
@@ -174,8 +165,8 @@
       }
       if (!normals || normals.length === 0) geo.computeVertexNormals();
 
-      svModel.add(new THREE.Mesh(geo, new THREE.MeshPhongMaterial({
-        color: hexColor, shininess: 0, side: THREE.DoubleSide,
+      svModel.add(new THREE.Mesh(geo, new THREE.MeshLambertMaterial({
+        color: hexColor, side: THREE.DoubleSide,
       })));
     });
 
