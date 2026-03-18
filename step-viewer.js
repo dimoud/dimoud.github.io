@@ -134,18 +134,32 @@
       return;
     }
 
-    /* Accent palette — copper, gold, dark red, silver, dark grey */
-    const ACCENTS  = [0xb87040, 0xc8a030, 0x7a1c1c, 0xb0b4b8, 0x4a4f57];
-    const NEUTRAL  = 0x9098a4;   /* mid blue-grey for the remaining 70% */
+    /* Accent palette — copper, gold, dark red only; no blue tones */
+    const ACCENTS  = [0xb87040, 0xc8a030, 0x7a1c1c, 0xa06030, 0xd4a84b];
+    /* Neutral greyscale — pure grey, no blue cast */
+    const NEUTRAL  = 0x888888;
+    /* Greyscale ramp for single-part files */
+    const SINGLES  = [0x909090, 0x7a7a7a, 0xa8a8a8, 0x686868, 0xb8b8b8];
     const N        = result.meshes.length;
+
+    /* Single part: pick a greyscale from the filename hash */
+    const singleColor = (function () {
+      let h = 0;
+      const s = filename || '';
+      for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) & 0xffff;
+      return SINGLES[h % SINGLES.length];
+    })();
+
     /* Spread accents evenly so ≤30% of parts are coloured */
     const step     = Math.ceil(N / Math.max(1, Math.floor(N * 0.30)));
     svModel = new THREE.Group();
 
     result.meshes.forEach((mesh, idx) => {
-      const hexColor = (idx % step === 0)
-        ? ACCENTS[Math.floor(idx / step) % ACCENTS.length]
-        : NEUTRAL;
+      const hexColor = (N === 1)
+        ? singleColor
+        : (idx % step === 0)
+          ? ACCENTS[Math.floor(idx / step) % ACCENTS.length]
+          : NEUTRAL;
 
       const positions = mesh.position_array ||
         (mesh.attributes && mesh.attributes.position && mesh.attributes.position.array);

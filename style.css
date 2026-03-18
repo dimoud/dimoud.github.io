@@ -2030,19 +2030,14 @@ footer {
 @media (max-width: 960px) {
   .cadpg-page { overflow: visible; }
   .cadpg-inner { grid-template-columns: 1fr; gap: 36px; padding: 50px 24px; align-items: start; }
-  .cadpg-right { order: -1; }
   .cadpg-canvas-wrap {
-    min-height: 380px;
-    -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 92%);
-    mask-image: linear-gradient(to bottom, black 50%, transparent 92%);
-    opacity: 0.72;
-    pointer-events: none;
+    min-height: 760px;
   }
   .cadpg-sidebar { flex-direction: row; flex-wrap: wrap; }
 }
 @media (max-width: 640px) {
   .cadpg-inner { padding: 40px 16px; }
-  .cadpg-canvas-wrap { min-height: 300px; }
+  .cadpg-canvas-wrap { min-height: 600px; }
 }
 
 /* ══════════════════════════════════════════════════════════════
