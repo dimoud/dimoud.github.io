@@ -9,7 +9,11 @@
       "Bash(echo \"=== $dir ===\")",
       "Read(//a/WORK_PROJECTS/WEBSITES/github/dimoud.github.io/images/**)",
       "Bash(done)",
-      "WebSearch"
+      "WebSearch",
+      "WebFetch(domain:unsplash.com)",
+      "WebFetch(domain:api.unsplash.com)",
+      "WebFetch(domain:images.unsplash.com)",
+      "Bash(grep -E \"\\\\.\\(css|png|jpeg|jpg\\)$\")"
     ]
   }
 }
