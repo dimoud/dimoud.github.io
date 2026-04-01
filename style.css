@@ -348,6 +348,24 @@ section { padding: 100px 64px; position: relative; z-index: 1; }
 .reveal-up:nth-child(3) { transition-delay: .24s; }
 .reveal-up:nth-child(4) { transition-delay: .36s; }
 
+/* ── DATA-REVEAL (scroll-triggered, portfolio & sections) ────── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+}
+[data-reveal-r] {
+  opacity: 0;
+  transform: translateY(36px) translateX(18px);
+  transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+}
+[data-reveal].visible,
+[data-reveal-r].visible {
+  opacity: 1;
+  transform: none;
+}
+/* portfolio columns stagger via JS (120 ms each); right also slides from side */
+
 /* ── ABOUT ───────────────────────────────────────────────────── */
 #about { background: var(--bg2); padding-top: 56px; }
 .about-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 72px; align-items: start; }
@@ -1467,9 +1485,19 @@ footer {
   .values-grid { grid-template-columns: 1fr; }
   .principles-grid { grid-template-columns: 1fr; }
 
-  .port-image-wrap { height: 50vw; min-height: 200px; }
-  .port-info { padding: 20px 20px 28px; }
-  .port-footer { flex-direction: column; gap: 14px; align-items: flex-start; padding: 16px 4px; }
+  /* ── PORTFOLIO: strip down to image + title only on mobile ── */
+  .port-thumb-wrap { display: none; }
+  .port-badge      { display: none !important; }
+  .port-cat        { display: none; }
+  .port-desc       { display: none; }
+  .port-hint-txt   { display: none; }
+  #projects .sec-meas { display: none; }
+
+  .port-image-wrap { height: 52vw; min-height: 180px; }
+  .port-info { padding: 14px 16px 20px; }
+  .port-title { font-size: clamp(18px, 5.5vw, 26px); margin-bottom: 10px; }
+  .port-link { margin-top: 0; }
+  .port-footer { padding: 12px 4px; gap: 8px; }
 
   #team { padding: 40px 16px 36px !important; }
   .edu-cards { grid-template-columns: repeat(2,1fr); overflow-x: unset; }
@@ -1616,9 +1644,11 @@ footer {
   #process { padding: 36px 14px; }
   #team-index { padding: 40px 14px 36px; }
 
-  /* Founder stats: wrap to 2×2 at very small sizes */
-  .founder-card-stats { flex-wrap: wrap; }
-  .founder-card-stat { flex: 1 0 44%; padding: 10px 14px; }
+  /* Founder stats: keep all 3 on one row */
+  .founder-card-stats { flex-wrap: nowrap; }
+  .founder-card-stat { flex: 1 1 0; padding: 10px 8px; min-width: 0; }
+  .fcs-num { font-size: 22px; }
+  .fcs-label { font-size: 7px; letter-spacing: 1px; }
 
   /* Process nodes: slightly more compact */
   .pf-icon { width: 44px; height: 44px; font-size: 18px; }
