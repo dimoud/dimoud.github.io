@@ -195,11 +195,20 @@
       DATA.forEach((p, i) => container.appendChild(makeItem(p, i)));
     }
 
-    container.addEventListener('mouseenter', () => { thumbScrollPaused = true; });
-    container.addEventListener('mouseleave', () => {
+    container.addEventListener('mouseenter',  () => { thumbScrollPaused = true; });
+    container.addEventListener('mouseleave',  () => {
       clearTimeout(thumbScrollResumeId);
       thumbScrollResumeId = setTimeout(() => { thumbScrollPaused = false; }, 1200);
     });
+    container.addEventListener('touchstart',  () => { thumbScrollPaused = true; },  { passive: true });
+    container.addEventListener('touchend',    () => {
+      clearTimeout(thumbScrollResumeId);
+      thumbScrollResumeId = setTimeout(() => { thumbScrollPaused = false; }, 1800);
+    }, { passive: true });
+    container.addEventListener('touchcancel', () => {
+      clearTimeout(thumbScrollResumeId);
+      thumbScrollResumeId = setTimeout(() => { thumbScrollPaused = false; }, 1800);
+    }, { passive: true });
   }
 
   function initThumbNav() {
