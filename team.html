@@ -875,5 +875,12 @@
 </footer>
 
 <script src="main.js" defer></script>
+
+<button id="backToTop" aria-label="Back to top">
+  <svg viewBox="0 0 10 10" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="2,7 5,3 8,7"/></svg>
+  Top
+</button>
+<script>(function(){var b=document.getElementById('backToTop');if(!b)return;window.addEventListener('scroll',function(){b.classList.toggle('btt-visible',window.scrollY>500);},{passive:true});b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});})();</script>
+
 </body>
 </html>

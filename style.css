@@ -2915,3 +2915,48 @@ hr.ec-rule { position: relative; z-index: 2; }
   .edu-degree { display: none; }
   .edu-country { font-size: 6.5px; overflow-wrap: break-word; word-break: break-word; width: 100%; text-align: center; }
 }
+
+/* ── BACK TO TOP ─────────────────────────────────────────────── */
+#backToTop {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 20px;
+  background: var(--navy-mid);
+  border: 1px solid rgba(59,130,246,.28);
+  border-radius: 2px;
+  color: rgba(255,255,255,.55);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease, transform .3s ease, border-color .2s, color .2s;
+  white-space: nowrap;
+}
+#backToTop svg {
+  width: 10px; height: 10px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  transition: transform .2s;
+}
+#backToTop:hover {
+  border-color: rgba(59,130,246,.7);
+  color: rgba(255,255,255,.9);
+}
+#backToTop:hover svg { transform: translateY(-2px); }
+#backToTop.btt-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+@media (max-width: 640px) {
+  #backToTop { bottom: 20px; padding: 8px 16px; font-size: 8px; letter-spacing: 2px; }
+}
