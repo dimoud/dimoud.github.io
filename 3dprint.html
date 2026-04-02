@@ -26,54 +26,410 @@
 <style>
 /* ── 3D PRINT PAGE – page-specific overrides ─────────────────── */
 
-/* Hero image mosaic on the right side */
-.pr-hero-mosaic {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 12px;
-  flex: 1;
-  min-height: 420px;
-  padding: 24px 0 24px 24px;
-}
-.pr-hero-mosaic-img {
-  border-radius: 6px;
-  overflow: hidden;
-  position: relative;
-}
-.pr-hero-mosaic-img:first-child {
-  grid-row: span 2;
-  border-radius: 8px;
-}
-.pr-hero-mosaic-img img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform .55s ease;
-}
-.pr-hero-mosaic-img:hover img { transform: scale(1.04); }
-
-/* Offerings section – reuse wd-offerings but override label color */
+/* Offerings section */
 .pr-offerings .wd-offer-card--hl { border-top-color: var(--blue); }
 
-/* Projects section – inherits wd-work but with slight accent shift */
-.pr-work { background: var(--bg2); }
+/* Projects section — force dark theme */
+.pr-work { background: var(--navy-mid) !important; }
 .pr-work::before { background: none; }
+/* Header text — blue */
+.pr-work .wd-work-label { color: var(--blue-lt) !important; }
+.pr-work .wd-work-title { color: var(--blue-lt) !important; }
+.pr-work .wd-work-sub   { color: var(--blue)    !important; display: block !important; }
+/* Portfolio cols — dark */
+.pr-work .portfolio-stage { border-color: rgba(37,99,235,.18); background: transparent; }
+.pr-work .portfolio-col   { background: var(--navy) !important; }
+.pr-work .port-sep        { background: rgba(37,99,235,.18); }
+.pr-work .port-cat        { color: var(--blue-lt) !important; }
+.pr-work .port-title      { color: #fff !important; }
+.pr-work .port-desc       { color: rgba(255,255,255,.55) !important; }
+.pr-work .port-link       { color: var(--blue-lt) !important; }
+.pr-work .port-badge      { background: var(--blue) !important; color: #fff !important; }
+.pr-work .port-image-wrap { background: #06101e; }
+.pr-work .port-img        { background: #06101e; }
+.pr-work .port-thumb-wrap { background: transparent; }
+.pr-work .port-thumb-item { background: var(--navy); border-color: rgba(37,99,235,.2); color: rgba(255,255,255,.6); }
+.pr-work .port-thumb-item:hover,
+.pr-work .port-thumb-item.active { border-color: var(--blue-lt); color: #fff; }
+.pr-work .port-thumb-num  { color: var(--blue-lt); }
+.pr-work .port-dot        { background: rgba(255,255,255,.18); }
+.pr-work .port-dot.active { background: var(--blue-lt); }
+.pr-work .port-hint-txt   { color: rgba(255,255,255,.3); }
+.pr-work .port-thumb-arrow { color: rgba(255,255,255,.5); border-color: rgba(37,99,235,.3); background: transparent; }
+.pr-work .port-thumb-arrow:hover { color: #fff; border-color: var(--blue-lt); }
+.pr-work .port-image-wrap::after { color: rgba(200,220,255,.55); }
+.pr-work .port-thumb-wrap        { background: transparent; border-color: rgba(37,99,235,.15); }
+.pr-work .port-thumb-item        { background: var(--navy) !important; border-color: rgba(37,99,235,.2) !important; }
+.pr-work .port-thumb-item:hover  { border-color: var(--blue-lt) !important; }
+.pr-work .port-thumb-item.active { border-color: var(--blue) !important; }
+.pr-work .port-thumb-label       { background: var(--navy) !important; color: rgba(255,255,255,.65) !important; border-top-color: rgba(37,99,235,.15) !important; }
+.pr-work .port-thumb-item.active .port-thumb-label { color: var(--blue-lt) !important; }
+.pr-work .port-thumb-img-wrap    { background: #06101e !important; }
+.pr-work .port-thumb-img         { background: #06101e !important; }
+.pr-work .port-thumb-arrow       { background: var(--navy) !important; color: rgba(255,255,255,.55) !important; border-color: rgba(37,99,235,.25) !important; }
+.pr-work .port-thumb-arrow:hover { border-color: var(--blue-lt) !important; color: #fff !important; box-shadow: none; }
+.pr-work .port-info              { background: var(--navy); }
 
-/* CTA accent: keep same wd-cta look */
+/* ── HERO SPLIT ──────────────────────────────────────────────── */
+.pr-hero-wrap {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  position: relative;
+  overflow: hidden;
+  padding-top: 70px;
+  background: var(--navy);
+}
+
+/* LEFT — text */
+.pr-hero-left {
+  position: relative; z-index: 3;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 48px 80px 64px;
+  background: var(--navy);
+}
+.pr-hero-left::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(ellipse at 10% 70%, rgba(37,99,235,.22) 0%, transparent 55%),
+    linear-gradient(rgba(37,99,235,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37,99,235,.05) 1px, transparent 1px);
+  background-size: auto, 44px 44px, 44px 44px;
+}
+.pr-hero-left > * { position: relative; z-index: 1; }
+
+.pr-hero-label {
+  font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: 3.5px; text-transform: uppercase;
+  color: var(--blue-lt);
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 20px;
+}
+.pr-hero-label::before { content: ''; width: 22px; height: 1px; background: var(--blue-lt); }
+
+.pr-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(50px, 5.2vw, 76px);
+  line-height: .95;
+  color: #fff;
+  margin-bottom: 26px;
+}
+/* The "/" between title sections */
+.pr-hero-slash {
+  display: block;
+  font-size: .44em;
+  line-height: 1.5;
+  color: var(--blue-lt);
+  letter-spacing: 2px;
+  font-weight: 400;
+  opacity: .9;
+  font-family: var(--font-mono);
+}
+
+.pr-hero-desc {
+  font-size: 15px; line-height: 1.8;
+  color: rgba(255,255,255,.56);
+  max-width: 380px;
+  margin-bottom: 30px;
+}
+
+.pr-hero-tags {
+  display: flex; flex-wrap: wrap; gap: 7px;
+  margin-bottom: 36px;
+}
+.pr-hero-tag {
+  font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: rgba(255,255,255,.48);
+  border: 1px solid rgba(37,99,235,.28);
+  border-radius: 2px;
+  padding: 4px 10px;
+  background: rgba(37,99,235,.07);
+}
+
+.pr-hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* RIGHT — image slideshow */
+.pr-hero-right {
+  position: relative; z-index: 2;
+  overflow: hidden;
+  background: #040810;
+}
+/* Diagonal slash divider on left edge of right panel */
+.pr-hero-right::before {
+  content: '';
+  position: absolute;
+  top: -5%; left: -72px;
+  width: 130px; height: 110%;
+  background: var(--navy);
+  transform: skewX(-5deg);
+  z-index: 4;
+}
+/* Subtle vignette overlay */
+.pr-hero-right::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 3;
+  background:
+    linear-gradient(to right,  rgba(6,12,28,.45) 0%, transparent 35%),
+    linear-gradient(to bottom, rgba(6,12,28,.3)  0%, transparent 30%),
+    linear-gradient(to top,    rgba(6,12,28,.6)  0%, transparent 45%);
+  pointer-events: none;
+}
+
+/* Slides */
+.pr-hero-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 1.1s cubic-bezier(.4,0,.2,1);
+  will-change: opacity;
+}
+.pr-hero-img.active { opacity: 1; }
+
+/* Slide label (bottom-left of image) */
+.pr-hero-slide-label {
+  position: absolute;
+  bottom: 52px; left: 28px; z-index: 5;
+  font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.pr-hero-slide-label.visible { opacity: 1; transform: none; }
+
+/* Dot indicators */
+.pr-hero-indicators {
+  position: absolute; bottom: 28px; right: 28px; z-index: 5;
+  display: flex; gap: 8px; align-items: center;
+}
+.pr-hero-indicator {
+  width: 20px; height: 2px;
+  background: rgba(255,255,255,.22);
+  border: none; cursor: pointer; padding: 0;
+  transition: background .35s ease, width .35s ease;
+  border-radius: 1px;
+}
+.pr-hero-indicator.active {
+  background: var(--blue-lt);
+  width: 36px;
+}
+
+/* Progress bar */
+.pr-hero-progress {
+  position: absolute; bottom: 0; left: 0; z-index: 5;
+  height: 2px; width: 0%;
+  background: linear-gradient(90deg, var(--blue), var(--blue-lt));
+  transition: width 5s linear;
+  border-radius: 0 1px 1px 0;
+}
+.pr-hero-progress.running { width: 100%; }
 
 @media (max-width: 960px) {
-  .pr-hero-mosaic {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-    min-height: 240px;
-    padding: 0;
-    gap: 8px;
+  .pr-hero-wrap {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 56vw;
+    min-height: unset;
+    padding-top: 64px;
   }
-  .pr-hero-mosaic-img:first-child { grid-row: span 1; }
+  .pr-hero-left  { padding: 44px 24px 32px; }
+  .pr-hero-right::before { display: none; }
+  .pr-hero-title { font-size: clamp(40px, 9vw, 60px); }
 }
 @media (max-width: 640px) {
-  .pr-hero-mosaic { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .pr-hero-left  { padding: 34px 18px 26px; }
+  .pr-hero-title { font-size: clamp(32px, 10vw, 50px); }
+  .pr-hero-desc  { font-size: 14px; }
+  .pr-hero-indicators { bottom: 14px; right: 14px; }
+}
+
+/* ── ESTIMATOR ───────────────────────────────────────────────── */
+.pr-estimator {
+  padding: 96px 0 80px;
+  background: var(--navy);
+}
+.pr-estimator-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.pr-est-header { text-align: center; margin-bottom: 52px; }
+.pr-est-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--blue-lt);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.pr-est-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 42px);
+  color: #fff;
+  margin-bottom: 14px;
+}
+.pr-est-sub {
+  font-size: 15px;
+  color: rgba(255,255,255,.5);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+.pr-est-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* Drop zone */
+.pr-est-drop {
+  border: 1.5px dashed rgba(37,99,235,.4);
+  border-radius: 10px;
+  padding: 36px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .3s ease, background .3s ease;
+  background: rgba(37,99,235,.04);
+}
+.pr-est-drop:hover, .pr-est-drop.drag-over {
+  border-color: var(--blue-lt);
+  background: rgba(37,99,235,.09);
+}
+.pr-est-drop-icon { color: var(--blue-lt); margin-bottom: 14px; }
+.pr-est-drop-text { color: rgba(255,255,255,.7); font-size: 14px; margin-bottom: 6px; }
+.pr-est-drop-sub { color: rgba(255,255,255,.3); font-size: 12px; margin-bottom: 14px; }
+.pr-est-file-btn {
+  display: inline-block;
+  padding: 8px 22px;
+  background: var(--blue);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .2s ease;
+  margin-bottom: 10px;
+}
+.pr-est-file-btn:hover { background: var(--blue-lt); }
+.pr-est-file-types { font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,.25); letter-spacing: 1px; }
+
+/* Params */
+.pr-est-params { margin-top: 20px; display: flex; flex-direction: column; gap: 18px; }
+.pr-est-param-row { display: flex; flex-direction: column; gap: 8px; }
+.pr-est-param-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.4); }
+.pr-est-select {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 4px;
+  color: #fff;
+  font-size: 13px;
+  padding: 8px 12px;
+  outline: none;
+  cursor: pointer;
+}
+.pr-est-select:focus { border-color: var(--blue-lt); }
+
+.pr-est-infill-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.pr-est-infill-btn {
+  padding: 6px 12px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 4px;
+  background: transparent;
+  color: rgba(255,255,255,.55);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all .2s ease;
+  flex: 1;
+  min-width: 70px;
+}
+.pr-est-infill-btn:hover { border-color: var(--blue-lt); color: var(--blue-lt); }
+.pr-est-infill-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+.pr-est-colour-strip { display: flex; gap: 8px; flex-wrap: wrap; }
+.pr-est-colour-btn {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform .2s ease, border-color .2s ease;
+}
+.pr-est-colour-btn:hover { transform: scale(1.15); }
+.pr-est-colour-btn.active { border-color: #fff; transform: scale(1.15); }
+
+.pr-est-qty-wrap { display: flex; align-items: center; gap: 12px; }
+.pr-est-qty-btn {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.2);
+  background: transparent;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.pr-est-qty-btn:hover { border-color: var(--blue-lt); background: rgba(37,99,235,.18); }
+.pr-est-qty-val { font-family: var(--font-mono); font-size: 18px; color: #fff; min-width: 24px; text-align: center; }
+
+/* Viewer */
+.pr-est-viewer-col { display: flex; flex-direction: column; gap: 20px; }
+.pr-est-viewer-wrap {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(37,99,235,.2);
+  background: rgba(8,15,30,.7);
+  position: relative;
+  aspect-ratio: 4/3;
+  min-height: 220px;
+}
+#prEstCanvas { width: 100%; height: 100%; display: block; }
+.pr-est-viewer-empty {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 12px; color: rgba(255,255,255,.3); font-size: 13px;
+}
+.pr-est-viewer-hint {
+  position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px;
+  color: rgba(255,255,255,.25); white-space: nowrap; pointer-events: none;
+}
+
+/* Result */
+.pr-est-result {
+  background: rgba(37,99,235,.07);
+  border: 1px solid rgba(37,99,235,.25);
+  border-radius: 8px;
+  padding: 20px 24px;
+}
+.pr-est-dims { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,.4); letter-spacing: 1px; margin-bottom: 14px; }
+.pr-est-price-row { display: flex; gap: 32px; margin-bottom: 14px; }
+.pr-est-price-block, .pr-est-time-block { display: flex; flex-direction: column; gap: 4px; }
+.pr-est-price-label, .pr-est-time-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.4); }
+.pr-est-price-val { font-family: var(--font-display); font-size: 36px; font-weight: 700; color: var(--blue-lt); }
+.pr-est-time-val { font-family: var(--font-mono); font-size: 20px; color: rgba(255,255,255,.7); }
+.pr-est-disclaimer { font-size: 12px; color: rgba(255,255,255,.35); line-height: 1.5; }
+.pr-est-quote-link { color: var(--blue-lt); text-decoration: underline; }
+
+@media (max-width: 960px) {
+  .pr-est-layout { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .pr-estimator-inner { padding: 0 18px; }
+  .pr-est-infill-btns { gap: 6px; }
+  .pr-est-infill-btn { font-size: 11px; padding: 5px 8px; }
+  .pr-est-price-val { font-size: 28px; }
+  .pr-estimator { padding: 56px 0 48px; }
+  .pr-est-header { margin-bottom: 32px; }
+  .pr-est-drop { padding: 24px 16px; }
+  .pr-est-price-row { flex-direction: column; gap: 12px; }
+  .pr-est-viewer-wrap { aspect-ratio: 1/1; }
 }
 </style>
 </head>
@@ -118,44 +474,57 @@
 </div>
 
 <!-- ══ HERO ══════════════════════════════════════════════════════ -->
-<div class="wd-page">
-  <div class="wd-page-inner">
+<div class="pr-hero-wrap">
 
-    <div class="wd-page-left">
-      <div class="wd-page-label" id="pr-label">Custom Fabrication · Athens, GR</div>
-      <h1 class="wd-page-title" id="pr-title">3D Print<br>Laser Cut<br>&amp; Engrave</h1>
-      <p class="wd-page-desc" id="pr-desc">From idea to finished part — we handle custom 3D printing, reverse engineering, and laser cutting &amp; engraving. Functional prototypes, one-off parts, and decorative work produced in-house.</p>
-      <ul class="wd-page-features">
-        <li id="pr-f1">FDM 3D Printing</li>
-        <li id="pr-f2">Custom Designs</li>
-        <li id="pr-f3">Reverse Engineering</li>
-        <li id="pr-f4">Laser Cutting</li>
-        <li id="pr-f5">Laser Engraving</li>
-        <li id="pr-f6">PLA · PETG · ABS</li>
-        <li id="pr-f7">Wood · Acrylic · Metal</li>
-        <li id="pr-f8">Same-Day Prototyping</li>
-      </ul>
-      <div class="wd-page-cta">
-        <a href="contact.html" class="btn-primary" id="pr-cta1">Get a Quote →</a>
-        <a href="index.html#projects" class="btn-outline" id="pr-cta2">View All Projects</a>
-      </div>
+  <!-- LEFT: text -->
+  <div class="pr-hero-left">
+    <div class="pr-hero-label" id="pr-label">Custom Fabrication · Athens, GR</div>
+
+    <h1 class="pr-hero-title" id="pr-title-hero">
+      3D Print
+      <span class="pr-hero-slash">/ / /</span>
+      Laser Cut
+      <span class="pr-hero-slash">/ / /</span>
+      &amp;&nbsp;Engrave
+    </h1>
+
+    <p class="pr-hero-desc" id="pr-desc">From idea to finished part — custom 3D printing, reverse engineering, and laser cutting &amp; engraving. Functional prototypes, one-off parts, and decorative work produced in-house.</p>
+
+    <div class="pr-hero-tags">
+      <span class="pr-hero-tag">FDM · PLA · PETG · ABS</span>
+      <span class="pr-hero-tag">Laser Cut</span>
+      <span class="pr-hero-tag">Laser Engrave</span>
+      <span class="pr-hero-tag">Reverse Engineering</span>
+      <span class="pr-hero-tag">Same-Day Proto</span>
     </div>
 
-    <div class="wd-page-right">
-      <div class="pr-hero-mosaic">
-        <div class="pr-hero-mosaic-img">
-          <img src="images/catfeeder/1.png" alt="3D printed cat feeder" loading="eager">
-        </div>
-        <div class="pr-hero-mosaic-img">
-          <img src="images/desk_fan/1.png" alt="3D printed desk fan" loading="eager">
-        </div>
-        <div class="pr-hero-mosaic-img">
-          <img src="images/wall_decor/1.png" alt="Laser cut wall decor" loading="eager">
-        </div>
-      </div>
+    <div class="pr-hero-cta">
+      <a href="contact.html" class="btn-primary" id="pr-cta1">Get a Quote →</a>
+      <a href="#prEstimator" class="btn-outline" id="pr-cta2">Estimate Cost</a>
     </div>
-
   </div>
+
+  <!-- RIGHT: rotating images -->
+  <div class="pr-hero-right" id="prHeroRight">
+    <img class="pr-hero-img active"
+         src="images/x1Series-main-bg-v1.png"
+         alt="Bambu Lab X1 Series 3D Printer"
+         fetchpriority="high">
+    <img class="pr-hero-img"
+         src="images/colors_swiper2_img1.png"
+         alt="3D printer extruder close-up"
+         loading="lazy">
+
+    <div class="pr-hero-slide-label" id="prHeroSlideLabel">Bambu Lab X1 Series</div>
+
+    <div class="pr-hero-indicators" id="prHeroIndicators">
+      <button class="pr-hero-indicator active" data-slide="0" aria-label="Slide 1"></button>
+      <button class="pr-hero-indicator"        data-slide="1" aria-label="Slide 2"></button>
+    </div>
+
+    <div class="pr-hero-progress" id="prHeroProgress"></div>
+  </div>
+
 </div>
 
 <!-- ══ TICKER ══════════════════════════════════════════════════ -->
@@ -224,126 +593,158 @@
       <p class="wd-work-sub" id="pr-work-sub">Every project is designed, printed, or cut in-house — precise in execution, built to last.</p>
     </div>
 
-    <!-- CARD 01 — Cat Feeder -->
-    <article class="wd-project-card reveal-up" id="pr-proj-1">
-      <div class="wd-proj-preview">
-        <div class="wd-proj-browser">
-          <div class="wd-proj-bar">
-            <span class="wd-proj-dot wd-dot-r"></span>
-            <span class="wd-proj-dot wd-dot-y"></span>
-            <span class="wd-proj-dot wd-dot-g"></span>
-            <span class="wd-proj-url" id="pr-proj-1-url">3D Print · PLA · Custom Design</span>
-          </div>
-          <div class="wd-proj-frame-wrap" style="padding-bottom:68%;">
-            <img src="images/catfeeder/1.png" alt="Automatic Cat Feeder" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-            <div class="wd-proj-frame-overlay"></div>
-          </div>
+    <!-- Thumb strip (injected by print-estimator.js) -->
+    <div class="port-thumb-wrap" id="prThumbWrap">
+      <button class="port-thumb-arrow port-thumb-prev" id="prThumbPrev" aria-label="Previous">‹</button>
+      <div class="port-thumb-strip" id="prThumbStrip"></div>
+      <button class="port-thumb-arrow port-thumb-next" id="prThumbNext" aria-label="Next">›</button>
+    </div>
+
+    <!-- 2-column stage -->
+    <div class="portfolio-stage">
+      <div class="portfolio-col" id="prColLeft" draggable="false">
+        <div class="port-image-wrap">
+          <img class="port-img" src="" alt="">
+          <div class="port-img-gradient"></div>
+        </div>
+        <div class="port-info">
+          <div class="port-badge" style="display:none"></div>
+          <div class="port-cat"></div>
+          <h3 class="port-title"></h3>
+          <p class="port-desc"></p>
+          <a href="contact.html" class="project-link port-link">Get in Touch →</a>
         </div>
       </div>
-      <div class="wd-proj-info">
-        <div class="wd-proj-num">01</div>
-        <h3 class="wd-proj-name" id="pr-proj-1-name">Automatic Cat Feeder</h3>
-        <p class="wd-proj-role" id="pr-proj-1-role">3D Print · Custom Product Design</p>
-        <p class="wd-proj-desc" id="pr-proj-1-desc">Fully custom-designed automated cat feeder — timed dispensing mechanism, ergonomic hopper, and easy-clean assembly. Every part modelled in SolidWorks and printed in PLA.</p>
-        <ul class="wd-proj-tags">
-          <li>FDM / PLA</li><li>Custom Design</li><li>SolidWorks</li><li>Functional Part</li>
-        </ul>
-        <a href="contact.html" class="wd-proj-link">
-          <span id="pr-proj-1-link">Get in Touch</span> <span class="wd-proj-arrow">→</span>
-        </a>
-      </div>
-    </article>
 
-    <!-- CARD 02 — Desk Fan -->
-    <article class="wd-project-card wd-project-card--rev reveal-up" id="pr-proj-2">
-      <div class="wd-proj-preview">
-        <div class="wd-proj-browser">
-          <div class="wd-proj-bar">
-            <span class="wd-proj-dot wd-dot-r"></span>
-            <span class="wd-proj-dot wd-dot-y"></span>
-            <span class="wd-proj-dot wd-dot-g"></span>
-            <span class="wd-proj-url" id="pr-proj-2-url">3D Print · PETG · Optimised Blades</span>
-          </div>
-          <div class="wd-proj-frame-wrap" style="padding-bottom:68%;">
-            <img src="images/desk_fan/1.png" alt="Desk Fan" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-            <div class="wd-proj-frame-overlay"></div>
-          </div>
+      <div class="port-sep"></div>
+
+      <div class="portfolio-col" id="prColRight" draggable="false">
+        <div class="port-image-wrap">
+          <img class="port-img" src="" alt="">
+          <div class="port-img-gradient"></div>
+        </div>
+        <div class="port-info">
+          <div class="port-badge" style="display:none"></div>
+          <div class="port-cat"></div>
+          <h3 class="port-title"></h3>
+          <p class="port-desc"></p>
+          <a href="contact.html" class="project-link port-link">Get in Touch →</a>
         </div>
       </div>
-      <div class="wd-proj-info">
-        <div class="wd-proj-num">02</div>
-        <h3 class="wd-proj-name" id="pr-proj-2-name">Desk Fan</h3>
-        <p class="wd-proj-role" id="pr-proj-2-role">3D Print · Product Design · Aerodynamics</p>
-        <p class="wd-proj-desc" id="pr-proj-2-desc">Custom desktop fan with optimised blade geometry and compact housing — designed for quiet operation and maximum airflow. Fully 3D-printed assembly, motor-ready enclosure.</p>
-        <ul class="wd-proj-tags">
-          <li>FDM / PETG</li><li>Blade Geometry</li><li>Product Design</li><li>Assembly</li>
-        </ul>
-        <a href="contact.html" class="wd-proj-link">
-          <span id="pr-proj-2-link">Get in Touch</span> <span class="wd-proj-arrow">→</span>
-        </a>
-      </div>
-    </article>
+    </div>
 
-    <!-- CARD 03 — Laser Wall Decor -->
-    <article class="wd-project-card reveal-up" id="pr-proj-3">
-      <div class="wd-proj-preview">
-        <div class="wd-proj-browser">
-          <div class="wd-proj-bar">
-            <span class="wd-proj-dot wd-dot-r"></span>
-            <span class="wd-proj-dot wd-dot-y"></span>
-            <span class="wd-proj-dot wd-dot-g"></span>
-            <span class="wd-proj-url" id="pr-proj-3-url">Laser Cut · Steel Sheet · Powder Coat</span>
+    <div class="port-footer">
+      <div class="port-dots" id="prDots"></div>
+      <div class="port-hint-txt">↔ drag to swap &nbsp;·&nbsp; cycles every 5s</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ PRINT COST ESTIMATOR ═══════════════════════════════════ -->
+<section class="pr-estimator" id="prEstimator">
+  <div class="pr-estimator-inner">
+    <div class="pr-est-header">
+      <div class="pr-est-label">// Instant Estimate</div>
+      <h2 class="pr-est-title">How Much Will It Cost?</h2>
+      <p class="pr-est-sub">Upload your STL or STEP file — we'll parse the geometry, show a 3D preview, and give you an instant cost estimate based on material, dimensions, and print time.</p>
+    </div>
+
+    <div class="pr-est-layout">
+
+      <!-- LEFT: upload + controls -->
+      <div class="pr-est-controls">
+
+        <div class="pr-est-drop" id="prEstDrop">
+          <div class="pr-est-drop-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/>
+              <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/>
+            </svg>
           </div>
-          <div class="wd-proj-frame-wrap" style="padding-bottom:68%;">
-            <img src="images/wall_decor/1.png" alt="Laser Cut Wall Decor" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-            <div class="wd-proj-frame-overlay"></div>
+          <div class="pr-est-drop-text" id="prEstDropText">Drop your <strong>STL</strong> or <strong>STEP</strong> file here</div>
+          <div class="pr-est-drop-sub">or</div>
+          <label class="pr-est-file-btn" for="prEstFileInput">Browse File</label>
+          <input type="file" id="prEstFileInput" accept=".stl,.stp,.step" style="display:none">
+          <div class="pr-est-file-types">STL · STP · STEP — max 50 MB</div>
+        </div>
+
+        <div class="pr-est-params" id="prEstParams" style="display:none">
+          <div class="pr-est-param-row">
+            <label class="pr-est-param-label">Material</label>
+            <select class="pr-est-select" id="prEstMaterial">
+              <option value="pla">PLA — Standard</option>
+              <option value="petg">PETG — Tough</option>
+              <option value="abs">ABS — Heat-resistant</option>
+              <option value="tpu">TPU — Flexible</option>
+            </select>
+          </div>
+          <div class="pr-est-param-row">
+            <label class="pr-est-param-label">Infill</label>
+            <div class="pr-est-infill-btns">
+              <button class="pr-est-infill-btn" data-infill="15">15% — Draft</button>
+              <button class="pr-est-infill-btn active" data-infill="30">30% — Standard</button>
+              <button class="pr-est-infill-btn" data-infill="60">60% — Strong</button>
+              <button class="pr-est-infill-btn" data-infill="100">100% — Solid</button>
+            </div>
+          </div>
+          <div class="pr-est-param-row">
+            <label class="pr-est-param-label">Colour</label>
+            <div class="pr-est-colour-strip" id="prEstColours">
+              <button class="pr-est-colour-btn active" data-colour="black"   title="Black"   style="background:#111;"></button>
+              <button class="pr-est-colour-btn"        data-colour="white"   title="White"   style="background:#f0f0f0;border-color:#555;"></button>
+              <button class="pr-est-colour-btn"        data-colour="grey"    title="Grey"    style="background:#888;"></button>
+              <button class="pr-est-colour-btn"        data-colour="red"     title="Red"     style="background:#c0392b;"></button>
+              <button class="pr-est-colour-btn"        data-colour="blue"    title="Blue"    style="background:#2563eb;"></button>
+              <button class="pr-est-colour-btn"        data-colour="green"   title="Green"   style="background:#16a34a;"></button>
+              <button class="pr-est-colour-btn"        data-colour="yellow"  title="Yellow"  style="background:#eab308;"></button>
+              <button class="pr-est-colour-btn"        data-colour="orange"  title="Orange"  style="background:#ea580c;"></button>
+            </div>
+          </div>
+          <div class="pr-est-param-row">
+            <label class="pr-est-param-label">Quantity</label>
+            <div class="pr-est-qty-wrap">
+              <button class="pr-est-qty-btn" id="prEstQtyMinus">−</button>
+              <span class="pr-est-qty-val" id="prEstQtyVal">1</span>
+              <button class="pr-est-qty-btn" id="prEstQtyPlus">+</button>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="wd-proj-info">
-        <div class="wd-proj-num">03</div>
-        <h3 class="wd-proj-name" id="pr-proj-3-name">Metal Wall Décor</h3>
-        <p class="wd-proj-role" id="pr-proj-3-role">Laser Cut · Interior Design · Sheet Metal</p>
-        <p class="wd-proj-desc" id="pr-proj-3-desc">Custom laser-cut steel wall décor — intricate patterns cut from sheet steel, powder-coated finish. Suitable for residential and commercial interiors. Custom sizes and motifs available.</p>
-        <ul class="wd-proj-tags">
-          <li>Laser Cutting</li><li>Steel Sheet</li><li>Powder Coat</li><li>Custom Pattern</li>
-        </ul>
-        <a href="contact.html" class="wd-proj-link">
-          <span id="pr-proj-3-link">Get in Touch</span> <span class="wd-proj-arrow">→</span>
-        </a>
-      </div>
-    </article>
 
-    <!-- CARD 04 — Dog Repellent -->
-    <article class="wd-project-card wd-project-card--rev reveal-up" id="pr-proj-4">
-      <div class="wd-proj-preview">
-        <div class="wd-proj-browser">
-          <div class="wd-proj-bar">
-            <span class="wd-proj-dot wd-dot-r"></span>
-            <span class="wd-proj-dot wd-dot-y"></span>
-            <span class="wd-proj-dot wd-dot-g"></span>
-            <span class="wd-proj-url" id="pr-proj-4-url">3D Print · Custom Electronics Housing</span>
+      </div>
+
+      <!-- RIGHT: 3D viewer + result -->
+      <div class="pr-est-viewer-col">
+        <div class="pr-est-viewer-wrap" id="prEstViewerWrap">
+          <canvas id="prEstCanvas"></canvas>
+          <div class="pr-est-viewer-empty" id="prEstViewerEmpty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" opacity="0.3">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+              <line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+            <span>3D preview appears here</span>
           </div>
-          <div class="wd-proj-frame-wrap" style="padding-bottom:68%;">
-            <img src="images/dog_repellant/1.png" alt="Dog Repellent Device" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-            <div class="wd-proj-frame-overlay"></div>
-          </div>
+          <div class="pr-est-viewer-hint" id="prEstViewerHint" style="display:none">drag to rotate · scroll to zoom</div>
         </div>
-      </div>
-      <div class="wd-proj-info">
-        <div class="wd-proj-num">04</div>
-        <h3 class="wd-proj-name" id="pr-proj-4-name">Dog Repellent Device</h3>
-        <p class="wd-proj-role" id="pr-proj-4-role">3D Print · Electronics Enclosure · Custom Design</p>
-        <p class="wd-proj-desc" id="pr-proj-4-desc">Compact ultrasonic dog repellent device — fully custom housing designed around the electronics. Weatherproof enclosure, clean fit, snap-close assembly. Reverse-engineered from client brief.</p>
-        <ul class="wd-proj-tags">
-          <li>FDM / ABS</li><li>Electronics Housing</li><li>Weatherproof</li><li>Custom Brief</li>
-        </ul>
-        <a href="contact.html" class="wd-proj-link">
-          <span id="pr-proj-4-link">Get in Touch</span> <span class="wd-proj-arrow">→</span>
-        </a>
-      </div>
-    </article>
 
+        <div class="pr-est-result" id="prEstResult" style="display:none">
+          <div class="pr-est-dims" id="prEstDims"></div>
+          <div class="pr-est-price-row">
+            <div class="pr-est-price-block">
+              <span class="pr-est-price-label">Estimated Cost</span>
+              <span class="pr-est-price-val" id="prEstPrice">€0</span>
+            </div>
+            <div class="pr-est-time-block">
+              <span class="pr-est-time-label">Print Time</span>
+              <span class="pr-est-time-val" id="prEstTime">—</span>
+            </div>
+          </div>
+          <p class="pr-est-disclaimer">Estimate only — final price confirmed after review. <a href="contact.html" class="pr-est-quote-link">Get exact quote →</a></p>
+        </div>
+
+      </div>
+    </div>
   </div>
 </section>
 
@@ -356,10 +757,6 @@
       <p class="wd-cta-text" id="pr-cta-text">Send us a sketch, a broken part, or just a description. We'll design, print, or cut it — and deliver a finished piece ready to use.</p>
     </div>
     <div class="wd-cta-right">
-      <div class="wd-cta-price-block">
-        <span class="wd-cta-price-from" id="pr-cta-price-from">Starting from</span>
-        <span class="wd-cta-price-num">€20</span>
-      </div>
       <a href="contact.html" class="wd-cta-btn" id="pr-cta-btn1">Get a Quote →</a>
       <ul class="wd-cta-perks">
         <li id="pr-cta-perk1">✓ Custom design included</li>
@@ -376,6 +773,9 @@
   <div class="footer-text" id="footer-loc">Athens, Greece</div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js"></script>
+<script src="print-projects.js"></script>
+<script src="print-estimator.js"></script>
 <script src="main.js" defer></script>
 </body>
 </html>
