@@ -879,23 +879,6 @@ function closeMobileNav() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   CONTACT FORM
-═══════════════════════════════════════════════════════════════ */
-function initContactForm() {
-  const form=document.getElementById('contactForm'),success=document.getElementById('formSuccess');
-  if(!form)return;
-  form.addEventListener('submit',async e=>{
-    e.preventDefault();
-    const btn=form.querySelector('.form-submit');btn.textContent='Sending…';btn.disabled=true;
-    try{
-      const res=await fetch(form.action,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)});
-      if(res.ok){form.style.display='none';if(success)success.style.display='flex';}
-      else{btn.textContent='Error — try again';btn.disabled=false;}
-    }catch(_){btn.textContent='Error — try again';btn.disabled=false;}
-  });
-}
-
-/* ═══════════════════════════════════════════════════════════════
    PROCESS FLOW ANIMATION — activate only when section is visible
 ═══════════════════════════════════════════════════════════════ */
 function initProcessAnimations() {
@@ -917,7 +900,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initPortfolio();
   buildProjectModal();
   initMobileNav();
-  initContactForm();
   initScrollReveal();
   initProcessAnimations();
   if (typeof initThree === 'function') setTimeout(initThree, 120);
