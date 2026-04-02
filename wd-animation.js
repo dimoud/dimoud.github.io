@@ -36,10 +36,18 @@
   const PHASES = ['chaos', 'assemble', 'wireframe', 'render', 'hold', 'dissolve'];
   const DUR    = { chaos:170, assemble:140, wireframe:65, render:85, hold:180, dissolve:120 };
   let pIdx = 0, pFrame = 0;
+  let scrollUnlocked = false;
 
   const phase = () => PHASES[pIdx];
   const prog  = () => Math.min(1, pFrame / DUR[phase()]);
-  const tick  = () => { if (++pFrame >= DUR[phase()]) { pIdx = (pIdx+1) % PHASES.length; pFrame = 0; } };
+  const tick  = () => {
+    if (++pFrame >= DUR[phase()]) { pIdx = (pIdx+1) % PHASES.length; pFrame = 0; }
+    /* unlock scroll on mobile once the animation has reached 'hold' */
+    if (!scrollUnlocked && phase() === 'hold' && window.innerWidth <= 820) {
+      scrollUnlocked = true;
+      document.body.style.overflow = '';
+    }
+  };
 
   const easeOut  = t => 1 - (1-t)**3;
   const easeIn   = t => t**3;
@@ -383,6 +391,11 @@
 
   /* ── INIT ───────────────────────────────────────────────── */
   function init() {
+    /* lock scroll on mobile until the animation forms */
+    if (window.innerWidth <= 820) {
+      document.body.style.overflow = 'hidden';
+    }
+
     requestAnimationFrame(() => {
       resize();
 

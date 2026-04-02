@@ -2203,6 +2203,12 @@ footer {
   background: linear-gradient(90deg, transparent, rgba(201,168,108,.15), transparent);
 }
 
+/* browser mock link wrapper */
+.wd-proj-browser-link {
+  display: block;
+  text-decoration: none;
+}
+
 /* browser mock */
 .wd-proj-browser {
   background: #0a1428;
@@ -2317,17 +2323,19 @@ footer {
   }
   .wd-project-card--rev .wd-proj-preview,
   .wd-project-card--rev .wd-proj-info { order: unset; }
-  /* compact the iframe preview — shorter aspect ratio on mobile */
-  .wd-proj-frame-wrap { padding-bottom: 46%; }
+  /* larger iframe preview on mobile */
+  .wd-proj-frame-wrap { padding-bottom: 62%; }
   /* shrink the info panel gaps */
   .wd-proj-info { gap: 10px; }
   /* hide description on mobile — too long */
   .wd-proj-desc { display: none; }
-  /* smaller name */
-  .wd-proj-name { font-size: 24px; }
+  /* hide site name on mobile */
+  .wd-proj-name { display: none; }
   /* tighter tags */
   .wd-proj-tags { gap: 6px; }
   .wd-proj-tags li { font-size: 8px; padding: 3px 7px; letter-spacing: 1px; }
+  /* cursor hint that the preview is clickable */
+  .wd-proj-browser-link .wd-proj-browser { cursor: pointer; }
 }
 @media (max-width: 480px) {
   .wd-work { padding: 48px 16px; }
@@ -2337,7 +2345,6 @@ footer {
   .wd-proj-dot { width: 8px; height: 8px; }
   .wd-proj-url { font-size: 8px; }
   .wd-proj-num { font-size: 9px; }
-  .wd-proj-name { font-size: 22px; }
   .wd-proj-role { font-size: 9px; letter-spacing: 1.5px; }
 }
 
