@@ -27,48 +27,41 @@
 /* ── 3D PRINT PAGE – page-specific overrides ─────────────────── */
 
 /* Offerings section */
+.pr-offerings { padding: 52px 56px 48px !important; }
 .pr-offerings .wd-offer-card--hl { border-top-color: var(--blue); }
 
-/* Projects section — force dark theme */
-.pr-work { background: var(--navy-mid) !important; }
+/* Epic card upgrade */
+.pr-offerings .wd-offerings-grid { gap: 20px; }
+.pr-offerings .wd-offer-card {
+  padding: 32px 28px;
+  border-radius: 6px;
+  border-top-width: 2px;
+  display: flex; flex-direction: column; gap: 0;
+  transition: border-top-color .25s, box-shadow .25s, transform .25s;
+}
+.pr-offerings .wd-offer-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 36px rgba(37,99,235,.13);
+}
+.pr-offer-icon {
+  width: 38px; height: 38px; margin-bottom: 18px;
+  color: var(--blue-lt); opacity: .85;
+}
+.pr-offerings .wd-offer-num {
+  font-size: 9px; letter-spacing: 3px; margin-bottom: 6px; opacity: .6;
+}
+.pr-offerings .wd-offer-name {
+  font-size: 24px; letter-spacing: .3px; margin-bottom: 12px; line-height: 1.1;
+}
+.pr-offerings .wd-offer-text { font-size: 13.5px; line-height: 1.8; }
+
+/* Projects section */
+.pr-work { background: var(--bg2) !important; }
 .pr-work::before { background: none; }
-/* Header text — blue */
-.pr-work .wd-work-label { color: var(--blue-lt) !important; }
-.pr-work .wd-work-title { color: var(--blue-lt) !important; }
+/* Header text — blue, always visible */
+.pr-work .wd-work-label { color: var(--blue)    !important; }
+.pr-work .wd-work-title { color: var(--blue)    !important; }
 .pr-work .wd-work-sub   { color: var(--blue)    !important; display: block !important; }
-/* Portfolio cols — dark */
-.pr-work .portfolio-stage { border-color: rgba(37,99,235,.18); background: transparent; }
-.pr-work .portfolio-col   { background: var(--navy) !important; }
-.pr-work .port-sep        { background: rgba(37,99,235,.18); }
-.pr-work .port-cat        { color: var(--blue-lt) !important; }
-.pr-work .port-title      { color: #fff !important; }
-.pr-work .port-desc       { color: rgba(255,255,255,.55) !important; }
-.pr-work .port-link       { color: var(--blue-lt) !important; }
-.pr-work .port-badge      { background: var(--blue) !important; color: #fff !important; }
-.pr-work .port-image-wrap { background: #06101e; }
-.pr-work .port-img        { background: #06101e; }
-.pr-work .port-thumb-wrap { background: transparent; }
-.pr-work .port-thumb-item { background: var(--navy); border-color: rgba(37,99,235,.2); color: rgba(255,255,255,.6); }
-.pr-work .port-thumb-item:hover,
-.pr-work .port-thumb-item.active { border-color: var(--blue-lt); color: #fff; }
-.pr-work .port-thumb-num  { color: var(--blue-lt); }
-.pr-work .port-dot        { background: rgba(255,255,255,.18); }
-.pr-work .port-dot.active { background: var(--blue-lt); }
-.pr-work .port-hint-txt   { color: rgba(255,255,255,.3); }
-.pr-work .port-thumb-arrow { color: rgba(255,255,255,.5); border-color: rgba(37,99,235,.3); background: transparent; }
-.pr-work .port-thumb-arrow:hover { color: #fff; border-color: var(--blue-lt); }
-.pr-work .port-image-wrap::after { color: rgba(200,220,255,.55); }
-.pr-work .port-thumb-wrap        { background: transparent; border-color: rgba(37,99,235,.15); }
-.pr-work .port-thumb-item        { background: var(--navy) !important; border-color: rgba(37,99,235,.2) !important; }
-.pr-work .port-thumb-item:hover  { border-color: var(--blue-lt) !important; }
-.pr-work .port-thumb-item.active { border-color: var(--blue) !important; }
-.pr-work .port-thumb-label       { background: var(--navy) !important; color: rgba(255,255,255,.65) !important; border-top-color: rgba(37,99,235,.15) !important; }
-.pr-work .port-thumb-item.active .port-thumb-label { color: var(--blue-lt) !important; }
-.pr-work .port-thumb-img-wrap    { background: #06101e !important; }
-.pr-work .port-thumb-img         { background: #06101e !important; }
-.pr-work .port-thumb-arrow       { background: var(--navy) !important; color: rgba(255,255,255,.55) !important; border-color: rgba(37,99,235,.25) !important; }
-.pr-work .port-thumb-arrow:hover { border-color: var(--blue-lt) !important; color: #fff !important; box-shadow: none; }
-.pr-work .port-info              { background: var(--navy); }
 
 /* ── HERO SPLIT ──────────────────────────────────────────────── */
 .pr-hero-wrap {
@@ -282,7 +275,7 @@
 
 .pr-est-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
   gap: 32px;
   align-items: start;
 }
@@ -324,7 +317,7 @@
 .pr-est-param-row { display: flex; flex-direction: column; gap: 8px; }
 .pr-est-param-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.4); }
 .pr-est-select {
-  background: rgba(255,255,255,.05);
+  background: #1a2236;
   border: 1px solid rgba(255,255,255,.12);
   border-radius: 4px;
   color: #fff;
@@ -333,6 +326,7 @@
   outline: none;
   cursor: pointer;
 }
+.pr-est-select option { background: #1a2236; color: #fff; }
 .pr-est-select:focus { border-color: var(--blue-lt); }
 
 .pr-est-infill-btns { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -387,7 +381,7 @@
   background: rgba(8,15,30,.7);
   position: relative;
   aspect-ratio: 4/3;
-  min-height: 220px;
+  min-height: 440px;
 }
 #prEstCanvas { width: 100%; height: 100%; display: block; }
 .pr-est-viewer-empty {
@@ -414,8 +408,48 @@
 .pr-est-price-label, .pr-est-time-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.4); }
 .pr-est-price-val { font-family: var(--font-display); font-size: 36px; font-weight: 700; color: var(--blue-lt); }
 .pr-est-time-val { font-family: var(--font-mono); font-size: 20px; color: rgba(255,255,255,.7); }
+.pr-est-filament-row {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(255,255,255,.45);
+  letter-spacing: 0.5px;
+  margin-bottom: 14px;
+  display: flex; gap: 20px; flex-wrap: wrap;
+}
+.pr-est-filament-row span { color: rgba(255,255,255,.7); }
 .pr-est-disclaimer { font-size: 12px; color: rgba(255,255,255,.35); line-height: 1.5; }
 .pr-est-quote-link { color: var(--blue-lt); text-decoration: underline; }
+
+.pr-est-breakdown {
+  display: flex; flex-direction: column; gap: 4px;
+  margin-bottom: 14px;
+  border-top: 1px solid rgba(37,99,235,.18);
+  padding-top: 12px;
+}
+.pr-est-breakdown-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--font-mono); font-size: 11px;
+  color: rgba(255,255,255,.45); letter-spacing: 0.5px;
+}
+.pr-est-breakdown-row.highlight { color: rgba(255,255,255,.7); }
+.pr-est-breakdown-row span:last-child { color: rgba(255,255,255,.65); }
+
+/* Layer / Strength buttons reuse infill-btn styles */
+.pr-est-layer-btn, .pr-est-strength-btn {
+  padding: 6px 12px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 4px;
+  background: transparent;
+  color: rgba(255,255,255,.55);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all .2s ease;
+  flex: 1;
+  min-width: 60px;
+}
+.pr-est-layer-btn:hover, .pr-est-strength-btn:hover { border-color: var(--blue-lt); color: var(--blue-lt); }
+.pr-est-layer-btn.active, .pr-est-strength-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+.pr-est-multicolor-active { background: var(--blue) !important; border-color: var(--blue) !important; color: #fff !important; }
 
 @media (max-width: 960px) {
   .pr-est-layout { grid-template-columns: 1fr; }
@@ -430,6 +464,58 @@
   .pr-est-drop { padding: 24px 16px; }
   .pr-est-price-row { flex-direction: column; gap: 12px; }
   .pr-est-viewer-wrap { aspect-ratio: 1/1; }
+}
+@media (max-width: 480px) {
+  /* Hero */
+  .pr-hero-wrap { grid-template-rows: auto 64vw; }
+  .pr-hero-left { padding: 28px 16px 22px; }
+  .pr-hero-title { font-size: clamp(28px, 9.5vw, 44px); margin-bottom: 18px; }
+  .pr-hero-slash { font-size: .38em; letter-spacing: 1px; }
+  .pr-hero-desc { font-size: 13.5px; margin-bottom: 22px; }
+  .pr-hero-tags { gap: 5px; margin-bottom: 26px; }
+  .pr-hero-tag { font-size: 8px; padding: 3px 8px; }
+  .pr-hero-cta { gap: 10px; }
+
+  /* Estimator section */
+  .pr-estimator { padding: 44px 0 36px; }
+  .pr-estimator-inner { padding: 0 14px; }
+  .pr-est-header { margin-bottom: 26px; }
+  .pr-est-sub { font-size: 13.5px; }
+  .pr-est-drop { padding: 20px 14px; }
+  .pr-est-drop-text { font-size: 13px; }
+  .pr-est-params { gap: 14px; }
+
+  /* Button grids: 2-col at very small widths */
+  .pr-est-infill-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .pr-est-infill-btn,
+  .pr-est-layer-btn,
+  .pr-est-strength-btn {
+    font-size: 11px;
+    padding: 7px 6px;
+    min-width: 0;
+    flex: none;
+  }
+
+  /* Multicolor row: stack label under button */
+  .pr-est-multicolor-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px;
+  }
+
+  /* Result panel */
+  .pr-est-result { padding: 16px; }
+  .pr-est-price-val { font-size: 26px; }
+  .pr-est-time-val { font-size: 17px; }
+  .pr-est-dims { font-size: 10px; }
+  .pr-est-breakdown-row { font-size: 10px; }
+
+  /* Viewer */
+  .pr-est-viewer-wrap { aspect-ratio: 4/3; min-height: 180px; }
 }
 </style>
 </head>
@@ -495,7 +581,6 @@
       <span class="pr-hero-tag">Laser Cut</span>
       <span class="pr-hero-tag">Laser Engrave</span>
       <span class="pr-hero-tag">Reverse Engineering</span>
-      <span class="pr-hero-tag">Same-Day Proto</span>
     </div>
 
     <div class="pr-hero-cta">
@@ -537,7 +622,6 @@
     <span class="ticker-item">Laser Engraving <span>✦</span></span>
     <span class="ticker-item">PLA · PETG · ABS <span>✦</span></span>
     <span class="ticker-item">Wood · Acrylic · Metal <span>✦</span></span>
-    <span class="ticker-item">Same-Day Prototyping <span>✦</span></span>
     <span class="ticker-item">FDM 3D Printing <span>✦</span></span>
     <span class="ticker-item">Custom Designs <span>✦</span></span>
     <span class="ticker-item">Reverse Engineering <span>✦</span></span>
@@ -545,7 +629,6 @@
     <span class="ticker-item">Laser Engraving <span>✦</span></span>
     <span class="ticker-item">PLA · PETG · ABS <span>✦</span></span>
     <span class="ticker-item">Wood · Acrylic · Metal <span>✦</span></span>
-    <span class="ticker-item">Same-Day Prototyping <span>✦</span></span>
   </div>
 </div>
 
@@ -556,24 +639,39 @@
     <div class="wd-offerings-grid">
 
       <div class="wd-offer-card">
+        <svg class="pr-offer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+          <line x1="12" y1="22.08" x2="12" y2="12"/>
+        </svg>
         <div class="wd-offer-num">01</div>
         <div class="wd-offer-name" id="pr-off1-name">Custom 3D Printing</div>
         <p class="wd-offer-text" id="pr-off1-text">FDM printing in PLA, PETG, ABS, and specialty filaments. From functional brackets and enclosures to artistic objects — designed in SolidWorks and printed to spec.</p>
       </div>
 
       <div class="wd-offer-card">
+        <svg class="pr-offer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
+        </svg>
         <div class="wd-offer-num">02</div>
         <div class="wd-offer-name" id="pr-off2-name">Reverse Engineering</div>
         <p class="wd-offer-text" id="pr-off2-text">Broken or discontinued part? We measure, model, and print an exact replacement. Faster and cheaper than sourcing — with the option to improve on the original design.</p>
       </div>
 
       <div class="wd-offer-card">
+        <svg class="pr-offer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+        </svg>
         <div class="wd-offer-num">03</div>
         <div class="wd-offer-name" id="pr-off3-name">Laser Cutting</div>
         <p class="wd-offer-text" id="pr-off3-text">Precision cuts on wood, acrylic, cardboard, leather, and thin metals. Clean edges, tight tolerances, and fast turnaround — ideal for parts, enclosures, and decorative panels.</p>
       </div>
 
       <div class="wd-offer-card wd-offer-card--hl">
+        <svg class="pr-offer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
         <div class="wd-offer-num">04</div>
         <div class="wd-offer-name" id="pr-off4-name">Laser Engraving</div>
         <p class="wd-offer-text" id="pr-off4-text">Permanent marking on wood, anodised aluminium, leather, glass, and coated metals. Logos, serial numbers, artwork, personalised gifts — whatever the surface calls for.</p>
@@ -669,36 +767,60 @@
           <div class="pr-est-file-types">STL · STP · STEP — max 50 MB</div>
         </div>
 
-        <div class="pr-est-params" id="prEstParams" style="display:none">
+        <div class="pr-est-params" id="prEstParams">
           <div class="pr-est-param-row">
             <label class="pr-est-param-label">Material</label>
             <select class="pr-est-select" id="prEstMaterial">
               <option value="pla">PLA — Standard</option>
+              <option value="pla+">PLA+ — Enhanced</option>
               <option value="petg">PETG — Tough</option>
               <option value="abs">ABS — Heat-resistant</option>
-              <option value="tpu">TPU — Flexible</option>
             </select>
           </div>
           <div class="pr-est-param-row">
             <label class="pr-est-param-label">Infill</label>
             <div class="pr-est-infill-btns">
-              <button class="pr-est-infill-btn" data-infill="15">15% — Draft</button>
-              <button class="pr-est-infill-btn active" data-infill="30">30% — Standard</button>
-              <button class="pr-est-infill-btn" data-infill="60">60% — Strong</button>
-              <button class="pr-est-infill-btn" data-infill="100">100% — Solid</button>
+              <button class="pr-est-infill-btn" data-infill="0.15">15% — Draft</button>
+              <button class="pr-est-infill-btn active" data-infill="0.20">20% — Standard</button>
+              <button class="pr-est-infill-btn" data-infill="0.40">40% — Strong</button>
+              <button class="pr-est-infill-btn" data-infill="1.00">100% — Solid</button>
+            </div>
+          </div>
+          <div class="pr-est-param-row">
+            <label class="pr-est-param-label">Layer Height</label>
+            <div class="pr-est-infill-btns">
+              <button class="pr-est-layer-btn" data-layer="0.08">0.08 mm</button>
+              <button class="pr-est-layer-btn" data-layer="0.16">0.16 mm</button>
+              <button class="pr-est-layer-btn active" data-layer="0.20">0.20 mm</button>
+              <button class="pr-est-layer-btn" data-layer="0.25">0.25 mm</button>
+            </div>
+          </div>
+          <div class="pr-est-param-row">
+            <label class="pr-est-param-label">Strength / Walls</label>
+            <div class="pr-est-infill-btns">
+              <button class="pr-est-strength-btn" data-strength="1.0">Light</button>
+              <button class="pr-est-strength-btn active" data-strength="1.1">Default</button>
+              <button class="pr-est-strength-btn" data-strength="1.3">Strong</button>
+              <button class="pr-est-strength-btn" data-strength="1.5">Very Strong</button>
             </div>
           </div>
           <div class="pr-est-param-row">
             <label class="pr-est-param-label">Colour</label>
-            <div class="pr-est-colour-strip" id="prEstColours">
-              <button class="pr-est-colour-btn active" data-colour="black"   title="Black"   style="background:#111;"></button>
-              <button class="pr-est-colour-btn"        data-colour="white"   title="White"   style="background:#f0f0f0;border-color:#555;"></button>
-              <button class="pr-est-colour-btn"        data-colour="grey"    title="Grey"    style="background:#888;"></button>
-              <button class="pr-est-colour-btn"        data-colour="red"     title="Red"     style="background:#c0392b;"></button>
-              <button class="pr-est-colour-btn"        data-colour="blue"    title="Blue"    style="background:#2563eb;"></button>
-              <button class="pr-est-colour-btn"        data-colour="green"   title="Green"   style="background:#16a34a;"></button>
-              <button class="pr-est-colour-btn"        data-colour="yellow"  title="Yellow"  style="background:#eab308;"></button>
-              <button class="pr-est-colour-btn"        data-colour="orange"  title="Orange"  style="background:#ea580c;"></button>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div class="pr-est-colour-strip" id="prEstColours">
+                <button class="pr-est-colour-btn"        data-colour="black"   title="Black"   style="background:#111;"></button>
+                <button class="pr-est-colour-btn active" data-colour="white"   title="White"   style="background:#f0f0f0;border-color:#555;"></button>
+                <button class="pr-est-colour-btn"        data-colour="grey"    title="Grey"    style="background:#888;"></button>
+                <button class="pr-est-colour-btn"        data-colour="red"     title="Red"     style="background:#c0392b;"></button>
+                <button class="pr-est-colour-btn"        data-colour="blue"    title="Blue"    style="background:#2563eb;"></button>
+                <button class="pr-est-colour-btn"        data-colour="green"   title="Green"   style="background:#16a34a;"></button>
+                <button class="pr-est-colour-btn"        data-colour="yellow"  title="Yellow"  style="background:#eab308;"></button>
+                <button class="pr-est-colour-btn"        data-colour="orange"  title="Orange"  style="background:#ea580c;"></button>
+              </div>
+              <div class="pr-est-multicolor-row" style="display:flex;align-items:center;gap:10px;">
+                <button class="pr-est-infill-btn" id="prEstMulticolor" style="flex:none;padding:6px 14px;">Single Colour</button>
+                <span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1px;">Toggle AMS multicolor (+2× material)</span>
+              </div>
             </div>
           </div>
           <div class="pr-est-param-row">
@@ -732,7 +854,7 @@
           <div class="pr-est-dims" id="prEstDims"></div>
           <div class="pr-est-price-row">
             <div class="pr-est-price-block">
-              <span class="pr-est-price-label">Estimated Cost</span>
+              <span class="pr-est-price-label">Total Quote</span>
               <span class="pr-est-price-val" id="prEstPrice">€0</span>
             </div>
             <div class="pr-est-time-block">
@@ -740,6 +862,7 @@
               <span class="pr-est-time-val" id="prEstTime">—</span>
             </div>
           </div>
+          <div class="pr-est-filament-row" id="prEstFilamentRow"></div>
           <p class="pr-est-disclaimer">Estimate only — final price confirmed after review. <a href="contact.html" class="pr-est-quote-link">Get exact quote →</a></p>
         </div>
 

@@ -509,18 +509,41 @@
 
 /* ── 2. COST ESTIMATOR ───────────────────────────────────────── */
 (function initEstimator() {
-  const MAT_PRICE   = { pla: 0.06, petg: 0.08, abs: 0.07, tpu: 0.14 };
-  const SETUP_FEE   = 5;
-  const PRINT_SPEED = 8; // cm³/h at 100% infill
+  /* ── Constants ─────────────────────────────────────────────── */
+  const FILAMENT_DENSITY  = 1.25;   // g/cm³  (PLA baseline)
+  const WASTE_BUFFER      = 1.20;   // +10% purge/skirt + 10% overestimate buffer
+  const ELECTRICITY_RATE  = 0.20;   // €/kWh
+  const PRINTER_KW        = 0.15;   // avg kW draw (P1S / X1)
+  const SPEED_MM_S        = 110;    // mm/s effective avg extrusion speed (P1S real-world)
+  const LINE_WIDTH_MM     = 0.42;   // mm
+  const TIME_OVERHEAD     = 1.35;   // travel / layer-change / start-end overhead multiplier
 
-  let state = { material: 'pla', infill: 30, colour: 'black', qty: 1, volume: 0, bbox: null };
+  /* €/g per material  (€25=0.025, €28=0.028, €30=0.030) */
+  const MAT_RATE = { pla: 0.025, 'pla+': 0.028, petg: 0.028, abs: 0.030 };
+
+  /* Price multipliers — applied to base cost (material + electricity) */
+  const STRENGTH_PRICE_MULT = { '1.0': 0.88, '1.1': 1.00, '1.3': 1.20, '1.5': 1.44 };
+  const LAYER_PRICE_MULT    = { '0.08': 1.44, '0.16': 1.20, '0.20': 1.00, '0.25': 0.90 };
+  const INFILL_PRICE_MULT   = { '0.15': 0.90, '0.20': 1.00, '0.40': 1.10, '1.00': 1.21 };
+
+  let state = {
+    material:   'pla',
+    infill:     0.20,   // fraction
+    layerMm:    0.20,   // mm
+    strength:   1.1,
+    colour:     'white',
+    multicolor: false,
+    qty:        1,
+    volume:     0,      // cm³
+    bbox:       null
+  };
 
   const drop       = document.getElementById('prEstDrop');
   const fileInput  = document.getElementById('prEstFileInput');
   const dropText   = document.getElementById('prEstDropText');
   const params     = document.getElementById('prEstParams');
   const matSel     = document.getElementById('prEstMaterial');
-  const infillBtns = document.querySelectorAll('.pr-est-infill-btn');
+  const infillBtns = document.querySelectorAll('.pr-est-infill-btn[data-infill]');
   const colourBtns = document.querySelectorAll('.pr-est-colour-btn');
   const qtyMinus   = document.getElementById('prEstQtyMinus');
   const qtyPlus    = document.getElementById('prEstQtyPlus');
@@ -536,7 +559,7 @@
 
   if (!drop) return;
 
-  drop.addEventListener('click', () => fileInput.click());
+  drop.addEventListener('click', e => { if (!e.target.closest('label')) fileInput.click(); });
   fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
   drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('drag-over'); });
   drop.addEventListener('dragleave', () => drop.classList.remove('drag-over'));
@@ -550,9 +573,33 @@
   infillBtns.forEach(btn => btn.addEventListener('click', () => {
     infillBtns.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    state.infill = parseInt(btn.dataset.infill);
+    state.infill = parseFloat(btn.dataset.infill);
     updateResult();
   }));
+
+  document.querySelectorAll('.pr-est-layer-btn').forEach(btn => btn.addEventListener('click', () => {
+    document.querySelectorAll('.pr-est-layer-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.layerMm = parseFloat(btn.dataset.layer);
+    updateResult();
+  }));
+
+  document.querySelectorAll('.pr-est-strength-btn').forEach(btn => btn.addEventListener('click', () => {
+    document.querySelectorAll('.pr-est-strength-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.strength = parseFloat(btn.dataset.strength);
+    updateResult();
+  }));
+
+  const multicolorBtn = document.getElementById('prEstMulticolor');
+  if (multicolorBtn) {
+    multicolorBtn.addEventListener('click', () => {
+      state.multicolor = !state.multicolor;
+      multicolorBtn.textContent = state.multicolor ? 'Multicolor (AMS)' : 'Single Colour';
+      multicolorBtn.classList.toggle('pr-est-multicolor-active', state.multicolor);
+      updateResult();
+    });
+  }
 
   colourBtns.forEach(btn => btn.addEventListener('click', () => {
     colourBtns.forEach(b => b.classList.remove('active'));
@@ -575,10 +622,9 @@
       if (isSTL) {
         parseSTL(e.target.result, file.name);
       } else {
-        state.volume = Math.max(0.5, (file.size / 1024) * 0.04);
+        state.volume = Math.max(0.5, (file.size / 1024) * 0.12);
         state.bbox   = null;
-        dropText.innerHTML = `<strong>${file.name}</strong> — STEP preview not available (size-based estimate)`;
-        params.style.display = '';
+        dropText.innerHTML = `<strong>${file.name}</strong> — STEP: upload STL for accurate estimate`;
         showStepPlaceholder();
         updateResult();
       }
@@ -593,7 +639,6 @@
     state.volume = Math.abs(geo.volume) / 1000;
     state.bbox   = geo.bbox;
     dropText.innerHTML = `<strong>${filename}</strong> — ready`;
-    params.style.display = '';
     buildThreeScene(geo.vertices, geo.bbox);
     updateResult();
   }
@@ -717,22 +762,86 @@
   }
 
   function showStepPlaceholder() {
-    if (viewerEmpty) { viewerEmpty.style.display = 'flex'; viewerEmpty.querySelector('span').textContent = 'STEP preview not available — size-based estimate'; }
+    if (viewerEmpty) { viewerEmpty.style.display = 'flex'; viewerEmpty.querySelector('span').textContent = 'STEP: upload STL for accurate 3D preview & estimate'; }
   }
 
   function updateResult() {
     if (!state.volume) return;
-    const shell = 0.20, core = 0.80;
-    const effVol = state.volume * (shell + core * (state.infill / 100));
-    const unit   = SETUP_FEE + effVol * (MAT_PRICE[state.material] || 0.06);
-    const total  = (unit * state.qty).toFixed(2);
-    const hrs    = (effVol / PRINT_SPEED) * state.qty;
-    const hh     = Math.floor(hrs), mm = Math.round((hrs - hh) * 60);
-    priceEl.textContent = `€${total}`;
-    timeEl.textContent  = hh > 0 ? `${hh}h ${mm}m` : `${mm}m`;
-    dimsEl.textContent  = state.bbox
-      ? `Bounding box: ${state.bbox.x.toFixed(1)} × ${state.bbox.y.toFixed(1)} × ${state.bbox.z.toFixed(1)} mm  ·  Volume ≈ ${state.volume.toFixed(2)} cm³`
-      : `Estimated volume: ~${state.volume.toFixed(2)} cm³`;
+    const V = state.volume; // cm³
+
+    /* ── A. Filament weight ────────────────────────────────────
+       STL volume is the true geometric solid volume of the shape.
+       The slicer fills it with: infill core + perimeter/skin shells.
+       Shell walls are an additive offset on top of infill (they exist
+       regardless of infill %). Shell addition scales with strength.
+       Calibrated: real part 262cm³ → 120g at 20% infill default strength
+       → effFrac = 0.366 → shell_addition = 0.366 - 0.20 = 0.166
+    ──────────────────────────────────────────────────────────── */
+    const SHELL_ADD_BASE = 0.14; // additive shell/skin fraction at strength=1.0
+    const shellAdd  = SHELL_ADD_BASE * state.strength;
+    const effFrac   = Math.min(1.0, state.infill + shellAdd);
+    const W = V * FILAMENT_DENSITY * effFrac * WASTE_BUFFER;
+
+    /* ── B. Print time (hours) ─────────────────────────────────
+       Drive time from extruded plastic volume, not bounding-box volume.
+       Flow rate (mm³/s) = speed × layer_height × line_width
+    ──────────────────────────────────────────────────────────── */
+    const flowMm3s   = SPEED_MM_S * state.layerMm * LINE_WIDTH_MM;
+    const plasticMm3 = (W / FILAMENT_DENSITY) * 1000;
+    const timeHrs    = (plasticMm3 / flowMm3s) * TIME_OVERHEAD / 3600;
+
+    /* ── C. Costs per part ─────────────────────────────────────*/
+    const filamentRate    = MAT_RATE[state.material] || 0.025;
+    const matCostPerPart  = W * filamentRate * (state.multicolor ? 2.0 : 1.0);
+    const elecCostPerPart = timeHrs * PRINTER_KW * ELECTRICITY_RATE;
+    const baseCostPerPart = matCostPerPart + elecCostPerPart;
+
+    /* ── Price adjustment multipliers ─────────────────────────*/
+    const strengthKey = String(state.strength);
+    const layerKey    = state.layerMm.toFixed(2);
+    const infillKey   = state.infill.toFixed(2);
+    const priceMult   = (STRENGTH_PRICE_MULT[strengthKey] || 1.0)
+                      * (LAYER_PRICE_MULT[layerKey]        || 1.0)
+                      * (INFILL_PRICE_MULT[infillKey]      || 1.0);
+
+    /* ── D. Profit tier ────────────────────────────────────────*/
+    const N = state.qty;
+    let profit;
+    if (N < 5)        profit = 10;
+    else if (N < 10)  profit = 8;
+    else if (N < 15)  profit = 6;
+    else              profit = 4;
+
+    /* ── E. Total ──────────────────────────────────────────────*/
+    const total = (baseCostPerPart * priceMult + profit) * N;
+
+    /* ── Filament length (1.75mm dia, 0.4mm nozzle) ───────────
+       Filament rod volume = plastic volume extruded
+       L = plasticMm³ / (π × r²)  where r = 0.875mm
+    ──────────────────────────────────────────────────────────── */
+    const filamentLenMm = plasticMm3 / (Math.PI * 0.875 * 0.875);
+    const filamentLenM  = (filamentLenMm / 1000).toFixed(2);
+
+    /* ── Display ───────────────────────────────────────────────*/
+    priceEl.textContent = `€${total.toFixed(2)}`;
+
+    const totalTimeHrs = timeHrs * N;
+    const hh = Math.floor(totalTimeHrs);
+    const mm = Math.round((totalTimeHrs - hh) * 60);
+    timeEl.textContent = hh > 0 ? `${hh}h ${mm}m` : `${mm}m`;
+
+    dimsEl.textContent = state.bbox
+      ? `Bounding box: ${state.bbox.x.toFixed(1)} × ${state.bbox.y.toFixed(1)} × ${state.bbox.z.toFixed(1)} mm  ·  Volume ≈ ${V.toFixed(2)} cm³`
+      : `Estimated volume: ~${V.toFixed(2)} cm³`;
+
+    const filamentEl = document.getElementById('prEstFilamentRow');
+    if (filamentEl) {
+      const totalW = (W * N).toFixed(1);
+      const totalL = ((filamentLenMm * N) / 1000).toFixed(2);
+      filamentEl.innerHTML =
+        `Material: <span>${totalW}g</span>&nbsp;&nbsp;·&nbsp;&nbsp;Filament: <span>${totalL}m</span>&nbsp;&nbsp;·&nbsp;&nbsp;1.75mm / 0.4mm nozzle`;
+    }
+
     result.style.display = '';
   }
 })();
