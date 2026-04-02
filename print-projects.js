@@ -40,19 +40,6 @@ const PRINT_PROJECTS = [
     rev: true
   },
   {
-    catEn: 'Laser Cut · Interior Design · Sheet Metal',
-    catEl: 'Laser Cut · Εσωτερική Διακόσμηση · Φύλλο Μετάλλου',
-    titleEn: 'Metal Wall Décor',
-    titleEl: 'Μεταλλική Διακόσμηση Τοίχου',
-    descEn: 'Custom laser-cut steel wall décor — intricate patterns cut from sheet steel, powder-coated finish. Suitable for residential and commercial interiors. Custom sizes and motifs available.',
-    descEl: 'Εξατομικευμένη laser-cut μεταλλική διακόσμηση — περίπλοκα σχέδια σε φύλλο χάλυβα με βαφή σκόνης. Για οικιακά και εμπορικά εσωτερικά.',
-    tagEn: 'Laser Cutting,Steel Sheet,Powder Coat,Custom Pattern',
-    tagEl: 'Laser Cutting,Φύλλο Χάλυβα,Βαφή Σκόνης,Εξατομικευμένο Σχέδιο',
-    urlLabel: 'Laser Cut · Steel Sheet · Powder Coat',
-    images: ['images/wall_decor/1.png', 'images/wall_decor/2.png', 'images/wall_decor/3.png', 'images/wall_decor/4.png'],
-    rev: false
-  },
-  {
     catEn: '3D Print · Electronics Enclosure · Custom Design',
     catEl: '3D Printing · Κέλυφος Ηλεκτρονικών · Εξατομικευμένος Σχεδιασμός',
     titleEn: 'Dog Repellent Device',
