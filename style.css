@@ -2801,33 +2801,36 @@ hr.ec-rule { position: relative; z-index: 2; }
   /* PROCESS FLOW: hide animated diagram on mobile */
   .process-flow { display: none; }
 
-  /* PROCESS VALUE CARDS: 2-per-row, icon+title inline, hide text */
+  /* PROCESS VALUE CARDS: unified 2-per-row grid, no divider */
   .values-section .values-grid { grid-template-columns: 1fr 1fr; }
+  .values-row-divider { display: none; }
   .value-card {
     padding: 14px 12px 12px;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 0;
   }
   .value-card .value-icon {
     font-size: 9px;
     letter-spacing: 2px;
-    margin-bottom: 0;
-    flex-shrink: 0;
+    margin-bottom: 8px;
   }
   .value-bilingual {
-    flex-direction: row;
-    align-items: baseline;
-    gap: 6px;
-    margin-bottom: 0;
-    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 8px;
   }
   .value-bilingual .en { font-size: 15px; }
   .value-bilingual .el { font-size: 10px; }
-  .value-heading { font-size: 15px; margin-bottom: 0; flex: 1; }
-  .value-card .value-text { display: none; }
+  .value-heading { font-size: 15px; margin-bottom: 8px; }
+  .value-card .value-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 11px;
+    line-height: 1.55;
+  }
 
   /* ABOUT VALUE ITEMS: 2-per-row, icon+title inline, hide text */
   .values-grid { grid-template-columns: 1fr 1fr !important; }
