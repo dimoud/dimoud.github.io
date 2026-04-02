@@ -2272,9 +2272,7 @@ footer {
   color: var(--gold); opacity: .6;
 }
 .wd-proj-name {
-  font-family: var(--font-display);
-  font-size: clamp(26px, 3vw, 38px);
-  color: #fff; letter-spacing: .5px; line-height: 1.05;
+  display: none;
 }
 .wd-proj-role {
   font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px;
@@ -2329,8 +2327,6 @@ footer {
   .wd-proj-info { gap: 10px; }
   /* hide description on mobile — too long */
   .wd-proj-desc { display: none; }
-  /* hide site name on mobile */
-  .wd-proj-name { display: none; }
   /* tighter tags */
   .wd-proj-tags { gap: 6px; }
   .wd-proj-tags li { font-size: 8px; padding: 3px 7px; letter-spacing: 1px; }
@@ -2346,37 +2342,128 @@ footer {
   .wd-proj-url { font-size: 8px; }
   .wd-proj-num { font-size: 9px; }
   .wd-proj-role { font-size: 9px; letter-spacing: 1.5px; }
+
 }
 
 /* CTA Section */
 .wd-cta {
   background: var(--bg2);
-  padding: 100px 56px;
-  text-align: center;
+  padding: 80px 40px;
   border-top: 1px solid var(--border);
 }
-.wd-cta-inner { max-width: 640px; margin: 0 auto; }
+.wd-cta-card {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--navy);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(10,30,90,.18);
+}
+.wd-cta-left {
+  padding: 56px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .wd-cta-label {
   font-family: var(--font-mono); font-size: 9px; letter-spacing: 4px;
-  text-transform: uppercase; color: var(--blue-lt); margin-bottom: 18px;
+  text-transform: uppercase; color: var(--blue-lt); margin-bottom: 16px;
 }
 .wd-cta-title {
-  font-family: var(--font-display); font-size: clamp(38px, 5vw, 62px);
-  color: var(--dark); line-height: .95; letter-spacing: .5px; margin-bottom: 20px;
+  font-family: var(--font-display); font-size: clamp(28px, 3.5vw, 44px);
+  color: #fff; line-height: 1.0; letter-spacing: .3px; margin-bottom: 18px;
 }
 .wd-cta-text {
-  font-size: 15px; line-height: 1.82; color: var(--muted); margin-bottom: 40px;
+  font-size: 14px; line-height: 1.8; color: rgba(255,255,255,.55);
 }
-.wd-cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.wd-cta-right {
+  padding: 56px 48px;
+  background: var(--blue);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.wd-cta-right::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.07);
+  pointer-events: none;
+}
+.wd-cta-price-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.wd-cta-price-from {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 2.5px;
+  text-transform: uppercase; color: rgba(255,255,255,.65);
+}
+@keyframes wd-price-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.06); opacity: .85; }
+}
+.wd-cta-price-num {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(56px, 7vw, 80px);
+  line-height: 1;
+  color: #fff;
+  letter-spacing: -1px;
+  animation: wd-price-pulse 2s ease-in-out infinite;
+  display: inline-block;
+}
+.wd-cta-btn {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  background: #fff;
+  color: var(--blue);
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background .2s, transform .2s;
+  white-space: nowrap;
+}
+.wd-cta-btn:hover { background: #e8f0ff; transform: translateY(-2px); }
+.wd-cta-perks {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.wd-cta-perks li {
+  font-size: 13px;
+  color: rgba(255,255,255,.8);
+  font-family: var(--font-mono);
+  letter-spacing: .5px;
+}
 
 @media (max-width: 768px) {
   .wd-why     { padding: 56px 24px; }
   .wd-compare { grid-template-columns: 1fr; }
-  .wd-cta     { padding: 72px 24px; }
+  .wd-cta     { padding: 48px 20px; }
+  .wd-cta-card { grid-template-columns: 1fr; }
+  .wd-cta-left  { padding: 40px 32px; }
+  .wd-cta-right { padding: 40px 32px; }
 }
 @media (max-width: 640px) {
   .wd-why { padding: 44px 20px; }
-  .wd-cta { padding: 56px 20px; }
+  .wd-cta-left  { padding: 32px 24px; }
+  .wd-cta-right { padding: 32px 24px; }
 }
 
 /* ── 3D MODELS PAGE (cad.html) ──────────────────────────────── */

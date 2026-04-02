@@ -33,9 +33,9 @@
     <ul class="nav-links">
       <li><a href="index.html#about"    id="nav-about">About</a></li>
       <li><a href="index.html#projects" id="nav-projects">Projects</a></li>
-      <li><a href="cad.html"            id="nav-cad">3D Models</a></li>
-      <li><a href="software.html"       id="nav-software">Software</a></li>
       <li><a href="webdesign.html"      id="nav-webdesign" class="active">Web Design</a></li>
+      <li><a href="software.html"       id="nav-software">Software</a></li>
+      <li><a href="cad.html"            id="nav-cad">3D Models</a></li>
       <li><a href="team.html"           id="nav-experience">Team</a></li>
       <li><a href="contact.html"  id="nav-contact">Contact</a></li>
     </ul>
@@ -54,9 +54,9 @@
   <ul>
     <li><a href="index.html#about"    id="mnav-about"      onclick="closeMobileNav()">About</a></li>
     <li><a href="index.html#projects" id="mnav-projects"   onclick="closeMobileNav()">Projects</a></li>
-    <li><a href="cad.html"            id="mnav-cad"        onclick="closeMobileNav()">3D Models</a></li>
-    <li><a href="software.html"       id="mnav-software"   onclick="closeMobileNav()">Software</a></li>
     <li><a href="webdesign.html"      id="mnav-webdesign"  onclick="closeMobileNav()">Web Design</a></li>
+    <li><a href="software.html"       id="mnav-software"   onclick="closeMobileNav()">Software</a></li>
+    <li><a href="cad.html"            id="mnav-cad"        onclick="closeMobileNav()">3D Models</a></li>
     <li><a href="team.html"           id="mnav-experience" onclick="closeMobileNav()">Team</a></li>
     <li><a href="contact.html"  id="mnav-contact"    onclick="closeMobileNav()">Contact</a></li>
   </ul>
@@ -261,12 +261,23 @@
 
 <!-- ══ CTA ══════════════════════════════════════════════════════ -->
 <section class="wd-cta">
-  <div class="wd-cta-inner">
-    <div class="wd-cta-label" id="wd-cta-label">// Let's Build Something</div>
-    <h2 class="wd-cta-title" id="wd-cta-title">Got a website in mind?</h2>
-    <p class="wd-cta-text" id="wd-cta-text">Tell us about your business and what you need. We'll design and build a website that genuinely represents you — from the first pixel to the final deploy. Starting from €300 for exactly what you need.</p>
-    <div class="wd-cta-actions">
-      <a href="contact.html" class="btn-primary" id="wd-cta-btn1">Get in Touch →</a>
+  <div class="wd-cta-card">
+    <div class="wd-cta-left">
+      <div class="wd-cta-label" id="wd-cta-label">// Let's Build Something</div>
+      <h2 class="wd-cta-title" id="wd-cta-title">Got a website in mind?</h2>
+      <p class="wd-cta-text" id="wd-cta-text">Tell us about your business and what you need. We'll design and build a website that genuinely represents you — from the first pixel to the final deploy.</p>
+    </div>
+    <div class="wd-cta-right">
+      <div class="wd-cta-price-block">
+        <span class="wd-cta-price-from" id="wd-cta-price-from">Starting from</span>
+        <span class="wd-cta-price-num">€400</span>
+      </div>
+      <a href="contact.html" class="wd-cta-btn" id="wd-cta-btn1">Get in Touch →</a>
+      <ul class="wd-cta-perks">
+        <li id="wd-cta-perk1">✓ Custom design, no templates</li>
+        <li id="wd-cta-perk2">✓ Mobile-first & fast</li>
+        <li id="wd-cta-perk3">✓ Free revisions included</li>
+      </ul>
     </div>
   </div>
 </section>

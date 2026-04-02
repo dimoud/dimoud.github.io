@@ -92,8 +92,10 @@ const LANG = {
     wd_proj_3_link:'Δείτε το Site',
     wd_cta_label:'// Ας Φτιάξουμε Κάτι',
     wd_cta_title:'Έχεις μια ιστοσελίδα<br>στο μυαλό σου;',
-    wd_cta_text:'Πες μας για την επιχείρησή σου και τι χρειάζεσαι. Θα σχεδιάσουμε και θα φτιάξουμε μια ιστοσελίδα που σε αντιπροσωπεύει πραγματικά — από το πρώτο pixel ως το τελευταίο deploy. Ξεκινάμε από 300€ για ό,τι χρειάζεσαι.',
+    wd_cta_text:'Πες μας για την επιχείρησή σου και τι χρειάζεσαι. Θα σχεδιάσουμε και θα φτιάξουμε μια ιστοσελίδα που σε αντιπροσωπεύει πραγματικά — από το πρώτο pixel ως το τελευταίο deploy.',
+    wd_cta_price_from:'Ξεκινάμε από',
     wd_cta_btn1:'Επικοινωνήστε →', wd_cta_btn2:'Δείτε τα Έργα μας',
+    wd_cta_perk1:'✓ Custom σχεδιασμός, χωρίς templates', wd_cta_perk2:'✓ Mobile-first &amp; γρήγορο', wd_cta_perk3:'✓ Δωρεάν αναθεωρήσεις',
     projects_heading:'Έργα',
     sw_heading:'Λογισμικό', sw_label:'Ενεργό Προϊόν · easemanual.eu',
     sw_desc:'Λογισμικό που αυτοματοποιεί την τεχνική μελέτη για άδεια κυκλοφορίας οχημάτων ειδικής χρήσης — βάσει ΥΑ 80255/4693/19/2020. Φτιαγμένο από μηχανικούς για μηχανικούς.',
@@ -199,8 +201,10 @@ const LANG = {
     wd_proj_3_link:'View Site',
     wd_cta_label:'// Let\'s Build Something',
     wd_cta_title:'Got a website<br>in mind?',
-    wd_cta_text:'Tell us about your business and what you need. We\'ll design and build a website that genuinely represents you — from the first pixel to the final deploy. Starting from €300 for exactly what you need.',
+    wd_cta_text:'Tell us about your business and what you need. We\'ll design and build a website that genuinely represents you — from the first pixel to the final deploy.',
+    wd_cta_price_from:'Starting from',
     wd_cta_btn1:'Get in Touch →', wd_cta_btn2:'See Our Projects',
+    wd_cta_perk1:'✓ Custom design, no templates', wd_cta_perk2:'✓ Mobile-first & fast', wd_cta_perk3:'✓ Free revisions included',
     projects_heading:'Projects',
     sw_heading:'Software', sw_label:'Active Product · easemanual.eu',
     sw_desc:'Powerful software automating the creation of technical studies for special-purpose vehicle licensing — per Greek regulation YA 80255/4693/19/2020. Built by engineers for engineers.',
@@ -290,7 +294,9 @@ function applyLang(lang) {
   set('wd-proj-2-name',t.wd_proj_2_name); set('wd-proj-2-role',t.wd_proj_2_role,true); set('wd-proj-2-desc',t.wd_proj_2_desc); set('wd-proj-2-link',t.wd_proj_2_link);
   set('wd-proj-3-name',t.wd_proj_3_name); set('wd-proj-3-role',t.wd_proj_3_role,true); set('wd-proj-3-desc',t.wd_proj_3_desc); set('wd-proj-3-link',t.wd_proj_3_link);
   set('wd-cta-label',t.wd_cta_label); set('wd-cta-title',t.wd_cta_title,true);
-  set('wd-cta-text',t.wd_cta_text); set('wd-cta-btn1',t.wd_cta_btn1); set('wd-cta-btn2',t.wd_cta_btn2);
+  set('wd-cta-text',t.wd_cta_text); set('wd-cta-price-from',t.wd_cta_price_from);
+  set('wd-cta-btn1',t.wd_cta_btn1); set('wd-cta-btn2',t.wd_cta_btn2);
+  set('wd-cta-perk1',t.wd_cta_perk1); set('wd-cta-perk2',t.wd_cta_perk2); set('wd-cta-perk3',t.wd_cta_perk3);
   set('contact-label',t.contact_label); set('contact-heading',t.contact_heading,true);
   set('contact-sub',t.contact_sub);
   set('footer-copy',t.footer_copy); set('footer-loc',t.footer_loc);
