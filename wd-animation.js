@@ -405,12 +405,18 @@
         window.addEventListener('resize', resize);
       }
 
-      /* observe the container, not the fixed canvas */
-      const io = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting) { if (!raf) draw(); }
-        else { cancelAnimationFrame(raf); raf = null; }
-      }, { threshold: 0.05 });
-      io.observe(canvas.parentElement);
+      /* On mobile, pause the loop when the hero scrolls out of view.
+         On desktop the canvas is position:fixed (always visible) so
+         we never cancel the RAF — prevents the mid-scroll freeze. */
+      if (window.innerWidth <= 820) {
+        const io = new IntersectionObserver(entries => {
+          if (entries[0].isIntersecting) { if (!raf) draw(); }
+          else { cancelAnimationFrame(raf); raf = null; }
+        }, { threshold: 0.05 });
+        io.observe(canvas.parentElement);
+      } else {
+        draw();
+      }
     });
   }
 

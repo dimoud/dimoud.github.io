@@ -2458,12 +2458,12 @@ footer {
   .wd-cta     { padding: 48px 20px; }
   .wd-cta-card { grid-template-columns: 1fr; }
   .wd-cta-left  { padding: 40px 32px; }
-  .wd-cta-right { padding: 40px 32px; }
+  .wd-cta-right { padding: 40px 32px; align-items: center; }
 }
 @media (max-width: 640px) {
   .wd-why { padding: 44px 20px; }
   .wd-cta-left  { padding: 32px 24px; }
-  .wd-cta-right { padding: 32px 24px; }
+  .wd-cta-right { padding: 32px 24px; align-items: center; }
 }
 
 /* ── 3D MODELS PAGE (cad.html) ──────────────────────────────── */
