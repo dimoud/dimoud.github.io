@@ -585,23 +585,28 @@
   .firm-section,
   .values-section { padding: 52px 16px; }
 
-  /* Stats: proper grid so borders stay consistent */
+  /* Stats: 2×2 compact grid on mobile */
   .founder-stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     flex-wrap: unset;
     width: 100%;
+    margin-bottom: 24px;
   }
   .founder-stat {
-    padding: 16px 12px;
+    padding: 12px 10px;
     border-right: none;
+    border-bottom: none;
     border-radius: 0 !important;
   }
-  .founder-stat:first-child { border-radius: 3px 0 0 3px !important; }
-  .founder-stat:last-child  {
-    border-right: 1px solid rgba(255,255,255,.08) !important;
-    border-radius: 0 3px 3px 0 !important;
-  }
+  .founder-stat:nth-child(2n) { border-right: 1px solid rgba(255,255,255,.08) !important; }
+  .founder-stat:nth-last-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.08) !important; }
+  .founder-stat:first-child { border-radius: 3px 0 0 0 !important; }
+  .founder-stat:nth-child(2) { border-radius: 0 3px 0 0 !important; }
+  .founder-stat:nth-child(3) { border-radius: 0 0 0 3px !important; }
+  .founder-stat:last-child  { border-right: 1px solid rgba(255,255,255,.08) !important; border-radius: 0 0 3px 0 !important; }
+  .founder-stat-num { font-size: 26px; }
+  .founder-stat-label { font-size: 7.5px; letter-spacing: 1.5px; }
 
   /* LinkedIn: full width on small screens */
   .founder-linkedin {
@@ -619,7 +624,6 @@
   .values-section { padding: 48px 14px; }
 
   .founder-name { font-size: clamp(32px, 9vw, 42px); }
-  .founder-stat-num { font-size: 28px; }
 
   .value-card { padding: 32px 22px 28px; }
   .value-heading,
@@ -629,17 +633,10 @@
 }
 
 @media (max-width: 400px) {
-  /* Stack stats vertically on very small phones */
-  .founder-stats {
-    grid-template-columns: 1fr;
-  }
-  .founder-stat {
-    border-right: 1px solid rgba(255,255,255,.08) !important;
-    border-bottom: none;
-    border-radius: 0 !important;
-  }
-  .founder-stat:first-child { border-radius: 3px 3px 0 0 !important; }
-  .founder-stat:last-child  { border-radius: 0 0 3px 3px !important; }
+  .founder-stats { margin-bottom: 20px; }
+  .founder-stat { padding: 10px 8px; }
+  .founder-stat-num { font-size: 22px; }
+  .founder-stat-label { font-size: 7px; letter-spacing: 1px; }
 
   .edu-cards { grid-template-columns: 1fr; }
   .values-grid { grid-template-columns: 1fr; }
@@ -710,12 +707,12 @@
     <div class="founder-bio">
       <div class="founder-mono-label">Founder &amp; Lead Engineer</div>
       <h2 class="founder-name">Dimitrios<br>Moudiotis</h2>
-      <p class="founder-text">Mechanical Engineer (AUTH) with 7+ years of hands-on experience across robotics, safety equipment, sheet metal fabrication, and precision 3D printing. Holds five university degrees from leading institutions in Greece, France and the USA — combining deep technical expertise with strong project management and product development skills.</p>
+      <p class="founder-text">Mechanical Engineer (AUTH) with 9+ years of hands-on experience across robotics, safety equipment, sheet metal fabrication, and precision 3D printing. Holds five university degrees from leading institutions in Greece, France and the USA — combining deep technical expertise with strong project management and product development skills.</p>
 
       <!-- Stats -->
       <div class="founder-stats">
         <div class="founder-stat">
-          <div class="founder-stat-num">7<span>+</span></div>
+          <div class="founder-stat-num" id="years-stat">9<span>+</span></div>
           <div class="founder-stat-label">Years</div>
         </div>
         <div class="founder-stat">
@@ -867,7 +864,7 @@
             <span class="en">Knowledge</span>
             <span class="el">Γνώση</span>
           </div>
-          <p class="value-text" id="proc-exp-text">Seven years of hands-on engineering across robotics, safety equipment, and precision fabrication — backed by five university degrees from three countries. Deep technical knowledge applied to every brief.</p>
+          <p class="value-text" id="proc-exp-text">Nine years of hands-on engineering across robotics, safety equipment, and precision fabrication — backed by five university degrees from three countries. Deep technical knowledge applied to every brief.</p>
         </div>
         <div class="value-card vc-red">
           <div class="value-icon">02</div>
@@ -953,6 +950,18 @@
 </div>
 
 <script src="main.js" defer></script>
+<script>
+(function(){
+  var START_YEAR = 2017;
+  var yrs = new Date().getFullYear() - START_YEAR;
+  var el = document.getElementById('years-stat');
+  if(el) el.innerHTML = yrs + '<span>+</span>';
+  var bio = document.querySelector('.founder-text');
+  if(bio) bio.innerHTML = bio.innerHTML.replace(/\d+\+ years/, yrs + '+ years');
+  var kwl = document.getElementById('proc-exp-text');
+  if(kwl) kwl.innerHTML = kwl.innerHTML.replace(/^(Nine|Eight|Seven|\w+) years/, function(_,w){ var n=['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve']; return (n[yrs]||yrs)+' years'; });
+})();
+</script>
 
 <button id="backToTop" aria-label="Back to top">
   <svg viewBox="0 0 10 10" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="2,7 5,3 8,7"/></svg>
