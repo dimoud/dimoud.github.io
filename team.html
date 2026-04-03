@@ -806,69 +806,119 @@
 </section>
 
 
-<!-- ══ VALUES ════════════════════════════════════════════════════ -->
-<div class="values-section">
-  <div class="values-inner">
-    <div class="values-header">
-      <span class="values-num">// Values</span>
-      <div class="values-title">How We Work</div>
-      <div class="values-line"></div>
+<!-- ══ HOW WE WORK ══════════════════════════════════════════════ -->
+<section id="process">
+  <div class="process-label" id="proc-label" data-reveal>How We Work</div>
+
+  <!-- Animated process flow diagram -->
+  <div class="process-flow">
+    <div class="process-flow-inner">
+      <div class="pf-node">
+        <div class="pf-icon"><div class="pf-icon-pulse"></div>💡</div>
+        <div class="pf-label">Concept</div>
+        <div class="pf-sub">Requirements &amp; brief</div>
+      </div>
+      <div class="pf-arrow"><div class="pf-arrow-dot"></div></div>
+      <div class="pf-node">
+        <div class="pf-icon"><div class="pf-icon-pulse"></div>📐</div>
+        <div class="pf-label">CAD Design</div>
+        <div class="pf-sub">3D model · BOM · drawings</div>
+      </div>
+      <div class="pf-arrow"><div class="pf-arrow-dot"></div></div>
+      <div class="pf-node">
+        <div class="pf-icon"><div class="pf-icon-pulse"></div>🔬</div>
+        <div class="pf-label">FEA &amp; Simulation</div>
+        <div class="pf-sub">Stress · fatigue · manufacturing</div>
+      </div>
+      <div class="pf-arrow"><div class="pf-arrow-dot"></div></div>
+      <div class="pf-node">
+        <div class="pf-icon"><div class="pf-icon-pulse"></div>🏭</div>
+        <div class="pf-label">Fabrication</div>
+        <div class="pf-sub">Machining · printing · welding</div>
+      </div>
+      <div class="pf-arrow"><div class="pf-arrow-dot"></div></div>
+      <div class="pf-node">
+        <div class="pf-icon"><div class="pf-icon-pulse"></div>✅</div>
+        <div class="pf-label">Quality Check</div>
+        <div class="pf-sub">Testing · inspection · sign-off</div>
+      </div>
+      <div class="pf-arrow"><div class="pf-arrow-dot"></div></div>
+      <div class="pf-node">
+        <div class="pf-icon"><div class="pf-icon-pulse"></div>🤝</div>
+        <div class="pf-label">Customer</div>
+        <div class="pf-sub">Delivery &amp; feedback</div>
+      </div>
     </div>
-    <div class="values-grid">
-
-      <!-- ── Pillars row ── -->
-      <div class="value-card vc-blue">
-        <div class="value-icon">01</div>
-        <div class="value-bilingual">
-          <span class="en">Knowledge</span>
-          <span class="el">Γνώση</span>
-        </div>
-        <p class="value-text">Seven years of hands-on engineering across robotics, safety equipment, and precision fabrication — backed by five university degrees from three countries. Deep technical knowledge applied to every brief.</p>
-      </div>
-
-      <div class="value-card vc-red">
-        <div class="value-icon">02</div>
-        <div class="value-bilingual">
-          <span class="en">Integrity</span>
-          <span class="el">Ακεραιότητα</span>
-        </div>
-        <p class="value-text">Honest estimates, transparent communication, and full accountability from first sketch to final delivery. No surprises, no shortcuts — only what was promised, done properly.</p>
-      </div>
-
-      <div class="value-card vc-green">
-        <div class="value-icon">03</div>
-        <div class="value-bilingual">
-          <span class="en">Innovation</span>
-          <span class="el">Καινοτομία</span>
-        </div>
-        <p class="value-text">A classical engineering foundation meets a genuine drive to find smarter solutions. From DFM-optimised geometry to cross-disciplinary insight, every project is an opportunity to do it better.</p>
-      </div>
-
-      <!-- ── Divider ── -->
-      <div class="values-row-divider" style="grid-column:1/-1;"><span>// How We Work</span></div>
-
-      <!-- ── Principles row ── -->
-      <div class="value-card vc-blue">
-        <div class="value-icon">04</div>
-        <div class="value-heading" id="prin-1-title">Manufacturing Intelligence</div>
-        <p class="value-text" id="prin-1-text">We design knowing how parts are actually made — machined, bent, welded, printed. Every decision reflects the real constraints of the shop floor, before the drawing ever gets there.</p>
-      </div>
-
-      <div class="value-card vc-red">
-        <div class="value-icon">05</div>
-        <div class="value-heading" id="prin-2-title">Zero Rework</div>
-        <p class="value-text" id="prin-2-text">Manufacturing errors are the real cost — not materials. I design to eliminate them: tolerances that can be held, assemblies that fit first time, specifications aligned with what the manufacturer can actually deliver.</p>
-      </div>
-
-      <div class="value-card vc-green">
-        <div class="value-icon">06</div>
-        <div class="value-heading" id="prin-3-title">Full Ownership</div>
-        <p class="value-text" id="prin-3-text">From design, calculations, and simulations through manufacturing coordination, supplier communication, assembly oversight, and final verification — one engineer, full accountability.</p>
-      </div>
-
+    <div class="pf-loop">
+      <div class="pf-loop-line"></div>
+      <div class="pf-loop-label">Continuous improvement loop</div>
+      <div class="pf-loop-line"></div>
     </div>
   </div>
-</div>
+
+  <div class="values-section">
+    <div class="values-inner">
+      <div class="values-grid">
+
+        <!-- ── Pillars ── -->
+        <div class="value-card vc-blue">
+          <div class="value-icon">01</div>
+          <div class="value-bilingual">
+            <span class="en">Knowledge</span>
+            <span class="el">Γνώση</span>
+          </div>
+          <p class="value-text" id="proc-exp-text">Seven years of hands-on engineering across robotics, safety equipment, and precision fabrication — backed by five university degrees from three countries. Deep technical knowledge applied to every brief.</p>
+        </div>
+        <div class="value-card vc-red">
+          <div class="value-icon">02</div>
+          <div class="value-bilingual">
+            <span class="en">Integrity</span>
+            <span class="el">Ακεραιότητα</span>
+          </div>
+          <p class="value-text">Honest estimates, transparent communication, and full accountability from first sketch to final delivery. No surprises, no shortcuts — only what was promised, done properly.</p>
+        </div>
+        <div class="value-card vc-green">
+          <div class="value-icon">03</div>
+          <div class="value-bilingual">
+            <span class="en">Innovation</span>
+            <span class="el">Καινοτομία</span>
+          </div>
+          <p class="value-text">A classical engineering foundation meets a genuine drive to find smarter solutions. From DFM-optimised geometry to cross-disciplinary insight, every project is an opportunity to do it better.</p>
+        </div>
+
+        <!-- ── Divider ── -->
+        <div class="values-row-divider" style="grid-column:1/-1;"><span>// How We Work</span></div>
+
+        <!-- ── Principles (JS-populated) ── -->
+        <div class="value-card vc-blue">
+          <div class="value-icon">04</div>
+          <div class="value-heading" id="prin-1-title"></div>
+          <p class="value-text" id="prin-1-text"></p>
+        </div>
+        <div class="value-card vc-red">
+          <div class="value-icon">05</div>
+          <div class="value-heading" id="prin-2-title"></div>
+          <p class="value-text" id="prin-2-text"></p>
+        </div>
+        <div class="value-card vc-green">
+          <div class="value-icon">06</div>
+          <div class="value-heading" id="prin-3-title"></div>
+          <p class="value-text" id="prin-3-text"></p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="sec-meas" data-sec-meas>
+    <div class="sm-inner">
+      <span class="sm-arr">◄</span>
+      <div class="sm-rule"></div>
+      <span class="sm-label">WORKFLOW DEPTH · <strong>6 PHASES · CONCEPT TO DELIVERY</strong></span>
+      <div class="sm-rule"></div>
+      <span class="sm-arr">►</span>
+    </div>
+  </div>
+</section>
 
 <!-- ══ FOOTER ════════════════════════════════════════════════════ -->
 <footer>

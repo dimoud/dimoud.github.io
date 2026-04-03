@@ -91,9 +91,15 @@
           <li class="cad-filelist-item" onclick="stepLoadFile('step/sheet2.STEP','sheet2.STEP',this)">sheet2.STEP</li>
           <li class="cad-filelist-item" onclick="stepLoadFile('step/sheet3.STEP','sheet3.STEP',this)">sheet3.STEP</li>
         </ul>
-        <div class="cad-controls">
+        <div class="cad-controls cad-controls--main">
           <button class="cad-btn" id="cadBtnOpen"  onclick="stepOpenFile()">&#128194; OPEN FILE</button>
           <button class="cad-btn" id="cadBtnReset" onclick="stepResetCamera()">↺ RESET VIEW</button>
+        </div>
+        <div class="cad-controls cad-controls--views">
+          <button class="cad-btn" onclick="stepSetView('front')">◻ FRONT</button>
+          <button class="cad-btn" onclick="stepSetView('top')">◻ TOP</button>
+          <button class="cad-btn" onclick="stepSetView('right')">◻ RIGHT</button>
+          <button class="cad-btn" onclick="stepSetView('iso')">◈ ISO</button>
         </div>
         <input type="file" id="stepFileInput" accept=".step,.stp,.STEP,.STP" style="display:none">
         <div class="cad-hint">drag / 1-finger to orbit &nbsp;·&nbsp; scroll / pinch to zoom &nbsp;·&nbsp; right-drag / 2-finger to pan</div>
