@@ -432,8 +432,8 @@ section { padding: 100px 64px; position: relative; z-index: 1; }
 #caliperWrap.vis { opacity: 1; }
 #caliperSvg { width: 100%; height: auto; max-height: 80px; display: block; }
 @media (max-width: 640px) {
-  #caliperWrap { margin: 32px auto 4px; width: 92vw; max-width: 92vw; }
-  #caliperSvg { height: auto; max-height: 36px; }
+  #caliperWrap { margin: 32px auto 4px; width: 100vw; max-width: 100vw; }
+  #caliperSvg { height: auto; max-height: 47px; }
 }
 
 /* ── PROCESS ─────────────────────────────────────────────────── */
@@ -1201,7 +1201,7 @@ section { padding: 100px 64px; position: relative; z-index: 1; }
   }
 }
 
-.port-info { padding: 28px 36px 36px; flex: 1; }
+.port-info { padding: 28px 36px 36px; flex: 1; text-align: center; display: flex; flex-direction: column; align-items: center; }
 .port-badge {
   display: inline-block;
   font-family: var(--font-mono); font-size: 8px; letter-spacing: 2px; text-transform: uppercase;
@@ -1211,14 +1211,15 @@ section { padding: 100px 64px; position: relative; z-index: 1; }
 .port-cat {
   font-family: var(--font-mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
   color: var(--faint); margin-bottom: 10px;
-  display: flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; justify-content: center; gap: 8px; text-align: center;
 }
 .port-cat::before { content: ''; display: inline-block; width: 14px; height: 1.5px; background: var(--blue-lt); flex-shrink: 0; }
 .port-title {
   font-family: var(--font-display); font-size: clamp(26px, 2.6vw, 38px);
   letter-spacing: 1px; color: var(--dark); line-height: 1.05; margin-bottom: 12px;
+  text-align: center;
 }
-.port-desc { font-size: 14px; line-height: 1.74; color: var(--muted); margin-bottom: 20px; }
+.port-desc { font-size: 14px; line-height: 1.74; color: var(--muted); margin-bottom: 20px; text-align: center; }
 
 .project-link {
   font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 2px; text-transform: uppercase;
@@ -2690,7 +2691,7 @@ hr.ec-rule { position: relative; z-index: 2; }
     width: 100vw !important;
     height: 100vh !important;
     z-index: 0;          /* behind everything */
-    opacity: 0.4;
+    opacity: 0.62;
     transition: opacity 0.6s ease;
     pointer-events: none;
   }
@@ -2767,14 +2768,15 @@ hr.ec-rule { position: relative; z-index: 2; }
   /* FONT SIZES: section titles & hero — reduce minimums */
   .section-title  { font-size: clamp(30px, 8.5vw, 52px); }
   .hero-name      { font-size: clamp(48px, 15vw, 80px); text-align: center; }
-  .hero-title     { text-align: center; }
+  .hero-name span { color: #a8d8ff; -webkit-text-fill-color: #a8d8ff; background: none; }
+  .hero-title     { text-align: center; font-size: clamp(9px, 2.6vw, 14px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .hero-tagline   { text-align: center; }
   .hero-cta       { justify-content: center; }
   .process-title  { font-size: clamp(22px, 6vw, 32px); }
   .contact-heading { font-size: clamp(26px, 7.5vw, 40px); }
 
   /* HERO 3D on small mobile — slightly more subtle */
-  #hero3d { opacity: 0.32; }
+  #hero3d { opacity: 0.50; }
 
   /* FOOTER compact on small mobile */
   footer {

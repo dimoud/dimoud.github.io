@@ -969,7 +969,7 @@ function loadModel() {
 
   rotGroup=new THREE.Group();
 
-  rotGroup.rotation.x=0.32; rotGroup.scale.set(0.76,0.76,0.76);
+  rotGroup.rotation.x=0.32; rotGroup.rotation.y=-Math.PI/6; rotGroup.scale.set(0.76,0.76,0.76);
 
   rotGroup.position.x=rightHalfX;
 
@@ -1219,7 +1219,7 @@ function resetModel() {
 
   exploding=false; currentMode='rotate'; scrollExplodeActive=false; scrollExplodeT=0;
 
-  if(rotGroup) { rotGroup.rotation.set(.32,0,0); rotGroup.position.set(rightHalfX,0,0); }
+  if(rotGroup) { rotGroup.rotation.set(.32,-Math.PI/6,0); rotGroup.position.set(rightHalfX,0,0); }
 
   document.querySelectorAll('.vctrl').forEach(b=>b.classList.remove('active'));
 

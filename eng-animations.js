@@ -243,6 +243,29 @@
         if (navEl) navEl.classList.toggle('scrolled', window.scrollY > 60);
     }
 
+    /* ─── PROCESS FLOW AUTO-SCROLL ON MOBILE ─────────────────────────────── */
+    (function () {
+        if (window.innerWidth > 640) return; /* desktop: no-op */
+        var flow = document.querySelector('.process-flow');
+        var inner = document.querySelector('.process-flow-inner');
+        if (!flow || !inner) return;
+
+        function updateProcessScroll() {
+            var rect = flow.getBoundingClientRect();
+            var winH = window.innerHeight;
+            /* progress: 0 when section enters bottom, 1 when it leaves top */
+            var progress = 1 - (rect.bottom / (winH + rect.height));
+            progress = Math.max(0, Math.min(1, progress));
+            var maxScroll = inner.scrollWidth - flow.clientWidth;
+            if (maxScroll > 0) {
+                flow.scrollLeft = progress * maxScroll;
+            }
+        }
+
+        window.addEventListener('scroll', updateProcessScroll, { passive: true });
+        updateProcessScroll();
+    })();
+
     /* ─── COMBINED SCROLL HANDLER ────────────────────────────────────────── */
     function onScroll() {
         updateElevation();
