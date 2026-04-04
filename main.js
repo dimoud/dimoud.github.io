@@ -101,7 +101,19 @@ const LANG = {
     sw_desc:'Λογισμικό που αυτοματοποιεί την τεχνική μελέτη για άδεια κυκλοφορίας οχημάτων ειδικής χρήσης — βάσει ΥΑ 80255/4693/19/2020. Φτιαγμένο από μηχανικούς για μηχανικούς.',
     sw_f1:'Τεχνικοί υπολογισμοί', sw_f2:'Διαγράμματα φόρτισης', sw_f3:'Σχέδια A3', sw_f4:'Αυτόματη μελέτη Word',
     sw_f5:'Άξονες & εφεδρανισμοί', sw_f6:'Ευστάθεια & πέδηση', sw_f7:'Συγκολλήσεις & ελατήρια', sw_f8:'Γερανοί & καλαθοφόρα',
-    sw_cta1:'Δείτε το Προϊόν →', sw_cta2:'Τιμολόγηση',
+    sw_cta1:'Δείτε το Προϊόν →', sw_cta2:'Τιμολόγηση', sw_cta3:'Λήψεις',
+    sw_d_kicker1:'Τι κάνει', sw_d_title:'Δούλεψε έξυπνα, όχι σκληρά.',
+    sw_d_lead:'Ένα ισχυρό, εύχρηστο εργαλείο που αυτοματοποιεί την εκπόνηση τεχνικών μελετών για άδεια κυκλοφορίας οχημάτων ειδικής χρήσης. Αυτοματοποιεί κάθε υπολογισμό — παράγοντας αξιόπιστα αποτελέσματα και πλήρη τεκμηρίωση σε λεπτά, όχι ημέρες.',
+    sw_d_kicker2:'Πώς λειτουργεί',
+    sw_wf1:'Εισαγωγή τεχνικών χαρακτηριστικών οχήματος', sw_wf2:'Εισαγωγή φορτίων στους άξονες και το πλαίσιο',
+    sw_wf3:'Αυτόματη εκτέλεση υπολογισμών', sw_wf4:'Δημιουργία διαγραμμάτων τεμνουσών και ροπών κάμψης',
+    sw_wf5:'Ανασκόπηση συνοπτικού πίνακα αποτελεσμάτων', sw_wf6:'Δημιουργία πλήρους τεχνικής μελέτης με ένα κλικ',
+    sw_d_link:'Πλήρης παρουσίαση προϊόντος →',
+    sw_d_kicker3:'Δυνατότητες',
+    sw_fc1_name:'Ανάλυση Οχήματος', sw_fc1_1:'Υποστήριξη έως 5 αξόνων', sw_fc1_2:'Έλεγχοι τάσεων αξόνων & ελαστικών', sw_fc1_3:'Αυτόματη τοποθέτηση φορτίων', sw_fc1_4:'Αυτόματη κατασκευή διαγράμματος ισορροπίας',
+    sw_fc2_name:'Πλαίσιο & Κατασκευή', sw_fc2_1:'Απλοί & σύνθετοι τύποι πλαισίου', sw_fc2_2:'Υπολογισμοί ροπών κάμψης & τεμνουσών', sw_fc2_3:'Ανάλυση κοχλιωτών συνδέσεων', sw_fc2_4:'Υπολογισμοί συγκολλήσεων υπερκατασκευής',
+    sw_fc3_name:'Ασφάλεια & Ευστάθεια', sw_fc3_1:'Έλεγχος συστήματος πέδησης', sw_fc3_2:'Ακτίνα στροφής & ευστάθεια', sw_fc3_3:'Έλεγχος ανατροπής γερανού', sw_fc3_4:'Υπολογισμοί ελατηριωτής ανάρτησης',
+    sw_fc4_name:'Εξαγωγή & Αναφορές', sw_fc4_1:'Γρήγορη εξαγωγή PDF', sw_fc4_2:'Τεχνικά σχέδια A3', sw_fc4_3:'Αυτόματη δημιουργία μελέτης Word', sw_fc4_4:'Διαδικτυακές βιβλιοθήκες & πρότυπα',
     team_heading:'Ομάδα',
     founder_name:'Δημήτρης<br>Μουδιώτης',
     founder_label:'Ιδρυτής &amp; Επικεφαλής Μηχανικός',
@@ -252,7 +264,19 @@ const LANG = {
     sw_desc:'Powerful software automating the creation of technical studies for special-purpose vehicle licensing — per Greek regulation YA 80255/4693/19/2020. Built by engineers for engineers.',
     sw_f1:'Technical calculations', sw_f2:'Load diagrams', sw_f3:'A3 vehicle drawings', sw_f4:'Automatic Word report',
     sw_f5:'Shafts & bearings', sw_f6:'Stability & braking', sw_f7:'Welds & springs', sw_f8:'Cranes & platforms',
-    sw_cta1:'View Product →', sw_cta2:'Pricing',
+    sw_cta1:'View Product →', sw_cta2:'Pricing', sw_cta3:'Downloads',
+    sw_d_kicker1:'What it does', sw_d_title:'Work smart, not hard.',
+    sw_d_lead:'A powerful, user-friendly tool that automates the creation of technical studies for special-use and special-purpose vehicle licensing. It automates every calculation process — generating reliable results and complete documentation in minutes, not days.',
+    sw_d_kicker2:'How it works',
+    sw_wf1:'Enter vehicle technical specifications', sw_wf2:'Input loads affecting axles and frame',
+    sw_wf3:'Automatic calculations execute instantly', sw_wf4:'Generate shear force & bending moment diagrams',
+    sw_wf5:'Review comprehensive calculation summary', sw_wf6:'Create the full technical study with one click',
+    sw_d_link:'Full product details →',
+    sw_d_kicker3:'Capabilities',
+    sw_fc1_name:'Vehicle Analysis', sw_fc1_1:'Up to 5 axles support', sw_fc1_2:'Axle & tyre stress checks', sw_fc1_3:'Automatic load positioning', sw_fc1_4:'Free-body diagram generation',
+    sw_fc2_name:'Frame & Structure', sw_fc2_1:'Simple & complex frame types', sw_fc2_2:'Bending moment & shear calcs', sw_fc2_3:'Bolted connection analysis', sw_fc2_4:'Superstructure weld calcs',
+    sw_fc3_name:'Safety & Stability', sw_fc3_1:'Braking system verification', sw_fc3_2:'Turning radius & stability', sw_fc3_3:'Crane overturning checks', sw_fc3_4:'Spring suspension calcs',
+    sw_fc4_name:'Output & Export', sw_fc4_1:'Quick PDF export', sw_fc4_2:'A3 technical drawings', sw_fc4_3:'Auto Word report generation', sw_fc4_4:'Online libraries & templates',
     team_heading:'Team',
     founder_name:'Dimitrios<br>Moudiotis',
     founder_label:'Founder &amp; Lead Engineer',
@@ -361,7 +385,13 @@ function applyLang(lang) {
   set('sw-heading',t.sw_heading); set('sw-label',t.sw_label);
   set('sw-desc',t.sw_desc);
   for(let i=1;i<=8;i++) set('sw-f'+i,t['sw_f'+i]);
-  set('sw-cta1',noArrow(t.sw_cta1)); set('sw-cta2',noArrow(t.sw_cta2));
+  set('sw-cta1',noArrow(t.sw_cta1)); set('sw-cta2',noArrow(t.sw_cta2)); set('sw-cta3',noArrow(t.sw_cta3));
+  set('sw-d-kicker1',t.sw_d_kicker1); set('sw-d-title',t.sw_d_title); set('sw-d-lead',t.sw_d_lead);
+  set('sw-d-kicker2',t.sw_d_kicker2);
+  for(let i=1;i<=6;i++) set('sw-wf'+i,t['sw_wf'+i]);
+  set('sw-d-link',noArrow(t.sw_d_link));
+  set('sw-d-kicker3',t.sw_d_kicker3);
+  for(let c=1;c<=4;c++){ set('sw-fc'+c+'-name',t['sw_fc'+c+'_name']); for(let r=1;r<=4;r++) set('sw-fc'+c+'-'+r,t['sw_fc'+c+'_'+r]); }
   // webdesign.html
   set('wd-codebox-label',t.wd_codebox_label); set('wd-codebox-body',t.wd_codebox_body);
   set('wd-label',t.wd_label); set('wd-desc',t.wd_desc);

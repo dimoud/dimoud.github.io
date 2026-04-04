@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Licensed Downloads — Mechanical ExpertEase</title>
+  <link rel="icon" href="https://expertease.eu/images/logo.png" type="image/png">
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="expertease-credit.css">
+  <style>
+    /* ── page wrapper ── */
+    .dl-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 16px 80px;
+    }
+
+    .dl-wrapper {
+      width: 100%;
+      max-width: 540px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── badge ── */
+    .dl-badge {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+    .dl-badge span {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--blue-lt);
+      background: var(--blue-dim);
+      border: 1px solid rgba(37,99,235,.25);
+      padding: 6px 20px;
+      border-radius: 100px;
+    }
+
+    /* ── card ── */
+    .dl-card {
+      background: var(--bg);
+      border-radius: 16px;
+      border: 1px solid var(--border2);
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(6,13,26,.12), 0 2px 8px rgba(6,13,26,.06);
+    }
+
+    .dl-accent-bar {
+      height: 3px;
+      background: linear-gradient(90deg, var(--navy) 0%, var(--blue) 40%, var(--blue-lt) 60%, var(--blue) 80%, var(--navy) 100%);
+    }
+
+    /* ── card header ── */
+    .dl-card-header {
+      padding: 40px 40px 28px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dl-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 1px solid rgba(255,255,255,.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin: 0 auto 18px;
+      box-shadow: 0 4px 16px rgba(6,13,26,.2);
+    }
+
+    .dl-card-header h1 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .dl-card-header p {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── card body ── */
+    .dl-card-body { padding: 32px 40px; }
+
+    /* ── card footer ── */
+    .dl-card-footer {
+      background: var(--bg2);
+      padding: 16px 40px;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--faint);
+      text-align: center;
+      line-height: 1.9;
+      letter-spacing: 0.8px;
+    }
+    .dl-card-footer strong {
+      color: var(--blue);
+      font-weight: 600;
+    }
+
+    /* ── label ── */
+    .dl-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--faint);
+      margin-bottom: 8px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ── email input ── */
+    input[type="email"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--text);
+      background: var(--surface);
+      outline: none;
+      transition: border-color .2s, background .2s;
+      margin-bottom: 18px;
+    }
+    input[type="email"]::placeholder { color: var(--faint); }
+    input[type="email"]:focus {
+      border-color: var(--blue);
+      background: var(--bg);
+    }
+
+    /* ── primary button ── */
+    .dl-btn-primary {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      background: var(--navy);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .dl-btn-primary:hover { background: var(--blue); transform: translateY(-1px); }
+    .dl-btn-primary:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+    /* ── message ── */
+    .dl-message {
+      margin-top: 18px;
+      padding: 13px 16px;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      line-height: 1.6;
+      display: none;
+    }
+    .dl-message.success {
+      background: var(--blue-dim);
+      color: var(--blue);
+      border: 1px solid rgba(37,99,235,.22);
+    }
+    .dl-message.error {
+      background: rgba(220,38,38,.07);
+      color: #991b1b;
+      border: 1px solid rgba(220,38,38,.2);
+    }
+
+    /* ── countdown timer ── */
+    .dl-timer-wrap { margin-bottom: 22px; }
+    .dl-timer-bar-bg {
+      background: var(--surface2);
+      border-radius: 100px;
+      height: 5px;
+      overflow: hidden;
+      margin-bottom: 7px;
+    }
+    .dl-timer-bar {
+      height: 100%;
+      background: var(--blue);
+      border-radius: 100px;
+      transition: width 1s linear;
+    }
+    .dl-timer-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--faint);
+      text-align: center;
+      letter-spacing: 1px;
+    }
+    .dl-timer-label.urgent { color: #dc2626; font-weight: 600; }
+
+    /* ── file list ── */
+    .dl-file-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .dl-file-item {
+      display: flex;
+      align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      padding: 14px 16px;
+      gap: 14px;
+    }
+
+    .dl-file-icon { font-size: 22px; flex-shrink: 0; }
+
+    .dl-file-info { flex: 1; }
+    .dl-file-name {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0.5px;
+    }
+    .dl-file-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--faint);
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .dl-file-btn {
+      flex-shrink: 0;
+      display: inline-block;
+      padding: 8px 18px;
+      background: var(--navy);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 100px;
+      white-space: nowrap;
+      transition: background .2s, transform .2s;
+    }
+    .dl-file-btn:hover { background: var(--blue); transform: translateY(-1px); }
+
+    /* ── page copyright ── */
+    .dl-page-copy {
+      text-align: center;
+      margin-top: 28px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--faint);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* ── hidden utility ── */
+    .hidden { display: none !important; }
+
+    /* ── verifying spinner ── */
+    .dl-spinner {
+      width: 36px; height: 36px;
+      border: 2px solid var(--border2);
+      border-top-color: var(--blue);
+      border-radius: 50%;
+      animation: dl-spin .8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes dl-spin { to { transform: rotate(360deg); } }
+
+    /* ── responsive ── */
+    @media (max-width: 560px) {
+      .dl-card-header,
+      .dl-card-body { padding: 28px 24px; }
+      .dl-card-footer { padding: 14px 24px; }
+      .dl-file-item { flex-wrap: wrap; }
+      .dl-file-btn { width: 100%; text-align: center; margin-top: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="dl-page">
+  <div class="dl-wrapper">
+
+    <div style="text-align:center; margin-bottom:28px;">
+      <a href="https://expertease.eu" target="_blank" rel="noopener">
+        <img src="images/logo.png" alt="Expertease Designs" style="height:52px; width:auto; opacity:.92;">
+      </a>
+    </div>
+
+    <div class="dl-badge">
+      <span>ExpertEase Designs — Email Engine</span>
+    </div>
+
+    <div class="dl-card">
+      <div class="dl-accent-bar"></div>
+
+      <!-- STATE 1: Email request -->
+      <div id="state-request">
+        <div class="dl-card-header">
+          <div class="dl-icon">🔐</div>
+          <h1>Licensed Downloads</h1>
+          <p>Enter your registered email to receive a secure, single-use download link.</p>
+        </div>
+        <div class="dl-card-body">
+          <label class="dl-label" for="email-input">Your Email Address</label>
+          <input type="email" id="email-input" placeholder="you@example.com"
+                 onkeydown="if(event.key==='Enter') requestAccess()"/>
+          <button class="dl-btn-primary" id="request-btn" onclick="requestAccess()">
+            Send Me My Download Link &rarr;
+          </button>
+          <div class="dl-message" id="request-msg"></div>
+        </div>
+        <div class="dl-card-footer">
+          Access is available to <strong>licensed users only</strong>.<br/>
+          Powered by the <strong>ExpertEase Designs Email Engine</strong>.
+        </div>
+      </div>
+
+      <!-- STATE 2: Verifying -->
+      <div id="state-verifying" class="hidden">
+        <div class="dl-card-header">
+          <div class="dl-icon">⏳</div>
+          <h1>Verifying your link…</h1>
+          <p>Please wait while we validate your session.</p>
+        </div>
+        <div class="dl-card-body" style="text-align:center;padding-top:24px;padding-bottom:24px;">
+          <div class="dl-spinner"></div>
+        </div>
+      </div>
+
+      <!-- STATE 3: Files ready -->
+      <div id="state-downloads" class="hidden">
+        <div class="dl-card-header">
+          <div class="dl-icon">✅</div>
+          <h1>Your File</h1>
+          <p id="downloads-subtitle">Identity verified. Your licensed file is ready below.</p>
+        </div>
+        <div class="dl-card-body">
+          <div class="dl-timer-wrap">
+            <div class="dl-timer-bar-bg">
+              <div class="dl-timer-bar" id="timer-bar"></div>
+            </div>
+            <p class="dl-timer-label" id="timer-label">Session expires in 15:00</p>
+          </div>
+          <div class="dl-file-list" id="file-list"></div>
+          <div class="dl-message" id="download-msg"></div>
+        </div>
+        <div class="dl-card-footer">
+          This file is for your personal use only. <strong>Do not share</strong> this link.<br/>
+          Powered by the <strong>ExpertEase Designs Email Engine</strong>.
+        </div>
+      </div>
+
+      <!-- STATE 4: Error -->
+      <div id="state-error" class="hidden">
+        <div class="dl-card-header">
+          <div class="dl-icon">⛔</div>
+          <h1>Link Invalid</h1>
+          <p id="error-msg-text">This link has expired or has already been used.</p>
+        </div>
+        <div class="dl-card-body" style="text-align:center;">
+          <button class="dl-btn-primary" onclick="resetToRequest()">
+            Request a New Link &rarr;
+          </button>
+        </div>
+        <div class="dl-card-footer">
+          Powered by the <strong>ExpertEase Designs Email Engine</strong>.
+        </div>
+      </div>
+
+    </div><!-- /.dl-card -->
+
+    <p class="dl-page-copy">
+      &copy; <span id="year"></span> Mechanical ExpertEase &bull; Expertease Designs
+    </p>
+
+  </div><!-- /.dl-wrapper -->
+</div><!-- /.dl-page -->
+
+<script>
+  const SCRIPT_URL   = "https://script.google.com/macros/s/AKfycbzSMyPJSQmENEt2z7SwqYIaIW4GFKCFrCtKupHULmxb3t6Gq2rVRtC0YLmwbI6WJ-7r/exec";
+  const SECURITY_KEY = "Xp9#mK2$vL8@nQ4!wR7&jT3^hY6*cF1%bN5+zD0-eA";
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  let timerInterval = null;
+
+  window.addEventListener("load", () => {
+    const token = new URLSearchParams(window.location.search).get("token");
+    if (token) verifyToken(token);
+  });
+
+  // ── Request magic link ──────────────────────────────────────────────────────
+  async function requestAccess() {
+    const email = document.getElementById("email-input").value.trim();
+    const btn   = document.getElementById("request-btn");
+    const msg   = document.getElementById("request-msg");
+
+    if (!email) { showMessage(msg, "error", "Please enter your email address."); return; }
+
+    btn.disabled    = true;
+    btn.textContent = "Sending…";
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method:  "POST",
+        headers: { "Content-Type": "text/plain" },
+        body:    JSON.stringify({ _key: SECURITY_KEY, action: "request_access", email })
+      });
+      showMessage(msg, "success", "If this email is registered, a secure link has been sent. Please check your inbox and spam folder.");
+    } catch (err) {
+      showMessage(msg, "error", "Something went wrong. Please try again.");
+    }
+
+    btn.disabled    = false;
+    btn.textContent = "Send Me My Download Link →";
+  }
+
+  // ── Verify token ────────────────────────────────────────────────────────────
+  async function verifyToken(token) {
+    show("state-verifying");
+    try {
+      const res  = await fetch(SCRIPT_URL, {
+        method:  "POST",
+        headers: { "Content-Type": "text/plain" },
+        body:    JSON.stringify({ _key: SECURITY_KEY, action: "verify_token", token })
+      });
+      const data = await res.json();
+
+      if (data.result === "success") {
+        showDownloads(data.email, data.files, data.windowMinutes || 15);
+      } else {
+        showError(data.message || "This link is invalid or has expired.");
+      }
+    } catch (err) {
+      showError("Something went wrong. Please try again.");
+    }
+  }
+
+  // ── Show file list + countdown ──────────────────────────────────────────────
+  function showDownloads(email, files, windowMinutes) {
+    show("state-downloads");
+    document.getElementById("downloads-subtitle").textContent =
+      "Verified: " + email + ". Your licensed file is ready below.";
+
+    const list = document.getElementById("file-list");
+    list.innerHTML = "";
+
+    files.forEach(file => {
+      const item = document.createElement("div");
+      item.className = "dl-file-item";
+      item.innerHTML =
+        '<div class="dl-file-icon">📊</div>' +
+        '<div class="dl-file-info">' +
+          '<div class="dl-file-name">' + file.name + '</div>' +
+          '<div class="dl-file-meta">XLSB &mdash; Excel Binary Workbook</div>' +
+        '</div>' +
+        '<a class="dl-file-btn" href="' + file.url + '" target="_blank">Download</a>';
+      list.appendChild(item);
+    });
+
+    // Countdown timer
+    const totalSeconds = windowMinutes * 60;
+    let remaining = totalSeconds;
+
+    function tick() {
+      const mins  = String(Math.floor(remaining / 60)).padStart(2, "0");
+      const secs  = String(remaining % 60).padStart(2, "0");
+      const label = document.getElementById("timer-label");
+      const bar   = document.getElementById("timer-bar");
+
+      label.textContent = "Session expires in " + mins + ":" + secs;
+      label.className   = "dl-timer-label" + (remaining <= 60 ? " urgent" : "");
+      bar.style.width   = (remaining / totalSeconds * 100) + "%";
+      bar.style.background = remaining <= 60 ? "#dc2626" : "var(--blue)";
+
+      if (remaining <= 0) {
+        clearInterval(timerInterval);
+        showError("Your download session has expired. Please request a new link.");
+        return;
+      }
+      remaining--;
+    }
+
+    tick();
+    timerInterval = setInterval(tick, 1000);
+  }
+
+  // ── Error state ─────────────────────────────────────────────────────────────
+  function showError(message) {
+    clearInterval(timerInterval);
+    show("state-error");
+    document.getElementById("error-msg-text").textContent = message;
+  }
+
+  function resetToRequest() {
+    show("state-request");
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+
+  // ── Utilities ───────────────────────────────────────────────────────────────
+  function show(id) {
+    ["state-request", "state-verifying", "state-downloads", "state-error"]
+      .forEach(s => document.getElementById(s).classList.toggle("hidden", s !== id));
+  }
+
+  function showMessage(el, type, text) {
+    el.className     = "dl-message " + type;
+    el.textContent   = text;
+    el.style.display = "block";
+  }
+</script>
+</body>
+</html>

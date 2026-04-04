@@ -24,7 +24,8 @@
       "Bash(sed -i 's|\\\\.expertease-credit{background:var\\(--navy,#060d1a\\);}|.expertease-credit{background:var\\(--navy,#060d1a\\);}\\\\n@media\\(max-width:960px\\){.expertease-credit{margin-bottom:32px;}}|' \"a:/WORK_PROJECTS/WEBSITES/github/dimoud.github.io/team.html\")",
       "Bash(sed -i 's|\\\\.expertease-credit{background:var\\(--navy,#060d1a\\);}|.expertease-credit{background:var\\(--navy,#060d1a\\);}\\\\n@media\\(max-width:960px\\){.expertease-credit{margin-bottom:32px;}}|' \"a:/WORK_PROJECTS/WEBSITES/github/dimoud.github.io/cad.html\")",
       "Bash(sed -i 's|\\\\.expertease-credit{background:var\\(--navy,#060d1a\\);}|.expertease-credit{background:var\\(--navy,#060d1a\\);}\\\\n@media\\(max-width:960px\\){.expertease-credit{margin-bottom:32px;}}|' \"a:/WORK_PROJECTS/WEBSITES/github/dimoud.github.io/software.html\")",
-      "Bash(sed -i 's|\\\\.expertease-credit{background:var\\(--navy,#060d1a\\);}|.expertease-credit{background:var\\(--navy,#060d1a\\);}\\\\n@media\\(max-width:960px\\){.expertease-credit{margin-bottom:32px;}}|' \"a:/WORK_PROJECTS/WEBSITES/github/dimoud.github.io/webdesign.html\")"
+      "Bash(sed -i 's|\\\\.expertease-credit{background:var\\(--navy,#060d1a\\);}|.expertease-credit{background:var\\(--navy,#060d1a\\);}\\\\n@media\\(max-width:960px\\){.expertease-credit{margin-bottom:32px;}}|' \"a:/WORK_PROJECTS/WEBSITES/github/dimoud.github.io/webdesign.html\")",
+      "WebFetch(domain:www.easemanual.eu)"
     ],
     "additionalDirectories": [
       "a:\\WORK_PROJECTS\\WEBSITES\\github\\malliaris",
