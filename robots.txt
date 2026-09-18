@@ -4,4 +4,4 @@ Disallow: /for_software/
 Disallow: /step/
 Disallow: /vendor/
 
-Sitemap: https://expertease.eu/sitemap.xml
+Sitemap: https://expertease.eu/sitemap-pages.xml
