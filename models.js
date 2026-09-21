@@ -1045,7 +1045,7 @@ function setupDrag(dragEl, parent) {
 
     prevMouse={x:e.clientX,y:e.clientY};
 
-  });
+  }, { passive: true });
 
   /* Click (no drag) — toggle explode / reset */
   dragEl.addEventListener('click',()=>{

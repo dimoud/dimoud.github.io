@@ -1004,7 +1004,7 @@ function initPortDrag() {
     col.addEventListener('mousedown',  e => { if (e.button === 0) onDown(col, e.clientX); });
     col.addEventListener('touchstart', e => onDown(col, e.touches[0].clientX), {passive:true});
   });
-  document.addEventListener('mousemove', e => onMove(e.clientX));
+  document.addEventListener('mousemove', e => onMove(e.clientX), { passive: true });
   document.addEventListener('touchmove', e => { if (activeCol) onMove(e.touches[0].clientX); }, {passive:true});
   document.addEventListener('mouseup',   onUp);
   document.addEventListener('touchend',  onUp, {passive:true});
@@ -1270,7 +1270,7 @@ function initScroll() {
     let cur = '';
     sections.forEach(s => { if (window.scrollY >= s.offsetTop - 140) cur = s.id; });
     links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
-  });
+  }, { passive: true });
 }
 
 function initHeroExplode() {

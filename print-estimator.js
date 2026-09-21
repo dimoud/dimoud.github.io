@@ -295,7 +295,7 @@
       col.addEventListener('mousedown',  e => { if (e.button === 0) onDown(col, e.clientX); });
       col.addEventListener('touchstart', e => onDown(col, e.touches[0].clientX), { passive: true });
     });
-    document.addEventListener('mousemove', e => onMove(e.clientX));
+    document.addEventListener('mousemove', e => onMove(e.clientX), { passive: true });
     document.addEventListener('touchmove', e => { if (activeCol) onMove(e.touches[0].clientX); }, { passive: true });
     document.addEventListener('mouseup',  onUp);
     document.addEventListener('touchend', onUp, { passive: true });
@@ -777,7 +777,7 @@
       if (!isDragging) return;
       rotY += (e.clientX - lastMX) * 0.01; rotX += (e.clientY - lastMY) * 0.01;
       lastMX=e.clientX; lastMY=e.clientY;
-    });
+    }, { passive: true });
     canvas.addEventListener('touchstart', e => { isDragging=true; lastMX=e.touches[0].clientX; lastMY=e.touches[0].clientY; }, { passive:true });
     canvas.addEventListener('touchend',   () => { isDragging=false; }, { passive:true });
     canvas.addEventListener('touchmove',  e => {

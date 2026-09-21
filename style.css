@@ -3236,3 +3236,12 @@ hr.ec-rule { position: relative; z-index: 2; }
   /* Hide → arrows in static HTML buttons/links */
   .wd-proj-arrow { display: none; }
 }
+
+/* Skip link — accessibility (WCAG 2.4.1) */
+.skip-link{
+  position:absolute; left:8px; top:-48px;
+  background:#0d1b2a; color:#fff; padding:10px 18px;
+  border-radius:6px; z-index:10000; text-decoration:none;
+  font-size:14px; font-weight:600; transition:top .15s ease;
+}
+.skip-link:focus{ top:8px; }
