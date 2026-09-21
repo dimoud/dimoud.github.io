@@ -7,8 +7,8 @@ const LANG = {
   el: {
     nav_about:'Σχετικά', nav_projects:'Έργα', nav_software:'Λογισμικό',
     nav_webdesign:'Web Design', nav_3dprint:'3D Print', nav_experience:'Ομάδα', nav_contact:'Επικοινωνία',
-    hero_tag:'// Μηχανολογικό Studio — Αθήνα',
-    hero_title:'Μηχανολογικός Σχεδιασμός Αθήνα · 3D Printing · Laser Cut & Engrave · Web Design',
+    hero_tag:'// Μηχανολογικό Studio — Πανελλαδικά',
+    hero_title:'Μηχανολογικός Σχεδιασμός Πανελλαδικά · 3D Printing · Laser Cut & Engrave · Web Design',
     hero_desc:'Η <strong>Expertease Designs</strong> είναι το studio <strong>μηχανολόγου σχεδιαστή</strong> για μηχανολογικό σχέδιο, 3D printing και κατασκευή ιστοσελίδων — από την ιδέα ως την κατασκευή.',
     hero_cta_work:'Δείτε τα Έργα →', hero_cta_contact:'Επικοινωνήστε',
     stat_years:'Χρόνια Εμπειρίας', stat_projects:'Παραδοθέντα Έργα', stat_degrees:'Μεταπτυχιακά',
@@ -22,6 +22,7 @@ const LANG = {
     about_quote:'«Η μηχανική είναι η τέχνη να μετατρέπεις μια ιδέα σε κάτι που κρατάς στα χέρια σου.»',
     about_p2:'Σχεδιάζουμε και κατασκευάζουμε μηχανολογικές διατάξεις και εξοπλισμό — καλύπτοντας κάθε στάδιο από R&amp;D και CAD ως τον συντονισμό κατασκευής και τον ποιοτικό έλεγχο. Κάθε παράδοση περιλαμβάνει πλήρη τεκμηρίωση: σχέδια εξαρτημάτων, συναρμολόγησης, BOM και οδηγίες.',
     about_p3:'Βάση: <strong><span class="accent-red">Αθήνα</span></strong> &amp; <strong><span class="accent-red">Θεσσαλονίκη</span></strong> — εξυπηρετούμε πανελλαδικά, καθώς και εντός Ευρωπαϊκής Ένωσης.',
+    about_p5:'Δεν χρειάζεται να είστε στην Αθήνα ή τη Θεσσαλονίκη για να συνεργαστούμε — μηχανολογικός σχεδιασμός, CAD, τεχνικές μελέτες και κατασκευή ιστοσελίδων γίνονται εξ αποστάσεως για πελάτες σε όλη την Ελλάδα, ενώ η 3D εκτύπωση και η κοπή/χάραξη laser αποστέλλονται πανελλαδικά.',
     about_p4:'Βελτιστοποιούμε την επιλογή υλικών, κατασκευή και συναρμολόγηση για οικονομική αποδοτικότητα και βιωσιμότητα — συντονίζουμε υπεργολάβους, επιβλέπουμε την κατασκευή και διασφαλίζουμε ότι κάθε παράδοση πληροί τα πρότυπα ποιότητας, αξιοπιστίας και ασφάλειας (ISO).',
     val_1_title:'Ακρίβεια', val_1_text:'Επαλήθευση με FEA, έλεγχος ανοχών, δοκιμές σε πραγματικές συνθήκες. Χωρίς υποθέσεις.', val_1_text_mobile:'Επαλήθευση με FEA, έλεγχος ανοχών. Χωρίς υποθέσεις.',
     val_2_title:'Πλήρης Κύκλος', val_2_text:'Από σκίτσο ως συναρμολόγηση — σχεδιασμός, BOM, κατασκευή και παράδοση. Παραδίδουμε, δεν μεταβιβάζουμε.', val_2_text_mobile:'Σχεδιασμός, BOM, κατασκευή, παράδοση. Παραδίδουμε — δεν μεταβιβάζουμε.',
@@ -39,9 +40,9 @@ const LANG = {
     prin_3_title:'Πλήρης Ανάληψη', prin_3_text:'Από τον σχεδιασμό, τους υπολογισμούς και τις προσομοιώσεις ως τον συντονισμό κατασκευής, την επικοινωνία με προμηθευτές, την επίβλεψη συναρμολόγησης και τον <span class="accent-red">τελικό έλεγχο</span> — ένας μηχανικός, πλήρης υπευθυνότητα.', prin_3_text_mobile:'Ένας μηχανικός — από τον σχεδιασμό ως τον τελικό έλεγχο.',
     prin_4_title:'Web Design', prin_4_text:'Φτιάχνουμε <span class="accent-green">πλήρως custom ιστοσελίδες</span> — χειρόγραφο κώδικα, χωρίς templates, χωρίς builders. <a href="webdesign.html" class="principle-cta" id="prin-4-cta-el">Δείτε τις Υπηρεσίες Web Design →</a>',
     wd_label:'Αποκλειστικό Digital · Χωρίς Templates',
-    wd_title:'Κατασκευή Ιστοσελίδων Αθήνα',
+    wd_title:'Κατασκευή Ιστοσελίδων Πανελλαδικά',
     cad_label:'Μηχανολογικός Σχεδιασμός · Αρχεία STEP',
-    cad_title:'Μηχανολογικό CAD Σχέδιο & 3D STEP Viewer<br>Αθήνα',
+    cad_title:'Μηχανολογικό CAD Σχέδιο & 3D STEP Viewer<br>Πανελλαδικά',
     wd_desc:'Φτιάχνουμε πλήρως custom ιστοσελίδες από το μηδέν — χωρίς templates, χωρίς page builders, χωρίς συμβιβασμούς. Κάθε pixel είναι σκόπιμο. Κάθε αλληλεπίδραση σχεδιάζεται.',
     wd_f1:'Custom HTML & CSS', wd_f2:'Διαδραστικά animations',
     wd_f3:'WebGL / 3D στοιχεία', wd_f4:'Mobile-first layout',
@@ -225,8 +226,8 @@ const LANG = {
     form_submit_label:'ΑΠΟΣΤΟΛΗ ΜΗΝΥΜΑΤΟΣ',
     footer_copy:'© 2026 Expertease Designs', footer_loc:'Αθήνα, Ελλάδα', footer_loc_bar:'Αθήνα, Ελλάδα',
     ec_ad_question:'Σας άρεσε το site;', ec_ad_cta:'Φτιάξτε το δικό σας', ec_label:'Σχεδιάστηκε από',
-    pr_label:'Εξατομικευμένη Κατασκευή · Αθήνα',
-    pr_title:'Τρισδιάστατη Εκτύπωση <span class="pr-hero-slash">/ / /</span> Κοπή Laser <span class="pr-hero-slash">/ / /</span> Χάραξη&nbsp;Laser Αθήνα',
+    pr_label:'Εξατομικευμένη Κατασκευή · Πανελλαδικά',
+    pr_title:'Τρισδιάστατη Εκτύπωση <span class="pr-hero-slash">/ / /</span> Κοπή Laser <span class="pr-hero-slash">/ / /</span> Χάραξη&nbsp;Laser Πανελλαδικά',
     pr_desc:'Από ιδέα σε έτοιμο εξάρτημα — αναλαμβάνουμε εξατομικευμένο 3D printing, αντίστροφη μηχανική και laser cutting &amp; engraving. Λειτουργικά πρωτότυπα, μεμονωμένα εξαρτήματα και διακοσμητικές εργασίες εσωτερικά.',
     pr_f1:'FDM 3D Printing', pr_f2:'Custom Σχέδια',
     pr_f3:'Αντίστροφη Μηχανική', pr_f4:'Laser Cutting',
@@ -275,8 +276,8 @@ const LANG = {
   en: {
     nav_about:'About', nav_projects:'Projects', nav_software:'Software',
     nav_webdesign:'Web Design', nav_3dprint:'3D Print', nav_experience:'Team', nav_contact:'Contact',
-    hero_tag:'// Mechanical Design & 3D Printing Studio — Athens, GR',
-    hero_title:'Mechanical Design Athens · 3D Printing · Laser Cut & Engrave · Web Design',
+    hero_tag:'// Mechanical Design & 3D Printing Studio — Across Greece',
+    hero_title:'Mechanical Design Across Greece · 3D Printing · Laser Cut & Engrave · Web Design',
     hero_desc:'<strong>Expertease Designs</strong> is a mechanical design engineer studio: technical drawings &bull; sheet metal &bull; rapid prototyping &bull; BOM',
     hero_cta_work:'View Projects →', hero_cta_contact:'Get in Touch',
     stat_years:'Years Experience', stat_projects:'Projects Delivered', stat_degrees:'University Degrees',
@@ -290,6 +291,7 @@ const LANG = {
     about_quote:'"Engineering is the art of turning an idea into something you can hold in your hands."',
     about_p2:'We design and build mechanical devices, products, and equipment — covering every stage from R&amp;D and CAD to manufacturing coordination and quality control. Every project is delivered with complete documentation: part drawings, assembly drawings, BOM structure, and instructions.',
     about_p3:'Based in <strong><span class="accent-red">Athens</span></strong> &amp; <strong><span class="accent-red">Thessaloniki</span></strong> — serving clients nationwide across Greece, as well as within the EU.',
+    about_p5:'You don\'t need to be in Athens or Thessaloniki to work with us — mechanical design, CAD, technical studies and web design are delivered remotely to clients across Greece, while 3D printed and laser-cut parts ship nationwide.',
     about_p4:'We optimise material selection, manufacturing, and assembly for cost-effectiveness and sustainability — coordinating subcontractors, supervising construction, and enforcing ISO quality, reliability, and safety standards on every deliverable.',
     val_1_title:'Precision', val_1_text:'FEA-verified, tolerance-stacked, tested in real conditions. We don\'t approximate.', val_1_text_mobile:'FEA-verified, tolerance-stacked. No approximations.',
     val_2_title:'Full Lifecycle', val_2_text:'From sketch to assembly — design, BOM, fabrication, and handover. We deliver, we don\'t hand off.', val_2_text_mobile:'Design, BOM, fabrication, handover. We deliver — we don\'t hand off.',
@@ -307,9 +309,9 @@ const LANG = {
     prin_3_title:'Full Ownership', prin_3_text:'From design, calculations, and simulations through manufacturing coordination, supplier communication, assembly oversight, and <span class="accent-red">final verification</span> — one engineer, full accountability.', prin_3_text_mobile:'One engineer — from design and simulation through fabrication and final verification.',
     prin_4_title:'Web Design', prin_4_text:'We also build <span class="accent-green">fully custom websites</span> — hand-coded from scratch. No templates, no builders, no limits. <a href="webdesign.html" class="principle-cta" id="prin-4-cta-en">See our Web Design →</a>',
     wd_label:'Bespoke Digital · No Templates',
-    wd_title:'Web Design Athens',
+    wd_title:'Web Design Across Greece',
     cad_label:'Mechanical Design · STEP Files',
-    cad_title:'3D CAD Design & STEP Model Viewer<br>Athens',
+    cad_title:'3D CAD Design & STEP Model Viewer<br>Across Greece',
     wd_desc:'We build fully custom websites from scratch — no templates, no page builders, no shortcuts. Every pixel is intentional. Every interaction is designed.',
     wd_f1:'Custom HTML & CSS', wd_f2:'Interactive animations',
     wd_f3:'WebGL / 3D elements', wd_f4:'Mobile-first layout',
@@ -493,8 +495,8 @@ const LANG = {
     form_submit_label:'SEND MESSAGE',
     footer_copy:'© 2026 Expertease Designs', footer_loc:'Athens, Greece', footer_loc_bar:'Athens, Greece',
     ec_ad_question:'Like this site?', ec_ad_cta:'Let\'s build yours', ec_label:'Designed by',
-    pr_label:'Custom Fabrication · Athens, GR',
-    pr_title:'3D Printing <span class="pr-hero-slash">/ / /</span> Laser Cut <span class="pr-hero-slash">/ / /</span> Laser&nbsp;Engrave Athens',
+    pr_label:'Custom Fabrication · Across Greece',
+    pr_title:'3D Printing <span class="pr-hero-slash">/ / /</span> Laser Cut <span class="pr-hero-slash">/ / /</span> Laser&nbsp;Engrave Across Greece',
     pr_desc:'From idea to finished part — we handle custom 3D printing, reverse engineering, and laser cutting &amp; engraving. Functional prototypes, one-off parts, and decorative work produced in-house.',
     pr_f1:'FDM 3D Printing', pr_f2:'Custom Designs',
     pr_f3:'Reverse Engineering', pr_f4:'Laser Cutting',
@@ -570,6 +572,7 @@ function applyLang(lang) {
   set('about-heading',t.about_heading);
   set('about-quote',t.about_quote);
   set('about-p2',t.about_p2,true); set('about-p3',t.about_p3,true);
+  set('about-p5',t.about_p5,true);
   set('about-p4',t.about_p4);
   set('val-1-title',t.val_1_title); set('val-1-text', isMob && t.val_1_text_mobile ? t.val_1_text_mobile : t.val_1_text);
   set('val-2-title',t.val_2_title); set('val-2-text', isMob && t.val_2_text_mobile ? t.val_2_text_mobile : t.val_2_text);
