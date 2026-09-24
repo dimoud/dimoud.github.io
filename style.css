@@ -42,7 +42,7 @@
 }
 
 /* Greek: Barlow Condensed matches Oswald visually and supports Greek natively */
-:lang(el) { --font-display: 'Barlow Condensed', sans-serif; }
+:lang(el) { --font-display: 'Barlow Condensed', 'Roboto Condensed', sans-serif; } /* Η Barlow δεν έχει ελληνικά· τα ελληνικά γράμματα έρχονται από τη Roboto Condensed */
 
 /* Ensure Barlow Condensed renders bold (like Oswald does at weight 400 visually) */
 /* Barlow Condensed has ~10% larger x-height than Oswald — scale down to match */

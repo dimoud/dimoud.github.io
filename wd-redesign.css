@@ -1,0 +1,98 @@
+/* ═══════════════════════════════════════════════════════════════
+   wd-redesign.css — «Τι φτιάχνουμε» στη σελίδα Web Design (2026-09)
+   Φορτώνεται μετά το style.css. Για επαναφορά: αφαιρέστε το <link>.
+═══════════════════════════════════════════════════════════════ */
+.wdo {
+  background:
+    linear-gradient(rgba(120,170,255,.045) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(90deg, rgba(120,170,255,.045) 1px, transparent 1px) 0 0 / 32px 32px,
+    radial-gradient(ellipse 70% 60% at 50% 30%, rgba(37,99,235,.16), transparent 70%),
+    #0b1b38;
+  padding: 96px 56px 104px; border-top: 0;
+}
+.wdo .wd-offerings-inner { max-width: 1240px; }
+.wdo-head { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; align-items: end; margin-bottom: 48px; }
+.wdo .wd-offerings-label { margin-bottom: 18px; letter-spacing: 4px; color: #6fa8ff; }
+.wdo .wd-offerings-label::after { background: rgba(140,180,255,.18); }
+.wdo-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(32px, 4vw, 54px); line-height: 1.02; color: #fff; margin: 0; }
+.wdo-lead { margin: 0; color: rgba(220,232,255,.66); font-size: 16px; line-height: 1.7; }
+
+.wdo .wd-offerings-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.wdo .wd-offer-card { --acc: #4f9dff; padding: 0; overflow: hidden; display: flex; flex-direction: column;
+  background: rgba(8,18,40,.78); border: 1px solid rgba(140,180,255,.16); border-top: 1px solid rgba(140,180,255,.16); border-radius: 6px;
+  transition: transform .45s cubic-bezier(.2,.7,.2,1), border-color .45s, box-shadow .45s; }
+.wdo .wd-offer-card:hover, .wdo .wd-offer-card--hl { transform: translateY(-6px); border-color: color-mix(in srgb, var(--acc) 60%, transparent);
+  box-shadow: 0 24px 50px rgba(0,0,0,.4), 0 0 0 1px color-mix(in srgb, var(--acc) 35%, transparent); }
+.wdo .wd-offer-card--hl:not(:hover) { transform: none; }
+
+/* Μικρογραφία «παραθύρου» με τη δομή κάθε τύπου σελίδας */
+.wdo-shot { position: relative; aspect-ratio: 16 / 11; background: #050b18; border-bottom: 1px solid rgba(140,180,255,.12); overflow: hidden; }
+.wdo-bar { position: absolute; left: 0; right: 0; top: 0; height: 22px; display: flex; align-items: center; gap: 5px; padding: 0 9px; background: #0d1a33; border-bottom: 1px solid rgba(140,180,255,.1); z-index: 2; }
+.wdo-bar i { width: 6px; height: 6px; border-radius: 50%; background: rgba(160,190,240,.28); }
+.wdo-bar b { margin-left: 8px; flex: 1; font: 500 8.5px/1 var(--font-mono); letter-spacing: .5px; color: rgba(160,190,240,.5); background: rgba(255,255,255,.04); border-radius: 3px; padding: 4px 8px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.wdo-page { position: absolute; left: 10px; right: 10px; top: 32px; display: flex; flex-direction: column; gap: 7px; transition: transform 2.4s cubic-bezier(.45,0,.3,1); }
+.wd-offer-card:hover .wdo-page { transform: translateY(-38%); }
+.wdo-page span, .wdo-page em, .wdo-page u { display: block; }
+.wdo-page em { background: rgba(160,190,240,.12); border-radius: 2px; }
+.wdo-page u { background: var(--acc); border-radius: 2px; opacity: .85; }
+.sk-nav { height: 8px; border-radius: 2px; background: linear-gradient(90deg, rgba(160,190,240,.35) 0 14%, transparent 14% 60%, rgba(160,190,240,.16) 60% 100%); }
+.sk-hero { display: grid !important; grid-template-columns: 1.2fr 1fr; grid-template-rows: 10px 6px 10px; gap: 6px; padding: 12px 0 10px; }
+.sk-hero em:first-child { grid-column: 1; height: 10px; } .sk-hero em:nth-child(2) { grid-column: 1; height: 6px; width: 80%; }
+.sk-hero u { grid-column: 1; width: 40%; height: 10px; }
+.sk-hero::after { content: ''; grid-column: 2; grid-row: 1 / span 3; border-radius: 3px; background: linear-gradient(135deg, color-mix(in srgb, var(--acc) 45%, #0b1b38), #0b1b38); }
+.sk-cols { display: grid !important; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.sk-cols em { height: 34px; }
+.sk-row { height: 22px; border-radius: 2px; background: rgba(160,190,240,.07); }
+.sk-foot { height: 16px; border-radius: 2px; background: rgba(160,190,240,.1); }
+.sk-title { height: 12px; width: 55%; border-radius: 2px; background: rgba(160,190,240,.3); margin: 6px 0 2px; }
+.sk-masonry { columns: 3; column-gap: 6px; }
+.sk-masonry em { margin-bottom: 6px; break-inside: avoid; height: 26px; background: linear-gradient(135deg, color-mix(in srgb, var(--acc) 40%, #0b1b38), rgba(160,190,240,.1)); }
+.sk-masonry em:nth-child(3n+1) { height: 40px; } .sk-masonry em:nth-child(4n) { height: 18px; }
+.sk-big { display: flex !important; flex-direction: column; align-items: center; gap: 7px; padding: 16px 0 12px;
+  background: radial-gradient(ellipse at 50% 40%, color-mix(in srgb, var(--acc) 30%, transparent), transparent 70%); }
+.sk-big em:first-child { width: 70%; height: 12px; } .sk-big em:nth-child(2) { width: 50%; height: 6px; } .sk-big u { width: 30%; height: 12px; margin-top: 4px; }
+.sk-steps { display: grid !important; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.sk-steps em { height: 30px; border-top: 2px solid var(--acc); }
+.sk-cta { display: flex !important; justify-content: center; padding: 12px 0; background: rgba(160,190,240,.06); border-radius: 2px; }
+.sk-cta u { width: 36%; height: 10px; }
+.wdo-shot--three .wdo-page { inset: 22px 0 0 0; }
+.wdo-shot--three img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; mix-blend-mode: lighten; transform: scale(1.35); transition: transform 2.4s cubic-bezier(.2,.7,.2,1); }
+.wd-offer-card:hover .wdo-shot--three .wdo-page { transform: none; }
+.wd-offer-card:hover .wdo-shot--three img { transform: scale(1.1); }
+
+.wdo-body { padding: 20px 22px 24px; display: flex; flex-direction: column; flex: 1; }
+.wdo .wd-offer-num { color: var(--acc); }
+.wdo .wd-offer-name { color: #fff; font-size: 22px; line-height: 1.12; margin: 0 0 10px; }
+.wdo .wd-offer-text { color: rgba(220,232,255,.64); font-size: 14px; line-height: 1.65; margin: 0 0 16px; }
+.wdo-feats { list-style: none; margin: auto 0 0; padding: 14px 0 0; border-top: 1px solid rgba(140,180,255,.12); display: grid; gap: 7px; }
+.wdo-feats li { display: flex; gap: 9px; align-items: center; font: 400 11.5px/1.35 var(--font-mono); color: #cfe0ff; }
+.wdo-feats li::before { content: ''; width: 9px; height: 1px; background: var(--acc); flex: none; }
+
+/* Τιμή */
+.wdo-price { margin-top: 30px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 36px; align-items: center;
+  padding: 26px 32px; border: 1px solid rgba(140,180,255,.2); border-left: 3px solid #4f9dff; background: rgba(5,12,28,.6); border-radius: 4px; }
+.wdo-price-main { display: flex; flex-direction: column; gap: 6px; }
+.wdo-price-from { font: 500 10px/1 var(--font-mono); letter-spacing: 2.5px; text-transform: uppercase; color: rgba(160,190,240,.6); }
+.wdo-price-num { font-family: var(--font-display); font-weight: 600; font-size: 48px; line-height: 1; color: #fff; white-space: nowrap; }
+.wdo-price-num small { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 1px; color: #6fa8ff; vertical-align: middle; }
+.wdo-price-note { margin: 0; color: rgba(220,232,255,.66); font-size: 14.5px; line-height: 1.65; max-width: 560px; }
+.wdo-price-btn { white-space: nowrap; font: 600 11px/1 var(--font-mono); letter-spacing: 2px; text-transform: uppercase; color: #fff; text-decoration: none;
+  background: #2563eb; padding: 16px 24px; border-radius: 3px; box-shadow: 0 10px 28px rgba(37,99,235,.35); transition: background .25s, transform .25s; }
+.wdo-price-btn:hover { background: #3b82f6; transform: translateY(-2px); }
+.wd-cta-vat { font-size: .32em; letter-spacing: 1px; opacity: .75; vertical-align: middle; }
+
+@media (max-width: 1100px) {
+  .wdo .wd-offerings-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wdo-head { grid-template-columns: 1fr; gap: 18px; }
+  .wdo-price { grid-template-columns: 1fr auto; }
+  .wdo-price-note { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (max-width: 640px) {
+  .wdo { padding: 60px 18px 68px; }
+  .wdo .wd-offerings-grid { grid-template-columns: 1fr; }
+  .wdo-price { grid-template-columns: 1fr; gap: 16px; padding: 22px 20px; }
+  .wdo-price-note { grid-row: auto; }
+  .wdo-price-btn { text-align: center; }
+  .wdo-price-num { font-size: 42px; }
+}
+@media (prefers-reduced-motion: reduce) { .wdo *, .wdo .wd-offer-card { transition: none !important; } }

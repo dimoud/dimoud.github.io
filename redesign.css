@@ -73,7 +73,7 @@
 
 /* ── ΣΧΕΤΙΚΑ ─────────────────────────────────────────────────── */
 #about { background: linear-gradient(180deg, #f4f7fc, #eaf0f9); position: relative; }
-#about .about-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, .62fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+#about .about-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 64px; align-items: center; }
 .about-highlight {
   font-family: var(--font-display); font-style: normal; font-weight: 500;
   font-size: clamp(26px, 2.4vw, 36px); line-height: 1.16; color: #0b1b38;

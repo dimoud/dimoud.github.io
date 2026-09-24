@@ -45,8 +45,9 @@
   "offers": {
     "@type": "Offer",
     "priceCurrency": "EUR",
-    "price": "400",
-    "description": "Custom website starting from €400"
+    "price": "500",
+    "priceSpecification": { "@type": "PriceSpecification", "price": "500", "priceCurrency": "EUR", "valueAddedTaxIncluded": false },
+    "description": "Custom website starting from €500 + VAT"
   }
 }
 </script>
@@ -62,9 +63,10 @@
 </script>
 <link rel="dns-prefetch" href="//fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Roboto+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="expertease-credit.css">
+<link rel="stylesheet" href="wd-redesign.css">
 <style>.expertease-credit{background:var(--navy,#060d1a);}
 @media(max-width:960px){.expertease-credit{margin-bottom:32px;}}</style>
 </head>
@@ -164,244 +166,78 @@
   </div>
 </div>
 
-<!-- ══ WHAT WE BUILD ════════════════════════════════════════════ -->
-<section class="wd-offerings">
+<!-- ══ WHAT WE BUILD (ανανέωση: wd-redesign.css) ═════════════════ -->
+<section class="wd-offerings wdo" id="what-we-build">
   <div class="wd-offerings-inner">
-    <div class="wd-offerings-label" id="wd-off-label">// What We Build</div>
+    <div class="wdo-head">
+      <div>
+        <div class="wd-offerings-label" id="wd-off-label">// Τι Φτιάχνουμε</div>
+        <h2 class="wdo-title" data-el="Ιστοσελίδες σχεδιασμένες από το μηδέν." data-en="Websites designed from a blank page.">Ιστοσελίδες σχεδιασμένες από το μηδέν.</h2>
+      </div>
+      <p class="wdo-lead" data-el="Χωρίς έτοιμα θέματα και page builders. Κάθε σελίδα γράφεται στο χέρι, για να φορτώνει γρήγορα και να δείχνει τη δουλειά σας όπως της αξίζει." data-en="No off-the-shelf themes or page builders. Every page is hand-coded to load fast and show your work the way it deserves.">Χωρίς έτοιμα θέματα και page builders. Κάθε σελίδα γράφεται στο χέρι, για να φορτώνει γρήγορα και να δείχνει τη δουλειά σας όπως της αξίζει.</p>
+    </div>
     <div class="wd-offerings-grid">
+      <article class="wd-offer-card wdo-card" style="--acc:#4f9dff">
+        <div class="wdo-shot wdo-shot--biz" aria-hidden="true">
+          <span class="wdo-bar"><i></i><i></i><i></i><b>studio-mixanikou.gr</b></span>
+          <span class="wdo-page"><span class="sk-nav"></span><span class="sk-hero"><em></em><em></em><u></u></span><span class="sk-cols"><em></em><em></em><em></em></span><span class="sk-row"></span><span class="sk-cols"><em></em><em></em><em></em></span><span class="sk-foot"></span></span>
+        </div>
+        <div class="wdo-body">
+          <div class="wd-offer-num">01</div>
+          <h3 class="wd-offer-name" id="wd-off1-name">Business Websites</h3>
+          <p class="wd-offer-text" id="wd-off1-text">Professional, conversion-focused sites for studios, agencies, consultancies, and freelancers. Built to stand out, not blend in.</p>
+          <ul class="wdo-feats"><li data-el="Σελίδες υπηρεσιών &amp; επικοινωνίας" data-en="Service &amp; contact pages">Σελίδες υπηρεσιών &amp; επικοινωνίας</li><li data-el="Φόρμα επικοινωνίας" data-en="Contact form">Φόρμα επικοινωνίας</li><li data-el="Χάρτης &amp; στοιχεία Google" data-en="Map &amp; Google details">Χάρτης &amp; στοιχεία Google</li></ul>
+        </div>
+      </article>
+      <article class="wd-offer-card wdo-card" style="--acc:#a78bfa">
+        <div class="wdo-shot wdo-shot--port" aria-hidden="true">
+          <span class="wdo-bar"><i></i><i></i><i></i><b>portfolio-arxitektona.gr</b></span>
+          <span class="wdo-page"><span class="sk-nav"></span><span class="sk-title"></span><span class="sk-masonry"><em></em><em></em><em></em><em></em><em></em><em></em><em></em><em></em><em></em></span></span>
+        </div>
+        <div class="wdo-body">
+          <div class="wd-offer-num">02</div>
+          <h3 class="wd-offer-name" id="wd-off2-name">Portfolio &amp; Showcase</h3>
+          <p class="wd-offer-text" id="wd-off2-text">High-impact project galleries and personal portfolios with immersive layouts, custom animations, and precise typographic detail.</p>
+          <ul class="wdo-feats"><li data-el="Συλλογή έργων με φίλτρα" data-en="Filterable project gallery">Συλλογή έργων με φίλτρα</li><li data-el="Προβολή σε πλήρη οθόνη" data-en="Full-screen viewer">Προβολή σε πλήρη οθόνη</li><li data-el="Κίνηση στην κύλιση" data-en="Scroll animations">Κίνηση στην κύλιση</li></ul>
+        </div>
+      </article>
+      <article class="wd-offer-card wdo-card" style="--acc:#42d392">
+        <div class="wdo-shot wdo-shot--land" aria-hidden="true">
+          <span class="wdo-bar"><i></i><i></i><i></i><b>lansarisma-proiontos.gr</b></span>
+          <span class="wdo-page"><span class="sk-nav"></span><span class="sk-big"><em></em><em></em><u></u></span><span class="sk-steps"><em></em><em></em><em></em></span><span class="sk-cta"><u></u></span></span>
+        </div>
+        <div class="wdo-body">
+          <div class="wd-offer-num">03</div>
+          <h3 class="wd-offer-name" id="wd-off3-name">Landing Pages</h3>
+          <p class="wd-offer-text" id="wd-off3-text">Fast, targeted single-page sites for product launches, events, or campaigns — designed to inform and convert.</p>
+          <ul class="wdo-feats"><li data-el="Μία σελίδα, ένας στόχος" data-en="One page, one goal">Μία σελίδα, ένας στόχος</li><li data-el="Κουμπί δράσης παντού" data-en="Call-to-action throughout">Κουμπί δράσης παντού</li><li data-el="Μέτρηση επισκεψιμότητας" data-en="Visitor analytics">Μέτρηση επισκεψιμότητας</li></ul>
+        </div>
+      </article>
+      <article class="wd-offer-card wdo-card wd-offer-card--hl" style="--acc:#ff8a4c">
+        <div class="wdo-shot wdo-shot--three" aria-hidden="true">
+          <span class="wdo-bar"><i></i><i></i><i></i><b>expertease.eu</b></span>
+          <span class="wdo-page"><img src="images/site/gearbox.webp" width="1400" height="700" loading="lazy" decoding="async" alt=""></span>
+        </div>
+        <div class="wdo-body">
+          <div class="wd-offer-num">04</div>
+          <h3 class="wd-offer-name" id="wd-off4-name">3D &amp; Interactive</h3>
+          <p class="wd-offer-text" id="wd-off4-text">WebGL-powered 3D scenes, particle effects, and scroll-driven interactions — like the hero on this very site.</p>
+          <ul class="wdo-feats"><li data-el="Διαδραστικά 3D μοντέλα" data-en="Interactive 3D models">Διαδραστικά 3D μοντέλα</li><li data-el="Ανάπτυξη με την κύλιση" data-en="Scroll-driven explode">Ανάπτυξη με την κύλιση</li><li data-el="Από τα δικά σας CAD" data-en="From your own CAD">Από τα δικά σας CAD</li></ul>
+        </div>
+      </article>
+    </div>
 
-      <div class="wd-offer-card">
-        <div class="wd-offer-num">01</div>
-        <div class="wd-offer-name" id="wd-off1-name">Business Websites</div>
-        <p class="wd-offer-text" id="wd-off1-text">Professional, conversion-focused sites for studios, agencies, consultancies, and freelancers. Built to stand out, not blend in.</p>
+    <div class="wdo-price">
+      <div class="wdo-price-main">
+        <span class="wdo-price-from" data-el="Κάθε ιστοσελίδα ξεκινά από" data-en="Every website starts from">Κάθε ιστοσελίδα ξεκινά από</span>
+        <span class="wdo-price-num">500&nbsp;€ <small data-el="+ ΦΠΑ" data-en="+ VAT">+ ΦΠΑ</small></span>
       </div>
-
-      <div class="wd-offer-card">
-        <div class="wd-offer-num">02</div>
-        <div class="wd-offer-name" id="wd-off2-name">Portfolio &amp; Showcase</div>
-        <p class="wd-offer-text" id="wd-off2-text">High-impact project galleries and personal portfolios with immersive layouts, custom animations, and precise typographic detail.</p>
-      </div>
-
-      <div class="wd-offer-card">
-        <div class="wd-offer-num">03</div>
-        <div class="wd-offer-name" id="wd-off3-name">Landing Pages</div>
-        <p class="wd-offer-text" id="wd-off3-text">Fast, targeted single-page sites for product launches, events, or campaigns — designed to inform and convert.</p>
-      </div>
-
-      <div class="wd-offer-card wd-offer-card--hl">
-        <div class="wd-offer-num">04</div>
-        <div class="wd-offer-name" id="wd-off4-name">3D &amp; Interactive</div>
-        <p class="wd-offer-text" id="wd-off4-text">WebGL-powered 3D scenes, particle effects, and scroll-driven interactions — like the hero on this very site.</p>
-      </div>
-
+      <p class="wdo-price-note" data-el="Η τελική τιμή εξαρτάται από τον αριθμό των σελίδων, τις γλώσσες και τις ειδικές λειτουργίες. Σας στέλνουμε σταθερή προσφορά πριν ξεκινήσουμε." data-en="The final price depends on the number of pages, languages and special features. You get a fixed quote before we start.">Η τελική τιμή εξαρτάται από τον αριθμό των σελίδων, τις γλώσσες και τις ειδικές λειτουργίες. Σας στέλνουμε σταθερή προσφορά πριν ξεκινήσουμε.</p>
+      <a class="wdo-price-btn" href="contact.html" data-el="Ζητήστε προσφορά →" data-en="Request a quote →">Ζητήστε προσφορά →</a>
     </div>
   </div>
 </section>
 
-<!-- ══ OUR WORK ═══════════════════════════════════════════════ -->
-<section class="wd-work">
-  <div class="wd-work-inner">
-
-    <div class="wd-work-header">
-      <div class="wd-work-label" id="wd-work-label">// Our Work</div>
-      <h2 class="wd-work-title" id="wd-work-title">Sites We've Built</h2>
-      <p class="wd-work-sub" id="wd-work-sub">Every project is hand-coded from scratch — unique in design, precise in execution.</p>
-    </div>
-
-    <!-- CARD 01 — Malliaris -->
-    <article class="wd-project-card reveal-up" id="wd-proj-1">
-      <div class="wd-proj-preview">
-        <a href="https://www.stavrosmalliaris.gr/" target="_blank" rel="noopener" class="wd-proj-browser-link" aria-label="View Σταύρος Μάλλιαρης site">
-        <div class="wd-proj-browser">
-          <div class="wd-proj-bar">
-            <span class="wd-proj-dot wd-dot-r"></span>
-            <span class="wd-proj-dot wd-dot-y"></span>
-            <span class="wd-proj-dot wd-dot-g"></span>
-            <span class="wd-proj-url">www.stavrosmalliaris.gr</span>
-          </div>
-          <div class="wd-proj-frame-wrap">
-            <iframe src="https://www.stavrosmalliaris.gr/" title="Σταύρος Μάλλιαρης — Τεχνικός Ασφαλείας" loading="lazy" tabindex="-1" scrolling="no" aria-hidden="true"></iframe>
-            <div class="wd-proj-frame-overlay"></div>
-          </div>
-        </div>
-        </a>
-      </div>
-      <div class="wd-proj-info">
-        <div class="wd-proj-num">01</div>
-        <h3 class="wd-proj-name" id="wd-proj-1-name">Σταύρος Μάλλιαρης</h3>
-        <p class="wd-proj-role" id="wd-proj-1-role">Safety Engineer · Health &amp; Safety Consulting</p>
-        <p class="wd-proj-desc" id="wd-proj-1-desc">Professional services website for a certified safety engineer — bilingual, conversion-focused, with clean typography and a structured service layout.</p>
-        <ul class="wd-proj-tags">
-          <li>Custom HTML/CSS</li><li>Bilingual</li><li>SEO</li><li>Mobile-first</li>
-        </ul>
-        <a href="https://www.stavrosmalliaris.gr/" target="_blank" rel="noopener" class="wd-proj-link">
-          <span id="wd-proj-1-link">View Site</span> <span class="wd-proj-arrow">→</span>
-        </a>
-      </div>
-    </article>
-
-    <!-- CARD 02 — Liapis -->
-    <article class="wd-project-card wd-project-card--rev reveal-up" id="wd-proj-2">
-      <div class="wd-proj-preview">
-        <a href="https://www.expertease.eu/liapis.github.io/" target="_blank" rel="noopener" class="wd-proj-browser-link" aria-label="View Βάϊος Λιάπης site">
-        <div class="wd-proj-browser">
-          <div class="wd-proj-bar">
-            <span class="wd-proj-dot wd-dot-r"></span>
-            <span class="wd-proj-dot wd-dot-y"></span>
-            <span class="wd-proj-dot wd-dot-g"></span>
-            <span class="wd-proj-url">www.expertease.eu/liapis.github.io/</span>
-          </div>
-          <div class="wd-proj-frame-wrap">
-            <iframe src="https://www.expertease.eu/liapis.github.io/" title="Βάϊος Λιάπης — Πολιτικός Μηχανικός" loading="lazy" tabindex="-1" scrolling="no" aria-hidden="true"></iframe>
-            <div class="wd-proj-frame-overlay"></div>
-          </div>
-        </div>
-        </a>
-      </div>
-      <div class="wd-proj-info">
-        <div class="wd-proj-num">02</div>
-        <h3 class="wd-proj-name" id="wd-proj-2-name">Βάϊος Λιάπης</h3>
-        <p class="wd-proj-role" id="wd-proj-2-role">Civil Engineer · Athens</p>
-        <p class="wd-proj-desc" id="wd-proj-2-desc">Portfolio and professional presence for a civil engineer — clear service structure, strong personal brand, and a design that communicates expertise at a glance.</p>
-        <ul class="wd-proj-tags">
-          <li>Custom HTML/CSS</li><li>Portfolio</li><li>Bilingual</li><li>SEO</li>
-        </ul>
-        <a href="https://www.expertease.eu/liapis.github.io/" target="_blank" rel="noopener" class="wd-proj-link">
-          <span id="wd-proj-2-link">View Site</span> <span class="wd-proj-arrow">→</span>
-        </a>
-      </div>
-    </article>
-
-    <!-- CARD 03 — Moudiotis -->
-    <article class="wd-project-card wd-project-card--rev reveal-up" id="wd-proj-3">
-      <div class="wd-proj-preview">
-        <a href="https://www.moudiotis.gr/" target="_blank" rel="noopener" class="wd-proj-browser-link" aria-label="View Δημήτριος Μουδιώτης site">
-        <div class="wd-proj-browser">
-          <div class="wd-proj-bar">
-            <span class="wd-proj-dot wd-dot-r"></span>
-            <span class="wd-proj-dot wd-dot-y"></span>
-            <span class="wd-proj-dot wd-dot-g"></span>
-            <span class="wd-proj-url">www.moudiotis.gr</span>
-          </div>
-          <div class="wd-proj-frame-wrap">
-            <iframe src="https://www.moudiotis.gr/" title="Δημήτριος Μουδιώτης & Συνεργάτες — Μηχανολόγος Μηχανικός" loading="lazy" tabindex="-1" scrolling="no" aria-hidden="true"></iframe>
-            <div class="wd-proj-frame-overlay"></div>
-          </div>
-        </div>
-        </a>
-      </div>
-      <div class="wd-proj-info">
-        <div class="wd-proj-num">03</div>
-        <h3 class="wd-proj-name" id="wd-proj-3-name">Δημήτριος Μουδιώτης &amp; Συνεργάτες</h3>
-        <p class="wd-proj-role" id="wd-proj-3-role">Mechanical Engineer · Athens</p>
-        <p class="wd-proj-desc" id="wd-proj-3-desc">Professional website for a mechanical engineering office specialising in vehicle studies, O1/O2 trailer licences, energy certificates, and safety consulting — bilingual, SEO-optimised, and built for credibility.</p>
-        <ul class="wd-proj-tags">
-          <li>Custom HTML/CSS</li><li>Bilingual</li><li>SEO</li><li>Mobile-first</li>
-        </ul>
-        <a href="https://www.moudiotis.gr/" target="_blank" rel="noopener" class="wd-proj-link">
-          <span id="wd-proj-3-link">View Site</span> <span class="wd-proj-arrow">→</span>
-        </a>
-      </div>
-    </article>
-
-    <!-- CARD 04 — Gkouvelis -->
-    <article class="wd-project-card reveal-up" id="wd-proj-4">
-      <div class="wd-proj-preview">
-        <a href="https://www.expertease.eu/gkouvelis.github.io/" target="_blank" rel="noopener" class="wd-proj-browser-link" aria-label="View Τεχνικό Γραφείο Γκούβελης site">
-        <div class="wd-proj-browser">
-          <div class="wd-proj-bar">
-            <span class="wd-proj-dot wd-dot-r"></span>
-            <span class="wd-proj-dot wd-dot-y"></span>
-            <span class="wd-proj-dot wd-dot-g"></span>
-            <span class="wd-proj-url">www.expertease.eu/gkouvelis.github.io/</span>
-          </div>
-          <div class="wd-proj-frame-wrap">
-            <iframe src="https://www.expertease.eu/gkouvelis.github.io/" title="Τεχνικό Γραφείο Γκούβελης — Μηχανολόγος Μηχανικός" loading="lazy" tabindex="-1" scrolling="no" aria-hidden="true"></iframe>
-            <div class="wd-proj-frame-overlay"></div>
-          </div>
-        </div>
-        </a>
-      </div>
-      <div class="wd-proj-info">
-        <div class="wd-proj-num">04</div>
-        <h3 class="wd-proj-name" id="wd-proj-4-name">Τεχνικό Γραφείο Γκούβελης</h3>
-        <p class="wd-proj-role" id="wd-proj-4-role">Mechanical Engineer · Thessaloniki</p>
-        <p class="wd-proj-desc" id="wd-proj-4-desc">Technical office website specialising in vehicle studies and type approvals — built for clarity, trust, and lead generation in a competitive technical services market.</p>
-        <ul class="wd-proj-tags">
-          <li>Custom HTML/CSS</li><li>Technical Services</li><li>SEO</li><li>Mobile-first</li>
-        </ul>
-        <a href="https://www.expertease.eu/gkouvelis.github.io/" target="_blank" rel="noopener" class="wd-proj-link">
-          <span id="wd-proj-4-link">View Site</span> <span class="wd-proj-arrow">→</span>
-        </a>
-      </div>
-    </article>
-
-    <!-- CARD 05 — Antonakakis -->
-    <article class="wd-project-card wd-project-card--rev reveal-up" id="wd-proj-5">
-      <div class="wd-proj-preview">
-        <a href="https://www.expertease.eu/antonakakis.github.io/" target="_blank" rel="noopener" class="wd-proj-browser-link" aria-label="View Αντωνακάκης Κατασκευαστική site">
-        <div class="wd-proj-browser">
-          <div class="wd-proj-bar">
-            <span class="wd-proj-dot wd-dot-r"></span>
-            <span class="wd-proj-dot wd-dot-y"></span>
-            <span class="wd-proj-dot wd-dot-g"></span>
-            <span class="wd-proj-url">www.expertease.eu/antonakakis.github.io</span>
-          </div>
-          <div class="wd-proj-frame-wrap">
-            <iframe src="https://www.expertease.eu/antonakakis.github.io/" title="Αντωνακάκης Κατασκευαστική" loading="lazy" tabindex="-1" scrolling="no" aria-hidden="true"></iframe>
-            <div class="wd-proj-frame-overlay"></div>
-          </div>
-        </div>
-        </a>
-      </div>
-      <div class="wd-proj-info">
-        <div class="wd-proj-num">05</div>
-        <h3 class="wd-proj-name" id="wd-proj-5-name">Αντωνακάκης Κατασκευαστική</h3>
-        <p class="wd-proj-role" id="wd-proj-5-role">Construction &amp; Renovation · Attica</p>
-        <p class="wd-proj-desc" id="wd-proj-5-desc">Full-service construction company website with bilingual support, hero photo landing, animated entrance effects, service cards, project gallery with lightbox, and an integrated contact form.</p>
-        <ul class="wd-proj-tags">
-          <li>Custom HTML/CSS</li><li>Bilingual</li><li>Animations</li><li>Gallery</li>
-        </ul>
-        <a href="https://www.expertease.eu/antonakakis.github.io/" target="_blank" rel="noopener" class="wd-proj-link">
-          <span id="wd-proj-5-link">View Site</span> <span class="wd-proj-arrow">→</span>
-        </a>
-      </div>
-    </article>
-
-    <!-- CARD 06 — Nakou -->
-    <article class="wd-project-card reveal-up" id="wd-proj-6">
-      <div class="wd-proj-preview">
-        <a href="https://www.expertease.eu/nakou/" target="_blank" rel="noopener" class="wd-proj-browser-link" aria-label="View Γεωργία Νάκου Δικηγόρος site">
-        <div class="wd-proj-browser">
-          <div class="wd-proj-bar">
-            <span class="wd-proj-dot wd-dot-r"></span>
-            <span class="wd-proj-dot wd-dot-y"></span>
-            <span class="wd-proj-dot wd-dot-g"></span>
-            <span class="wd-proj-url">www.expertease.eu/nakou/</span>
-          </div>
-          <div class="wd-proj-frame-wrap">
-            <iframe src="https://www.expertease.eu/nakou/" title="Γεωργία Νάκου — Δικηγόρος Αθήνα · Θεσσαλονίκη" loading="lazy" tabindex="-1" scrolling="no" aria-hidden="true"></iframe>
-            <div class="wd-proj-frame-overlay"></div>
-          </div>
-        </div>
-        </a>
-      </div>
-      <div class="wd-proj-info">
-        <div class="wd-proj-num">06</div>
-        <h3 class="wd-proj-name" id="wd-proj-6-name">Γεωργία Νάκου</h3>
-        <p class="wd-proj-role" id="wd-proj-6-role">Δικηγόρος · Αθήνα &amp; Θεσσαλονίκη</p>
-        <p class="wd-proj-desc" id="wd-proj-6-desc">Luxury law firm website for a certified lawyer specialising in real estate, contracts, inheritance, and e-ΕΦΚΑ pensions — dark editorial aesthetic, cinematic animations, React-powered, and bilingual.</p>
-        <ul class="wd-proj-tags">
-          <li>React / JSX</li><li>Luxury Design</li><li>Animations</li><li>SEO</li>
-        </ul>
-        <a href="https://www.expertease.eu/nakou/" target="_blank" rel="noopener" class="wd-proj-link">
-          <span id="wd-proj-6-link">View Site</span> <span class="wd-proj-arrow">→</span>
-        </a>
-      </div>
-    </article>
-
-  </div>
-</section>
 
 <!-- ══ CTA ══════════════════════════════════════════════════════ -->
 <section class="wd-cta">
@@ -414,7 +250,7 @@
     <div class="wd-cta-right">
       <div class="wd-cta-price-block">
         <span class="wd-cta-price-from" id="wd-cta-price-from">Starting from</span>
-        <span class="wd-cta-price-num">€400</span>
+        <span class="wd-cta-price-num">500&nbsp;€ <small class="wd-cta-vat" data-el="+ ΦΠΑ" data-en="+ VAT">+ ΦΠΑ</small></span>
       </div>
       <a href="contact.html" class="wd-cta-btn" id="wd-cta-btn1">Get in Touch</a>
       <ul class="wd-cta-perks">
@@ -469,6 +305,7 @@
 </div>
 
 <script src="main.js" defer></script>
+<script src="redesign.js" defer></script>
 <script src="wd-animation.js" defer></script>
 
 <button id="backToTop" aria-label="Back to top">
