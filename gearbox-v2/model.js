@@ -60,12 +60,22 @@ const MATS = {
   red: () => new THREE.MeshPhysicalMaterial({ color: 0xa4161f, metalness: 0.7, roughness: 0.34, clearcoat: 0.55, clearcoatRoughness: 0.22 }),
   oxide: () => new THREE.MeshPhysicalMaterial({ color: 0x2b2e33, metalness: 0.85, roughness: 0.36 }),
   zinc: () => new THREE.MeshPhysicalMaterial({ color: 0xbfc5cc, metalness: 1, roughness: 0.3 }),
-  bright: () => new THREE.MeshPhysicalMaterial({ color: 0xcdd3d9, metalness: 1, roughness: 0.16 })
+  bright: () => new THREE.MeshPhysicalMaterial({ color: 0xcdd3d9, metalness: 1, roughness: 0.16 }),
+  /* Γυάλινο κέλυφος: ΦΘΗΝΟ διάφανο υλικό — Standard, μία όψη, χωρίς clearcoat/transmission
+     (το transmission θα έκανε δεύτερο πέρασμα απόδοσης σε κάθε καρέ).
+     Αφήνει να φαίνονται τα γρανάζια και δεν «κλείνει» τη σελίδα από πίσω. */
+  /* Κέλυφος: κατεργασμένο αλουμίνιο, λίγο πιο σκούρο από το καπάκι για αντίθεση */
+  aluDark: (R = 6.9) => { const s = spunFor(R); return new THREE.MeshPhysicalMaterial({ color: 0x8f98a2, metalness: 1, roughness: 1, roughnessMap: s.r, anisotropy: 0.5, anisotropyMap: s.a }); },
+  glass: () => new THREE.MeshStandardMaterial({ color: 0xdfeaf6, metalness: 0.1, roughness: 0.04, envMapIntensity: 1.8,
+    transparent: true, opacity: 0.1, depthWrite: false, side: THREE.FrontSide }),
+  /* Πίσω κέλυφος: ίδιο γυαλί, λίγο πιο «καπνιστό» για βάθος πίσω από τα γρανάζια */
+  glassDark: () => new THREE.MeshStandardMaterial({ color: 0x9fb6d0, metalness: 0.1, roughness: 0.06, envMapIntensity: 1.4,
+    transparent: true, opacity: 0.14, depthWrite: false, side: THREE.FrontSide })
 };
 const matCache = {};
 function mat(comp, kind, arg) {
   const k = comp + ':' + kind;
-  if (!matCache[k]) { const m = MATS[kind](arg); m.userData.base = { opacity: 1 }; matCache[k] = m; }
+  if (!matCache[k]) { const m = MATS[kind](arg); m.userData.base = { opacity: m.transparent ? m.opacity : 1 }; matCache[k] = m; }
   return matCache[k];
 }
 
@@ -159,11 +169,11 @@ function comp(id, parent, dz, layer) {
   comps[id] = { id, w, dz, layer, meshes: [], edges: [], hidden: false };
   return w;
 }
-function add(id, geo, material, parent, { edges = false } = {}) {
+function add(id, geo, material, parent, { edges = false, pick = true } = {}) {
   const m = new THREE.Mesh(geo, material);
   m.castShadow = true; m.receiveShadow = true; m.userData.comp = id;
   (parent || comps[id].w).add(m);
-  comps[id].meshes.push(m); pickables.push(m);
+  comps[id].meshes.push(m); if (pick) pickables.push(m);
   if (edges) {
     const e = new THREE.LineSegments(edges, EDGE_MAT);
     e.visible = false; e.raycast = () => {}; m.add(e); comps[id].edges.push(e);
@@ -174,6 +184,7 @@ function add(id, geo, material, parent, { edges = false } = {}) {
 /* Περιγράμματα για τη λειτουργία τομής: μόνο οι πραγματικές ακμές του σχήματος
    (όχι οι διαγώνιοι της τριγωνοποίησης) στις δύο όψεις + λίγες αξονικές γραμμές */
 const EDGE_MAT = new THREE.LineBasicMaterial({ color: 0x9cc9ff, transparent: true, opacity: 0.6, depthWrite: false });
+const GLASS_EDGE = new THREE.LineBasicMaterial({ color: 0xd6e8ff, transparent: true, opacity: 0.38, depthWrite: false });
 function outline(shape, z0, z1, { curve = 96, k = 0 } = {}) {
   const { shape: outer, holes } = shape.extractPoints(curve);
   const loops = [outer, ...holes], v = [];
@@ -188,17 +199,18 @@ function outline(shape, z0, z1, { curve = 96, k = 0 } = {}) {
 
 /* Σχέδιο ανάπτυξης: dz = αξονική μετατόπιση (μονάδες), layer = σειρά αποσυναρμολόγησης */
 function build() {
-  /* ── Κέλυφος (πίσω) ── */
+  /* ── Κέλυφος (πίσω): μεταλλικό στεφάνι + φλάντζα, πίσω «καπάκι ρολογιού» από γυαλί ── */
   comp('housing', root, -4.4, 2);
-  const hm = mat('housing', 'black');
-  { const a = annulus(OUT_R, 1.3, boltHoles(BOLT_R, BOLT_N, 0.28)); add('housing', slab(a, -0.9, -0.3, { bevel: 0.05 }), hm, null, { edges: outline(a, -0.9, -0.3) }); }
-  { const a = annulus(OUT_R, 5.62, boltHoles(BOLT_R, BOLT_N, 0.28)); add('housing', slab(a, -0.34, 0.95, { bevel: 0.05 }), hm, null, { edges: outline(a, -0.34, 0.95) }); }
-  add('housing', slab(annulus(1.95, 1.3), -1.2, -0.86, { bevel: 0.04 }), hm);
-  for (let i = 0; i < 12; i++) {             // νευρώσεις χυτού
-    const rib = new THREE.BoxGeometry(3.7, 0.26, 0.3);
-    rib.translate(2.0 + 1.85, 0, -1.02); rib.rotateZ(i / 12 * Math.PI * 2 + Math.PI / 12);
-    add('housing', rib, hm);
-  }
+  const hm = mat('housing', 'aluDark', OUT_R);
+  { const a = annulus(OUT_R, 5.62, boltHoles(BOLT_R, BOLT_N, 0.28)); add('housing', slab(a, -0.9, 0.95, { bevel: 0.05 }), hm, null, { edges: outline(a, -0.9, 0.95) }); }
+  add('housing', slab(annulus(1.95, 1.3), -1.2, -0.5, { bevel: 0.04 }), hm);           // φωλιά ρουλεμάν
+  [Math.PI / 2, Math.PI / 2 + 2 * Math.PI / 3, Math.PI / 2 + 4 * Math.PI / 3].forEach(a => {   // 3 λεπτοί βραχίονες πίσω από το γυαλί
+    const arm = slab((() => { const s = new THREE.Shape(); s.moveTo(1.85, -0.13); s.lineTo(5.75, -0.16); s.lineTo(5.75, 0.16); s.lineTo(1.85, 0.13); s.closePath(); return s; })(),
+      -0.92, -0.76, { bevel: 0.025, curve: 4 });
+    arm.rotateZ(a); add('housing', arm, hm);
+  });
+  comp('glassB', root, -4.4, 2);
+  { const a = annulus(5.64, 1.93); add('glassB', slab(a, -0.72, -0.58, { bevel: 0.02, curve: 128 }), mat('glassB', 'glassDark'), null, { edges: outline(a, -0.72, -0.58, { curve: 128 }), pick: false }); }
 
   /* ── Στεφάνη ── */
   comp('ring', root, 0, 99);
@@ -207,11 +219,19 @@ function build() {
   const rg = slab(rs, 0, 0.8, { bevel: 0.022, segs: 1, curve: 160, steps: 7 });
   add('ring', twist(rg, -TANB / RP_R), mat('ring', 'ring'), null, { edges: outline(rs, 0, 0.8, { curve: 160, k: -TANB / RP_R }) });
 
-  /* ── Εμπρόσθιο καπάκι ── */
+  /* ── Εμπρόσθιο καπάκι: μεταλλική φλάντζα + κρύσταλλο ── */
   comp('cover', root, 8.6, 1);
   const cm = mat('cover', 'alu', OUT_R);
-  { const a = annulus(OUT_R, 4.1, boltHoles(BOLT_R, BOLT_N, 0.28)); add('cover', slab(a, 0.95, 1.3, { bevel: 0.035 }), cm, null, { edges: outline(a, 0.95, 1.3) }); }
-  { const a = annulus(4.55, 4.1); add('cover', slab(a, 1.28, 1.44, { bevel: 0.03 }), cm, null, { edges: outline(a, 1.28, 1.44) }); }
+  { const a = annulus(OUT_R, 5.72, boltHoles(BOLT_R, BOLT_N, 0.28)); add('cover', slab(a, 0.95, 1.3, { bevel: 0.035 }), cm, null, { edges: outline(a, 0.95, 1.3) }); }
+  { const a = annulus(5.8, 5.55); add('cover', slab(a, 1.28, 1.48, { bevel: 0.03 }), cm, null, { edges: outline(a, 1.28, 1.48) }); }   // στεφάνη συγκράτησης κρυστάλλου
+  comp('glassF', root, 8.6, 1);
+  { const a = annulus(5.64, 1.02); add('glassF', slab(a, 1.31, 1.41, { bevel: 0.02, curve: 128 }), mat('glassF', 'glass'), null, { edges: outline(a, 1.31, 1.41, { curve: 128 }), pick: false }); }
+
+  /* Γυαλιά: λεπτή φωτεινή ακμή πάντα ορατή, χωρίς σκιές, σχεδιάζονται μετά τα αδιαφανή */
+  ['glassF', 'glassB'].forEach(id => {
+    comps[id].edges.forEach(e => { e.visible = true; e.material = GLASS_EDGE; e.userData.glassEdge = true; });
+    comps[id].meshes.forEach(m => { m.castShadow = false; m.receiveShadow = false; m.renderOrder = 3; });
+  });
 
   /* ── Κοχλίες + ροδέλες / περικόχλια + ροδέλες ── */
   comp('bolts', root, 12.2, 0);

@@ -2207,7 +2207,7 @@ footer {
 }
 .wd-page-label::before { content: ''; width: 18px; height: 1px; background: var(--blue-lt); }
 .wd-page-title {
-  font-family: var(--font-display); font-size: clamp(52px, 5.5vw, 78px);
+  font-family: var(--font-display); font-size: clamp(34px, 3.6vw, 52px);
   letter-spacing: 1px; color: #fff; line-height: .95; margin-bottom: 22px;
 }
 .wd-page-desc {
@@ -2788,7 +2788,7 @@ footer {
 }
 .cadpg-label::before { content: ''; width: 18px; height: 1px; background: var(--blue-lt); }
 .cadpg-title {
-  font-family: var(--font-display); font-size: clamp(52px, 5.5vw, 78px);
+  font-family: var(--font-display); font-size: clamp(34px, 3.6vw, 52px);
   letter-spacing: 1px; color: #fff; line-height: .95; margin-bottom: 22px;
   text-align: center;
 }
@@ -2858,14 +2858,14 @@ footer {
     min-height: 760px;
   }
   .cadpg-sidebar { flex-direction: row; flex-wrap: wrap; }
-  .cadpg-title { font-size: 36px; text-align: center; }
+  .cadpg-title { font-size: 28px; text-align: center; }
   .cadpg-label { justify-content: center; }
   .cadpg-left { align-items: center; }
 }
 @media (max-width: 640px) {
   .cadpg-inner { padding: 40px 16px; }
   .cadpg-canvas-wrap { min-height: 600px; }
-  .cadpg-title { font-size: 28px; }
+  .cadpg-title { font-size: 24px; }
 }
 
 /* ══════════════════════════════════════════════════════════════

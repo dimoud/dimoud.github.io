@@ -27,7 +27,7 @@ let currentMode = 'rotate';
 let rightHalfX = 4.5;
 let scrollExplodeActive = false, scrollExplodeT = 0, scrollTargetY = 0;
 let animRunning = false, started = false;
-let gearIntroT = 0, gearIntroElapsed = 0;
+let gearIntroT = 0, gearIntroElapsed = 0, introStart = 0;
 /* ── Ελαφρύτερη απόδοση ──
    · χωρίς σκιές (PCFSoft = δεύτερο πέρασμα απόδοσης σε κάθε καρέ)
    · pixel ratio ≤ 1.25 στον υπολογιστή, 1 στο κινητό
@@ -91,7 +91,11 @@ function initThree() {
     if (document.hidden) animRunning = false;
     else if (!animRunning && !REDUCED) { animRunning = true; clock.getDelta(); animate(); }
   });
-  animate();
+  /* Προ-μεταγλώττιση shaders ΠΡΙΝ ξεκινήσει η ολίσθηση: αλλιώς το πρώτο καρέ «κολλάει»
+     για μερικά εκατοστά του δευτερολέπτου και η είσοδος φαίνεται να καθυστερεί */
+  renderer.compile(scene, camera);
+  renderer.render(scene, camera);
+  requestAnimationFrame(() => { introStart = performance.now(); clock.getDelta(); animate(); });
 
   /* Παύση όταν το hero βγει από την οθόνη (όχι στο κινητό, όπου ο καμβάς είναι σταθερός) */
   const heroSection = document.getElementById('hero');
@@ -159,7 +163,7 @@ function animate() {
   floatT += dt;
 
   if (gearIntroT < 1) {
-    gearIntroElapsed += dt;
+    gearIntroElapsed = (performance.now() - introStart) / 1000;   // πραγματικός χρόνος: δεν «σέρνεται» αν χαθούν καρέ
     const t = Math.max(0, (gearIntroElapsed - GEAR_INTRO_DELAY) / GEAR_INTRO_DUR);
     gearIntroT = Math.min(1, 1 - Math.pow(1 - Math.min(t, 1), 3));   // ease-out cubic
   }

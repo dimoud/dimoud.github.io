@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <script>(function(){var l=localStorage.getItem('lang');if(l)document.documentElement.lang=l;})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 3D hero: import map + προφόρτωση νωρίς στο <head>, ώστε η είσοδος του μοντέλου να μην καθυστερεί -->
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+} }
+</script>
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" crossorigin>
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/environments/RoomEnvironment.js" crossorigin>
+<link rel="modulepreload" href="gearbox-v2/model.js">
+<link rel="modulepreload" href="gearbox-v2/hero.js">
 <title>Mechanical Engineering Studio | Expertease Designs — Greece</title>
 <meta name="description" content="Expertease Designs — mechanical engineering, 3D printing, laser cutting, CAD design & web development, serving clients across Greece. Get a quote today.">
 <link rel="canonical" href="https://expertease.eu/">
@@ -209,12 +220,6 @@
 @media(max-width:480px){.sm-label{font-size:8px;letter-spacing:1px;}.sec-meas{padding:16px 0 2px;}}
 </style>
 <!-- 3D hero: πλανητικός μειωτήρας v2 (gearbox-v2/). Η v1 (models.js + three r155) μένει στο αποθετήριο για επαναφορά. -->
-<script type="importmap">
-{ "imports": {
-  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
-  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
-} }
-</script>
 <script type="module" src="gearbox-v2/hero.js"></script>
 <script src="projects.js" defer></script>
 <script src="main.js" defer></script>
