@@ -117,11 +117,30 @@
     let userPanUntil = 0;
     ['touchstart', 'pointerdown', 'wheel'].forEach(ev => line.addEventListener(ev, () => { userPanUntil = performance.now() + 4000; }, { passive: true }));
     function autoPan() {
+      return; // καταργήθηκε: στο κινητό η λίστα είναι πλέον κάθετη
       if (!mobile.matches || performance.now() < userPanUntil) return;
       const max = line.scrollWidth - line.clientWidth;
       if (max <= 0) return;
       // ίδια πρόοδος με την ενεργή φάση: η εικόνα που ανάβει είναι και αυτή που φαίνεται
       line.scrollLeft = progress * max;
+    }
+    /* Κινητό: κάθετη λίστα — κάθε φάση δείχνει μόνιμα το κείμενο και τα παραδοτέα της */
+    function fillMobile() {
+      const L = STAGES[curLang()];
+      tabs.forEach((b, i) => {
+        let mb = b.querySelector('.wf-mb');
+        if (!mb) { mb = document.createElement('span'); mb.className = 'wf-mb'; b.appendChild(mb); }
+        mb.innerHTML = `<span class="wf-mx">${L[i].x}</span><span class="wf-md">${L[i].d.map(d => `<i>${d}</i>`).join('')}</span>`;
+      });
+    }
+    fillMobile();
+    function mobileScroll() {
+      const vh = window.innerHeight, r = line.getBoundingClientRect(), mark = vh * 0.62;
+      const p = Math.max(0, Math.min(1, (mark - r.top) / r.height));
+      fill.style.transform = `scaleY(${p.toFixed(4)})`;
+      let on = -1;
+      tabs.forEach((b, k) => { const t = b.getBoundingClientRect().top; if (t < mark) on = k; b.classList.toggle('is-passed', t < mark); });
+      tabs.forEach((b, k) => b.classList.toggle('is-on', k === on));
     }
     function choose() { render(hoverIdx >= 0 ? hoverIdx : (locked ? active : scrollIdx)); paint(); }
 
@@ -130,6 +149,8 @@
       if (ticking) return; ticking = true;
       requestAnimationFrame(() => {
         ticking = false;
+        if (mobile.matches) { mobileScroll(); return; }
+        fill.style.transform = '';
         const r = line.getBoundingClientRect(), vh = window.innerHeight;
         progress = window.innerWidth <= 760
           ? Math.max(0, Math.min(1, (vh * 0.95 - r.top) / (vh * 0.85)))   // κινητό: πιο αργά, ώστε να φαίνεται η κίνηση
@@ -145,6 +166,7 @@
     tabs.forEach((b, i) => {
       b.addEventListener('mouseenter', () => { if (canHover) { hoverIdx = i; root.classList.add('is-hover'); choose(); } });
       b.addEventListener('click', () => {
+        if (mobile.matches) return;   // στο κινητό το άγγιγμα δεν αλλάζει τίποτα
         locked = true; hoverIdx = -1; render(i); paint();
         if (!canHover) b.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
       });
@@ -166,6 +188,7 @@
     return {
       lang() {
         render(active < 0 ? 0 : active, true);
+        fillMobile();
         const l = curLang();
         root.querySelectorAll('.wf-seo li').forEach((li, i) => { const s = STAGES[l][i]; li.textContent = `${String(i + 1).padStart(2, '0')} ${s.t} — ${s.x}`; });
       }
@@ -190,6 +213,33 @@
     };
     const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { io.disconnect(); run(); } }, { threshold: 0.35 });
     io.observe(dims);
+  }
+
+  /* ── 5. Αρχές στο κινητό: «φερμουάρ» — οι κάρτες έρχονται από τα πλάγια και
+        ενώνονται στη μέση όσο κατεβαίνεις· ανοίγουν ξανά όταν ανεβαίνεις ── */
+  const zipCards = Array.from(document.querySelectorAll('#process .values-section .value-card'));
+  if (zipCards.length && !REDUCED) {
+    const zipMq = matchMedia('(max-width: 960px)');
+    let zt = false;
+    const zip = () => {
+      zt = false;
+      if (!zipMq.matches) { zipCards.forEach(c => { c.style.translate = ''; c.style.opacity = ''; }); return; }
+      const vh = window.innerHeight, mid = window.innerWidth / 2;
+      zipCards.forEach((c, i) => {
+        c.style.translate = '0 0';
+        const r = c.getBoundingClientRect();
+        const two = r.width < window.innerWidth * 0.7;
+        const side = two ? (r.left + r.width / 2 < mid ? -1 : 1) : (i % 2 ? 1 : -1);
+        const k = Math.max(0, Math.min(1, (vh * 0.98 - r.top) / (vh * 0.42)));
+        const e = 1 - Math.pow(1 - k, 2);
+        c.style.translate = `${(side * (1 - e) * 70).toFixed(2)}vw 0`;
+        c.style.opacity = (0.15 + 0.85 * e).toFixed(3);
+      });
+    };
+    const req = () => { if (!zt) { zt = true; requestAnimationFrame(zip); } };
+    window.addEventListener('scroll', req, { passive: true });
+    window.addEventListener('resize', req);
+    zip();
   }
 
   new MutationObserver(applyLang).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });

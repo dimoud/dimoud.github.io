@@ -339,3 +339,37 @@
   #process .value-card .value-text { font-size: 13.5px; line-height: 1.55; }
   #process .value-card { padding-top: 22px; padding-bottom: 24px; }
 }
+
+/* ── «Πώς δουλεύουμε» στο κινητό: κάθετη λίστα, όλα ορατά, χωρίς αυτόματες εναλλαγές ── */
+.wf-mb { display: none; }
+@media (max-width: 760px) {
+  .wf-line { display: block; overflow: visible; margin: 0; padding: 4px 0 0 30px; }
+  .wf-rail { display: block; left: 7px; right: auto; top: 10px !important; bottom: 30px; width: 2px; height: auto; }
+  .wf-rail-fill { transform-origin: top; transform: scaleY(0); transition: transform .25s linear;
+    background: linear-gradient(180deg, #f5b642, #4f9dff 22%, #ff8a4c 45%, #3fd0e6 65%, #42d392 84%, #a9cdff); }
+  .wf-st { display: grid; grid-template-columns: 92px minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: 14px; row-gap: 3px;
+    align-items: start; text-align: left; padding: 0 0 30px; cursor: default; -webkit-tap-highlight-color: transparent; }
+  .wf-img { grid-column: 1; grid-row: 1 / span 3; width: 92px; border-radius: 4px; }
+  .wf-st.is-on .wf-img { transform: none; box-shadow: 0 0 0 1px var(--acc), 0 0 22px color-mix(in srgb, var(--acc) 25%, transparent); }
+  .wf-st.is-on .wf-img img { transform: none; }
+  .wf-dot { position: absolute; left: -29px; top: 6px; margin: 0; width: 12px; height: 12px; }
+  .wf-st.is-on .wf-dot { transform: none; box-shadow: 0 0 0 4px color-mix(in srgb, var(--acc) 18%, transparent), 0 0 12px var(--acc); }
+  .wf-num { grid-column: 2; font-size: 10px; margin-top: 4px; }
+  .wf-name { grid-column: 2; font-size: 19px; color: #fff; }
+  .wf-sub { grid-column: 2; display: block; max-width: none; font-size: 10.5px; color: rgba(160,190,240,.6); }
+  .wf-mb { grid-column: 1 / -1; display: block; margin-top: 12px; }
+  .wf-mx { display: block; font-family: var(--font-body); font-size: 14px; line-height: 1.6; color: rgba(220,232,255,.74); }
+  .wf-md { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .wf-md i { font-style: normal; font-family: var(--font-mono); font-size: 10.5px; line-height: 1; color: #dbe7ff; padding: 5px 8px; border-radius: 2px;
+    border: 1px solid color-mix(in srgb, var(--acc) 35%, transparent); background: color-mix(in srgb, var(--acc) 8%, transparent); }
+  .wf-st:not(.is-passed) .wf-img img { filter: saturate(.6) brightness(.7); }
+  .wf-detail, .wf-leader { display: none !important; }
+}
+
+/* Αρχές στο κινητό: κεντραρισμένες κάρτες για το εφέ «φερμουάρ» */
+@media (max-width: 960px) {
+  #process .values-section { overflow-x: clip; }
+  #process .value-card, #process .value-card + .value-card { text-align: center; padding-left: 12px; padding-right: 12px; will-change: translate, opacity; }
+  #process .value-card .value-bilingual { justify-content: center; align-items: center; }
+  #process .value-card .value-icon { justify-content: center; }
+}
