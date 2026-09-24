@@ -208,9 +208,15 @@
 .sm-label strong{color:#2563eb;font-weight:500;}
 @media(max-width:480px){.sm-label{font-size:8px;letter-spacing:1px;}.sec-meas{padding:16px 0 2px;}}
 </style>
-<script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js" defer></script>
+<!-- 3D hero: πλανητικός μειωτήρας v2 (gearbox-v2/). Η v1 (models.js + three r155) μένει στο αποθετήριο για επαναφορά. -->
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+} }
+</script>
+<script type="module" src="gearbox-v2/hero.js"></script>
 <script src="projects.js" defer></script>
-<script src="models.js" defer></script>
 <script src="main.js" defer></script>
 <script src="step-viewer.js" defer></script>
 <script src="eng-animations.js" defer></script>

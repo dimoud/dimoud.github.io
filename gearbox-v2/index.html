@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Πλανητικός μειωτήρας PG-4 — 3D | Expertease Designs</title>
+<meta name="description" content="Διαδραστικό τρισδιάστατο μοντέλο πλανητικού μειωτήρα: ανάπτυξη εξαρτημάτων, τομή, προδιαγραφές ανά εξάρτημα.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#071632">
+<link rel="icon" href="../images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<main id="app">
+  <canvas id="c" role="img" aria-label="Διαδραστικό τρισδιάστατο μοντέλο πλανητικού μειωτήρα"></canvas>
+
+  <div id="loader"><div class="ld-ring"></div><span data-t="loading">Φόρτωση γεωμετρίας</span></div>
+  <noscript><p class="nojs">Το μοντέλο χρειάζεται JavaScript και WebGL.</p></noscript>
+
+  <!-- Πάνω αριστερά: τίτλος και μετρήσεις -->
+  <header class="hud hud-tl">
+    <a class="brand" href="../"><img src="../images/logo.png" alt="Expertease Designs"><span data-t="brand">EXPERTEASE DESIGNS</span></a>
+    <h1 data-t="title">Πλανητικός μειωτήρας PG-4</h1>
+    <p class="sub" data-t="sub"></p>
+    <dl class="telemetry">
+      <div><dt data-t="nin">Είσοδος</dt><dd id="tm-in">0 min⁻¹</dd></div>
+      <div><dt data-t="nout">Έξοδος</dt><dd id="tm-out">0 min⁻¹</dd></div>
+      <div><dt data-t="ratio">Σχέση</dt><dd>4.00 : 1</dd></div>
+      <div><dt data-t="parts">Εξαρτήματα</dt><dd id="tm-parts">13 / 46</dd></div>
+    </dl>
+  </header>
+
+  <!-- Πάνω κέντρο: κατάσταση -->
+  <nav class="hud states" role="tablist">
+    <button id="st-col" class="state active" role="tab" type="button" data-t="stAssembled">Συναρμολογημένο</button>
+    <span class="state-sep" aria-hidden="true"></span>
+    <button id="st-exp" class="state" role="tab" type="button" data-t="stExploded">Ανεπτυγμένο</button>
+  </nav>
+
+  <!-- Πάνω δεξιά -->
+  <div class="hud hud-tr">
+    <div class="lang"><button type="button" data-lang="el">ΕΛ</button><button type="button" data-lang="en">EN</button></div>
+    <button id="btn-fs" class="icon-btn" type="button" data-t-aria="fullscreen">
+      <svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+    </button>
+  </div>
+
+  <!-- Λίστα εξαρτημάτων -->
+  <aside id="panel" class="hud" hidden>
+    <header><span data-t="panelTitle">Εξαρτήματα</span><small id="panel-count"></small><button class="x" id="panel-close" type="button" aria-label="×">×</button></header>
+    <ul id="comp-list"></ul>
+  </aside>
+
+  <!-- Κάρτα επιλεγμένου εξαρτήματος -->
+  <section id="card" class="hud" hidden aria-live="polite">
+    <button class="x" id="card-close" type="button" aria-label="×">×</button>
+    <div class="card-idx" id="card-idx"></div>
+    <h2 id="card-name"></h2>
+    <dl>
+      <dt data-t="lblQty"></dt><dd id="card-qty"></dd>
+      <dt data-t="lblMaterial"></dt><dd id="card-mat"></dd>
+      <dt data-t="lblSpec"></dt><dd id="card-spec"></dd>
+      <dt data-t="lblRole"></dt><dd id="card-role"></dd>
+    </dl>
+    <div class="card-actions">
+      <label class="chk"><input type="checkbox" id="card-hide"><span data-t="hideOthers"></span></label>
+      <button id="card-focus" class="btn-sm" type="button" data-t="focus"></button>
+    </div>
+  </section>
+
+  <div id="tip" hidden><b id="tip-name"></b><span id="tip-mat"></span></div>
+  <div id="section-badge" class="hud" hidden data-t="sectionOn"></div>
+
+  <!-- Κάτω: χρονολόγιο ανάπτυξης + εργαλεία -->
+  <footer class="dock">
+    <div class="timeline hud">
+      <span class="tl-lbl" data-t="stAssembled"></span>
+      <div class="tl-track">
+        <input type="range" id="explode" min="0" max="1000" value="0" step="1" data-t-aria="explode">
+        <div class="tl-ticks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <span class="tl-lbl" data-t="stExploded"></span>
+      <output id="explode-val" for="explode">000%</output>
+    </div>
+    <div class="toolbar hud" role="toolbar">
+      <button class="tool" id="tb-rotate" type="button" data-t-aria="tbRotate"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/></svg><span data-t="tbRotate"></span></button>
+      <div class="tool tool-zoom"><div class="zoom-btns"><button id="tb-zin" type="button" aria-label="+">+</button><button id="tb-zout" type="button" aria-label="−">−</button></div><span data-t="tbZoom"></span></div>
+      <button class="tool" id="tb-explode" type="button" data-t-aria="tbExplode"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="6" height="6"/><path d="M4 4l3 3M20 4l-3 3M4 20l3-3M20 20l-3-3M4 4h4M4 4v4M20 4h-4M20 4v4M4 20h4M4 20v-4M20 20h-4M20 20v-4"/></svg><span id="tb-explode-lbl" data-t="tbExplode"></span></button>
+      <button class="tool" id="tb-section" type="button" data-t-aria="tbSection"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 3v18" stroke-dasharray="2 2"/><path d="M4 7.5l8 4.5 8-4.5"/></svg><span data-t="tbSection"></span></button>
+      <button class="tool" id="tb-comps" type="button" data-t-aria="tbComponents"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 17.5l9 5 9-5"/></svg><span data-t="tbComponents"></span></button>
+      <button class="tool" id="tb-run" type="button" data-t-aria="tbRun"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg><span data-t="tbRun"></span></button>
+      <button class="tool" id="tb-reset" type="button" data-t-aria="tbReset"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/><path d="M12 1.5v4M12 18.5v4M1.5 12h4M18.5 12h4"/></svg><span data-t="tbReset"></span></button>
+    </div>
+  </footer>
+
+  <p class="hint" data-t="hint"></p>
+  <svg id="triad" viewBox="-32 -32 64 64" aria-hidden="true">
+    <line id="tri-x" x1="0" y1="0" x2="20" y2="0" class="ax-x"/><line id="tri-y" x1="0" y1="0" x2="0" y2="-20" class="ax-y"/><line id="tri-z" x1="0" y1="0" x2="0" y2="0" class="ax-z"/>
+    <text id="tl-x" class="ax-x">X</text><text id="tl-y" class="ax-y">Y</text><text id="tl-z" class="ax-z">Z</text>
+  </svg>
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>
