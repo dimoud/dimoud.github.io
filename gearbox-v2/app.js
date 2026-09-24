@@ -152,13 +152,14 @@ function refreshVisuals() {
     else if (ui.section && SECTION_SET.has(id) && ui.selected !== id) op = 0.16;
     c.w.visible = vis;
     compMaterials(id).forEach(m => {
-      const tr = op < 1; m.transparent = tr; m.opacity = op; m.depthWrite = !tr;
+      const o = Math.min(op, (m.userData.base && m.userData.base.opacity) || 1);   /* το γυαλί μένει γυαλί */
+      const tr = o < 1; m.transparent = tr; m.opacity = o; m.depthWrite = !tr;
       m.emissive.setHex(id === ui.selected ? 0x2f6fff : id === ui.hover ? 0x2a5fe0 : 0x000000);
       m.emissiveIntensity = id === ui.selected ? 0.14 : id === ui.hover ? 0.2 : 0;
       m.needsUpdate = true;
     });
     c.meshes.forEach(m => { m.castShadow = op > 0.5; });
-    c.edges.forEach(e => { e.visible = vis && op < 1 && ui.section && SECTION_SET.has(id); });
+    c.edges.forEach(e => { e.visible = vis && (e.userData.glassEdge || (op < 1 && ui.section && SECTION_SET.has(id))); });
   }
   if (post.gtao) post.gtaoTarget = anyGhost ? 0 : 1;
   $('section-badge').hidden = !ui.section;

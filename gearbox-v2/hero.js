@@ -15,7 +15,7 @@ const GEAR_OFFSET_X    = 1.0;    // μετατόπιση προς τα αρισ�
 const GEAR_INTRO_DELAY = 0.15;   // s πριν ξεκινήσει η ολίσθηση
 const GEAR_INTRO_DUR   = 0.55;   // s διάρκεια ολίσθησης
 const GEAR_INTRO_DIST  = 5;      // μονάδες απόστασης ολίσθησης
-const GEAR_INTRO_FROM  = -1;     // −1: μπαίνει από αριστερά προς τα δεξιά · +1: από δεξιά (όπως η v1)
+const GEAR_INTRO_FROM  = +1;     // +1: μπαίνει από ΔΕΞΙΑ προς τα αριστερά (όπως η v1) · −1: από αριστερά
 const MODEL_SCALE      = 0.66;   // v2 Ø138 mm έναντι Ø120 της v1 → ίδιο οπτικό μέγεθος με 0.76 της v1
 const SUN_SPEED        = 0.18;   // rad/s ηλιακού — ίδιο με τη v1
 setExplodeScale(0.8);            // λίγο πιο μαζεμένη ανάπτυξη για να χωρά στο μισό της οθόνης
@@ -28,6 +28,15 @@ let rightHalfX = 4.5;
 let scrollExplodeActive = false, scrollExplodeT = 0, scrollTargetY = 0;
 let animRunning = false, started = false;
 let gearIntroT = 0, gearIntroElapsed = 0;
+/* ── Ελαφρύτερη απόδοση ──
+   · χωρίς σκιές (PCFSoft = δεύτερο πέρασμα απόδοσης σε κάθε καρέ)
+   · pixel ratio ≤ 1.25 στον υπολογιστή, 1 στο κινητό
+   · 30 καρέ/s όταν απλώς περιστρέφεται (ελάχιστη διαφορά στο μάτι, μισό φορτίο)
+   · παύση όταν η καρτέλα δεν φαίνεται · στατικό καρέ με prefers-reduced-motion */
+const IS_MOBILE = window.matchMedia('(max-width: 960px)').matches;
+const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const IDLE_FPS  = 30;
+let frameAcc = 0;
 const BASE_RX = 0.32, BASE_RY = -(25 * Math.PI / 180);
 
 function calcRightHalfX(W, H) { return Math.tan(19 * Math.PI / 180) * 20 * (W / H) * 0.5 - GEAR_OFFSET_X; }
@@ -41,13 +50,13 @@ function initThree() {
   const parent = canvas.parentElement, W = parent.clientWidth || 1280, H = parent.clientHeight || 700;
   const dragEl = document.getElementById('hero3d-drag') || canvas;
 
-  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  const dpr = window.devicePixelRatio || 1;
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: dpr < 1.5, alpha: true, powerPreference: 'default' });
+  renderer.setPixelRatio(Math.min(dpr, IS_MOBILE ? 1 : 1.25));
   renderer.setSize(W, H); renderer.setClearColor(0x000000, 0);
   renderer.toneMapping = THREE.NeutralToneMapping;
   renderer.toneMappingExposure = 1.05;
-  renderer.shadowMap.enabled = true;                // αυτοσκίαση των εξαρτημάτων (χωρίς δάπεδο)
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.enabled = false;               // οι σκιές ήταν το ακριβότερο κομμάτι κάθε καρέ
 
   scene = new THREE.Scene();
   const pmrem = new THREE.PMREMGenerator(renderer);
@@ -68,6 +77,8 @@ function initThree() {
   gearIntroT = 0; gearIntroElapsed = 0;
   rotGroup.position.x = rightHalfX + GEAR_INTRO_FROM * GEAR_INTRO_DIST;
   scene.add(rotGroup);
+  assembly.traverse(o => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = false; } });
+  if (REDUCED) { gearIntroT = 1; rotGroup.position.x = rightHalfX; }
   applyModelExplode(0);
   applyModelKinematics(0);
 
@@ -75,6 +86,11 @@ function initThree() {
   if (ind) ind.textContent = 'PLANETARY GEARBOX';
 
   setupDrag(dragEl, parent);
+  if (REDUCED) { applyModelKinematics(0); renderer.render(scene, camera); animRunning = false; return; }
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) animRunning = false;
+    else if (!animRunning && !REDUCED) { animRunning = true; clock.getDelta(); animate(); }
+  });
   animate();
 
   /* Παύση όταν το hero βγει από την οθόνη (όχι στο κινητό, όπου ο καμβάς είναι σταθερός) */
@@ -82,7 +98,7 @@ function initThree() {
   if (heroSection) {
     new IntersectionObserver(entries => {
       if (entries[0].isIntersecting) {
-        if (!animRunning) { animRunning = true; clock.getDelta(); animate(); }
+        if (!animRunning && !document.hidden) { animRunning = true; clock.getDelta(); animate(); }
       } else if (window.innerWidth > 960) animRunning = false;
     }, { threshold: 0 }).observe(heroSection);
   }
@@ -91,10 +107,6 @@ function initThree() {
 function addLights(s) {
   const key = new THREE.DirectionalLight(0xc4dcff, 1.9);
   key.position.set(8, 14, 14);
-  key.castShadow = true;
-  key.shadow.mapSize.set(1024, 1024);
-  Object.assign(key.shadow.camera, { left: -12, right: 12, top: 12, bottom: -12, near: 1, far: 60 });
-  key.shadow.bias = -0.0004; key.shadow.normalBias = 0.03; key.shadow.radius = 4;
   s.add(key);
   const rim = new THREE.DirectionalLight(0xffb27c, 1.7); rim.position.set(-12, 6, -12); s.add(rim);
   const rim2 = new THREE.DirectionalLight(0xffd2a8, 0.6); rim2.position.set(10, 3, -14); s.add(rim2);
@@ -135,7 +147,15 @@ function setupDrag(dragEl, parent) {
 function animate() {
   if (!animRunning) return;
   requestAnimationFrame(animate);
-  const dt = Math.min(clock.getDelta(), .05);
+  let dt = clock.getDelta();
+  /* Σε ηρεμία (μόνο αργή περιστροφή) αποδίδουμε στα 30 καρέ/s */
+  const idle = gearIntroT >= 1 && !isDragging && !exploding && explodeT === 0 && !scrollExplodeActive;
+  if (idle) {
+    frameAcc += dt;
+    if (frameAcc < 1 / IDLE_FPS) return;
+    dt = frameAcc; frameAcc = 0;
+  } else frameAcc = 0;
+  dt = Math.min(dt, .05);
   floatT += dt;
 
   if (gearIntroT < 1) {

@@ -60,12 +60,20 @@ const MATS = {
   red: () => new THREE.MeshPhysicalMaterial({ color: 0xa4161f, metalness: 0.7, roughness: 0.34, clearcoat: 0.55, clearcoatRoughness: 0.22 }),
   oxide: () => new THREE.MeshPhysicalMaterial({ color: 0x2b2e33, metalness: 0.85, roughness: 0.36 }),
   zinc: () => new THREE.MeshPhysicalMaterial({ color: 0xbfc5cc, metalness: 1, roughness: 0.3 }),
-  bright: () => new THREE.MeshPhysicalMaterial({ color: 0xcdd3d9, metalness: 1, roughness: 0.16 })
+  bright: () => new THREE.MeshPhysicalMaterial({ color: 0xcdd3d9, metalness: 1, roughness: 0.16 }),
+  /* Γυάλινο κέλυφος: ΦΘΗΝΟ διάφανο υλικό — Standard, μία όψη, χωρίς clearcoat/transmission
+     (το transmission θα έκανε δεύτερο πέρασμα απόδοσης σε κάθε καρέ).
+     Αφήνει να φαίνονται τα γρανάζια και δεν «κλείνει» τη σελίδα από πίσω. */
+  glass: () => new THREE.MeshStandardMaterial({ color: 0xdfeaf6, metalness: 0.1, roughness: 0.04, envMapIntensity: 1.8,
+    transparent: true, opacity: 0.18, depthWrite: false, side: THREE.FrontSide }),
+  /* Πίσω κέλυφος: ίδιο γυαλί, λίγο πιο «καπνιστό» για βάθος πίσω από τα γρανάζια */
+  glassDark: () => new THREE.MeshStandardMaterial({ color: 0x9fb6d0, metalness: 0.1, roughness: 0.06, envMapIntensity: 1.4,
+    transparent: true, opacity: 0.24, depthWrite: false, side: THREE.FrontSide })
 };
 const matCache = {};
 function mat(comp, kind, arg) {
   const k = comp + ':' + kind;
-  if (!matCache[k]) { const m = MATS[kind](arg); m.userData.base = { opacity: 1 }; matCache[k] = m; }
+  if (!matCache[k]) { const m = MATS[kind](arg); m.userData.base = { opacity: m.transparent ? m.opacity : 1 }; matCache[k] = m; }
   return matCache[k];
 }
 
@@ -174,6 +182,7 @@ function add(id, geo, material, parent, { edges = false } = {}) {
 /* Περιγράμματα για τη λειτουργία τομής: μόνο οι πραγματικές ακμές του σχήματος
    (όχι οι διαγώνιοι της τριγωνοποίησης) στις δύο όψεις + λίγες αξονικές γραμμές */
 const EDGE_MAT = new THREE.LineBasicMaterial({ color: 0x9cc9ff, transparent: true, opacity: 0.6, depthWrite: false });
+const GLASS_EDGE = new THREE.LineBasicMaterial({ color: 0xd6e8ff, transparent: true, opacity: 0.38, depthWrite: false });
 function outline(shape, z0, z1, { curve = 96, k = 0 } = {}) {
   const { shape: outer, holes } = shape.extractPoints(curve);
   const loops = [outer, ...holes], v = [];
@@ -190,7 +199,7 @@ function outline(shape, z0, z1, { curve = 96, k = 0 } = {}) {
 function build() {
   /* ── Κέλυφος (πίσω) ── */
   comp('housing', root, -4.4, 2);
-  const hm = mat('housing', 'black');
+  const hm = mat('housing', 'glassDark');
   { const a = annulus(OUT_R, 1.3, boltHoles(BOLT_R, BOLT_N, 0.28)); add('housing', slab(a, -0.9, -0.3, { bevel: 0.05 }), hm, null, { edges: outline(a, -0.9, -0.3) }); }
   { const a = annulus(OUT_R, 5.62, boltHoles(BOLT_R, BOLT_N, 0.28)); add('housing', slab(a, -0.34, 0.95, { bevel: 0.05 }), hm, null, { edges: outline(a, -0.34, 0.95) }); }
   add('housing', slab(annulus(1.95, 1.3), -1.2, -0.86, { bevel: 0.04 }), hm);
@@ -199,6 +208,10 @@ function build() {
     rib.translate(2.0 + 1.85, 0, -1.02); rib.rotateZ(i / 12 * Math.PI * 2 + Math.PI / 12);
     add('housing', rib, hm);
   }
+
+  /* Περίγραμμα του γυαλιού: λεπτή φωτεινή ακμή, ώστε το κέλυφος να «διαβάζεται» ως σχήμα */
+  comps.housing.edges.forEach(e => { e.visible = true; e.material = GLASS_EDGE; e.userData.glassEdge = true; });
+  comps.housing.meshes.forEach(m => { m.castShadow = false; m.receiveShadow = false; m.renderOrder = 2; });
 
   /* ── Στεφάνη ── */
   comp('ring', root, 0, 99);
@@ -209,9 +222,11 @@ function build() {
 
   /* ── Εμπρόσθιο καπάκι ── */
   comp('cover', root, 8.6, 1);
-  const cm = mat('cover', 'alu', OUT_R);
+  const cm = mat('cover', 'glass');          /* γυάλινο καπάκι: φαίνονται τα γρανάζια */
   { const a = annulus(OUT_R, 4.1, boltHoles(BOLT_R, BOLT_N, 0.28)); add('cover', slab(a, 0.95, 1.3, { bevel: 0.035 }), cm, null, { edges: outline(a, 0.95, 1.3) }); }
   { const a = annulus(4.55, 4.1); add('cover', slab(a, 1.28, 1.44, { bevel: 0.03 }), cm, null, { edges: outline(a, 1.28, 1.44) }); }
+  comps.cover.edges.forEach(e => { e.visible = true; e.material = GLASS_EDGE; e.userData.glassEdge = true; });
+  comps.cover.meshes.forEach(m => { m.castShadow = false; m.receiveShadow = false; m.renderOrder = 3; });
 
   /* ── Κοχλίες + ροδέλες / περικόχλια + ροδέλες ── */
   comp('bolts', root, 12.2, 0);

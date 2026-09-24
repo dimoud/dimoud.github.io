@@ -1295,7 +1295,7 @@ function initHeroExplode() {
 
       /* Canvas: full opacity inside hero, subtle outside */
       if (canvas) {
-        canvas.style.opacity = st < heroH ? '0.62' : '0.28';
+        canvas.style.opacity = st < heroH ? '0.38' : '0.10';   /* έξω από το hero σχεδόν αόρατο */
       }
 
       /* Hero text stays visible so text and explosion are seen together */
