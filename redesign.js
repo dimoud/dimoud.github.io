@@ -40,7 +40,7 @@
   /* ── 3. Πώς δουλεύουμε ─────────────────────────────────────── */
   const STAGES = {
     el: [
-      { t: 'Ιδέα', x: 'Ξεκινάμε από το πρόβλημα, όχι από τη λύση. Καταγράφουμε φορτία, διαστάσεις, ποσότητες, κόστος-στόχο και ό,τι δεν μπορεί να αλλάξει στον χώρο σας.', d: ['Τεχνικές απαιτήσεις', 'Πρώτα σκίτσα', 'Αρχική εκτίμηση'] },
+      { t: 'Ιδέα', x: 'Πρώτα καταλαβαίνουμε το πρόβλημα. Καταγράφουμε φορτία, διαστάσεις, ποσότητες, κόστος-στόχο και ό,τι δεν μπορεί να αλλάξει στον χώρο σας.', d: ['Τεχνικές απαιτήσεις', 'Πρώτα σκίτσα', 'Αρχική εκτίμηση'] },
       { t: 'CAD Σχεδιασμός', x: 'Το εξάρτημα αποκτά ακριβή γεωμετρία: παραμετρικό 3D μοντέλο, συναρμολόγηση, λίστα υλικών και κατασκευαστικά σχέδια με ανοχές που μπορεί να τηρήσει ο κατασκευαστής.', d: ['3D μοντέλο (STEP)', 'Κατασκευαστικά σχέδια', 'BOM'] },
       { t: 'FEA & Προσομοίωση', x: 'Πριν κοπεί μέταλλο, ελέγχουμε τάσεις, παραμορφώσεις και κόπωση. Ρυθμίζουμε πάχη και ακτίνες ώστε το κομμάτι να αντέχει χωρίς περιττό βάρος και κόστος.', d: ['Χάρτης τάσεων', 'Συντελεστής ασφαλείας', 'Βελτιώσεις σχεδίου'] },
       { t: 'Κατασκευή', x: 'Κατεργασία CNC, κοπή laser, 3D printing ή συγκόλληση, ανάλογα με την ποσότητα και το κόστος. Ετοιμάζουμε τα αρχεία κατασκευής και συντονίζουμε τους κατασκευαστές.', d: ['Πρωτότυπο ή σειρά', 'Αρχεία DXF / G-code', 'Συντονισμός προμηθευτών'] },
@@ -48,7 +48,7 @@
       { t: 'Παράδοση', x: 'Παραδίδουμε με πλήρη τεκμηρίωση: σχέδια, οδηγίες συναρμολόγησης και λίστα υλικών. Μένουμε διαθέσιμοι για αλλαγές και για την επόμενη έκδοση.', d: ['Φάκελος έργου', 'Οδηγίες συναρμολόγησης', 'Υποστήριξη'] }
     ],
     en: [
-      { t: 'Concept', x: 'We start from the problem, not the solution. Loads, dimensions, quantities, target cost and whatever cannot change on your side are written down first.', d: ['Technical requirements', 'First sketches', 'Initial estimate'] },
+      { t: 'Concept', x: 'First we understand the problem, writing down loads, dimensions, quantities, target cost and whatever cannot change on your side.', d: ['Technical requirements', 'First sketches', 'Initial estimate'] },
       { t: 'CAD Design', x: 'The part gets exact geometry: a parametric 3D model, the assembly, a bill of materials and manufacturing drawings with tolerances the shop can actually hold.', d: ['3D model (STEP)', 'Manufacturing drawings', 'BOM'] },
       { t: 'FEA & Simulation', x: 'Before any metal is cut we check stress, deflection and fatigue, then tune thicknesses and radii so the part carries the load without extra weight or cost.', d: ['Stress map', 'Safety factor', 'Design improvements'] },
       { t: 'Fabrication', x: 'CNC machining, laser cutting, 3D printing or welding, chosen by quantity and cost. We prepare the manufacturing files and coordinate the shops.', d: ['Prototype or batch', 'DXF / G-code files', 'Supplier coordination'] },

@@ -119,11 +119,11 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type":"Question","name":"Τι είναι το Mechanical ExpertEase;","acceptedAnswer":{"@type":"Answer","text":"Λογισμικό αυτοματοποίησης τεχνικών μελετών για οχήματα ειδικής χρήσης και ειδικού σκοπού. Κάνει τους υπολογισμούς, παράγει διαγράμματα φορτίσεων και συντάσσει την τεχνική μελέτη — όλα σε ένα πρόγραμμα."}},
+    {"@type":"Question","name":"Τι είναι το Mechanical ExpertEase;","acceptedAnswer":{"@type":"Answer","text":"Λογισμικό αυτοματοποίησης τεχνικών μελετών για οχήματα ειδικής χρήσης και ειδικού σκοπού. Κάνει τους υπολογισμούς, παράγει διαγράμματα φορτίσεων και συντάσσει την τεχνική μελέτη, όλα σε ένα πρόγραμμα."}},
     {"@type":"Question","name":"Ποια νομοθεσία καλύπτει;","acceptedAnswer":{"@type":"Answer","text":"Οι υπολογισμοί και η δομή της μελέτης βασίζονται στην ΥΑ 80255/4693/19/2020, που διέπει τις τεχνικές μελέτες οχημάτων ειδικής χρήσης και ειδικού σκοπού στην Ελλάδα."}},
     {"@type":"Question","name":"Τι περιλαμβάνει η μελέτη που παράγει;","acceptedAnswer":{"@type":"Answer","text":"Υπολογισμούς αξόνων και πλαισίου, ευστάθειας και πέδησης, διαγράμματα φορτίσεων, σχέδια Α3 και την τελική μελέτη σε αρχείο Word — έτοιμη για υποβολή σε ΚΕΚ/ΙΕΚΕΜ."}},
-    {"@type":"Question","name":"Χρειάζεται εγκατάσταση ή είναι online εργαλείο;","acceptedAnswer":{"@type":"Answer","text":"Είναι εφαρμογή που κατεβάζεις στον υπολογιστή σου."}},
-    {"@type":"Question","name":"Μπορώ να το δοκιμάσω πριν αποφασίσω;","acceptedAnswer":{"@type":"Answer","text":"Ναι — υπάρχει η Triage Version, με περιορισμένη πρόσβαση στις εισόδους, τους υπολογισμούς και τη δομή της εξόδου, χωρίς να χρειάζεται συνδρομή."}},
+    {"@type":"Question","name":"Χρειάζεται εγκατάσταση ή είναι online εργαλείο;","acceptedAnswer":{"@type":"Answer","text":"Είναι εφαρμογή που εγκαθιστάτε στον υπολογιστή σας."}},
+    {"@type":"Question","name":"Μπορώ να το δοκιμάσω πριν αποφασίσω;","acceptedAnswer":{"@type":"Answer","text":"Ναι, υπάρχει η δωρεάν Triage Version, με περιορισμένη πρόσβαση στις εισόδους, τους υπολογισμούς και τη δομή της εξόδου, χωρίς να χρειάζεται συνδρομή."}},
     {"@type":"Question","name":"Ποιες επιλογές συνδρομής υπάρχουν;","acceptedAnswer":{"@type":"Answer","text":"Μηνιαία συνδρομή χωρίς δέσμευση, με δυνατότητα ακύρωσης οποιαδήποτε στιγμή."}}
   ]
 }
@@ -432,9 +432,9 @@
 const HIW_STEPS=[
   {n:"01",label:"Εισαγωγή τεχνικών χαρακτηριστικών οχήματος",labelEn:"Enter vehicle technical specifications",doc:"data"},
   {n:"02",label:"Εισαγωγή φορτίων στους άξονες και το πλαίσιο",labelEn:"Input loads affecting axles and frame",doc:"loads"},
-  {n:"03",label:"Αυτόματη εκτέλεση υπολογισμών",labelEn:"Automatic calculations execute instantly",doc:"calc"},
+  {n:"03",label:"Αυτόματη εκτέλεση υπολογισμών",labelEn:"Calculations run automatically",doc:"calc"},
   {n:"04",label:"Δημιουργία διαγραμμάτων τεμνουσών και ροπών κάμψης",labelEn:"Generate shear force & bending moment diagrams",doc:"diag"},
-  {n:"05",label:"Ανασκόπηση συνοπτικού πίνακα αποτελεσμάτων",labelEn:"Review comprehensive calculation summary",doc:"summary"},
+  {n:"05",label:"Ανασκόπηση συνοπτικού πίνακα αποτελεσμάτων",labelEn:"Review the summary of results",doc:"summary"},
   {n:"06",label:"Δημιουργία πλήρους τεχνικής μελέτης με ένα κλικ",labelEn:"Create the full technical study with one click",doc:"report"},
 ];
 
@@ -1343,7 +1343,7 @@ const MODULES=[
     titleEn:'Technical Note',subEn:'Automatic technical study assembly',catEn:'Drafting',summaryEn:'Assembles the final technical study from vehicle data. Export to Word or PDF automatically.',
     preview:'memo'},
   {id:'tank',num:'07',
-    title:'Δεξαμενή Άλατος & Νερού',sub:'Όγκος εκχιονιστικών δεξαμενών',cat:'Ειδικά',summary:'Όγκος δεξαμενών άλατος και αλατόνερου εκχιονιστικών οχημάτων. Δύο στάνταρ τύποι άλατος και ένας τύπος νερού.',
+    title:'Δεξαμενή Άλατος & Νερού',sub:'Όγκος εκχιονιστικών δεξαμενών',cat:'Ειδικά',summary:'Όγκος δεξαμενών άλατος και αλατόνερου εκχιονιστικών οχημάτων. Δύο τυποποιημένοι τύποι άλατος και ένας τύπος νερού.',
     titleEn:'Salt & Water Tank',subEn:'Volume of snow-clearing tanks',catEn:'Special',summaryEn:'Volume of salt and brine tanks for snow-clearing vehicles. Two standard salt types and one water type.',
     preview:'tank'},
   {id:'susp',num:'08',
@@ -1399,7 +1399,7 @@ const MODULES=[
     titleEn:'Lateral Loads',subEn:'Dynamic stress during manoeuvres',catEn:'Strength',summaryEn:'Connection stress from inertial forces during manoeuvres. All calculations are fully automatic.',
     preview:'lateral'},
   {id:'newstudy',num:'21',
-    title:'Νέα Μελέτη',sub:'Αυτόματη δομή φακέλων μελέτης',cat:'Ροή',summary:'Επιλέξτε θέση και ο φάκελος με τους υποφακέλους δημιουργείται και μετονομάζεται αυτόματα με τον κωδικό μελέτης.',highlights:['Όλοι οι υποφάκελοι μετονομάζονται με τον κωδικό μελέτης.','Αντίγραφο του Word προτύπου της τεχνικής μελέτης.','Ερωτά αν θέλετε να ανοίξει το Word εκείνη τη στιγμή.','Πληροφορίες οχήματος αποθηκεύονται σε CSV.'],
+    title:'Νέα Μελέτη',sub:'Αυτόματη δομή φακέλων μελέτης',cat:'Ροή',summary:'Επιλέξτε θέση και ο φάκελος με τους υποφακέλους δημιουργείται και μετονομάζεται αυτόματα με τον κωδικό μελέτης.',highlights:['Όλοι οι υποφάκελοι μετονομάζονται με τον κωδικό μελέτης.','Αντίγραφο του Word προτύπου της τεχνικής μελέτης.','Ρωτά αν θέλετε να ανοίξει το Word εκείνη τη στιγμή.','Πληροφορίες οχήματος αποθηκεύονται σε CSV.'],
     titleEn:'New Study',subEn:'Automatic study folder structure',catEn:'Workflow',summaryEn:'Select a location and the folder with subfolders is created and renamed automatically with the study code.',highlightsEn:['All subfolders are renamed with the study code.','A copy of the Word technical study template is included.','Prompts whether to open Word immediately.','Vehicle information is saved to CSV.'],
     preview:'newstudy'},
   {id:'importdata',num:'22',
@@ -1419,7 +1419,7 @@ const MODULES=[
     titleEn:'Data Sheet',subEn:'Central data entry',catEn:'Workflow',summaryEn:'All vehicle data is entered here — red cells = mandatory. Each cell has explanatory comments.',highlightsEn:['Red cells = required for the study to be generated.','Explanatory comments and images on each cell.','Material library: frames, springs, steels, bolts.','Non-input cells are locked — data protection.'],
     preview:'datasheet'},
   {id:'control',num:'26',
-    title:'Φύλλο Ελέγχου',sub:'Επισκόπηση & επιλογή υπολογισμών',cat:'Ροή',summary:'Με μια ματιά: ποιοι υπολογισμοί ολοκληρώθηκαν σωστά. Γρήγορη πλοήγηση και επιλογή τι μεταφέρεται στην τελική μελέτη.',highlights:['Πίνακας πλοήγησης σε όλα τα φύλλα.','Άμεσος έλεγχος προβλημάτων στους υπολογισμούς.','Επιλογή τμημάτων που μεταφέρονται στο τελικό report.'],
+    title:'Φύλλο Ελέγχου',sub:'Επισκόπηση & επιλογή υπολογισμών',cat:'Ροή',summary:'Με μια ματιά: ποιοι υπολογισμοί ολοκληρώθηκαν σωστά. Γρήγορη πλοήγηση και επιλογή τι μεταφέρεται στην τελική μελέτη.',highlights:['Πίνακας πλοήγησης σε όλα τα φύλλα.','Άμεσος έλεγχος προβλημάτων στους υπολογισμούς.','Επιλογή τμημάτων που μεταφέρονται στην τελική μελέτη.'],
     titleEn:'Control Sheet',subEn:'Overview & calculation selection',catEn:'Workflow',summaryEn:'At a glance: which calculations completed correctly. Quick navigation and selection of what transfers to the final study.',highlightsEn:['Navigation table across all sheets.','Instant check for calculation issues.','Select sections transferred to the final report.'],
     preview:'control'},
 ];
@@ -1927,7 +1927,7 @@ rafId=requestAnimationFrame(tick);
       <!-- left: title + cards + banner -->
       <div class="sw-pb-left">
         <div class="sw-pb-header reveal-up">
-          <h2 class="sw-pb-title" id="swpb-title">Simple, transparent pricing plans.</h2>
+          <h2 class="sw-pb-title" id="swpb-title">Simple plans, with clear prices.</h2>
         </div>
 
         <div class="sw-pb-cards">
@@ -1939,7 +1939,7 @@ rafId=requestAnimationFrame(tick);
             <div class="sw-pb-card-price-row">
               <span class="sw-pb-price-main" id="swpb-triage-price">Free</span>
             </div>
-            <p class="sw-pb-card-desc" id="swpb-triage-desc">Limited access to evaluate the software — inputs, calculations and output structure. No subscription required.</p>
+            <p class="sw-pb-card-desc" id="swpb-triage-desc">Limited access so you can see whether it suits you: inputs, calculations and the study layout, with no subscription.</p>
             <ul class="sw-pb-card-features" id="swpb-triage-features">
               <li>Core calculation modules</li>
               <li>Sample vehicle workflow</li>
@@ -1955,7 +1955,7 @@ rafId=requestAnimationFrame(tick);
               <span class="sw-pb-price-main">80€</span>
               <span class="sw-pb-price-sub" id="swpb-mo-period">+ VAT / mo</span>
             </div>
-            <p class="sw-pb-card-desc" id="swpb-mo-desc">Full access, no long-term commitment. Cancel anytime.</p>
+            <p class="sw-pb-card-desc" id="swpb-mo-desc">Full access with no commitment. Cancel whenever you like.</p>
             <ul class="sw-pb-card-features">
               <li id="swpb-feat-1">All calculation modules</li>
               <li id="swpb-feat-2">A3 drawings &amp; Word reports</li>
@@ -1972,7 +1972,7 @@ rafId=requestAnimationFrame(tick);
               <span class="sw-pb-price-main">499€</span>
               <span class="sw-pb-price-sub" id="swpb-yr-period">+ VAT / yr</span>
             </div>
-            <p class="sw-pb-card-desc" id="swpb-yr-desc">Best value — full-year access, priority support.</p>
+            <p class="sw-pb-card-desc" id="swpb-yr-desc">Full access for a year with priority support. Costs less than twelve monthly subscriptions.</p>
             <ul class="sw-pb-card-features">
               <li id="swpb-feat-yr-1">Everything in Monthly</li>
               <li id="swpb-feat-yr-2">Priority support</li>
@@ -1989,7 +1989,7 @@ rafId=requestAnimationFrame(tick);
               <span class="sw-pb-price-main">300€</span>
               <span class="sw-pb-price-sub" id="swpb-lib-period">+ VAT one-time</span>
             </div>
-            <p class="sw-pb-card-desc" id="swpb-lib-desc">Permanent access to the full drawing &amp; template library. Add-on to any plan.</p>
+            <p class="sw-pb-card-desc" id="swpb-lib-desc">Permanent access to the drawing and template library. Can be added to any plan.</p>
             <ul class="sw-pb-card-features">
               <li id="swpb-feat-lib-1">Full drawing templates</li>
               <li id="swpb-feat-lib-2">Standard components library</li>
@@ -2008,7 +2008,7 @@ rafId=requestAnimationFrame(tick);
     <div class="sw-pb-offer-banner">
       <div class="sw-pb-offer-inner">
         <span class="sw-pb-offer-pulse"></span>
-        <span class="sw-pb-offer-text" id="swpb-footnote">Special pricing available for 2+ licences — <a href="contact.html" id="swpb-footnote-link">contact us</a> for a quote.</span>
+        <span class="sw-pb-offer-text" id="swpb-footnote">Special pricing for 2+ licences: <a href="contact.html" id="swpb-footnote-link">contact us</a> for a quote.</span>
       </div>
     </div>
 
@@ -2331,7 +2331,7 @@ rafId=requestAnimationFrame(tick);
 
     <details class="sw-faq-item" open>
       <summary>Τι είναι το Mechanical ExpertEase;</summary>
-      <p>Λογισμικό αυτοματοποίησης τεχνικών μελετών για οχήματα ειδικής χρήσης και ειδικού σκοπού. Κάνει τους υπολογισμούς, παράγει διαγράμματα φορτίσεων και συντάσσει την τεχνική μελέτη — όλα σε ένα πρόγραμμα, αντί για ξεχωριστά αρχεία Excel και Word.</p>
+      <p>Λογισμικό αυτοματοποίησης τεχνικών μελετών για οχήματα ειδικής χρήσης και ειδικού σκοπού. Κάνει τους υπολογισμούς, παράγει διαγράμματα φορτίσεων και συντάσσει την τεχνική μελέτη, όλα σε ένα πρόγραμμα, αντί για ξεχωριστά αρχεία Excel και Word.</p>
     </details>
 
     <details class="sw-faq-item">
@@ -2346,17 +2346,17 @@ rafId=requestAnimationFrame(tick);
 
     <details class="sw-faq-item">
       <summary>Χρειάζεται εγκατάσταση ή είναι online εργαλείο;</summary>
-      <p>Είναι εφαρμογή που κατεβάζεις στον υπολογιστή σου — δες τη σελίδα <a href="downloads.html">λήψης</a> για την τρέχουσα έκδοση.</p>
+      <p>Είναι εφαρμογή που εγκαθιστάτε στον υπολογιστή σας. Δείτε τη σελίδα <a href="downloads.html">λήψης</a> για την τρέχουσα έκδοση.</p>
     </details>
 
     <details class="sw-faq-item">
       <summary>Μπορώ να το δοκιμάσω πριν αποφασίσω;</summary>
-      <p>Ναι — υπάρχει η Triage Version, με περιορισμένη πρόσβαση στις εισόδους, τους υπολογισμούς και τη δομή της εξόδου, χωρίς να χρειάζεται συνδρομή.</p>
+      <p>Ναι, υπάρχει η δωρεάν Triage Version, με περιορισμένη πρόσβαση στις εισόδους, τους υπολογισμούς και τη δομή της εξόδου, χωρίς να χρειάζεται συνδρομή.</p>
     </details>
 
     <details class="sw-faq-item">
       <summary>Ποιες επιλογές συνδρομής υπάρχουν;</summary>
-      <p>Μηνιαία συνδρομή χωρίς δέσμευση, με δυνατότητα ακύρωσης οποιαδήποτε στιγμή — δες αναλυτικά όλες τις επιλογές στην <a href="#pricing">ενότητα τιμών</a> παραπάνω.</p>
+      <p>Μηνιαία συνδρομή χωρίς δέσμευση, με δυνατότητα ακύρωσης οποιαδήποτε στιγμή. Όλες οι επιλογές αναλυτικά στην <a href="#pricing">ενότητα τιμών</a> παραπάνω.</p>
     </details>
 
   </div>
@@ -2410,7 +2410,7 @@ rafId=requestAnimationFrame(tick);
       <form id="clientContactForm" class="contact-form">
         <p class="contact-form-title">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          <span id="form-direct-label">Send us a direct mail!</span>
+          <span id="form-direct-label">Send us a message</span>
         </p>
         <input type="hidden" name="_to" value="moudiotis.meng@gmail.com">
         <input type="hidden" name="_key" value="MyPrivateAgencyKey_99">
