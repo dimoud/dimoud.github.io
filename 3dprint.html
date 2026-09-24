@@ -97,6 +97,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Roboto+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="expertease-credit.css">
+<link rel="stylesheet" href="pr-redesign.css">
 <style>
 .expertease-credit{background:var(--navy,#060d1a);}
 @media(max-width:960px){.expertease-credit{margin-bottom:32px;}}
@@ -867,48 +868,62 @@
 </div>
 
 <!-- ══ WHAT WE DO ════════════════════════════════════════════════ -->
-<section class="wd-offerings pr-offerings">
+<section class="wd-offerings pr-offerings pro" id="what-we-do">
   <div class="wd-offerings-inner">
-    <div class="wd-offerings-label" id="pr-off-label">// What We Do</div>
+    <div class="pro-head">
+      <div>
+        <div class="wd-offerings-label" id="pr-off-label">// Τι Κάνουμε</div>
+        <h2 class="pro-title" data-el="Από το αρχείο στο κομμάτι στο χέρι σας." data-en="From the file to the part in your hand.">Από το αρχείο στο κομμάτι στο χέρι σας.</h2>
+      </div>
+      <p class="pro-lead" data-el="Τέσσερις τεχνικές παραγωγής στο ίδιο εργαστήριο. Διαλέγουμε μαζί σας την κατάλληλη για κάθε εξάρτημα, με βάση την αντοχή, την εμφάνιση και το κόστος." data-en="Four production methods under one roof. We pick the right one for each part with you, based on strength, finish and cost.">Τέσσερις τεχνικές παραγωγής στο ίδιο εργαστήριο. Διαλέγουμε μαζί σας την κατάλληλη για κάθε εξάρτημα, με βάση την αντοχή, την εμφάνιση και το κόστος.</p>
+    </div>
     <div class="wd-offerings-grid">
 
-      <div class="wd-offer-card">
-        <svg class="pr-offer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <div class="wd-offer-card" style="--acc:#4f9dff">
+        <span class="pro-code" aria-hidden="true">FDM</span>
+        <span class="pro-ring" aria-hidden="true"><svg class="pr-offer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
           <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
           <line x1="12" y1="22.08" x2="12" y2="12"/>
-        </svg>
+        </svg></span>
         <div class="wd-offer-num">01</div>
         <div class="wd-offer-name" id="pr-off1-name">Custom 3D Printing</div>
         <p class="wd-offer-text" id="pr-off1-text">FDM printing in PLA, PETG, ABS, and specialty filaments. From functional brackets and enclosures to artistic objects — designed in SolidWorks and printed to spec.</p>
+        <div class="pro-spec"><span class="pro-spec-l" data-el="Υλικά" data-en="Materials">Υλικά</span><ul class="pro-chips"><li data-el="PLA" data-en="PLA">PLA</li><li data-el="PETG" data-en="PETG">PETG</li><li data-el="ABS" data-en="ABS">ABS</li><li data-el="Ειδικά νήματα" data-en="Specialty filaments">Ειδικά νήματα</li></ul></div>
       </div>
 
-      <div class="wd-offer-card">
-        <svg class="pr-offer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <div class="wd-offer-card" style="--acc:#a78bfa">
+        <span class="pro-code" aria-hidden="true">RE</span>
+        <span class="pro-ring" aria-hidden="true"><svg class="pr-offer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
           <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
-        </svg>
+        </svg></span>
         <div class="wd-offer-num">02</div>
         <div class="wd-offer-name" id="pr-off2-name">Reverse Engineering</div>
         <p class="wd-offer-text" id="pr-off2-text">Broken or discontinued part? We measure, model, and print an exact replacement. Faster and cheaper than sourcing — with the option to improve on the original design.</p>
+        <div class="pro-spec"><span class="pro-spec-l" data-el="Ροή" data-en="Flow">Ροή</span><ul class="pro-chips"><li data-el="Μέτρηση" data-en="Measure">Μέτρηση</li><li data-el="Μοντέλο CAD" data-en="CAD model">Μοντέλο CAD</li><li data-el="Εκτύπωση" data-en="Print">Εκτύπωση</li><li data-el="Βελτίωση" data-en="Improve">Βελτίωση</li></ul></div>
       </div>
 
-      <div class="wd-offer-card">
-        <svg class="pr-offer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <div class="wd-offer-card" style="--acc:#ff8a4c">
+        <span class="pro-code" aria-hidden="true">LC</span>
+        <span class="pro-ring" aria-hidden="true"><svg class="pr-offer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-        </svg>
+        </svg></span>
         <div class="wd-offer-num">03</div>
         <div class="wd-offer-name" id="pr-off3-name">Laser Cutting</div>
         <p class="wd-offer-text" id="pr-off3-text">Precision cuts on wood, acrylic, cardboard, leather, and thin metals. Clean edges, tight tolerances, and fast turnaround — ideal for parts, enclosures, and decorative panels.</p>
+        <div class="pro-spec"><span class="pro-spec-l" data-el="Υλικά" data-en="Materials">Υλικά</span><ul class="pro-chips"><li data-el="Ξύλο" data-en="Wood">Ξύλο</li><li data-el="Ακρυλικό" data-en="Acrylic">Ακρυλικό</li><li data-el="Χαρτόνι" data-en="Cardboard">Χαρτόνι</li><li data-el="Δέρμα" data-en="Leather">Δέρμα</li><li data-el="Λεπτά μέταλλα" data-en="Thin metals">Λεπτά μέταλλα</li></ul></div>
       </div>
 
-      <div class="wd-offer-card wd-offer-card--hl">
-        <svg class="pr-offer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+      <div class="wd-offer-card wd-offer-card--hl" style="--acc:#42d392">
+        <span class="pro-code" aria-hidden="true">LE</span>
+        <span class="pro-ring" aria-hidden="true"><svg class="pr-offer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-        </svg>
+        </svg></span>
         <div class="wd-offer-num">04</div>
         <div class="wd-offer-name" id="pr-off4-name">Laser Engraving</div>
         <p class="wd-offer-text" id="pr-off4-text">Permanent marking on wood, anodised aluminium, leather, glass, and coated metals. Logos, serial numbers, artwork, personalised gifts — whatever the surface calls for.</p>
+        <div class="pro-spec"><span class="pro-spec-l" data-el="Επιφάνειες" data-en="Surfaces">Επιφάνειες</span><ul class="pro-chips"><li data-el="Ξύλο" data-en="Wood">Ξύλο</li><li data-el="Ανοδιωμένο αλουμίνιο" data-en="Anodised aluminium">Ανοδιωμένο αλουμίνιο</li><li data-el="Δέρμα" data-en="Leather">Δέρμα</li><li data-el="Γυαλί" data-en="Glass">Γυαλί</li><li data-el="Βαμμένα μέταλλα" data-en="Coated metals">Βαμμένα μέταλλα</li></ul></div>
       </div>
 
     </div>
@@ -1177,6 +1192,7 @@
 <script src="print-projects.js"></script>
 <script src="print-estimator.js"></script>
 <script src="main.js" defer></script>
+<script src="redesign.js" defer></script>
 
 <button id="backToTop" aria-label="Back to top">
   <svg viewBox="0 0 10 10" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="2,7 5,3 8,7"/></svg>

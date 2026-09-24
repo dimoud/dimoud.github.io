@@ -1,0 +1,64 @@
+/* ═══════════════════════════════════════════════════════════════
+   pr-redesign.css — «Τι κάνουμε» στη σελίδα 3D Print (2026-09)
+   Φορτώνεται μετά το style.css. Για επαναφορά: αφαιρέστε το <link>.
+═══════════════════════════════════════════════════════════════ */
+.pro {
+  background:
+    linear-gradient(rgba(120,170,255,.045) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(90deg, rgba(120,170,255,.045) 1px, transparent 1px) 0 0 / 32px 32px,
+    radial-gradient(ellipse 70% 60% at 50% 25%, rgba(37,99,235,.16), transparent 70%),
+    #0b1b38;
+  padding: 96px 56px 104px; border-top: 0;
+}
+.pro .wd-offerings-inner { max-width: 1240px; }
+.pro-head { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 48px; align-items: end; margin-bottom: 48px; }
+.pro .wd-offerings-label { margin-bottom: 18px; letter-spacing: 4px; color: #6fa8ff; }
+.pro .wd-offerings-label::after { background: rgba(140,180,255,.18); }
+.pro-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(32px, 4vw, 54px); line-height: 1.02; color: #fff; margin: 0; }
+.pro-lead { margin: 0; color: rgba(220,232,255,.66); font-size: 16px; line-height: 1.7; }
+
+.pro .wd-offerings-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.pro .wd-offer-card { --acc: #4f9dff; position: relative; display: flex; flex-direction: column; padding: 28px 24px 24px; overflow: hidden;
+  background: rgba(8,18,40,.78); border: 1px solid rgba(140,180,255,.16); border-top: 1px solid rgba(140,180,255,.16); border-radius: 6px;
+  transition: transform .45s cubic-bezier(.2,.7,.2,1), border-color .45s, box-shadow .45s; }
+.pro .wd-offer-card::after { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--acc); transform: scaleX(.16); transform-origin: left; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.pro .wd-offer-card:hover { transform: translateY(-6px); border-color: color-mix(in srgb, var(--acc) 55%, transparent);
+  box-shadow: 0 24px 50px rgba(0,0,0,.4), 0 0 40px color-mix(in srgb, var(--acc) 14%, transparent); }
+.pro .wd-offer-card:hover::after { transform: scaleX(1); }
+
+/* Κωδικός διαδικασίας σαν σήμανση σε σχέδιο */
+.pro-code { position: absolute; right: 18px; top: 20px; font: 600 38px/1 var(--font-display); letter-spacing: 1px;
+  color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--acc) 45%, transparent); opacity: .9; transition: -webkit-text-stroke-color .45s; }
+.pro .wd-offer-card:hover .pro-code { -webkit-text-stroke-color: var(--acc); }
+
+/* Εικονίδιο μέσα σε δακτύλιο διάστασης */
+.pro-ring { position: relative; display: grid; place-items: center; width: 64px; height: 64px; margin-bottom: 22px; border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--acc) 40%, transparent); background: color-mix(in srgb, var(--acc) 10%, transparent); color: var(--acc); }
+.pro-ring::before { content: ''; position: absolute; inset: -7px; border-radius: 50%; border: 1px dashed color-mix(in srgb, var(--acc) 35%, transparent); transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+.pro .wd-offer-card:hover .pro-ring::before { transform: rotate(120deg); }
+.pro .pr-offer-icon { width: 28px; height: 28px; color: var(--acc); margin: 0; }
+
+.pro .wd-offer-num { color: var(--acc); }
+.pro .wd-offer-name { color: #fff; font-size: 23px; line-height: 1.12; margin: 0 0 10px; }
+.pro .wd-offer-text { color: rgba(220,232,255,.64); font-size: 14px; line-height: 1.65; margin: 0 0 18px; text-align: left; }
+.pro-spec { margin-top: auto; padding-top: 14px; border-top: 1px solid rgba(140,180,255,.12); }
+.pro-spec-l { display: block; margin-bottom: 9px; font: 500 9px/1 var(--font-mono); letter-spacing: 2.5px; text-transform: uppercase; color: rgba(160,190,240,.55); }
+.pro-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.pro-chips li { font: 400 10.5px/1 var(--font-mono); color: #d7e5ff; padding: 5px 8px; border: 1px solid color-mix(in srgb, var(--acc) 35%, transparent);
+  background: color-mix(in srgb, var(--acc) 8%, transparent); border-radius: 2px; }
+
+@media (max-width: 1100px) {
+  .pro .wd-offerings-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .pro-head { grid-template-columns: 1fr; gap: 18px; }
+}
+@media (max-width: 640px) {
+  section.pro.pr-offerings { padding: 60px 16px 68px !important; }
+  section.pro.pr-offerings .wd-offerings-grid { grid-template-columns: 1fr !important; gap: 14px; }
+  section.pro.pr-offerings .wd-offer-card { padding: 24px 20px 20px; }
+  section.pro.pr-offerings .wd-offer-name { font-size: 22px; }
+  section.pro.pr-offerings .wd-offer-text { font-size: 14.5px; line-height: 1.6; }
+  section.pro.pr-offerings .pr-offer-icon { width: 26px; height: 26px; }
+  .pro .wd-offer-text { text-align: left; }
+  .pro-code { font-size: 30px; }
+}
+@media (prefers-reduced-motion: reduce) { .pro *, .pro .wd-offer-card { transition: none !important; } }

@@ -110,6 +110,19 @@
       fill.style.transform = `scaleX(${Math.min(1, p).toFixed(4)})`;
       tabs.forEach((b, k) => b.classList.toggle('is-passed', k / (N - 1) <= p + 1e-3));
     }
+    /* Κινητό: η σειρά των εικόνων κυλά μόνη της από δεξιά προς τα αριστερά
+       όσο ο χρήστης κατεβαίνει. Αν σύρει ο ίδιος τη σειρά, η αυτόματη κίνηση
+       σταματά για λίγα δευτερόλεπτα. */
+    const mobile = matchMedia('(max-width: 760px)');
+    let userPanUntil = 0;
+    ['touchstart', 'pointerdown', 'wheel'].forEach(ev => line.addEventListener(ev, () => { userPanUntil = performance.now() + 4000; }, { passive: true }));
+    function autoPan() {
+      if (!mobile.matches || performance.now() < userPanUntil) return;
+      const max = line.scrollWidth - line.clientWidth;
+      if (max <= 0) return;
+      // ίδια πρόοδος με την ενεργή φάση: η εικόνα που ανάβει είναι και αυτή που φαίνεται
+      line.scrollLeft = progress * max;
+    }
     function choose() { render(hoverIdx >= 0 ? hoverIdx : (locked ? active : scrollIdx)); paint(); }
 
     let ticking = false;
@@ -118,10 +131,13 @@
       requestAnimationFrame(() => {
         ticking = false;
         const r = line.getBoundingClientRect(), vh = window.innerHeight;
-        progress = Math.max(0, Math.min(1, (vh * 0.9 - r.top) / (vh * 0.65)));
+        progress = window.innerWidth <= 760
+          ? Math.max(0, Math.min(1, (vh * 0.95 - r.top) / (vh * 0.85)))   // κινητό: πιο αργά, ώστε να φαίνεται η κίνηση
+          : Math.max(0, Math.min(1, (vh * 0.9 - r.top) / (vh * 0.65)));
         scrollIdx = Math.min(N - 1, Math.floor(progress * N * 0.999));
         if (!locked && hoverIdx < 0) render(scrollIdx);
         paint();
+        autoPan();
       });
     }
 
@@ -155,6 +171,26 @@
       }
     };
   })();
+
+  /* ── 4. Το studio σε διαστάσεις: γραμμές + μέτρηση αριθμών ── */
+  const dims = document.getElementById('dims');
+  if (dims) {
+    const nums = Array.from(dims.querySelectorAll('.dim-num'));
+    nums.forEach(n => { if (n.dataset.to === 'yrs') n.dataset.to = String(yrs); n.textContent = n.dataset.to; });
+    const run = () => {
+      dims.classList.add('is-in');
+      if (REDUCED) return;
+      const t0 = performance.now(), D = 1400;
+      const tick = t => {
+        const k = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - k, 3);
+        nums.forEach(n => { n.textContent = Math.round(+n.dataset.to * e); });
+        if (k < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const io = new IntersectionObserver(es => { if (es[0].isIntersecting) { io.disconnect(); run(); } }, { threshold: 0.35 });
+    io.observe(dims);
+  }
 
   new MutationObserver(applyLang).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   if (curLang() !== 'el') applyLang();
