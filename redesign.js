@@ -262,6 +262,16 @@
     pio.observe(pro.querySelector('.wd-offerings-grid') || pro);
   }
 
+  /* ── 7. Διακριτική εμφάνιση: υπηρεσίες (#services) και αρχές (#process) ── */
+  if (!REDUCED && 'IntersectionObserver' in window) {
+    [document.querySelector('#services .svc-grid'), document.querySelector('#process .values-section .values-grid')].forEach(g => {
+      if (!g) return;
+      g.classList.add('rv-on');
+      const o = new IntersectionObserver(es => { if (es[0].isIntersecting) { g.classList.add('rv-in'); o.disconnect(); } }, { threshold: 0.15 });
+      o.observe(g);
+    });
+  }
+
   new MutationObserver(applyLang).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   if (curLang() !== 'el') applyLang();
 })();
