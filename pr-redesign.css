@@ -117,12 +117,12 @@
     linear-gradient(rgba(11,27,56,.05) 1px, transparent 1px) 0 0 / 16px 16px,
     linear-gradient(90deg, rgba(11,27,56,.05) 1px, transparent 1px) 0 0 / 16px 16px,
     radial-gradient(ellipse 70% 70% at 50% 55%, #ffffff, #e7e9ed 80%);
-  height: 170px; border-bottom: 2px solid var(--acc); }
-.pro-art--photo img { position: absolute; inset: 10px 14px; width: calc(100% - 28px); height: calc(100% - 20px); object-fit: contain;
+  height: 220px; border-bottom: 2px solid var(--acc); }
+.pro-art--photo img { position: absolute; inset: 8px 12px 6px; width: calc(100% - 24px); height: calc(100% - 14px); object-fit: contain; object-position: 50% 100%;
   filter: drop-shadow(0 10px 14px rgba(11,27,56,.22)); transition: transform .6s cubic-bezier(.2,.7,.2,1); }
 .pro .wd-offer-card:hover .pro-art--photo img { transform: scale(1.06); }
 .pro .wd-offer-card .pro-art--photo ~ .pro-code, .pro .wd-offer-card:has(.pro-art--photo) .pro-code { -webkit-text-stroke-color: color-mix(in srgb, var(--acc) 70%, #0b1b38); }
 @media (max-width: 640px) {
-  section.pro.pr-offerings .pro-art--photo { height: 104px; }
+  section.pro.pr-offerings .pro-art--photo { height: 150px; }
   section.pro.pr-offerings .pro-art--photo img { inset: 6px 8px; width: calc(100% - 16px); height: calc(100% - 12px); }
 }
