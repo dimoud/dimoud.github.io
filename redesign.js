@@ -151,23 +151,35 @@
         ticking = false;
         if (mobile.matches) { mobileScroll(); return; }
         fill.style.transform = '';
-        const r = line.getBoundingClientRect(), vh = window.innerHeight;
-        progress = window.innerWidth <= 760
-          ? Math.max(0, Math.min(1, (vh * 0.95 - r.top) / (vh * 0.85)))   // κινητό: πιο αργά, ώστε να φαίνεται η κίνηση
-          : Math.max(0, Math.min(1, (vh * 0.9 - r.top) / (vh * 0.65)));
-        scrollIdx = Math.min(N - 1, Math.floor(progress * N * 0.999));
-        if (!locked && hoverIdx < 0) render(scrollIdx);
-        paint();
-        autoPan();
+        paint();   // στον υπολογιστή η εναλλαγή γίνεται με χρόνο, όχι με την κύλιση
       });
     }
+
+    /* Υπολογιστής: οι φάσεις αλλάζουν μόνες τους, αργά (μία κάθε 4,5″), όσο η ενότητα
+       φαίνεται. Hover ή κλικ σταματούν την εναλλαγή· συνεχίζει 12″ μετά το κλικ. */
+    const STEP_MS = 4500, RESUME_MS = 12000;
+    let visible = false, lockUntil = 0, timer = 0;
+    function tick() {
+      if (mobile.matches || !visible || hoverIdx >= 0) return;
+      if (locked) { if (performance.now() < lockUntil) return; locked = false; }
+      const n = (active + 1) % N;
+      scrollIdx = n; progress = n / (N - 1);
+      render(n); paint();
+    }
+    function startAuto() { if (!timer && !REDUCED) timer = setInterval(tick, STEP_MS); }
+    function stopAuto() { clearInterval(timer); timer = 0; }
+    new IntersectionObserver(es => es.forEach(e => {
+      visible = e.isIntersecting;
+      if (visible) { if (active === N - 1 && !locked) { scrollIdx = 0; progress = 0; render(0); paint(); } startAuto(); }
+      else stopAuto();
+    }), { threshold: 0.35 }).observe(line);
 
     const canHover = matchMedia('(hover: hover)').matches;
     tabs.forEach((b, i) => {
       b.addEventListener('mouseenter', () => { if (canHover) { hoverIdx = i; root.classList.add('is-hover'); choose(); } });
       b.addEventListener('click', () => {
         if (mobile.matches) return;   // στο κινητό το άγγιγμα δεν αλλάζει τίποτα
-        locked = true; hoverIdx = -1; render(i); paint();
+        locked = true; lockUntil = performance.now() + RESUME_MS; hoverIdx = -1; scrollIdx = i; progress = i / (N - 1); render(i); paint();
         if (!canHover) b.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
       });
       b.addEventListener('keydown', e => {
@@ -175,7 +187,7 @@
         if (!d) return;
         e.preventDefault();
         const n = Math.max(0, Math.min(N - 1, i + d));
-        locked = true; render(n); paint(); tabs[n].focus();
+        locked = true; lockUntil = performance.now() + RESUME_MS; scrollIdx = n; progress = n / (N - 1); render(n); paint(); tabs[n].focus();
       });
     });
     line.addEventListener('mouseleave', () => { hoverIdx = -1; root.classList.remove('is-hover'); choose(); });
