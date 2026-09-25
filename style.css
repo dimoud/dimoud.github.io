@@ -3247,3 +3247,6 @@ hr.ec-rule { position: relative; z-index: 2; }
 }
 .skip-link:focus{ top:8px; }
 
+
+/* Λογότυπο 30% μεγαλύτερο στον υπολογιστή (40 → 52px) */
+@media (min-width: 961px) { .nav-logo img { height: 52px; } }
