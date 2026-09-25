@@ -126,3 +126,31 @@
   section.pro.pr-offerings .pro-art--photo { height: 150px; }
   section.pro.pr-offerings .pro-art--photo img { inset: 6px 8px; width: calc(100% - 16px); height: calc(100% - 12px); }
 }
+
+/* Κίνηση στις κάρτες «Τι κάνουμε»:
+   1) οι κάρτες ανεβαίνουν μία-μία όταν φανεί η ενότητα
+   2) ο κάναβος κυλά αργά, μια δέσμη «σαρωτή» περνά πάνω από τη φωτογραφία
+   3) η φωτογραφία «αναπνέει» ελαφρά, με χρονική διαφορά ανά κάρτα */
+.pro-art--photo { background-size: 16px 16px, 16px 16px, 100% 100%; animation: proGrid 14s linear infinite; }
+@keyframes proGrid { to { background-position: 0 16px, 16px 0, 0 0; } }
+.pro-art--photo::after { content: ''; position: absolute; top: 0; bottom: 0; left: -40%; width: 30%; pointer-events: none; z-index: 1;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--acc) 22%, transparent) 45%, rgba(255,255,255,.55) 50%, color-mix(in srgb, var(--acc) 22%, transparent) 55%, transparent);
+  mix-blend-mode: soft-light; animation: proScan 5.5s cubic-bezier(.45,0,.3,1) infinite; }
+@keyframes proScan { 0%, 55% { left: -40%; } 100% { left: 115%; } }
+.pro-art--photo img { animation: proFloat 6s ease-in-out infinite; }
+@keyframes proFloat { 50% { translate: 0 -5px; } }
+.pro .wd-offer-card:nth-child(2) .pro-art--photo::after, .pro .wd-offer-card:nth-child(2) .pro-art--photo img { animation-delay: -1.4s; }
+.pro .wd-offer-card:nth-child(3) .pro-art--photo::after, .pro .wd-offer-card:nth-child(3) .pro-art--photo img { animation-delay: -2.8s; }
+.pro .wd-offer-card:nth-child(4) .pro-art--photo::after, .pro .wd-offer-card:nth-child(4) .pro-art--photo img { animation-delay: -4.2s; }
+.pro .wd-offer-card::after { transform-origin: left; }
+.pro.pro-anim .wd-offer-card { opacity: 0; translate: 0 34px; transition: opacity .7s ease, translate .8s cubic-bezier(.2,.7,.2,1), transform .45s cubic-bezier(.2,.7,.2,1), border-color .45s, box-shadow .45s; }
+.pro.pro-anim.pro-in .wd-offer-card { opacity: 1; translate: 0 0; }
+.pro.pro-anim.pro-in .wd-offer-card:nth-child(2) { transition-delay: .12s, .12s, 0s, 0s, 0s; }
+.pro.pro-anim.pro-in .wd-offer-card:nth-child(3) { transition-delay: .24s, .24s, 0s, 0s, 0s; }
+.pro.pro-anim.pro-in .wd-offer-card:nth-child(4) { transition-delay: .36s, .36s, 0s, 0s, 0s; }
+.pro.pro-in .wd-offer-card::after { animation: proBar 1.2s .5s cubic-bezier(.2,.7,.2,1) backwards; }
+@keyframes proBar { from { transform: scaleX(.16); } 50% { transform: scaleX(1); } to { transform: scaleX(.16); } }
+@media (prefers-reduced-motion: reduce) {
+  .pro-art--photo, .pro-art--photo::after, .pro-art--photo img, .pro.pro-in .wd-offer-card::after { animation: none !important; }
+  .pro.pro-anim .wd-offer-card { opacity: 1; translate: none; }
+}

@@ -384,3 +384,9 @@
   .svc-text { display: none; }
   .svc-link { font-size: 9px; letter-spacing: 1.5px; padding-top: 8px; }
 }
+
+/* Εικόνες φάσεων: έχουν ήδη διάφανο φόντο — χωρίς ανάμειξη ή σκίαση */
+.wf-img img, .wf-st.is-on .wf-img img, .wf-st:not(.is-passed) .wf-img img, .svc-img img { mix-blend-mode: normal; filter: none; }
+.wf-st:not(.is-on) .wf-img { opacity: .78; transition: opacity .45s; }
+.wf-st.is-on .wf-img { opacity: 1; }
+@media (max-width: 760px) { .wf-st:not(.is-on) .wf-img { opacity: 1; } }

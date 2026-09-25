@@ -155,13 +155,14 @@
       });
     }
 
-    /* Υπολογιστής: οι φάσεις αλλάζουν μόνες τους, αργά (μία κάθε 4,5″), όσο η ενότητα
-       φαίνεται. Hover ή κλικ σταματούν την εναλλαγή· συνεχίζει 12″ μετά το κλικ. */
-    const STEP_MS = 4500, RESUME_MS = 12000;
+    /* Υπολογιστής: οι φάσεις αλλάζουν μόνες τους κάθε 1,25″ (1→5 σε 5″) όσο η ενότητα
+       φαίνεται. Ούτε το ποντίκι ούτε η κύλιση επηρεάζουν τον ρυθμό· ένα κλικ απλώς
+       μεταφέρει την εναλλαγή στη φάση που πατήθηκε. */
+    const STEP_MS = 1250, RESUME_MS = 0;   // 1→5 σε 5″· το ποντίκι δεν επηρεάζει
     let visible = false, lockUntil = 0, timer = 0;
     function tick() {
-      if (mobile.matches || !visible || hoverIdx >= 0) return;
-      if (locked) { if (performance.now() < lockUntil) return; locked = false; }
+      if (mobile.matches || !visible) return;
+      locked = false; hoverIdx = -1;
       const n = (active + 1) % N;
       scrollIdx = n; progress = n / (N - 1);
       render(n); paint();
@@ -176,7 +177,7 @@
 
     const canHover = matchMedia('(hover: hover)').matches;
     tabs.forEach((b, i) => {
-      b.addEventListener('mouseenter', () => { if (canHover) { hoverIdx = i; root.classList.add('is-hover'); choose(); } });
+      /* χωρίς hover: η εναλλαγή δεν επηρεάζεται από το ποντίκι */
       b.addEventListener('click', () => {
         if (mobile.matches) return;   // στο κινητό το άγγιγμα δεν αλλάζει τίποτα
         locked = true; lockUntil = performance.now() + RESUME_MS; hoverIdx = -1; scrollIdx = i; progress = i / (N - 1); render(i); paint();
@@ -190,7 +191,6 @@
         locked = true; lockUntil = performance.now() + RESUME_MS; scrollIdx = n; progress = n / (N - 1); render(n); paint(); tabs[n].focus();
       });
     });
-    line.addEventListener('mouseleave', () => { hoverIdx = -1; root.classList.remove('is-hover'); choose(); });
     new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) locked = false; }), { threshold: 0 }).observe(root);
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', () => { place(); onScroll(); });
@@ -252,6 +252,14 @@
     window.addEventListener('scroll', req, { passive: true });
     window.addEventListener('resize', req);
     zip();
+  }
+
+  /* ── 6. 3D Print «Τι κάνουμε»: οι κάρτες εμφανίζονται μία-μία ── */
+  const pro = document.querySelector('section.pro');
+  if (pro && !REDUCED && 'IntersectionObserver' in window) {
+    pro.classList.add('pro-anim');
+    const pio = new IntersectionObserver(es => { if (es[0].isIntersecting) { pro.classList.add('pro-in'); pio.disconnect(); } }, { threshold: 0.15 });
+    pio.observe(pro.querySelector('.wd-offerings-grid') || pro);
   }
 
   new MutationObserver(applyLang).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
