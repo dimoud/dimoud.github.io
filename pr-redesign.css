@@ -62,3 +62,67 @@
   .pro-code { font-size: 30px; }
 }
 @media (prefers-reduced-motion: reduce) { .pro *, .pro .wd-offer-card { transition: none !important; } }
+
+/* Κινητό: δύο κάρτες ανά σειρά, σύντομο κείμενο */
+.pro-short { display: none; }
+@media (max-width: 640px) {
+  section.pro.pr-offerings .wd-offerings-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px; }
+  section.pro.pr-offerings .wd-offer-card { padding: 16px 13px 14px; }
+  section.pro.pr-offerings .wd-offer-text { display: none; }
+  section.pro.pr-offerings .pro-short { display: block; margin: 0 0 12px; color: rgba(220,232,255,.66); font-size: 12.5px; line-height: 1.5; text-align: left; }
+  section.pro.pr-offerings .wd-offer-name { font-size: 16px; line-height: 1.15; margin-bottom: 6px; }
+  section.pro.pr-offerings .pro-ring { width: 42px; height: 42px; margin-bottom: 14px; }
+  section.pro.pr-offerings .pro-ring::before { inset: -5px; }
+  section.pro.pr-offerings .pr-offer-icon { width: 20px; height: 20px; }
+  section.pro.pr-offerings .pro-code { font-size: 20px; right: 10px; top: 14px; }
+  section.pro.pr-offerings .pro-spec { padding-top: 10px; }
+  section.pro.pr-offerings .pro-spec-l { display: none; }
+  section.pro.pr-offerings .pro-chips li:nth-child(n+3) { display: none; }
+  section.pro.pr-offerings .pro-chips li { font-size: 9.5px; padding: 4px 6px; }
+}
+
+/* Εικονογραφήσεις «σχέδιο» στις κάρτες Τι κάνουμε */
+.pro-art { position: relative; display: block; margin: -28px -24px 20px; height: 132px; color: var(--acc); overflow: hidden;
+  background:
+    linear-gradient(color-mix(in srgb, var(--acc) 7%, transparent) 1px, transparent 1px) 0 0 / 16px 16px,
+    linear-gradient(90deg, color-mix(in srgb, var(--acc) 7%, transparent) 1px, transparent 1px) 0 0 / 16px 16px,
+    radial-gradient(ellipse 70% 80% at 50% 60%, color-mix(in srgb, var(--acc) 14%, transparent), transparent 75%), #050b18;
+  border-bottom: 1px solid color-mix(in srgb, var(--acc) 22%, transparent); }
+.pro-art svg { position: absolute; inset: 8px 0 0; width: 100%; height: calc(100% - 8px); }
+.pro .wd-offer-card .pro-code { z-index: 2; }
+.pro-art .pa-noz { transform: translate(110px, 0); animation: paNoz 3.6s ease-in-out infinite alternate; }
+@keyframes paNoz { from { transform: translate(80px, 0); } to { transform: translate(140px, 0); } }
+.pro-art .pa-layers rect:last-child, .pro-art .pa-layers rect:nth-last-child(2) { animation: paBlink 3.6s ease-in-out infinite; }
+@keyframes paBlink { 50% { opacity: .25; } }
+.pro-art .pa-jaw { animation: paJaw 3.2s ease-in-out infinite alternate; }
+@keyframes paJaw { from { transform: translateX(-16px); } to { transform: translateX(0); } }
+.pro-art .pa-cut { stroke-dasharray: 100; stroke-dashoffset: 100; stroke-width: 1.8; animation: paCut 4s linear infinite; }
+@keyframes paCut { 80%, 100% { stroke-dashoffset: 0; } }
+.pro-art .pa-beam { stroke-dasharray: 3 2; animation: paBeam .5s linear infinite; }
+@keyframes paBeam { to { stroke-dashoffset: -10; } }
+.pro-art .pa-spark { animation: paSpark .35s steps(2) infinite; }
+@keyframes paSpark { 50% { opacity: .2; } }
+.pro-art .pa-head2 { transform: translate(92px, 0); animation: paHead2 3s ease-in-out infinite alternate; }
+@keyframes paHead2 { from { transform: translate(88px, 0); } to { transform: translate(140px, 0); } }
+.pro .wd-offer-card:not(:hover) .pro-art svg { opacity: .92; }
+@media (prefers-reduced-motion: reduce) { .pro-art * { animation: none !important; } }
+@media (max-width: 640px) {
+  section.pro.pr-offerings .pro-art { margin: -16px -13px 12px; height: 88px; }
+}
+
+.pro .pro-ring { display: none; }
+
+/* Φωτογραφίες εργασιών σε ανοιχτό φόντο στην κορυφή κάθε κάρτας */
+.pro-art--photo { background:
+    linear-gradient(rgba(11,27,56,.05) 1px, transparent 1px) 0 0 / 16px 16px,
+    linear-gradient(90deg, rgba(11,27,56,.05) 1px, transparent 1px) 0 0 / 16px 16px,
+    radial-gradient(ellipse 70% 70% at 50% 55%, #ffffff, #e7e9ed 80%);
+  height: 170px; border-bottom: 2px solid var(--acc); }
+.pro-art--photo img { position: absolute; inset: 10px 14px; width: calc(100% - 28px); height: calc(100% - 20px); object-fit: contain;
+  filter: drop-shadow(0 10px 14px rgba(11,27,56,.22)); transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.pro .wd-offer-card:hover .pro-art--photo img { transform: scale(1.06); }
+.pro .wd-offer-card .pro-art--photo ~ .pro-code, .pro .wd-offer-card:has(.pro-art--photo) .pro-code { -webkit-text-stroke-color: color-mix(in srgb, var(--acc) 70%, #0b1b38); }
+@media (max-width: 640px) {
+  section.pro.pr-offerings .pro-art--photo { height: 104px; }
+  section.pro.pr-offerings .pro-art--photo img { inset: 6px 8px; width: calc(100% - 16px); height: calc(100% - 12px); }
+}

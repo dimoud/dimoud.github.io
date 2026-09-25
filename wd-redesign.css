@@ -111,3 +111,18 @@
   .wdo .wdo-shot { flex: none; aspect-ratio: 16 / 9; min-height: 0; border-right: 0; border-bottom: 1px solid rgba(140,180,255,.12); }
   .wdo .wdo-body { padding: 18px 20px 20px; }
 }
+
+/* Κινητό: δύο κάρτες ανά σειρά, μόνο τίτλος και μία πρόταση */
+@media (max-width: 640px) {
+  .wdo .wd-offerings-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; max-width: none; }
+  .wdo .wdo-shot { aspect-ratio: 4 / 3; }
+  .wdo .wdo-bar { height: 16px; gap: 3px; padding: 0 6px; }
+  .wdo .wdo-bar i { width: 4px; height: 4px; }
+  .wdo .wdo-bar b { display: none; }
+  .wdo .wdo-page { top: 22px; left: 7px; right: 7px; gap: 5px; }
+  .wdo .wdo-body { padding: 12px 12px 14px; }
+  .wdo .wd-offer-num { font-size: 9px; margin-bottom: 4px; }
+  .wdo .wd-offer-name { font-size: 15.5px; line-height: 1.15; margin-bottom: 6px; }
+  .wdo .wd-offer-text { font-size: 12.5px; line-height: 1.5; margin: 0; }
+  .wdo .wdo-feats { display: none; }
+}
