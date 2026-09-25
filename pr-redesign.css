@@ -154,3 +154,6 @@
   .pro-art--photo, .pro-art--photo::after, .pro-art--photo img, .pro.pro-in .wd-offer-card::after { animation: none !important; }
   .pro.pro-anim .wd-offer-card { opacity: 1; translate: none; }
 }
+
+/* Κινητό: εφέ «φερμουάρ» (redesign.js) — οι κάρτες έρχονται από τα πλάγια */
+@media (max-width: 960px) { section.pro { overflow-x: clip; } }

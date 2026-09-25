@@ -229,16 +229,16 @@
 
   /* ── 5. Αρχές στο κινητό: «φερμουάρ» — οι κάρτες έρχονται από τα πλάγια και
         ενώνονται στη μέση όσο κατεβαίνεις· ανοίγουν ξανά όταν ανεβαίνεις ── */
-  const zipCards = Array.from(document.querySelectorAll('#process .values-section .value-card'));
+  const zipCards = Array.from(document.querySelectorAll('#process .values-section .value-card, #what-we-build .wd-offer-card, #what-we-do .wd-offer-card'));
   if (zipCards.length && !REDUCED) {
     const zipMq = matchMedia('(max-width: 960px)');
     let zt = false;
     const zip = () => {
       zt = false;
-      if (!zipMq.matches) { zipCards.forEach(c => { c.style.translate = ''; c.style.opacity = ''; }); return; }
+      if (!zipMq.matches) { zipCards.forEach(c => { c.style.translate = ''; c.style.opacity = ''; c.style.transition = ''; }); return; }
       const vh = window.innerHeight, mid = window.innerWidth / 2;
       zipCards.forEach((c, i) => {
-        c.style.translate = '0 0';
+        c.style.translate = '0 0'; c.style.transition = 'none';
         const r = c.getBoundingClientRect();
         const two = r.width < window.innerWidth * 0.7;
         const side = two ? (r.left + r.width / 2 < mid ? -1 : 1) : (i % 2 ? 1 : -1);
