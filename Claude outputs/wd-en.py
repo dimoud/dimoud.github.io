@@ -72,13 +72,13 @@ EU = ['Greece','Cyprus','Austria','Belgium','Bulgaria','Croatia','Czechia','Denm
       'Slovakia','Slovenia','Spain','Sweden']
 META = {
  'el': dict(url=EL_URL, locale='el_GR',
-   title='Κατασκευή Ιστοσελίδων από 500 € · Όλη η Ελλάδα | Expertease',
+   title='Κατασκευή Ιστοσελίδων · Όλη η Ελλάδα και η ΕΕ | Expertease',
    desc='Κατασκευή ιστοσελίδων από το μηδέν, χωρίς έτοιμα θέματα, από 500 € + ΦΠΑ. Δουλεύουμε εξ αποστάσεως με πελάτες σε όλη την Ελλάδα και την ΕΕ.',
    svc='Κατασκευή ιστοσελίδων',
    svcdesc='Ιστοσελίδες γραμμένες από το μηδέν, χωρίς έτοιμα θέματα και χωρίς WordPress, στα ελληνικά και στα αγγλικά. Η δουλειά γίνεται εξ αποστάσεως για πελάτες σε όλη την Ελλάδα, την Κύπρο και την Ευρωπαϊκή Ένωση.',
    offer='Ιστοσελίδα από 500 € + ΦΠΑ, με σταθερή γραπτή προσφορά', crumb=['Αρχική','Κατασκευή Ιστοσελίδων']),
  'en': dict(url=EN_URL, locale='en_GB',
-   title='Custom Web Design from €500 · Greece & EU | Expertease',
+   title='Custom Web Design & Development · Greece & EU | Expertease',
    desc='Hand-coded websites without templates, from €500 + VAT. A Greek studio working remotely with clients across Greece, Cyprus and the EU, in Greek and English.',
    svc='Website design and development',
    svcdesc='Websites written from scratch, without templates or WordPress, in Greek and English. Projects run remotely for clients across Greece, Cyprus and the European Union.',

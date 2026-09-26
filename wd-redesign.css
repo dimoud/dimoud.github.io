@@ -184,3 +184,7 @@
   .wds-q summary { font-size: 18px; padding: 16px; }
   .wds-q p { padding: 0 16px 16px; font-size: 15px; }
 }
+
+/* Μεγαλύτερος τίτλος hero (2026-09-26) */
+.wd-page .wd-page-title { font-size: clamp(52px, 5.8vw, 88px); line-height: .92; letter-spacing: .5px; text-wrap: balance; }
+@media (max-width: 640px) { .wd-page .wd-page-title { font-size: clamp(42px, 12vw, 60px); } }

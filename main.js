@@ -43,7 +43,7 @@ const LANG = {
     wd_title:'Κατασκευή Ιστοσελίδων',
     cad_label:'Μηχανολογικός Σχεδιασμός · Αρχεία STEP',
     cad_title:'Μηχανολογικό CAD Σχέδιο & 3D STEP Viewer',
-    wd_desc:'Φτιάχνουμε ιστοσελίδες από το μηδέν, χωρίς έτοιμα θέματα, από 500 € + ΦΠΑ. Δουλεύουμε εξ αποστάσεως, με πελάτες σε όλη την Ελλάδα και την Ευρώπη.',
+    wd_desc:'Φτιάχνουμε ιστοσελίδες από το μηδέν, χωρίς έτοιμα θέματα. Δουλεύουμε εξ αποστάσεως, με πελάτες σε όλη την Ελλάδα και την Ευρώπη.',
     wd_f1:'HTML & CSS στο χέρι', wd_f2:'Διαδραστική κίνηση',
     wd_f3:'WebGL / 3D στοιχεία', wd_f4:'Σχεδιασμός πρώτα για κινητό',
     wd_f5:'Δίγλωσσο (EN / EL)', wd_f6:'Δομή έτοιμη για SEO',
@@ -112,7 +112,7 @@ const LANG = {
     wd_cta_text:'Πείτε μας για την επιχείρησή σας και τι χρειάζεστε. Θα σχεδιάσουμε και θα φτιάξουμε μια ιστοσελίδα που σας εκφράζει, από το πρώτο σκίτσο ως τη δημοσίευση.',
     wd_cta_price_from:'Ξεκινάμε από',
     wd_cta_btn1:'Επικοινωνήστε →', wd_cta_btn2:'Δείτε τα Έργα μας',
-    wd_cta_perk1:'✓ Δικός σας σχεδιασμός, χωρίς έτοιμα θέματα', wd_cta_perk2:'✓ Γρήγορο και φτιαγμένο για κινητό', wd_cta_perk3:'✓ Δωρεάν αναθεωρήσεις',
+    wd_cta_perk1:'✓ Δικός σας σχεδιασμός, χωρίς έτοιμα θέματα', wd_cta_perk2:'✓ Γρήγορο και φτιαγμένο για κινητό',
     projects_heading:'Έργα',
     sw_heading:'Λογισμικό', sw_label:'Ενεργό Προϊόν · easemanual.eu',
     sw_desc:'Λογισμικό <strong>αυτοματοποίησης</strong> τεχνικών μελετών για οχήματα <strong>ειδικής χρήσης</strong> και <strong>ειδικού σκοπού</strong>.',
@@ -128,9 +128,9 @@ const LANG = {
     sw_wf5:'Ανασκόπηση συνοπτικού πίνακα αποτελεσμάτων', sw_wf6:'Δημιουργία πλήρους τεχνικής μελέτης με ένα κλικ',
     sw_d_link:'Πλήρης οδηγός χρήσης →',
     sw_d_kicker4:'Τιμή',
-    sw_pricing_lead:'Το Mechanical ExpertEase διατίθεται από <strong>80€ + ΦΠΑ / μήνα</strong>. Διαλέξτε το πακέτο που σας ταιριάζει ή ζητήστε προσφορά για τη δική σας περίπτωση.',
-    sw_pricing_1:'<strong>Μηνιαία συνδρομή:</strong> 80€ + ΦΠΑ / μήνα',
-    sw_pricing_2:'<strong>Ετήσιο πακέτο:</strong> 400€ + ΦΠΑ / έτος',
+    sw_pricing_lead:'Το Mechanical ExpertEase διατίθεται από <strong>150€ + ΦΠΑ / μήνα</strong>. Διαλέξτε το πακέτο που σας ταιριάζει ή ζητήστε προσφορά για τη δική σας περίπτωση.',
+    sw_pricing_1:'<strong>Μηνιαία συνδρομή:</strong> 150€ + ΦΠΑ / μήνα',
+    sw_pricing_2:'<strong>Ετήσιο πακέτο:</strong> 600€ + ΦΠΑ / έτος',
     sw_pricing_3:'<strong>Βιβλιοθήκη σχεδίων:</strong> 300€ + ΦΠΑ εφάπαξ',
     sw_pricing_4:'<strong>Υποστήριξη & ενημερώσεις:</strong> χρέωση κατά περίπτωση',
     swpb_kicker:'Τιμολόγηση',
@@ -324,7 +324,7 @@ const LANG = {
     wd_title:'Web Design & Development',
     cad_label:'Mechanical Design · STEP Files',
     cad_title:'3D CAD Design & STEP Model Viewer',
-    wd_desc:'We build websites from scratch, without templates, from €500 + VAT. We work remotely with clients across Greece and Europe.',
+    wd_desc:'We build websites from scratch, without templates. We work remotely with clients across Greece and Europe.',
     wd_f1:'Custom HTML & CSS', wd_f2:'Interactive motion',
     wd_f3:'WebGL / 3D elements', wd_f4:'Mobile-first layout',
     wd_f5:'Bilingual (EN / EL)', wd_f6:'SEO-ready structure',
@@ -393,7 +393,7 @@ const LANG = {
     wd_cta_text:'Tell us about your business and what you need. We will design and build a website that feels like yours, from the first sketch to launch.',
     wd_cta_price_from:'Starting from',
     wd_cta_btn1:'Get in Touch →', wd_cta_btn2:'See Our Projects',
-    wd_cta_perk1:'✓ Your own design, no templates', wd_cta_perk2:'✓ Mobile-first & fast', wd_cta_perk3:'✓ Free revisions included',
+    wd_cta_perk1:'✓ Your own design, no templates', wd_cta_perk2:'✓ Mobile-first & fast',
     projects_heading:'Projects',
     sw_heading:'Software', sw_label:'Active Product · easemanual.eu',
     sw_desc:'Software <strong>automating</strong> technical studies for <strong>special-use and special-purpose</strong> vehicles.',
@@ -409,9 +409,9 @@ const LANG = {
     sw_wf5:'Review the summary of results', sw_wf6:'Create the full technical study with one click',
     sw_d_link:'Full user guide →',
     sw_d_kicker4:'Pricing',
-    sw_pricing_lead:'Mechanical ExpertEase is available from <strong>80€ + VAT / month</strong>. Choose the plan that suits you or ask for an offer for your case.',
-    sw_pricing_1:'<strong>Monthly subscription:</strong> 80€ + VAT / month',
-    sw_pricing_2:'<strong>Annual package:</strong> 400€ + VAT / year',
+    sw_pricing_lead:'Mechanical ExpertEase is available from <strong>150€ + VAT / month</strong>. Choose the plan that suits you or ask for an offer for your case.',
+    sw_pricing_1:'<strong>Monthly subscription:</strong> 150€ + VAT / month',
+    sw_pricing_2:'<strong>Annual package:</strong> 600€ + VAT / year',
     sw_pricing_3:'<strong>Design library:</strong> 300€ + VAT one-time',
     sw_pricing_4:'<strong>Support & updates:</strong> priced case-by-case',
     swpb_kicker:'Pricing',
@@ -728,7 +728,7 @@ function applyLang(lang) {
   set('wd-cta-label',t.wd_cta_label); set('wd-cta-title',t.wd_cta_title,true);
   set('wd-cta-text',t.wd_cta_text); set('wd-cta-price-from',t.wd_cta_price_from);
   set('wd-cta-btn1',noArrow(t.wd_cta_btn1)); set('wd-cta-btn2',noArrow(t.wd_cta_btn2));
-  set('wd-cta-perk1',t.wd_cta_perk1); set('wd-cta-perk2',t.wd_cta_perk2); set('wd-cta-perk3',t.wd_cta_perk3);
+  set('wd-cta-perk1',t.wd_cta_perk1); set('wd-cta-perk2',t.wd_cta_perk2);
   // 3dprint.html
   set('pr-label',t.pr_label); set('pr-title',t.pr_title,true); set('pr-desc',t.pr_desc,true);
   for(let i=1;i<=8;i++) set('pr-f'+i,t['pr_f'+i]);
