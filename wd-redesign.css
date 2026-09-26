@@ -139,3 +139,48 @@
 
 /* Κινητό: εφέ «φερμουάρ» (redesign.js) — οι κάρτες έρχονται από τα πλάγια */
 @media (max-width: 960px) { section.wdo { overflow-x: clip; } }
+
+/* ═══════════════════════════════════════════════════════════════
+   «Πώς δουλεύουμε» + «Συχνές ερωτήσεις» (SEO/GEO, 2026-09)
+═══════════════════════════════════════════════════════════════ */
+.wds { background: #0b1b38; padding: 96px 56px; color: #fff; }
+.wds-faq { background: #081530; border-top: 1px solid rgba(140,180,255,.08); }
+.wds-inner { max-width: 1240px; margin: 0 auto; }
+.wds-head { max-width: 760px; margin-bottom: 44px; }
+.wds .wds-label { margin-bottom: 18px; letter-spacing: 4px; color: #6fa8ff; }
+.wds-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(32px, 4vw, 54px); line-height: 1.02; margin: 0 0 18px; color: #fff; }
+.wds-lead { margin: 0; color: rgba(220,232,255,.7); font-size: 17px; line-height: 1.7; }
+.wds-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; counter-reset: none; }
+.wds-steps li { position: relative; padding: 26px 22px 24px; background: rgba(8,18,40,.78); border: 1px solid rgba(140,180,255,.16); border-radius: 6px; }
+.wds-steps li::before { content: ''; position: absolute; left: 22px; right: 22px; top: 0; height: 2px; background: linear-gradient(90deg, #3b82f6, #7ee2b8); }
+.wds-n { display: block; font: 500 12px/1 var(--font-mono); letter-spacing: 2px; color: #6fa8ff; margin-bottom: 14px; }
+.wds-steps h3 { font-family: var(--font-display); font-weight: 600; font-size: 24px; line-height: 1.1; margin: 0 0 10px; color: #fff; }
+.wds-steps p { margin: 0; font-size: 15px; line-height: 1.6; color: rgba(220,232,255,.68); }
+.wds-area { display: flex; align-items: center; gap: 12px; margin: 30px 0 0; padding: 16px 20px; border: 1px dashed rgba(140,180,255,.25); border-radius: 6px;
+  font: 500 12px/1.5 var(--font-mono); letter-spacing: 1.2px; text-transform: uppercase; color: rgba(220,232,255,.82); }
+.wds-area svg { flex: none; color: #7ee2b8; }
+.wds-qa { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; align-items: start; }
+.wds-q { background: rgba(8,18,40,.78); border: 1px solid rgba(140,180,255,.16); border-radius: 6px; transition: border-color .3s; }
+.wds-q[open] { border-color: rgba(111,168,255,.45); }
+.wds-q summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 16px; align-items: center; padding: 20px 22px;
+  font-family: var(--font-display); font-weight: 600; font-size: 20px; line-height: 1.2; color: #fff; }
+.wds-q summary::-webkit-details-marker { display: none; }
+.wds-q summary::after { content: '+'; flex: none; font: 400 22px/1 var(--font-mono); color: #6fa8ff; transition: transform .3s; }
+.wds-q[open] summary::after { transform: rotate(45deg); }
+.wds-q p { margin: 0; padding: 0 22px 22px; font-size: 15.5px; line-height: 1.7; color: rgba(220,232,255,.72); }
+.wds-q summary:focus-visible { outline: 2px solid #6fa8ff; outline-offset: -2px; }
+@media (max-width: 1100px) { .wds-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) {
+  .wds { padding: 64px 16px; }
+  .wds-head { margin-bottom: 28px; }
+  .wds-lead { font-size: 15.5px; }
+  .wds-steps { gap: 10px; }
+  .wds-steps li { padding: 20px 14px 16px; }
+  .wds-steps li::before { left: 14px; right: 14px; }
+  .wds-steps h3 { font-size: 19px; }
+  .wds-steps p { font-size: 13.5px; }
+  .wds-area { font-size: 10.5px; padding: 14px; }
+  .wds-qa { grid-template-columns: 1fr; gap: 10px; }
+  .wds-q summary { font-size: 18px; padding: 16px; }
+  .wds-q p { padding: 0 16px 16px; font-size: 15px; }
+}
