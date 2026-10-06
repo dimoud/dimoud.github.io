@@ -42,7 +42,9 @@
       "Bash(kill %1)",
       "Bash(jobs)",
       "Bash(echo \"exit: $?\")",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(grep -o \"Mastrogiorgis</h3>.\\\\{0,2500\\\\}\" index.html)",
+      "Bash(node -e \"global.window={};global.document=undefined;const src=require\\('fs'\\).readFileSync\\('config.js','utf8'\\);try{new Function\\('window',src\\)\\(global.window\\)}catch\\(e\\){console.log\\('ERR',e.message\\)};const c=window.SITE_CONFIG||Object.values\\(window\\).find\\(v=>v&&v.reviews\\);console.log\\(c?c.reviews.length+' reviews; first: '+c.reviews.slice\\(0,3\\).map\\(r=>r.name\\).join\\(', '\\):'config object not found'\\)\")"
     ],
     "additionalDirectories": [
       "a:\\WORK_PROJECTS\\WEBSITES\\github\\malliaris",
