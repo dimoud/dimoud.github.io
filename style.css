@@ -42,7 +42,7 @@
 }
 
 /* Greek: Barlow Condensed matches Oswald visually and supports Greek natively */
-:lang(el) { --font-display: 'Barlow Condensed', 'Roboto Condensed', sans-serif; } /* Η Barlow δεν έχει ελληνικά· τα ελληνικά γράμματα έρχονται από τη Roboto Condensed */
+:lang(el) { --font-display: 'Barlow Condensed', 'Roboto Condensed', sans-serif; --font-mono: 'IBM Plex Mono', 'Fira Mono', monospace; --font-serif: 'Playfair Display', 'Noto Serif', serif; } /* ΜΗ-25: Fira Mono / Noto Serif δίνουν τα ελληνικά γράμματα */ /* Η Barlow δεν έχει ελληνικά· τα ελληνικά γράμματα έρχονται από τη Roboto Condensed */
 
 /* Ensure Barlow Condensed renders bold (like Oswald does at weight 400 visually) */
 /* Barlow Condensed has ~10% larger x-height than Oswald — scale down to match */
@@ -203,14 +203,14 @@ nav {
 .hero-tag {
   font-family: var(--font-mono); font-size: 10px;
   letter-spacing: 3px; color: var(--blue-lt); text-transform: uppercase;
-  margin-bottom: 24px; opacity: 0; animation: fadeLeft .7s .15s forwards;
+  margin-bottom: 24px; animation: fadeLeftT .7s .15s forwards;
 }
 .hero-name {
   font-family: var(--font-display);
   font-size: clamp(64px, 8.5vw, 112px);
   line-height: 1.3; letter-spacing: 1px; color: #fff;
   margin-bottom: 12px; padding-bottom: 10px;
-  opacity: 0; animation: fadeLeft .8s .3s forwards;
+  animation: fadeLeftT .8s .3s forwards;
   position: relative;
 }
 .hero-name span {
@@ -221,7 +221,7 @@ nav {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: designsSweep 7s 2s ease-in-out infinite;
+  animation: designsSweep 7s 2s ease-in-out infinite; /* ΜΗ-02: παύση με το κουμπί #motionToggle (aria-pressed) */
 }
 @keyframes designsSweep {
   0%, 10%  { background-position: 0% 0; }
@@ -232,23 +232,23 @@ nav {
   font-family: var(--font-serif); font-style: italic;
   font-size: clamp(15px, 1.6vw, 20px);
   color: rgba(255,255,255,.88); margin-top: 8px;
-  opacity: 0; animation: fadeLeft .8s .45s forwards;
+  animation: fadeLeftT .8s .45s forwards;
 }
 .hero-tagline {
   font-family: var(--font-mono); font-size: 10px;
   letter-spacing: 4px; text-transform: uppercase;
   color: rgba(230, 235, 255, 0.55); margin-top: 8px;
-  opacity: 0; animation: fadeLeft .8s .5s forwards;
+  animation: fadeLeftT .8s .5s forwards;
 }
 .hero-desc {
   font-size: 15.5px; line-height: 1.85; color: rgba(255,255,255,.85);
   margin-top: 28px; max-width: 420px;
-  opacity: 0; animation: fadeLeft .8s .6s forwards;
+  animation: fadeLeftT .8s .6s forwards;
 }
 .hero-desc strong { color: var(--blue-lt); font-weight: 600; }
 .hero-cta {
   display: flex; gap: 14px; margin-top: 44px; flex-wrap: wrap;
-  opacity: 0; animation: fadeLeft .8s .75s forwards;
+  animation: fadeLeftT .8s .75s forwards;
 }
 .btn-primary {
   display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px;
@@ -312,7 +312,7 @@ nav {
   font-family: var(--font-mono); font-size: 9px; letter-spacing: 1px;
   padding: 7px 13px; background: rgba(255,255,255,.05);
   border: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.45);
-  cursor: pointer; transition: all .2s; backdrop-filter: blur(4px);
+  cursor: pointer; transition: color .2s, background-color .2s, border-color .2s; backdrop-filter: blur(4px);
 }
 .vctrl:hover, .vctrl.active { border-color: var(--blue-lt); color: var(--blue-lt); background: rgba(26,95,212,.22); }
 .viewer-hint {
@@ -321,7 +321,7 @@ nav {
   color: rgba(255,255,255,.25);
   pointer-events: none;
   display: flex; align-items: center; gap: 8px;
-  animation: pulse 2.5s ease-in-out infinite;
+  animation: pulse 2.5s ease-in-out infinite; /* ΜΗ-02: παύση με το κουμπί #motionToggle (aria-pressed) */
 }
 .viewer-hint::before,.viewer-hint::after { content:''; display:block; width:18px; height:1px; background:rgba(255,255,255,.15); }
 
@@ -345,7 +345,7 @@ nav {
   border-top: 1px solid rgba(255,255,255,.12);
   border-bottom: 1px solid rgba(255,255,255,.12);
 }
-.ticker-inner { display: flex; animation: ticker 28s linear infinite; white-space: nowrap; will-change: transform; }
+.ticker-inner { display: flex; animation: ticker 28s linear infinite; white-space: nowrap; will-change: transform; } /* ΜΗ-02: παύση με το κουμπί #motionToggle (aria-pressed) */
 .ticker-item { font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: #fff; padding: 0 36px; flex-shrink: 0; }
 .ticker-item span { color: rgba(255,255,255,.55); margin-left: 8px; }
 @keyframes tickerBg { from { background-position: 0 0; } to { background-position: 200% 0; } }
@@ -376,18 +376,18 @@ section { padding: 100px 64px; position: relative; z-index: 1; }
 .reveal-up:nth-child(4) { transition-delay: .36s; }
 
 /* ── DATA-REVEAL (scroll-triggered, portfolio & sections) ────── */
-[data-reveal] {
+html.anim-ready [data-reveal] {
   opacity: 0;
   transform: translateY(36px);
   transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
 }
-[data-reveal-r] {
+html.anim-ready [data-reveal-r] {
   opacity: 0;
   transform: translateY(36px) translateX(18px);
   transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
 }
-[data-reveal].visible,
-[data-reveal-r].visible {
+html.anim-ready [data-reveal].visible,
+html.anim-ready [data-reveal-r].visible {
   opacity: 1;
   transform: none;
 }
@@ -518,7 +518,7 @@ section { padding: 100px 64px; position: relative; z-index: 1; }
 .pf-icon-pulse {
   position: absolute; inset: -8px; border-radius: 50%;
   border: 1px solid rgba(59,130,246,.22);
-  animation: pfPulse 2.5s ease-in-out infinite;
+  animation: pfPulse 2.5s ease-in-out infinite; /* ΜΗ-02: παύση με το κουμπί #motionToggle (aria-pressed) */
 }
 .pf-node:nth-child(odd) .pf-icon-pulse  { animation-delay: 0s; }
 .pf-node:nth-child(even) .pf-icon-pulse { animation-delay: .7s; }
@@ -548,7 +548,7 @@ section { padding: 100px 64px; position: relative; z-index: 1; }
 .pf-arrow-dot {
   position: absolute; width: 9px; height: 9px; border-radius: 50%;
   background: var(--blue-lt); top: 50%; transform: translateY(-50%);
-  animation: pfDot 3.5s linear infinite;
+  animation: pfDot 3.5s linear infinite; /* ΜΗ-02: παύση με το κουμπί #motionToggle (aria-pressed) */
   box-shadow: 0 0 8px var(--blue-lt);
 }
 .pf-arrow:nth-child(2)  .pf-arrow-dot { animation-delay: 0s; }
@@ -569,7 +569,7 @@ section { padding: 100px 64px; position: relative; z-index: 1; }
 .pf-loop-line::after {
   content: ''; position: absolute; top: 0; left: -100%; width: 60px; height: 100%;
   background: linear-gradient(to right, transparent, var(--blue-lt), transparent);
-  animation: pfSweep 3.5s linear infinite;
+  animation: pfSweep 3.5s linear infinite; /* ΜΗ-02: παύση με το κουμπί #motionToggle (aria-pressed) */
 }
 .pf-loop-label {
   font-family: var(--font-mono); font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
@@ -669,7 +669,7 @@ section { padding: 100px 64px; position: relative; z-index: 1; }
   font-family: var(--font-mono); font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase;
   color: rgba(59,130,246,.65); white-space: nowrap;
   pointer-events: none;
-  animation: pulse 2.5s ease-in-out infinite;
+  animation: pulse 2.5s ease-in-out infinite; /* ΜΗ-02: παύση με το κουμπί #motionToggle (aria-pressed) */
 }
 
 /* ── PRINCIPLES (HOW WE WORK – VALUES) ───────────────────────── */
@@ -1386,9 +1386,9 @@ section { padding: 100px 64px; position: relative; z-index: 1; }
   padding-bottom: 16px; border-bottom: 1px solid var(--border2);
   display: flex; align-items: center; justify-content: center; gap: 9px;
   text-align: center;
-  animation: titlePulse 2.8s ease-in-out infinite;
+  animation: titlePulse 2.8s ease-in-out infinite; /* ΜΗ-02: παύση με το κουμπί #motionToggle (aria-pressed) */
 }
-.contact-form-title svg { animation: titlePulse 2.8s ease-in-out infinite; flex-shrink: 0; }
+.contact-form-title svg { animation: titlePulse 2.8s ease-in-out infinite; flex-shrink: 0; } /* ΜΗ-02: παύση με το κουμπί #motionToggle (aria-pressed) */
 @keyframes titlePulse {
   0%, 100% { opacity: 1; }
   50%       { opacity: .45; }
@@ -1549,6 +1549,7 @@ footer {
 /* ── ANIMATIONS ──────────────────────────────────────────────── */
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
 @keyframes fadeLeft { from{opacity:0;transform:translateX(-32px)} to{opacity:1;transform:none} }
+@keyframes fadeLeftT { from{transform:translateX(-32px)} to{transform:none} } /* ΜΗ-03: χωρίς opacity, για να μετρά το LCP */
 @keyframes ticker    { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 @keyframes thumbScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 @keyframes pulse  { 0%,100%{opacity:.25} 50%{opacity:.75} }
@@ -1865,7 +1866,7 @@ footer {
   border: 2px solid rgba(59,130,246,.2);
   border-top-color: #3b82f6;
   border-radius: 50%;
-  animation: cadSpin 1s linear infinite;
+  animation: cadSpin 1s linear infinite; /* ΜΗ-02: παύση με το κουμπί #motionToggle (aria-pressed) */
 }
 @keyframes cadSpin { to { transform: rotate(360deg); } }
 .cad-loading-text {
@@ -2707,7 +2708,7 @@ footer {
   line-height: 1;
   color: #fff;
   letter-spacing: -1px;
-  animation: wd-price-pulse 2s ease-in-out infinite;
+  animation: wd-price-pulse 2s ease-in-out infinite; /* ΜΗ-02: παύση με το κουμπί #motionToggle (aria-pressed) */
   display: inline-block;
 }
 .wd-cta-btn {
@@ -3250,3 +3251,27 @@ hr.ec-rule { position: relative; z-index: 2; }
 
 /* Λογότυπο 30% μεγαλύτερο στον υπολογιστή (40 → 52px) */
 @media (min-width: 961px) { .nav-logo img { height: 52px; } }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Προσβασιμότητα (έλεγχος istoselides, 2026-10): αντίθεση ≥ 4,5:1,
+   παύση κίνησης (WCAG 2.2.2)
+═══════════════════════════════════════════════════════════════ */
+html body .footer-contact-bar a, html body .footer-contact-bar span:not(.fc-sep) { color: #8a909b; }
+html body .footer-contact-bar a:hover { color: #c9ced6; }
+html body .footer-domain { color: #8c919b; }
+html body .wd-work-sub { color: #9aa0aa; }
+html body .lang-btn:not(.active) { color: #9aa1ae; }
+html body .port-thumb-num, html body .port-cat, html body .port-hint-txt { color: #5a6a88; }
+html body .port-info .port-link { color: #1f6fd1; }
+html body .pr-est-file-types { color: #8a92a0; }
+html body .pr-est-param-label { color: #9399a3; }
+html body #pr-est-ams-toggle { color: #9399a3 !important; }
+html body .hiw-doc-tag { background: #1c5fd6; }
+html body .wdo-bar b { color: #8ea3c6; }
+/* παύση κίνησης */
+.motion-toggle { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: #8a909b;
+  background: none; border: 1px solid rgba(255,255,255,.18); border-radius: 3px; padding: 6px 10px; cursor: pointer; }
+.motion-toggle:hover, .motion-toggle[aria-pressed="true"] { color: #fff; border-color: rgba(255,255,255,.45); }
+html.motion-paused *, html.motion-paused *::before, html.motion-paused *::after { animation-play-state: paused !important; }
+html body .pr-est-drop-sub { color: #9399a3; }

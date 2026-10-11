@@ -21,7 +21,7 @@
 </script>
 <link rel="dns-prefetch" href="//fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Roboto+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Roboto+Condensed:wght@400;500;600;700&family=Fira+Mono:wght@400;500&family=Noto+Serif:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="expertease-credit.css">
   <style>
@@ -656,10 +656,17 @@
       .dl-file-item { flex-wrap: wrap; }
       .dl-file-btn { width: 100%; text-align: center; margin-top: 6px; }
     }
+    /* έλεγχος istoselides 2026-10: αντίθεση, μειωμένη κίνηση */
+    .dl-badge span { color: #1f5fc9 !important; }
+    .dl-licensed-notice-text strong, .dl-licensed-notice-text a { color: #1d4fd8 !important; }
+    .dl-label, .dl-card-footer, .dl-card-footer span, .dl-page-copy, #year { color: #5a6a88 !important; }
+    .skip-link { position: absolute; left: -9999px; } .skip-link:focus { left: 12px; top: 12px; z-index: 9999; background: #fff; padding: 8px 12px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
   </style>
 </head>
 <body>
-
+<a href="#main" class="skip-link" data-el="Μετάβαση στο κύριο περιεχόμενο" data-en="Skip to main content">Μετάβαση στο κύριο περιεχόμενο</a>
+<main id="main">
 <div class="dl-page">
   <div class="dl-wrapper">
 
@@ -1154,5 +1161,6 @@
   }
 </script>
 <script src="consent.js"></script>
+</main>
 </body>
 </html>

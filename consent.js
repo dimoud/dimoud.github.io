@@ -77,6 +77,18 @@
             '<button id="cc-accept">' + t.accept + '</button>' +
         '</div>';
 
+    /* η μπάρα ακολουθεί την αλλαγή γλώσσας (ΕΛ/EN) */
+    function relang() {
+        var c = copy[lang()] || copy.en;
+        banner.setAttribute('aria-label', c.title);
+        var tx = banner.querySelector('#cc-text');
+        if (tx) tx.innerHTML = '<strong>' + c.title + '</strong>' + c.body;
+        var a = banner.querySelector('#cc-accept'), r = banner.querySelector('#cc-reject');
+        if (a) a.textContent = c.accept;
+        if (r) r.textContent = c.reject;
+    }
+    if ('MutationObserver' in window) new MutationObserver(relang).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+
     /* ── gtag consent helpers ── */
     function gtagDeny() {
         if (typeof gtag === 'function') {

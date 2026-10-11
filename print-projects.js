@@ -23,7 +23,7 @@ const PRINT_PROJECTS = [
     tagEn: 'FDM / PLA,Custom Design,SolidWorks,Functional Part',
     tagEl: 'FDM / PLA,Εξατομικευμένος Σχεδιασμός,SolidWorks,Λειτουργικό Εξάρτημα',
     urlLabel: '3D Print · PLA · Custom Design',
-    images: ['images/catfeeder/1.png', 'images/catfeeder/2.png', 'images/catfeeder/3.png', 'images/catfeeder/4.png', 'images/catfeeder/5.png'],
+    images: ['images/catfeeder/1.webp', 'images/catfeeder/2.webp', 'images/catfeeder/3.webp', 'images/catfeeder/4.webp', 'images/catfeeder/5.webp'],
     rev: false
   },
   {
@@ -36,7 +36,7 @@ const PRINT_PROJECTS = [
     tagEn: 'FDM / PETG,Blade Geometry,Product Design,Assembly',
     tagEl: 'FDM / PETG,Γεωμετρία Πτερύγων,Σχεδιασμός Προϊόντος,Συναρμολόγηση',
     urlLabel: '3D Print · PETG · Optimised Blades',
-    images: ['images/desk_fan/1.png', 'images/desk_fan/2.png', 'images/desk_fan/3.png', 'images/desk_fan/4.png', 'images/desk_fan/5.png', 'images/desk_fan/6.png', 'images/desk_fan/7.png', 'images/desk_fan/8.png'],
+    images: ['images/desk_fan/1.webp', 'images/desk_fan/2.png', 'images/desk_fan/3.png', 'images/desk_fan/4.png', 'images/desk_fan/5.png', 'images/desk_fan/6.webp', 'images/desk_fan/7.png', 'images/desk_fan/8.webp'],
     rev: true
   },
   {
@@ -49,7 +49,7 @@ const PRINT_PROJECTS = [
     tagEn: 'FDM / ABS,Electronics Housing,Weatherproof,Custom Brief',
     tagEl: 'FDM / ABS,Κέλυφος Ηλεκτρονικών,Αδιάβροχο,Εξατομικευμένο Brief',
     urlLabel: '3D Print · Custom Electronics Housing',
-    images: ['images/dog_repellant/1.png', 'images/dog_repellant/2.png', 'images/dog_repellant/3.png', 'images/dog_repellant/4.png', 'images/dog_repellant/5.png', 'images/dog_repellant/6.png', 'images/dog_repellant/dog_repeller.png', 'images/dog_repellant/dog_repeller 2.png'],
+    images: ['images/dog_repellant/1.png', 'images/dog_repellant/2.png', 'images/dog_repellant/3.png', 'images/dog_repellant/4.png', 'images/dog_repellant/5.png', 'images/dog_repellant/6.png', 'images/dog_repellant/dog_repeller.webp', 'images/dog_repellant/dog_repeller 2.png'],
     rev: true
   },
   {
@@ -62,7 +62,7 @@ const PRINT_PROJECTS = [
     tagEn: 'FDM / TPU,Reverse Engineering,Automotive,Key Fob Repair',
     tagEl: 'FDM / TPU,Αντίστροφη Μηχανική,Αυτοκίνητο,Επισκευή Κλειδιού',
     urlLabel: '3D Print · TPU · Reverse Engineering',
-    images: ['images/3d_prints/car_keys_button_fix.PNG', 'images/3d_prints/car_keys_button_fix_2.PNG'],
+    images: ['images/3d_prints/car_keys_button_fix.webp', 'images/3d_prints/car_keys_button_fix_2.webp'],
     rev: false
   },
   {
@@ -75,7 +75,7 @@ const PRINT_PROJECTS = [
     tagEn: 'FDM / PLA,Wall Mount,Home Organisation,Custom Design',
     tagEl: 'FDM / PLA,Επίτοιχη Βάση,Οικιακή Οργάνωση,Εξατομικευμένος Σχεδιασμός',
     urlLabel: '3D Print · PLA · Wall Mount',
-    images: ['images/3d_prints/custom_wall_mount_base_1.PNG', 'images/3d_prints/custom_wall_mount_base_2.PNG', 'images/3d_prints/custom_wall_mount_base_3.PNG'],
+    images: ['images/3d_prints/custom_wall_mount_base_1.webp', 'images/3d_prints/custom_wall_mount_base_2.webp', 'images/3d_prints/custom_wall_mount_base_3.webp'],
     rev: true
   },
   {
@@ -88,7 +88,7 @@ const PRINT_PROJECTS = [
     tagEn: 'FDM / PETG,Extension Part,Drop-in Fit,Custom Brief',
     tagEl: 'FDM / PETG,Εξάρτημα Επέκτασης,Άμεση Εφαρμογή,Εξατομικευμένο Brief',
     urlLabel: '3D Print · PETG · Extension Part',
-    images: ['images/3d_prints/extension_part_1.PNG', 'images/3d_prints/extension_part_2.PNG', 'images/3d_prints/extension_part_3.PNG'],
+    images: ['images/3d_prints/extension_part_1.webp', 'images/3d_prints/extension_part_2.webp', 'images/3d_prints/extension_part_3.webp'],
     rev: false
   },
   {
@@ -101,7 +101,7 @@ const PRINT_PROJECTS = [
     tagEn: 'FDM / PETG,Hinge,Wall Mount,Mechanical Hardware',
     tagEl: 'FDM / PETG,Μεντεσές,Επίτοιχη Τοποθέτηση,Μηχανικά Εξαρτήματα',
     urlLabel: '3D Print · PETG · Custom Hinge',
-    images: ['images/3d_prints/hinge_1.PNG', 'images/3d_prints/hinge_2.PNG', 'images/3d_prints/wall_hinge_1.PNG', 'images/3d_prints/wall_hinge_2.PNG'],
+    images: ['images/3d_prints/hinge_1.webp', 'images/3d_prints/hinge_2.PNG', 'images/3d_prints/wall_hinge_1.webp', 'images/3d_prints/wall_hinge_2.webp'],
     rev: true
   },
   {
@@ -114,7 +114,7 @@ const PRINT_PROJECTS = [
     tagEn: 'FDM / ABS,RC Car,Replacement Parts,Reverse Engineering',
     tagEl: 'FDM / ABS,RC Αυτοκίνητο,Ανταλλακτικά,Αντίστροφη Μηχανική',
     urlLabel: '3D Print · ABS · RC Car Parts',
-    images: ['images/3d_prints/rc_car_part_1.PNG', 'images/3d_prints/rc_car_part_2.PNG', 'images/3d_prints/rc_car_part_3.PNG', 'images/3d_prints/rc_car_part_4.PNG', 'images/3d_prints/rc_car_part_5.PNG', 'images/3d_prints/rc_car_part_6.PNG', 'images/3d_prints/rc_car_part_7.PNG'],
+    images: ['images/3d_prints/rc_car_part_1.webp', 'images/3d_prints/rc_car_part_2.webp', 'images/3d_prints/rc_car_part_3.webp', 'images/3d_prints/rc_car_part_4.PNG', 'images/3d_prints/rc_car_part_5.webp', 'images/3d_prints/rc_car_part_6.PNG', 'images/3d_prints/rc_car_part_7.webp'],
     rev: false
   },
   {
@@ -127,7 +127,7 @@ const PRINT_PROJECTS = [
     tagEn: 'FDM / PETG,Bathroom,Home Organisation,Shelf Organiser',
     tagEl: 'FDM / PETG,Μπάνιο,Οικιακή Οργάνωση,Οργανωτής Ραφιού',
     urlLabel: '3D Print · PETG · Bathroom Organiser',
-    images: ['images/3d_prints/self_bathroum_organiser_1.PNG', 'images/3d_prints/self_bathroum_organiser_2.PNG'],
+    images: ['images/3d_prints/self_bathroum_organiser_1.webp', 'images/3d_prints/self_bathroum_organiser_2.webp'],
     rev: true
   },
   {
@@ -140,7 +140,7 @@ const PRINT_PROJECTS = [
     tagEn: 'FDM / PLA,Thread Tool,Production Jig,Custom Tooling',
     tagEl: 'FDM / PLA,Εργαλείο Σπειρώματος,Βιομηχανική Βάση,Εξατομικευμένα Εργαλεία',
     urlLabel: '3D Print · PLA · Thread Tooling',
-    images: ['images/3d_prints/thread_input_device_1.PNG', 'images/3d_prints/thread_input_device_2.PNG', 'images/3d_prints/EX_TOOL_THREAD_INPUT_1.PNG', 'images/3d_prints/EX_TOOL_THREAD_INPUT_2.PNG', 'images/3d_prints/EX_TOOL_THREAD_INPUT_3.PNG'],
+    images: ['images/3d_prints/thread_input_device_1.webp', 'images/3d_prints/thread_input_device_2.webp', 'images/3d_prints/EX_TOOL_THREAD_INPUT_1.webp', 'images/3d_prints/EX_TOOL_THREAD_INPUT_2.webp', 'images/3d_prints/EX_TOOL_THREAD_INPUT_3.webp'],
     rev: false
   },
   {
@@ -153,7 +153,7 @@ const PRINT_PROJECTS = [
     tagEn: 'FDM / PETG,Bicycle,Torch Mount,Outdoor',
     tagEl: 'FDM / PETG,Ποδήλατο,Βάση Φακού,Εξωτερικός Χώρος',
     urlLabel: '3D Print · PETG · Bicycle Torch Mount',
-    images: ['images/3d_prints/torch_grip_for_bicyle_1.PNG', 'images/3d_prints/torch_grip_for_bicyle_2.PNG'],
+    images: ['images/3d_prints/torch_grip_for_bicyle_1.webp', 'images/3d_prints/torch_grip_for_bicyle_2.webp'],
     rev: true
   },
   {
@@ -166,7 +166,7 @@ const PRINT_PROJECTS = [
     tagEn: 'FDM / PLA,Bathroom,Greek Pattern,Wall Mount,Decorative',
     tagEl: 'FDM / PLA,Μπάνιο,Ελληνικό Μοτίβο,Επίτοιχη Βάση,Διακοσμητικό',
     urlLabel: '3D Print · PLA · Greek Aesthetic',
-    images: ['images/3d_prints/wall_mount_for_toothbrush_base_greek_aesthetic_1.PNG', 'images/3d_prints/wall_mount_for_toothbrush_base_greek_aesthetic_2.PNG', 'images/3d_prints/wall_mount_for_toothbrush_base_greek_aesthetic_3.PNG'],
+    images: ['images/3d_prints/wall_mount_for_toothbrush_base_greek_aesthetic_1.webp', 'images/3d_prints/wall_mount_for_toothbrush_base_greek_aesthetic_2.webp', 'images/3d_prints/wall_mount_for_toothbrush_base_greek_aesthetic_3.webp'],
     rev: false
   },
   {
@@ -179,7 +179,7 @@ const PRINT_PROJECTS = [
     tagEn: 'FDM / PETG,Bathroom,Shower Rod,Waterproof,Custom Fitting',
     tagEl: 'FDM / PETG,Μπάνιο,Κοντάρι Ντους,Αδιάβροχο,Εξατομικευμένη Βάση',
     urlLabel: '3D Print · PETG · Shower Rod Base',
-    images: ['images/3d_prints/wall_sperical_base_for_douche_rod_1.PNG', 'images/3d_prints/wall_sperical_base_for_douche_rod_2.PNG', 'images/3d_prints/wall_sperical_base_for_douche_rod_3.PNG'],
+    images: ['images/3d_prints/wall_sperical_base_for_douche_rod_1.webp', 'images/3d_prints/wall_sperical_base_for_douche_rod_2.webp', 'images/3d_prints/wall_sperical_base_for_douche_rod_3.webp'],
     rev: true
   },
   {
@@ -192,7 +192,7 @@ const PRINT_PROJECTS = [
     tagEn: 'FDM / PLA,Snap Fit,Enclosure,Custom Part',
     tagEl: 'FDM / PLA,Snap Fit,Περίβλημα,Εξατομικευμένο Εξάρτημα',
     urlLabel: '3D Print · PLA · Snap-Fit Assembly',
-    images: ['images/3d_prints/cap_part_1.PNG', 'images/3d_prints/Base_part.PNG'],
+    images: ['images/3d_prints/cap_part_1.webp', 'images/3d_prints/Base_part.webp'],
     rev: false
   },
   {
@@ -205,7 +205,7 @@ const PRINT_PROJECTS = [
     tagEn: 'Laser Cutting,Brake Press,Sheet Metal,Custom Bracket',
     tagEl: 'Laser Cutting,Brake Press,Φύλλο Μετάλλου,Εξατομικευμένο Στήριγμα',
     urlLabel: 'Laser Cut · Brake Press · Sheet Metal',
-    images: ['images/extension/1.png', 'images/extension/2.png', 'images/extension/3.png', 'images/extension/4.png'],
+    images: ['images/extension/1.webp', 'images/extension/2.webp', 'images/extension/3.webp', 'images/extension/4.webp'],
     rev: false
   },
   {
@@ -220,9 +220,9 @@ const PRINT_PROJECTS = [
     urlLabel: '3D Print & Laser · Custom Tools & Jigs',
     images: [
       'images/tools/trailer_tool.png', 'images/tools/trailer_tool 2.png', 'images/tools/trailer_tool 3.png',
-      'images/tools/xiami_smart_band_charger.png',
-      'images/tools/1.png', 'images/tools/2.png', 'images/tools/3.png', 'images/tools/4.png',
-      'images/tools/5.png', 'images/tools/6.png', 'images/tools/7.png', 'images/tools/8.png', 'images/tools/9.png',
+      'images/tools/xiami_smart_band_charger.webp',
+      'images/tools/1.png', 'images/tools/2.png', 'images/tools/3.png', 'images/tools/4.webp',
+      'images/tools/5.webp', 'images/tools/6.webp', 'images/tools/7.webp', 'images/tools/8.webp', 'images/tools/9.png',
       'images/tools/Untitled Project 2.png', 'images/tools/Untitled Project 3.png', 'images/tools/Untitled Project 4.png'
     ],
     rev: true
@@ -238,12 +238,12 @@ const PRINT_PROJECTS = [
     tagEl: 'FDM / PLA,Σύσφιγξη,Χαλύβδινη Ράβδος,Βάση Εργαλείου,Εργαστήριο',
     urlLabel: '3D Print · PLA · Steel Rod Clamping System',
     images: [
-      'images/3d_prints/BASE_FOR_STEEL_RODS_TIGHT_HOLD_WITH_SCREWS_1.PNG',
-      'images/3d_prints/BASE_FOR_STEEL_RODS_TIGHT_HOLD_WITH_SCREWS_2.PNG',
-      'images/3d_prints/BASE_FOR_STEEL_RODS_TIGHT_HOLD_WITH_SCREWS_3.PNG',
-      'images/3d_prints/HANDLE_FOR_STEEL_RODS_TIGHT_FIX_SCREWS_1.PNG',
-      'images/3d_prints/HANDLE_FOR_STEEL_RODS_TIGHT_FIX_SCREWS_2.PNG',
-      'images/3d_prints/HANDLE_FOR_STEEL_RODS_TIGHT_FIX_SCREWS_3.PNG'
+      'images/3d_prints/BASE_FOR_STEEL_RODS_TIGHT_HOLD_WITH_SCREWS_1.webp',
+      'images/3d_prints/BASE_FOR_STEEL_RODS_TIGHT_HOLD_WITH_SCREWS_2.webp',
+      'images/3d_prints/BASE_FOR_STEEL_RODS_TIGHT_HOLD_WITH_SCREWS_3.webp',
+      'images/3d_prints/HANDLE_FOR_STEEL_RODS_TIGHT_FIX_SCREWS_1.webp',
+      'images/3d_prints/HANDLE_FOR_STEEL_RODS_TIGHT_FIX_SCREWS_2.webp',
+      'images/3d_prints/HANDLE_FOR_STEEL_RODS_TIGHT_FIX_SCREWS_3.webp'
     ],
     rev: false
   },
@@ -258,8 +258,8 @@ const PRINT_PROJECTS = [
     tagEl: 'FDM / PLA,Στήριγμα,Σύσφιγξη,Στενές Ανοχές,Εξατομικευμένο Εξάρτημα',
     urlLabel: '3D Print · PLA · Tight-Fix Bracket',
     images: [
-      'images/3d_prints/BRACKET_TO_FIX_TIGHT_SOMETHING_1.PNG',
-      'images/3d_prints/BRACKET_TO_FIX_TIGHT_SOMETHING_2.PNG'
+      'images/3d_prints/BRACKET_TO_FIX_TIGHT_SOMETHING_1.webp',
+      'images/3d_prints/BRACKET_TO_FIX_TIGHT_SOMETHING_2.webp'
     ],
     rev: true
   },
@@ -274,9 +274,9 @@ const PRINT_PROJECTS = [
     tagEl: 'FDM / PLA,Χειροκίνητο Εργαλείο,Μαγνήτες,Ευθυγράμμιση,Εργαστήριο',
     urlLabel: '3D Print · PLA · Magnetic Hand Tool',
     images: [
-      'images/3d_prints/HAND_TOOL_WITH_MAGNETS_INSERTED_FOR_POITING_1.PNG',
-      'images/3d_prints/HAND_TOOL_WITH_MAGNETS_INSERTED_FOR_POITING_2.PNG',
-      'images/3d_prints/HAND_TOOL_WITH_MAGNETS_INSERTED_FOR_POITING_3.PNG'
+      'images/3d_prints/HAND_TOOL_WITH_MAGNETS_INSERTED_FOR_POITING_1.webp',
+      'images/3d_prints/HAND_TOOL_WITH_MAGNETS_INSERTED_FOR_POITING_2.webp',
+      'images/3d_prints/HAND_TOOL_WITH_MAGNETS_INSERTED_FOR_POITING_3.webp'
     ],
     rev: false
   },
@@ -291,9 +291,9 @@ const PRINT_PROJECTS = [
     tagEl: 'FDM / PETG,Κέλυφος Ανεμιστήρα,Εξαγωγή Καπνού,Κέλυφος Ηλεκτρονικών',
     urlLabel: '3D Print · PETG · Smoke Fan Housing',
     images: [
-      'images/3d_prints/HOUSING_FOR_SMOKE_FAN_1.PNG',
-      'images/3d_prints/HOUSING_FOR_SMOKE_FAN_2.PNG',
-      'images/3d_prints/HOUSING_FOR_SMOKE_FAN_3.PNG'
+      'images/3d_prints/HOUSING_FOR_SMOKE_FAN_1.webp',
+      'images/3d_prints/HOUSING_FOR_SMOKE_FAN_2.webp',
+      'images/3d_prints/HOUSING_FOR_SMOKE_FAN_3.webp'
     ],
     rev: true
   },
@@ -308,9 +308,9 @@ const PRINT_PROJECTS = [
     tagEl: 'FDM / PLA,Λαβή,Αρθρωτό,Εξατομικευμένος Σχεδιασμός,Εργαστήριο',
     urlLabel: '3D Print · PLA · Modular Handle Base',
     images: [
-      'images/3d_prints/Handle_main_base_1.PNG',
-      'images/3d_prints/Handle_main_base_2.PNG',
-      'images/3d_prints/Handle_main_base_3.PNG'
+      'images/3d_prints/Handle_main_base_1.webp',
+      'images/3d_prints/Handle_main_base_2.webp',
+      'images/3d_prints/Handle_main_base_3.webp'
     ],
     rev: false
   },
@@ -325,9 +325,9 @@ const PRINT_PROJECTS = [
     tagEl: 'FDM / PETG,DC Κινητήρας,Τεντωτήρας Ιμάντα,Κέλυφος Ηλεκτρονικών,Μηχατρονική',
     urlLabel: '3D Print · PETG · DC Motor + Belt Tensioner Enclosure',
     images: [
-      'images/3d_prints/SOPHISTICATED_MOTOR_DC_CASE_HOUSE_ELENTRONICS_AND_BELT_TENSIONER_1.PNG',
-      'images/3d_prints/SOPHISTICATED_MOTOR_DC_CASE_HOUSE_ELENTRONICS_AND_BELT_TENSIONER_2.PNG',
-      'images/3d_prints/SOPHISTICATED_MOTOR_DC_CASE_HOUSE_ELENTRONICS_AND_BELT_TENSIONER_3.PNG'
+      'images/3d_prints/SOPHISTICATED_MOTOR_DC_CASE_HOUSE_ELENTRONICS_AND_BELT_TENSIONER_1.webp',
+      'images/3d_prints/SOPHISTICATED_MOTOR_DC_CASE_HOUSE_ELENTRONICS_AND_BELT_TENSIONER_2.webp',
+      'images/3d_prints/SOPHISTICATED_MOTOR_DC_CASE_HOUSE_ELENTRONICS_AND_BELT_TENSIONER_3.webp'
     ],
     rev: true
   },
@@ -342,10 +342,10 @@ const PRINT_PROJECTS = [
     tagEl: 'FDM / PLA,Σφεντόνα,Λαστιχάκι,Εξατομικευμένο Αξεσουάρ,Άθλημα',
     urlLabel: '3D Print · PLA · Slingshot Rubber Band Holder',
     images: [
-      'images/3d_prints/SOPHISTICATED_SLIGNSHOT_RUBBER_BANDS_HOLDER_1.PNG',
-      'images/3d_prints/SOPHISTICATED_SLIGNSHOT_RUBBER_BANDS_HOLDER_2.PNG',
-      'images/3d_prints/SOPHISTICATED_SLIGNSHOT_RUBBER_BANDS_HOLDER_3.PNG',
-      'images/3d_prints/SOPHISTICATED_SLIGNSHOT_RUBBER_BANDS_HOLDER_4.PNG'
+      'images/3d_prints/SOPHISTICATED_SLIGNSHOT_RUBBER_BANDS_HOLDER_1.webp',
+      'images/3d_prints/SOPHISTICATED_SLIGNSHOT_RUBBER_BANDS_HOLDER_2.webp',
+      'images/3d_prints/SOPHISTICATED_SLIGNSHOT_RUBBER_BANDS_HOLDER_3.webp',
+      'images/3d_prints/SOPHISTICATED_SLIGNSHOT_RUBBER_BANDS_HOLDER_4.webp'
     ],
     rev: false
   },
@@ -360,8 +360,8 @@ const PRINT_PROJECTS = [
     tagEl: 'FDM / ABS,Κοντάκι,Εξατομικευμένος Σχεδιασμός,Υψηλή Αντοχή',
     urlLabel: '3D Print · ABS · Custom Stock',
     images: [
-      'images/3d_prints/STOCK_1.PNG',
-      'images/3d_prints/STOCK_2.PNG'
+      'images/3d_prints/STOCK_1.webp',
+      'images/3d_prints/STOCK_2.webp'
     ],
     rev: true
   },
@@ -376,9 +376,9 @@ const PRINT_PROJECTS = [
     tagEl: 'FDM / PETG,Τρίποδας,Φωτογραφία,Εξατομικευμένη Βάση',
     urlLabel: '3D Print · PETG · Tripod Base',
     images: [
-      'images/3d_prints/TRIPOD_BASE_!.PNG',
-      'images/3d_prints/TRIPOD_BASE_2.PNG',
-      'images/3d_prints/TRIPOD_BASE_3.PNG'
+      'images/3d_prints/TRIPOD_BASE_!.webp',
+      'images/3d_prints/TRIPOD_BASE_2.webp',
+      'images/3d_prints/TRIPOD_BASE_3.webp'
     ],
     rev: false
   },
@@ -393,8 +393,8 @@ const PRINT_PROJECTS = [
     tagEl: 'FDM / ABS,Bipod,Εξατομικευμένος Σχεδιασμός,Υψηλή Αντοχή,Βολή',
     urlLabel: '3D Print · ABS · Custom Bipod',
     images: [
-      'images/3d_prints/bipod_pied.PNG',
-      'images/3d_prints/bipod_pied2.PNG'
+      'images/3d_prints/bipod_pied.webp',
+      'images/3d_prints/bipod_pied2.webp'
     ],
     rev: true
   },
@@ -409,12 +409,12 @@ const PRINT_PROJECTS = [
     tagEl: 'FDM / PLA,Αντίστροφη Μηχανική,Αυτοκίνητο,Αντικατάσταση OEM',
     urlLabel: '3D Print · Reverse Engineering · Automotive Part',
     images: [
-      'images/car_ww_handle/handle_car_ww_2.PNG',
-      'images/car_ww_handle/handle_car_ww_3.PNG',
-      'images/car_ww_handle/handle_car_ww_4.PNG',
-      'images/car_ww_handle/handle_car_ww_cut_view_1.PNG',
+      'images/car_ww_handle/handle_car_ww_2.webp',
+      'images/car_ww_handle/handle_car_ww_3.webp',
+      'images/car_ww_handle/handle_car_ww_4.webp',
+      'images/car_ww_handle/handle_car_ww_cut_view_1.webp',
       'images/car_ww_handle/hand;e_car_ww_cut_view.PNG',
-      'images/car_ww_handle/handle_car_ww_explode.PNG'
+      'images/car_ww_handle/handle_car_ww_explode.webp'
     ],
     rev: false
   }

@@ -763,6 +763,11 @@ function applyLang(lang) {
     opts.forEach((id,i)=>{ const o=document.getElementById(id); if(o) o.textContent=t[keys[i]]; }); }
   set('footer-copy',t.footer_copy); set('footer-loc',t.footer_loc); set('footer-loc-bar',t.footer_loc_bar);
   document.querySelectorAll('.ec-ad-question').forEach(el => el.textContent = t.ec_ad_question);
+  document.querySelectorAll('.skip-link').forEach(el => el.textContent = lang === 'el' ? 'Μετάβαση στο κύριο περιεχόμενο' : 'Skip to main content');
+  document.querySelectorAll('.ec-copy').forEach(el => el.textContent = lang === 'el' ? '© 2026 · Με επιφύλαξη παντός δικαιώματος' : '© 2026 · All Rights Reserved');
+  document.querySelectorAll('.port-hint-txt').forEach(el => el.innerHTML = lang === 'el' ? '↔ σύρετε για εναλλαγή &nbsp;·&nbsp; αλλάζει κάθε 5″' : '↔ drag to swap &nbsp;·&nbsp; cycles every 5s');
+  const mt = document.getElementById('motionToggle');
+  if (mt) mt.textContent = mt.getAttribute('aria-pressed') === 'true' ? (lang === 'el' ? '▶ Συνέχεια κίνησης' : '▶ Resume motion') : (lang === 'el' ? '❚❚ Παύση κίνησης' : '❚❚ Pause motion');
   document.querySelectorAll('.ec-label').forEach(el => el.textContent = t.ec_label);
   document.querySelectorAll('.ec-ad-cta').forEach(el => { const arrow = el.querySelector('.ec-ad-arrow'); if(arrow){ el.firstChild.textContent = '\n        ' + t.ec_ad_cta + '\n        '; } else { el.textContent = t.ec_ad_cta; } });
   const mmap = {'mnav-about':t.nav_about,'mnav-projects':t.nav_projects,'mnav-software':t.nav_software,'mnav-webdesign':t.nav_webdesign,'mnav-3dprint':t.nav_3dprint,'mnav-experience':t.nav_experience,'mnav-contact':t.nav_contact};
@@ -989,6 +994,7 @@ function initPortDots() {
     const d = document.createElement('button');
     d.className = 'port-dot';
     d.dataset.idx = i;
+    d.tabIndex = -1; d.setAttribute('aria-hidden', 'true'); /* ισοδύναμο: οι μικρογραφίες */
     d.setAttribute('aria-label', 'Project ' + (i + 1));
     d.addEventListener('click', () => {
       if (portLeft === i || portRight === i) return;
@@ -1381,3 +1387,27 @@ document.addEventListener('DOMContentLoaded', () => {
   initProcessAnimations();
   if (typeof initThree === 'function') setTimeout(initThree, 120);
 });
+
+
+/* Παύση κίνησης (WCAG 2.2.2) — κουμπί στο υποσέλιδο κάθε σελίδας */
+(function () {
+  function ready(fn) { document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn(); }
+  ready(function () {
+    var b = document.getElementById('motionToggle'), host = null;
+    if (!b) {
+      host = document.querySelector('.footer-contact-bar') || document.querySelector('footer');
+      if (!host) return;
+      b = document.createElement('button');
+      b.type = 'button'; b.id = 'motionToggle'; b.className = 'motion-toggle';
+    }
+    var on = false; try { on = localStorage.getItem('motionPaused') === '1'; } catch (e) {}
+    function paint() {
+      var el = (document.documentElement.lang || 'el').slice(0, 2) === 'el';
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.textContent = on ? (el ? '▶ Συνέχεια κίνησης' : '▶ Resume motion') : (el ? '❚❚ Παύση κίνησης' : '❚❚ Pause motion');
+      document.documentElement.classList.toggle('motion-paused', on);
+    }
+    b.addEventListener('click', function () { on = !on; try { localStorage.setItem('motionPaused', on ? '1' : '0'); } catch (e) {} paint(); });
+    paint(); if (host) host.appendChild(b);
+  });
+})();

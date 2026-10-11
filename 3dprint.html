@@ -94,7 +94,7 @@
 </script>
 <link rel="dns-prefetch" href="//fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Roboto+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Roboto+Condensed:wght@400;500;600;700&family=Fira+Mono:wght@400;500&family=Noto+Serif:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="expertease-credit.css">
 <link rel="stylesheet" href="pr-redesign.css">
@@ -825,7 +825,7 @@
   <!-- RIGHT: rotating images -->
   <div class="pr-hero-right" id="prHeroRight">
     <img class="pr-hero-img active"
-         src="images/x1Series-main-bg-v1.png"
+         src="images/x1Series-main-bg-v1.webp"
          alt="Bambu Lab X1 Series 3D Printer"
          fetchpriority="high">
     <img class="pr-hero-img"
@@ -1012,8 +1012,8 @@
 
         <div class="pr-est-params" id="prEstParams">
           <div class="pr-est-param-row">
-            <label class="pr-est-param-label" id="pr-est-lbl-material">Material</label>
-            <select class="pr-est-select" id="prEstMaterial">
+            <label class="pr-est-param-label" id="pr-est-lbl-material" for="prEstMaterial">Material</label>
+            <select class="pr-est-select" id="prEstMaterial" aria-labelledby="pr-est-lbl-material">
               <option value="pla">PLA — Standard</option>
               <option value="pla+">PLA+ — Enhanced</option>
               <option value="petg">PETG — Tough</option>
@@ -1062,7 +1062,7 @@
               </div>
               <div class="pr-est-multicolor-row" style="display:flex;align-items:center;gap:10px;">
                 <button class="pr-est-infill-btn" id="prEstMulticolor" style="flex:none;padding:6px 14px;"><span id="pr-est-single-colour">Single Colour</span></button>
-                <span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1px;" id="pr-est-ams-toggle">AMS multicolour printing (+2× material)</span>
+                <span style="font-family:var(--font-mono);font-size:10px;color:#9399a3;letter-spacing:1px;" id="pr-est-ams-toggle">AMS multicolour printing (+2× material)</span>
               </div>
             </div>
           </div>
@@ -1141,6 +1141,8 @@
     <a href="tel:+302107561836">210 756 1836</a>
     <span class="fc-sep"></span>
     <a href="mailto:info@expertease.eu">info@expertease.eu</a>
+    <span class="fc-sep"></span>
+    <button type="button" id="motionToggle" class="motion-toggle" aria-pressed="false" data-el="❚❚ Παύση κίνησης" data-en="❚❚ Pause motion">❚❚ Παύση κίνησης</button>
   </div>
   <div class="footer-domain">expertease.eu</div>
   <a href="index.html" class="footer-logo"><img src="images/logo.png" alt="Expertease"></a>

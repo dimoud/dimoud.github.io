@@ -18,9 +18,6 @@
 <title>Mechanical Engineering Studio | Expertease Designs — Greece</title>
 <meta name="description" content="Expertease Designs — mechanical engineering, 3D printing, laser cutting, CAD design & web development, serving clients across Greece. Get a quote today.">
 <link rel="canonical" href="https://expertease.eu/">
-<link rel="alternate" hreflang="el" href="https://expertease.eu/">
-<link rel="alternate" hreflang="en" href="https://expertease.eu/">
-<link rel="alternate" hreflang="x-default" href="https://expertease.eu/">
 <link rel="icon" href="https://expertease.eu/images/logo.png" type="image/png">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -131,7 +128,7 @@
 </script>
 <link rel="dns-prefetch" href="//fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Roboto+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Roboto+Condensed:wght@400;500;600;700&family=Fira+Mono:wght@400;500&family=Noto+Serif:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="redesign.css">
 <link rel="stylesheet" href="expertease-credit.css">
@@ -142,10 +139,10 @@
 #scrollElev.show{opacity:1;}
 #elevFill{position:absolute;bottom:0;left:0;width:100%;height:0%;background:linear-gradient(to top,#60a5fa,#2563eb);border-radius:2px;}
 #elevDot{position:absolute;left:50%;bottom:0%;transform:translateX(-50%) translateY(50%);width:6px;height:6px;border-radius:50%;background:#60a5fa;box-shadow:0 0 8px rgba(96,165,250,.75);}
-[data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease;}
-[data-reveal].visible{opacity:1;transform:none;}
-[data-reveal-r]{opacity:0;transform:translateX(22px);transition:opacity .65s ease,transform .65s ease;}
-[data-reveal-r].visible{opacity:1;transform:none;}
+html.anim-ready [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease;}
+html.anim-ready [data-reveal].visible{opacity:1;transform:none;}
+html.anim-ready [data-reveal-r]{opacity:0;transform:translateX(22px);transition:opacity .65s ease,transform .65s ease;}
+html.anim-ready [data-reveal-r].visible{opacity:1;transform:none;}
 /* ── credit banner: dark base + clear scroll ruler ── */
 .expertease-credit{background:var(--navy,#060d1a);padding-bottom:calc(72px + 28px);} /* extra 28px for fixed scroll ruler */
 @media(max-width:960px){.expertease-credit{padding-bottom:32px;}}
@@ -162,7 +159,7 @@
   background:rgba(8,15,30,.92);
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   border-top:1px solid rgba(37,99,235,.18);
-  font-family:'IBM Plex Mono',monospace;
+  font-family:var(--font-mono);
   display:flex;flex-direction:column;gap:2px;
   opacity:0;transform:translateY(10px);
   transition:opacity .4s ease,transform .4s ease;
@@ -184,7 +181,7 @@
 /* ── SECTION MEASUREMENT LINES ── */
 .sec-meas{
   padding:22px 0 4px;
-  font-family:'IBM Plex Mono',monospace;
+  font-family:var(--font-mono);
   font-size:9px;letter-spacing:2px;text-transform:uppercase;
   overflow:hidden;
 }
@@ -783,31 +780,31 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label>
+            <label for="form-ph-name">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
               <span id="form-lbl-name">NAME</span>
             </label>
             <input type="text" name="name" placeholder="Your name" id="form-ph-name" required>
           </div>
           <div class="form-group">
-            <label>
+            <label for="form-in-email">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
               <span id="form-lbl-email">EMAIL</span>
             </label>
-            <input type="email" name="email" placeholder="your@email.com" required>
+            <input id="form-in-email" type="email" name="email" placeholder="your@email.com" required>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label>
+            <label for="form-in-phone">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.3 1l-2.2 2.2z"/></svg>
               <span id="form-lbl-phone">PHONE</span>
             </label>
-            <input type="text" name="phone" placeholder="+30 ...">
+            <input id="form-in-phone" type="text" name="phone" placeholder="+30 ...">
           </div>
           <div class="form-group">
-            <label>
+            <label for="form-select-subject">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
               <span id="form-lbl-subject">SUBJECT</span>
             </label>
@@ -825,7 +822,7 @@
         </div>
 
         <div class="form-group full-width">
-          <label>
+          <label for="form-ph-message">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="13" y2="13"/></svg>
             <span id="form-lbl-message">MESSAGE</span>
           </label>
@@ -851,6 +848,8 @@
     <a href="tel:+302107561836">210 756 1836</a>
     <span class="fc-sep"></span>
     <a href="mailto:info@expertease.eu">info@expertease.eu</a>
+    <span class="fc-sep"></span>
+    <button type="button" id="motionToggle" class="motion-toggle" aria-pressed="false" data-el="❚❚ Παύση κίνησης" data-en="❚❚ Pause motion">❚❚ Παύση κίνησης</button>
   </div>
   <div class="footer-domain">expertease.eu</div>
   <a href="#hero" class="footer-logo"><img src="images/logo.png" alt="Expertease" loading="lazy"></a>

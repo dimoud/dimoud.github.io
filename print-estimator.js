@@ -95,6 +95,7 @@
       const d = document.createElement('button');
       d.className = 'port-dot';
       d.dataset.idx = i;
+      d.tabIndex = -1; d.setAttribute('aria-hidden', 'true'); /* ισοδύναμο: οι μικρογραφίες */
       d.setAttribute('aria-label', 'Project ' + (i + 1));
       d.addEventListener('click', () => {
         if (pLeft === i || pRight === i) return;

@@ -10,8 +10,8 @@
   --accent: #4f9dff;
   --accent-2: #9cc9ff;
   --red: #d2353f;
-  --mono: 'IBM Plex Mono', ui-monospace, monospace;
-  --cond: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --mono: 'IBM Plex Mono', 'Fira Mono', ui-monospace, monospace; /* ΜΗ-25: Fira Mono για τα ελληνικά */
+  --cond: 'Barlow Condensed', 'Roboto Condensed', 'Arial Narrow', sans-serif; /* ΜΗ-25: Roboto Condensed για τα ελληνικά */
   --gut: 18px;
   --tap: 44px;
 }
@@ -33,7 +33,7 @@ svg { stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round
 #loader { position: absolute; inset: 0; z-index: 50; display: grid; place-content: center; justify-items: center; gap: 16px; background: var(--bg);
   font: 500 12px/1 var(--mono); letter-spacing: .25em; text-transform: uppercase; color: var(--txt-dim); transition: opacity .8s ease, visibility .8s; }
 #loader.done { opacity: 0; visibility: hidden; }
-.ld-ring { width: 42px; height: 42px; border: 2px solid var(--line); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+.ld-ring { width: 42px; height: 42px; border: 2px solid var(--line); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; } /* ΜΗ-02: παύση με το κουμπί #motionToggle (aria-pressed) */
 @keyframes spin { to { transform: rotate(360deg); } }
 .nojs { position: absolute; inset: 0; display: grid; place-content: center; z-index: 60; }
 

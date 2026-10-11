@@ -21,15 +21,15 @@ const PORTFOLIO_DATA = [
       'images/modular_robot/Untitled Project.png',
       'images/modular_robot/Untitled Project 2.png',
       'images/modular_robot/Untitled Project 3.png',
-      'images/modular_robot/444.png',
+      'images/modular_robot/444.webp',
       'images/modular_robot/Untitled Project 4.png',
       'images/modular_robot/Untitled Project 5.png',
       'images/modular_robot/Untitled Project 6.png',
       'images/modular_robot/Untitled Project 7.png',
-      'images/modular_robot/adsas.png',
-      'images/modular_robot/saas.png',
-      'images/modular_robot/dwd.png',
-      'images/modular_robot/44104.png'
+      'images/modular_robot/adsas.webp',
+      'images/modular_robot/saas.webp',
+      'images/modular_robot/dwd.webp',
+      'images/modular_robot/44104.webp'
     ],
     link:'#contact'
   },
@@ -40,27 +40,27 @@ const PORTFOLIO_DATA = [
     descEl:'Δεύτερης γενιάς αρθρωτό ρομπότ — ανανεωμένο πλαίσιο, βελτιωμένη δομική ακαμψία και εκλεπτυσμένη μηχανολογική διάταξη.',
     badgeEn:'', badgeEl:'',
     images:[
-      'images/modular_robot_2/17.png',
+      'images/modular_robot_2/17.webp',
       'images/modular_robot_2/18.png',
-      'images/modular_robot_2/19.png',
-      'images/modular_robot_2/20.png',
-      'images/modular_robot_2/21.png',
-      'images/modular_robot_2/22.png',
-      'images/modular_robot_2/23.png',
+      'images/modular_robot_2/19.webp',
+      'images/modular_robot_2/20.webp',
+      'images/modular_robot_2/21.webp',
+      'images/modular_robot_2/22.webp',
+      'images/modular_robot_2/23.webp',
       'images/modular_robot_2/24.png',
-      'images/modular_robot_2/25.png',
-      'images/modular_robot_2/26.png',
-      'images/modular_robot_2/27.png',
-      'images/modular_robot_2/28.png',
-      'images/modular_robot_2/29.png',
-      'images/modular_robot_2/30.png',
-      'images/modular_robot_2/31.png',
-      'images/modular_robot_2/32.png',
-      'images/modular_robot_2/33.png',
-      'images/modular_robot_2/34.png',
+      'images/modular_robot_2/25.webp',
+      'images/modular_robot_2/26.webp',
+      'images/modular_robot_2/27.webp',
+      'images/modular_robot_2/28.webp',
+      'images/modular_robot_2/29.webp',
+      'images/modular_robot_2/30.webp',
+      'images/modular_robot_2/31.webp',
+      'images/modular_robot_2/32.webp',
+      'images/modular_robot_2/33.webp',
+      'images/modular_robot_2/34.webp',
       'images/modular_robot_2/35.png',
-      'images/modular_robot_2/36.png',
-      'images/modular_robot_2/37.png'
+      'images/modular_robot_2/36.webp',
+      'images/modular_robot_2/37.webp'
     ],
     link:'#contact'
   },
@@ -89,9 +89,9 @@ const PORTFOLIO_DATA = [
       'images/double_seat_belt_convincer/1.png',
       'images/double_seat_belt_convincer/2.png',
       'images/double_seat_belt_convincer/3.png',
-      'images/double_seat_belt_convincer/4.png',
+      'images/double_seat_belt_convincer/4.webp',
       'images/double_seat_belt_convincer/5.png',
-      'images/double_seat_belt_convincer/6.png'
+      'images/double_seat_belt_convincer/6.webp'
     ],
     link:'#contact'
   },
@@ -107,7 +107,7 @@ const PORTFOLIO_DATA = [
       'images/seat_bel_convincer_single_seat/3.png',
       'images/seat_bel_convincer_single_seat/4.png',
       'images/seat_bel_convincer_single_seat/5.png',
-      'images/seat_bel_convincer_single_seat/6.png'
+      'images/seat_bel_convincer_single_seat/6.webp'
     ],
     link:'#contact'
   },
@@ -118,16 +118,16 @@ const PORTFOLIO_DATA = [
     descEl:'Προσομοιωτής ανατροπής οχήματος. Τοποθετείτε αυτοκίνητο στην κορυφή. Εκδόσεις Ι & ΙΙ, έως 20rpm. Ισχυρό εργαλείο εκπαίδευσης οδηγών.',
     badgeEn:'', badgeEl:'',
     images:[
-      'images/roll_car_simulator/1.png',
-      'images/roll_car_simulator/2.png',
-      'images/roll_car_simulator/3.png',
-      'images/roll_car_simulator/4.png',
-      'images/roll_car_simulator/5.png',
-      'images/roll_car_simulator/6.png',
-      'images/roll_car_simulator/7.png',
-      'images/roll_car_simulator/8.png',
-      'images/roll_car_simulator/9.png',
-      'images/roll_car_simulator/10.png',
+      'images/roll_car_simulator/1.webp',
+      'images/roll_car_simulator/2.webp',
+      'images/roll_car_simulator/3.webp',
+      'images/roll_car_simulator/4.webp',
+      'images/roll_car_simulator/5.webp',
+      'images/roll_car_simulator/6.webp',
+      'images/roll_car_simulator/7.webp',
+      'images/roll_car_simulator/8.webp',
+      'images/roll_car_simulator/9.webp',
+      'images/roll_car_simulator/10.webp',
       'images/roll_car_simulator/2.JPG',
       'images/roll_car_simulator/Καταγραφή.JPG'
     ],
@@ -140,9 +140,9 @@ const PORTFOLIO_DATA = [
     descEl:'Πρώτο πρωτότυπο του rollcar simulator ανατροπής οχήματος — η βάση για τις εκλεπτυσμένες εκδόσεις παραγωγής.',
     badgeEn:'', badgeEl:'',
     images:[
-      'images/roll_car_init/1.png',
-      'images/roll_car_init/2.png',
-      'images/roll_car_init/3.png',
+      'images/roll_car_init/1.webp',
+      'images/roll_car_init/2.webp',
+      'images/roll_car_init/3.webp',
       'images/roll_car_init/2.JPG',
       'images/roll_car_init/Καταγραφή.JPG'
     ],
@@ -171,7 +171,7 @@ const PORTFOLIO_DATA = [
     descEl:'Συσκευή ελεγχόμενης κρούσης για επαναλαμβανόμενες δοκιμές σύγκρουσης και δομικές δοκιμές υπό μετρήσιμη φόρτιση.',
     badgeEn:'', badgeEl:'',
     images:[
-      'images/impactor/impactor.png',
+      'images/impactor/impactor.webp',
       'images/impactor/impactor 2.png',
       'images/impactor/impactor 3.png',
       'images/impactor/impactor 4.png',
@@ -186,19 +186,19 @@ const PORTFOLIO_DATA = [
     descEl:'Μονοδιευθυντική δόνηση 450kg σε κατασκευές, έως 20Hz. Αναποδογυρίστε τον και καλύπτει και τις τρεις κατευθύνσεις.',
     badgeEn:'', badgeEl:'',
     images:[
-      'images/harmonic_exhiter/he_1.png',
-      'images/harmonic_exhiter/1.png',
-      'images/harmonic_exhiter/2.png',
-      'images/harmonic_exhiter/3.png',
-      'images/harmonic_exhiter/4.png',
-      'images/harmonic_exhiter/5.png',
-      'images/harmonic_exhiter/6.png',
-      'images/harmonic_exhiter/7.png',
-      'images/harmonic_exhiter/8.png',
-      'images/harmonic_exhiter/9.png',
-      'images/harmonic_exhiter/10.png',
-      'images/harmonic_exhiter/11.png',
-      'images/harmonic_exhiter/12.png',
+      'images/harmonic_exhiter/he_1.webp',
+      'images/harmonic_exhiter/1.webp',
+      'images/harmonic_exhiter/2.webp',
+      'images/harmonic_exhiter/3.webp',
+      'images/harmonic_exhiter/4.webp',
+      'images/harmonic_exhiter/5.webp',
+      'images/harmonic_exhiter/6.webp',
+      'images/harmonic_exhiter/7.webp',
+      'images/harmonic_exhiter/8.webp',
+      'images/harmonic_exhiter/9.webp',
+      'images/harmonic_exhiter/10.webp',
+      'images/harmonic_exhiter/11.webp',
+      'images/harmonic_exhiter/12.webp',
       'images/harmonic_exhiter/Untitled Project 6.png',
       'images/harmonic_exhiter/Untitled Project 7.png',
       'images/harmonic_exhiter/Untitled Project 8.png'
@@ -212,7 +212,7 @@ const PORTFOLIO_DATA = [
     descEl:'Δεύτερης γενιάς αρμονικός διεγέρτης — βελτιωμένος σχεδιασμός για μεγαλύτερη ακρίβεια δόνησης και ευρύτερο εύρος συχνοτήτων.',
     badgeEn:'', badgeEl:'',
     images:[
-      'images/harmonic_exciter_2/he1.png',
+      'images/harmonic_exciter_2/he1.webp',
       'images/harmonic_exciter_2/he1 2.png',
       'images/harmonic_exciter_2/he1 3.png',
       'images/harmonic_exciter_2/he1 4.png'
@@ -226,7 +226,7 @@ const PORTFOLIO_DATA = [
     descEl:'Γραναζωτός αρμονικός διεγέρτης — δεύτερη έκδοση που συνδυάζει ακριβή γραναζωτή μετάδοση με ελεγχόμενη αρμονική δόνηση για δομικές δοκιμές.',
     badgeEn:'', badgeEl:'',
     images:[
-      'images/gear_harmonic_exciter_2/heg2.png',
+      'images/gear_harmonic_exciter_2/heg2.webp',
       'images/gear_harmonic_exciter_2/heg2 2.png',
       'images/gear_harmonic_exciter_2/heg2 3.png',
       'images/gear_harmonic_exciter_2/heg2 4.png',
@@ -242,17 +242,17 @@ const PORTFOLIO_DATA = [
     descEl:'Εφαρμογές από φύλλα μετάλλου — διακοσμητικά LED, δομικά πάνελ και διαμορφωμένα εξαρτήματα. Χάλυβας 1.5–5mm, βελτιστοποιημένο σχεδιασμό.',
     badgeEn:'Sheet Metal', badgeEl:'Sheet Metal',
     images:[
-      'images/sheetmetal/1.png',
-      'images/sheetmetal/2.png',
+      'images/sheetmetal/1.webp',
+      'images/sheetmetal/2.webp',
       'images/sheetmetal/3.png',
       'images/sheetmetal/4.png',
       'images/sheetmetal/5.png',
-      'images/sheetmetal/6.png',
+      'images/sheetmetal/6.webp',
       'images/sheetmetal/7.png',
       'images/sheetmetal/8.png',
       'images/sheetmetal/9.png',
       'images/sheetmetal/10.png',
-      'images/sheetmetal/a1.png',
+      'images/sheetmetal/a1.webp',
       'images/sheetmetal/a2.png',
       'images/sheetmetal/a3.png',
       'images/sheetmetal/a4.png',
@@ -267,10 +267,10 @@ const PORTFOLIO_DATA = [
     descEl:'Εξατομικευμένη laser-cut μεταλλική διακόσμηση τοίχου — περίπλοκα σχέδια από φύλλο χάλυβα, βαφή σκόνης. Για οικιακούς και εμπορικούς χώρους.',
     badgeEn:'', badgeEl:'',
     images:[
-      'images/wall_decor/1.png',
-      'images/wall_decor/2.png',
-      'images/wall_decor/3.png',
-      'images/wall_decor/4.png'
+      'images/wall_decor/1.webp',
+      'images/wall_decor/2.webp',
+      'images/wall_decor/3.webp',
+      'images/wall_decor/4.webp'
     ],
     link:'#contact'
   },
@@ -281,7 +281,7 @@ const PORTFOLIO_DATA = [
     descEl:'Χαλύβδινο καλάθι καυσόξυλων από χάλυβα 3mm, βαφή σκόνης. Σχεδιασμένο για γρήγορη κατασκευή με ελάχιστα απόβλητα υλικού.',
     badgeEn:'', badgeEl:'',
     images:[
-      'images/log_basket/καροτσακι.png',
+      'images/log_basket/καροτσακι.webp',
       'images/log_basket/καροτσακι 2.png',
       'images/log_basket/καροτσακι 3.png',
       'images/log_basket/καροτσακι 4.png',
@@ -316,10 +316,10 @@ const PORTFOLIO_DATA = [
     badgeEn:'', badgeEl:'',
     images:[
       'images/ancor/1.png',
-      'images/ancor/2.png',
-      'images/ancor/3.png',
-      'images/ancor/4.png',
-      'images/ancor/5.png',
+      'images/ancor/2.webp',
+      'images/ancor/3.webp',
+      'images/ancor/4.webp',
+      'images/ancor/5.webp',
       'images/ancor/Untitled Project.png',
       'images/ancor/Untitled Project 2.png'
     ],
@@ -334,7 +334,7 @@ const PORTFOLIO_DATA = [
     images:[
       'images/steel_base/Untitled Project_left.png',
       'images/steel_base/Untitled Project 2_left.png',
-      'images/steel_base/base__right.png'
+      'images/steel_base/base__right.webp'
     ],
     link:'#contact'
   },
@@ -345,20 +345,20 @@ const PORTFOLIO_DATA = [
     descEl:'Εξατομικευμένα εξαρτήματα μοτοσυκλέτας — δομικά στηρίγματα, προστατευτικά και ειδικά κατασκευασμένα τεμάχια.',
     badgeEn:'', badgeEl:'',
     images:[
-      'images/moto_parts/1.png',
-      'images/moto_parts/2.png',
-      'images/moto_parts/3.png',
+      'images/moto_parts/1.webp',
+      'images/moto_parts/2.webp',
+      'images/moto_parts/3.webp',
       'images/moto_parts/4.png',
       'images/moto_parts/5.png',
-      'images/moto_parts/6.png',
-      'images/moto_parts/7.png',
-      'images/moto_parts/8.png',
+      'images/moto_parts/6.webp',
+      'images/moto_parts/7.webp',
+      'images/moto_parts/8.webp',
       'images/moto_parts/9.png',
-      'images/moto_parts/10.png',
-      'images/moto_parts/11.png',
-      'images/moto_parts/12.png',
+      'images/moto_parts/10.webp',
+      'images/moto_parts/11.webp',
+      'images/moto_parts/12.webp',
       'images/moto_parts/13.png',
-      'images/moto_parts/14.png',
+      'images/moto_parts/14.webp',
       'images/moto_parts/15.png',
       'images/moto_parts/16.png'
     ],
@@ -371,14 +371,14 @@ const PORTFOLIO_DATA = [
     descEl:'Εξατομικευμένος επιτραπέζιος ανεμιστήρας — βελτιστοποιημένη γεωμετρία πτερύγων, συμπαγές περίβλημα και αθόρυβη λειτουργία.',
     badgeEn:'', badgeEl:'',
     images:[
-      'images/desk_fan/1.png',
+      'images/desk_fan/1.webp',
       'images/desk_fan/2.png',
       'images/desk_fan/3.png',
       'images/desk_fan/4.png',
       'images/desk_fan/5.png',
-      'images/desk_fan/6.png',
+      'images/desk_fan/6.webp',
       'images/desk_fan/7.png',
-      'images/desk_fan/8.png'
+      'images/desk_fan/8.webp'
     ],
     link:'#contact'
   },
@@ -389,11 +389,11 @@ const PORTFOLIO_DATA = [
     descEl:'Αυτόματος τροφοδότης γάτας — μηχανισμός χρονισμένης διανομής, αξιόπιστο πρόγραμμα σίτισης και εύκολα καθαριζόμενη δεξαμενή.',
     badgeEn:'', badgeEl:'',
     images:[
-      'images/catfeeder/1.png',
-      'images/catfeeder/2.png',
-      'images/catfeeder/3.png',
-      'images/catfeeder/4.png',
-      'images/catfeeder/5.png'
+      'images/catfeeder/1.webp',
+      'images/catfeeder/2.webp',
+      'images/catfeeder/3.webp',
+      'images/catfeeder/4.webp',
+      'images/catfeeder/5.webp'
     ],
     link:'#contact'
   },
@@ -410,7 +410,7 @@ const PORTFOLIO_DATA = [
       'images/dog_repellant/4.png',
       'images/dog_repellant/5.png',
       'images/dog_repellant/6.png',
-      'images/dog_repellant/dog_repeller.png',
+      'images/dog_repellant/dog_repeller.webp',
       'images/dog_repellant/dog_repeller 2.png',
       'images/dog_repellant/dog_repeller 3.png'
     ],
@@ -423,10 +423,10 @@ const PORTFOLIO_DATA = [
     descEl:'Χαλύβδινος βραχίονας επέκτασης — laser cut και διαμορφωμένος για δομική επέκταση ή μετατόπιση σε βιομηχανικές και εμπορικές εφαρμογές.',
     badgeEn:'', badgeEl:'',
     images:[
-      'images/extension/1.png',
-      'images/extension/2.png',
-      'images/extension/3.png',
-      'images/extension/4.png'
+      'images/extension/1.webp',
+      'images/extension/2.webp',
+      'images/extension/3.webp',
+      'images/extension/4.webp'
     ],
     link:'#contact'
   },
@@ -437,12 +437,12 @@ const PORTFOLIO_DATA = [
     descEl:'Ακριβείας μηχανολογική σφενδόνα τυφέκιο — εξατομικευμένη γεωμετρία πλαισίου, ρυθμιζόμενος μηχανισμός τάνυσης και εργονομικό κοντάκι.',
     badgeEn:'', badgeEl:'',
     images:[
-      'images/slingshot_rifle/1.PNG',
-      'images/slingshot_rifle/Assem1.PNG',
-      'images/slingshot_rifle/Assem2.PNG',
-      'images/slingshot_rifle/Assem3.PNG',
-      'images/slingshot_rifle/Assem4.PNG',
-      'images/slingshot_rifle/Assem5.PNG'
+      'images/slingshot_rifle/1.webp',
+      'images/slingshot_rifle/Assem1.webp',
+      'images/slingshot_rifle/Assem2.webp',
+      'images/slingshot_rifle/Assem3.webp',
+      'images/slingshot_rifle/Assem4.webp',
+      'images/slingshot_rifle/Assem5.webp'
     ],
     link:'#contact'
   },
@@ -456,11 +456,11 @@ const PORTFOLIO_DATA = [
       'images/tools/1.png',
       'images/tools/2.png',
       'images/tools/3.png',
-      'images/tools/4.png',
-      'images/tools/5.png',
-      'images/tools/6.png',
-      'images/tools/7.png',
-      'images/tools/8.png',
+      'images/tools/4.webp',
+      'images/tools/5.webp',
+      'images/tools/6.webp',
+      'images/tools/7.webp',
+      'images/tools/8.webp',
       'images/tools/9.png',
       'images/tools/Untitled Project 2.png',
       'images/tools/Untitled Project 3.png',
@@ -468,7 +468,7 @@ const PORTFOLIO_DATA = [
       'images/tools/trailer_tool.png',
       'images/tools/trailer_tool 2.png',
       'images/tools/trailer_tool 3.png',
-      'images/tools/xiami_smart_band_charger.png'
+      'images/tools/xiami_smart_band_charger.webp'
     ],
     link:'#contact'
   },

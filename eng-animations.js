@@ -205,6 +205,7 @@
     /* ─── 9. REVEAL ON SCROLL ────────────────────────────────────────────── */
     var revealEls = document.querySelectorAll('[data-reveal], [data-reveal-r]');
     if (revealEls.length && 'IntersectionObserver' in window) {
+        document.documentElement.classList.add('anim-ready'); /* ΜΗ-01: χωρίς JS τα [data-reveal] μένουν ορατά */
         var revealObs = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
                 if (entry.isIntersecting) {

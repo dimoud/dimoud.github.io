@@ -34,7 +34,7 @@
   transform: translate(-50%, -50%); color: #7fb2ff; z-index: 1; pointer-events: none;
   animation: rdBpIn 1.6s .2s var(--rd-ease) both;
 }
-.hero-bp-ticks { transform-origin: 300px 300px; animation: rdSpin 120s linear infinite; }
+.hero-bp-ticks { transform-origin: 300px 300px; animation: rdSpin 120s linear infinite; } /* ΜΗ-02: παύση με το κουμπί #motionToggle (aria-pressed) */
 @keyframes rdBpIn { from { opacity: 0; transform: translate(-50%, -50%) scale(.94); } }
 @keyframes rdSpin { to { transform: rotate(360deg); } }
 
@@ -287,7 +287,7 @@
     repeating-linear-gradient(90deg, rgba(160,190,240,.25) 0 1px, transparent 1px 20px) 0 6px / 100% 8px no-repeat,
     repeating-linear-gradient(90deg, rgba(160,190,240,.14) 0 1px, transparent 1px 5px) 0 10px / 100% 4px no-repeat;
   border-top: 1px solid rgba(160,190,240,.3); }
-.dims-cursor { position: absolute; top: -8px; left: 0; width: 1px; height: 22px; background: #6fa8ff; box-shadow: 0 0 10px #6fa8ff; animation: rdScan 9s ease-in-out infinite alternate; }
+.dims-cursor { position: absolute; top: -8px; left: 0; width: 1px; height: 22px; background: #6fa8ff; box-shadow: 0 0 10px #6fa8ff; animation: rdScan 9s ease-in-out infinite alternate; } /* ΜΗ-02: παύση με το κουμπί #motionToggle (aria-pressed) */
 .dims-cursor::before { content: ''; position: absolute; left: -4px; top: -6px; border-left: 4.5px solid transparent; border-right: 4.5px solid transparent; border-top: 6px solid #6fa8ff; }
 @keyframes rdScan { to { left: 100%; } }
 @media (max-width: 900px) {
@@ -402,13 +402,13 @@
 .rv-on.rv-in .svc-card::after { animation: rvBar 1.4s .6s var(--rd-ease) backwards; }
 @keyframes rvBar { from { transform: scaleX(.18); } 50% { transform: scaleX(1); } to { transform: scaleX(.18); } }
 .svc-img { position: relative; }
-.svc-img img { animation: rvDrift 9s ease-in-out infinite; }
+.svc-img img { animation: rvDrift 9s ease-in-out infinite; } /* ΜΗ-02: παύση με το κουμπί #motionToggle (aria-pressed) */
 .svc-card:nth-child(2) .svc-img img { animation-delay: -2.2s; }
 .svc-card:nth-child(3) .svc-img img { animation-delay: -4.4s; }
 .svc-card:nth-child(4) .svc-img img { animation-delay: -6.6s; }
 @keyframes rvDrift { 50% { translate: 0 -6px; } }
 .svc-img::after { content: ''; position: absolute; top: 0; bottom: 0; left: -45%; width: 35%; pointer-events: none;
-  background: linear-gradient(100deg, transparent, rgba(255,255,255,.10) 50%, transparent); animation: rvSheen 7s ease-in-out infinite; }
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.10) 50%, transparent); animation: rvSheen 7s ease-in-out infinite; } /* ΜΗ-02: παύση με το κουμπί #motionToggle (aria-pressed) */
 .svc-card:nth-child(2) .svc-img::after { animation-delay: 1.75s; }
 .svc-card:nth-child(3) .svc-img::after { animation-delay: 3.5s; }
 .svc-card:nth-child(4) .svc-img::after { animation-delay: 5.25s; }
