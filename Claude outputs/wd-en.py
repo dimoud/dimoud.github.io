@@ -167,8 +167,18 @@ en, miss2 = fill_ids(el, LANG['en'])
 en, sk2 = fill_data(en, 'en')
 en = set_head(en, 'en'); en = set_faq(en, 'en')
 en = en.replace('<html lang="el">', '<html lang="en">', 1)
-en = re.sub(r"<script>\(function\(\)\{try\{var l=localStorage.*?</script>",
-            "<script>(function(){document.documentElement.lang='en';try{localStorage.setItem('lang','en');}catch(e){}})();</script>", en, count=1, flags=re.S)
+en = re.sub(r"<script>\(function\(\)\{document\.documentElement\.lang='en'.*?</script>\n", '', en, flags=re.S)
+en = en.replace('<meta charset="UTF-8">', '<meta charset="UTF-8">\n<script>(function(){document.documentElement.lang=\'en\';try{localStorage.setItem(\'lang\',\'en\');}catch(e){}})();</script>', 1)
+# κοινά στοιχεία χωρίς id (μενού κινητού, υπογραφή, υπόδειξη) — στατικά στα αγγλικά
+T_EN = LANG['en']
+for k in ['about','projects','software','webdesign','3dprint','experience','contact']:
+    if T_EN.get('nav_'+k):
+        en = re.sub(r'(id="mnav-%s"[^>]*>)[^<]*(<)' % k, lambda m, v=T_EN['nav_'+k]: m.group(1)+html.escape(v, quote=False)+m.group(2), en)
+for a_, b_ in [('© 2026 · Με επιφύλαξη παντός δικαιώματος', '© 2026 · All Rights Reserved'),
+               (LANG['el'].get('ec_label', ''), T_EN.get('ec_label', '')),
+               (LANG['el'].get('ec_ad_question', ''), T_EN.get('ec_ad_question', '')),
+               (LANG['el'].get('ec_ad_cta', ''), html.escape(T_EN.get('ec_ad_cta', ''), quote=False))]:
+    if a_ and b_: en = re.sub(r'(>\s*)' + re.escape(a_) + r'(\s*<)', lambda m, v=b_: m.group(1)+v+m.group(2), en)
 en = en.replace('<a href="#main" class="skip-link">Μετάβαση στο κύριο περιεχόμενο</a>', '<a href="#main" class="skip-link">Skip to main content</a>')
 en = re.sub(r'class="lang-btn active"(\s*)data-lang="el"', r'class="lang-btn"\1data-lang="el"', en)
 en = re.sub(r'class="lang-btn"\s*data-lang="en"', 'class="lang-btn active" data-lang="en"', en)

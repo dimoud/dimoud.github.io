@@ -2,7 +2,7 @@
 <html lang="el">
 <head>
 <meta charset="UTF-8">
-<script>localStorage.setItem('lang','el');document.documentElement.lang='el';</script>
+<script>try{localStorage.setItem('lang',document.documentElement.lang==='en'?'en':'el');}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mechanical ExpertEase — Μελέτη Οχημάτων | Expertease Designs</title>
 <meta name="description" content="Mechanical ExpertEase: λογισμικό αυτοματοποίησης τεχνικών μελετών οχημάτων ειδικής χρήσης — υπολογισμοί, σχέδια Α3 και μελέτη έτοιμη για ΚΕΚ/ΙΕΚΕΜ.">
@@ -138,13 +138,13 @@
   <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Expertease" fetchpriority="high"></a>
   <div class="nav-right">
     <ul class="nav-links">
-      <li><a href="index.html#about"    id="nav-about">About</a></li>
-      <li><a href="index.html#projects" id="nav-projects">Projects</a></li>
+      <li><a href="index.html#about"    id="nav-about">Σχετικά</a></li>
+      <li><a href="index.html#projects" id="nav-projects">Έργα</a></li>
       <li><a href="webdesign.html"      id="nav-webdesign">Web Design</a></li>
       <li><a href="3dprint.html"        id="nav-3dprint">3D Print</a></li>
-      <li><a href="software.html"       id="nav-software" class="active">Software</a></li>
+      <li><a href="software.html"       id="nav-software" class="active">Λογισμικό</a></li>
       <li><a href="cad.html"            id="nav-cad">3D Models</a></li>
-      <li><a href="contact.html"  id="nav-contact">Contact</a></li>
+      <li><a href="contact.html"  id="nav-contact">Επικοινωνία</a></li>
     </ul>
     <div class="lang-toggle">
       <button class="lang-btn active" data-lang="el">🇬🇷 ΕΛ</button>
@@ -160,13 +160,13 @@
 <!-- Mobile nav drawer -->
 <div class="nav-mobile" id="navMobile">
   <ul>
-    <li><a href="index.html#about"    id="mnav-about"      onclick="closeMobileNav()">About</a></li>
-    <li><a href="index.html#projects" id="mnav-projects"   onclick="closeMobileNav()">Projects</a></li>
+    <li><a href="index.html#about"    id="mnav-about"      onclick="closeMobileNav()">Σχετικά</a></li>
+    <li><a href="index.html#projects" id="mnav-projects"   onclick="closeMobileNav()">Έργα</a></li>
     <li><a href="webdesign.html"      id="mnav-webdesign"  onclick="closeMobileNav()">Web Design</a></li>
     <li><a href="3dprint.html"        id="mnav-3dprint"    onclick="closeMobileNav()">3D Print</a></li>
-    <li><a href="software.html"       id="mnav-software"   onclick="closeMobileNav()">Software</a></li>
+    <li><a href="software.html"       id="mnav-software"   onclick="closeMobileNav()">Λογισμικό</a></li>
     <li><a href="cad.html"            id="mnav-cad"        onclick="closeMobileNav()">3D Models</a></li>
-    <li><a href="contact.html"  id="mnav-contact"    onclick="closeMobileNav()">Contact</a></li>
+    <li><a href="contact.html"  id="mnav-contact"    onclick="closeMobileNav()">Επικοινωνία</a></li>
   </ul>
 </div>
 
@@ -193,7 +193,7 @@
 
       <div class="sw-page-badge sw-anim sw-anim--badge">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        <span id="sw-badge">Βάσει Νομοθεσίας &nbsp;ΥΑ 80255/4693/19/2020</span>
+        <span id="sw-badge">Βάσει Νομοθεσίας  ΥΑ 80255/4693/19/2020</span>
       </div>
     </div>
 
@@ -277,7 +277,7 @@
         <div class="hiw-header reveal-up">
           <div class="hiw-eyebrow">
             <span class="eyebrow-rule"></span>
-            <span id="sw-d-kicker2">ΠΩΣ&nbsp;&nbsp;ΛΕΙΤΟΥΡΓΕΙ</span>
+            <span id="sw-d-kicker2">Πώς λειτουργεί</span>
           </div>
           <h2 class="hiw-h1">
             <span id="hiw-h1-l1">Από τα δεδομένα,</span>
@@ -288,7 +288,7 @@
         <ul class="hiw-list reveal-up" id="hiwList"></ul>
         <div class="hiw-cta-row reveal-up">
           <a class="hiw-cta-link" href="https://www.easemanual.eu/user-guide/mechanical-expertease" target="_blank" rel="noopener">
-            <span id="sw-d-link">Πλήρης Οδηγός Χρήσης</span>
+            <span id="sw-d-link">Πλήρης οδηγός χρήσης →</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" width="16" height="16"><path d="M5 12H17M13 8l4 4-4 4"/></svg>
           </a>
         </div>
@@ -832,7 +832,7 @@ setInterval(()=>{
     <div class="fcap-left">
       <div class="fcap-kicker reveal-up">
         <span class="fcap-kicker-rule"></span>
-        <span id="sw-d-kicker3">ΔΥΝΑΤΟΤΗΤΕΣ</span>
+        <span id="sw-d-kicker3">Δυνατότητες</span>
       </div>
       <h2 class="fcap-heading reveal-up" id="fcap-heading">
         <span id="fcap-heading-l1">Χαρακτηριστικά</span>
@@ -844,12 +844,12 @@ setInterval(()=>{
           <div class="fcap-card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><rect x="1" y="13" width="4" height="6" rx="1"/><rect x="6" y="9" width="4" height="10" rx="1"/><path d="M2 19h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H6"/><circle cx="7" cy="21" r="1.5"/><circle cx="17" cy="21" r="1.5"/></svg>
           </div>
-          <div class="sw-feat-name" id="sw-fc1-name">Vehicle Analysis</div>
+          <div class="sw-feat-name" id="sw-fc1-name">Ανάλυση Οχήματος</div>
           <ul class="sw-feat-list">
-            <li id="sw-fc1-1">Up to 5 axles support</li>
-            <li id="sw-fc1-2">Axle &amp; tyre stress checks</li>
-            <li id="sw-fc1-3">Automatic load positioning</li>
-            <li id="sw-fc1-4">Free-body diagram generation</li>
+            <li id="sw-fc1-1">Υποστήριξη έως 5 αξόνων</li>
+            <li id="sw-fc1-2">Έλεγχοι τάσεων αξόνων &amp; ελαστικών</li>
+            <li id="sw-fc1-3">Αυτόματη τοποθέτηση φορτίων</li>
+            <li id="sw-fc1-4">Αυτόματη κατασκευή διαγράμματος ισορροπίας</li>
           </ul>
         </div>
 
@@ -857,12 +857,12 @@ setInterval(()=>{
           <div class="fcap-card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M2 22 L12 2 L22 22"/><line x1="5" y1="16" x2="19" y2="16"/></svg>
           </div>
-          <div class="sw-feat-name" id="sw-fc2-name">Frame &amp; Structure</div>
+          <div class="sw-feat-name" id="sw-fc2-name">Πλαίσιο &amp; Κατασκευή</div>
           <ul class="sw-feat-list">
-            <li id="sw-fc2-1">Simple &amp; complex frame types</li>
-            <li id="sw-fc2-2">Bending moment &amp; shear calcs</li>
-            <li id="sw-fc2-3">Bolted connection analysis</li>
-            <li id="sw-fc2-4">Superstructure weld calcs</li>
+            <li id="sw-fc2-1">Απλοί &amp; σύνθετοι τύποι πλαισίου</li>
+            <li id="sw-fc2-2">Υπολογισμοί ροπών κάμψης &amp; τεμνουσών</li>
+            <li id="sw-fc2-3">Ανάλυση κοχλιωτών συνδέσεων</li>
+            <li id="sw-fc2-4">Υπολογισμοί συγκολλήσεων υπερκατασκευής</li>
           </ul>
         </div>
 
@@ -870,12 +870,12 @@ setInterval(()=>{
           <div class="fcap-card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
           </div>
-          <div class="sw-feat-name" id="sw-fc3-name">Safety &amp; Stability</div>
+          <div class="sw-feat-name" id="sw-fc3-name">Ασφάλεια &amp; Ευστάθεια</div>
           <ul class="sw-feat-list">
-            <li id="sw-fc3-1">Braking system verification</li>
-            <li id="sw-fc3-2">Turning radius &amp; stability</li>
-            <li id="sw-fc3-3">Crane overturning checks</li>
-            <li id="sw-fc3-4">Spring suspension calcs</li>
+            <li id="sw-fc3-1">Έλεγχος συστήματος πέδησης</li>
+            <li id="sw-fc3-2">Ακτίνα στροφής &amp; ευστάθεια</li>
+            <li id="sw-fc3-3">Έλεγχος ανατροπής γερανού</li>
+            <li id="sw-fc3-4">Υπολογισμοί ελατηριωτής ανάρτησης</li>
           </ul>
         </div>
 
@@ -883,12 +883,12 @@ setInterval(()=>{
           <div class="fcap-card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
           </div>
-          <div class="sw-feat-name" id="sw-fc4-name">Output &amp; Export</div>
+          <div class="sw-feat-name" id="sw-fc4-name">Εξαγωγή &amp; Αναφορές</div>
           <ul class="sw-feat-list">
-            <li id="sw-fc4-1">Quick PDF export</li>
-            <li id="sw-fc4-2">A3 technical drawings</li>
-            <li id="sw-fc4-3">Auto Word report generation</li>
-            <li id="sw-fc4-4">Online libraries &amp; templates</li>
+            <li id="sw-fc4-1">Γρήγορη εξαγωγή PDF</li>
+            <li id="sw-fc4-2">Τεχνικά σχέδια A3</li>
+            <li id="sw-fc4-3">Αυτόματη δημιουργία μελέτης Word</li>
+            <li id="sw-fc4-4">Διαδικτυακές βιβλιοθήκες &amp; πρότυπα</li>
           </ul>
         </div>
 
@@ -1986,75 +1986,71 @@ rafId=requestAnimationFrame(tick);
       <!-- left: title + cards + banner -->
       <div class="sw-pb-left">
         <div class="sw-pb-header reveal-up">
-          <h2 class="sw-pb-title" id="swpb-title">Simple plans, with clear prices.</h2>
+          <h2 class="sw-pb-title" id="swpb-title">Απλά πακέτα, με τις τιμές φανερές.</h2>
         </div>
 
         <div class="sw-pb-cards">
 
           <!-- Triage -->
           <div class="sw-pb-card sw-pb-card--triage">
-            <div class="sw-pb-card-badge" id="swpb-triage-badge">Triage</div>
-            <div class="sw-pb-card-name" id="swpb-triage-name">Triage Version</div>
+            <div class="sw-pb-card-badge" id="swpb-triage-badge">Δωρεάν</div>
+            <div class="sw-pb-card-name" id="swpb-triage-name">Triage Έκδοση</div>
             <div class="sw-pb-card-price-row">
-              <span class="sw-pb-price-main" id="swpb-triage-price">Free</span>
+              <span class="sw-pb-price-main" id="swpb-triage-price">Δωρεάν</span>
             </div>
-            <p class="sw-pb-card-desc" id="swpb-triage-desc">Limited access so you can see whether it suits you: inputs, calculations and the study layout, with no subscription.</p>
-            <ul class="sw-pb-card-features" id="swpb-triage-features">
-              <li>Core calculation modules</li>
-              <li>Sample vehicle workflow</li>
-              <li>No report export</li>
-            </ul>
-            <a href="downloads.html" class="sw-pb-card-cta sw-pb-card-cta--ghost" id="swpb-triage-cta">Try Triage →</a>
+            <p class="sw-pb-card-desc" id="swpb-triage-desc">Περιορισμένη πρόσβαση για να δείτε αν σας καλύπτει: δεδομένα εισόδου, υπολογισμοί και μορφή της μελέτης, χωρίς συνδρομή.</p>
+            <ul class="sw-pb-card-features" id="swpb-triage-features"><li>Βασικές ενότητες υπολογισμών</li><li>Παράδειγμα ροής εργασίας οχήματος</li><li>Χωρίς εξαγωγή μελέτης</li></ul>
+            <a href="downloads.html" class="sw-pb-card-cta sw-pb-card-cta--ghost" id="swpb-triage-cta">Δοκιμάστε Triage →</a>
           </div>
 
           <!-- Monthly -->
           <div class="sw-pb-card">
-            <div class="sw-pb-card-name" id="swpb-mo-name">Monthly</div>
+            <div class="sw-pb-card-name" id="swpb-mo-name">Μηνιαία</div>
             <div class="sw-pb-card-price-row">
               <span class="sw-pb-price-main">150€</span>
-              <span class="sw-pb-price-sub" id="swpb-mo-period">+ VAT / mo</span>
+              <span class="sw-pb-price-sub" id="swpb-mo-period">+ ΦΠΑ / μήνα</span>
             </div>
-            <p class="sw-pb-card-desc" id="swpb-mo-desc">Full access with no commitment. Cancel whenever you like.</p>
+            <p class="sw-pb-card-desc" id="swpb-mo-desc">Πλήρης πρόσβαση χωρίς δέσμευση. Μπορείτε να τη διακόψετε όποτε θέλετε.</p>
             <ul class="sw-pb-card-features">
-              <li id="swpb-feat-1">All calculation modules</li>
-              <li id="swpb-feat-2">A3 drawings &amp; Word reports</li>
-              <li id="swpb-feat-3">Design library access</li>
-              <li id="swpb-feat-4">KEK / IEKEM ready</li>
+              <li id="swpb-feat-1">Όλες οι ενότητες υπολογισμών</li>
+              <li id="swpb-feat-2">Σχέδια A3 &amp; μελέτες Word</li>
+              <li id="swpb-feat-3">Πρόσβαση βιβλιοθήκης σχεδίων</li>
+              <li id="swpb-feat-4">Έτοιμο ΚΕΚ / ΙΕΚΕΜ</li>
             </ul>
-            <a href="#contact" class="sw-pb-card-cta sw-pb-card-cta--ghost" id="swpb-mo-cta">Get Started →</a>
+            <a href="#contact" class="sw-pb-card-cta sw-pb-card-cta--ghost" id="swpb-mo-cta">Εγγραφή →</a>
           </div>
 
           <!-- Annual -->
           <div class="sw-pb-card sw-pb-card--featured">
-            <div class="sw-pb-card-name" id="swpb-yr-name">Annual</div>
+            <div class="sw-pb-card-name" id="swpb-yr-name">Ετήσια</div>
             <div class="sw-pb-card-price-row">
               <span class="sw-pb-price-main">600€</span>
-              <span class="sw-pb-price-sub" id="swpb-yr-period">+ VAT / yr</span>
+              <span class="sw-pb-price-sub" id="swpb-yr-period">+ ΦΠΑ / έτος</span>
             </div>
-            <p class="sw-pb-card-desc" id="swpb-yr-desc">Full access for a year with priority support. Costs less than twelve monthly subscriptions.</p>
+            <p class="sw-pb-card-desc" id="swpb-yr-desc">Πλήρης πρόσβαση για έναν χρόνο, με προτεραιότητα στην υποστήριξη. Κοστίζει λιγότερο από δώδεκα μηνιαίες συνδρομές.</p>
             <ul class="sw-pb-card-features">
-              <li id="swpb-feat-yr-1">Everything in Monthly</li>
-              <li id="swpb-feat-yr-2">Priority support</li>
-              <li id="swpb-feat-yr-3">All future updates</li>
-              <li id="swpb-feat-yr-4">Fixed price for 12 months</li>
+              <li id="swpb-feat-yr-1">Όλα του Μηνιαίου</li>
+              <li id="swpb-feat-yr-2">Προτεραιότητα υποστήριξης</li>
+              <li id="swpb-feat-yr-3">Όλες οι μελλοντικές ενημερώσεις</li>
+              <li id="swpb-feat-yr-4">Σταθερή τιμή για 12 μήνες</li>
             </ul>
-            <a href="#contact" class="sw-pb-card-cta" id="swpb-yr-cta">Get Annual →</a>
+            <a href="#contact" class="sw-pb-card-cta" id="swpb-yr-cta">Ετήσια Εγγραφή →</a>
           </div>
 
           <!-- Library -->
           <div class="sw-pb-card">
-            <div class="sw-pb-card-name" id="swpb-lib-name">Design Library</div>
+            <div class="sw-pb-card-name" id="swpb-lib-name">Βιβλιοθήκη Σχεδίων</div>
             <div class="sw-pb-card-price-row">
               <span class="sw-pb-price-main">300€</span>
-              <span class="sw-pb-price-sub" id="swpb-lib-period">+ VAT one-time</span>
+              <span class="sw-pb-price-sub" id="swpb-lib-period">+ ΦΠΑ εφάπαξ</span>
             </div>
-            <p class="sw-pb-card-desc" id="swpb-lib-desc">Permanent access to the drawing and template library. Can be added to any plan.</p>
+            <p class="sw-pb-card-desc" id="swpb-lib-desc">Μόνιμη πρόσβαση στη βιβλιοθήκη σχεδίων και προτύπων. Προστίθεται σε οποιοδήποτε πακέτο.</p>
             <ul class="sw-pb-card-features">
-              <li id="swpb-feat-lib-1">Full drawing templates</li>
-              <li id="swpb-feat-lib-2">Standard components library</li>
-              <li id="swpb-feat-lib-3">Lifetime access</li>
+              <li id="swpb-feat-lib-1">Πλήρη πρότυπα σχεδίων</li>
+              <li id="swpb-feat-lib-2">Βιβλιοθήκη τυποποιημένων εξαρτημάτων</li>
+              <li id="swpb-feat-lib-3">Μόνιμη πρόσβαση</li>
             </ul>
-            <a href="#contact" class="sw-pb-card-cta sw-pb-card-cta--ghost" id="swpb-lib-cta">Add Library →</a>
+            <a href="#contact" class="sw-pb-card-cta sw-pb-card-cta--ghost" id="swpb-lib-cta">Προσθήκη Βιβλιοθήκης →</a>
           </div>
 
         </div>
@@ -2067,7 +2063,7 @@ rafId=requestAnimationFrame(tick);
     <div class="sw-pb-offer-banner">
       <div class="sw-pb-offer-inner">
         <span class="sw-pb-offer-pulse"></span>
-        <span class="sw-pb-offer-text" id="swpb-footnote">Special pricing for 2+ licences: <a href="contact.html" id="swpb-footnote-link">contact us</a> for a quote.</span>
+        <span class="sw-pb-offer-text" id="swpb-footnote">Ειδικές τιμές για 2+ άδειες χρήσης· <a href="contact.html" id="swpb-footnote-link">επικοινωνήστε μαζί μας</a> για προσφορά.</span>
       </div>
     </div>
 
@@ -2440,7 +2436,7 @@ rafId=requestAnimationFrame(tick);
     <!-- LEFT: info + map -->
     <div class="contact-cols-left">
       <p class="contact-label reveal-up" id="contact-label-static">// Contact</p>
-      <h2 class="contact-heading reveal-up" id="contact-heading-static">Let's Work Together</h2>
+      <h2 class="contact-heading reveal-up" id="contact-heading-static">Ας Δουλέψουμε Μαζί</h2>
       <p class="contact-sub" id="contact-sub-static"></p>
       <div class="contact-info-row">
         <span class="contact-info-item contact-location">
@@ -2469,7 +2465,7 @@ rafId=requestAnimationFrame(tick);
       <form id="clientContactForm" class="contact-form">
         <p class="contact-form-title">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          <span id="form-direct-label">Send us a message</span>
+          <span id="form-direct-label">Στείλτε μας μήνυμα</span>
         </p>
         <input type="hidden" name="_to" value="info@expertease.eu">
         <input type="hidden" name="_key" value="ex_RsF8rVXkTB0_hMjl3FOPmuhb">
@@ -2479,9 +2475,9 @@ rafId=requestAnimationFrame(tick);
           <div class="form-group">
             <label for="form-ph-name">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-              <span id="form-lbl-name">NAME</span>
+              <span id="form-lbl-name">ΟΝΟΜΑ</span>
             </label>
-            <input type="text" name="name" placeholder="Your name" id="form-ph-name" required>
+            <input type="text" name="name" placeholder="Το όνομά σας" id="form-ph-name" required>
           </div>
           <div class="form-group">
             <label for="form-in-email">
@@ -2496,24 +2492,24 @@ rafId=requestAnimationFrame(tick);
           <div class="form-group">
             <label for="form-in-phone">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.3 1l-2.2 2.2z"/></svg>
-              <span id="form-lbl-phone">PHONE</span>
+              <span id="form-lbl-phone">ΤΗΛΕΦΩΝΟ</span>
             </label>
             <input id="form-in-phone" type="text" name="phone" placeholder="+30 ...">
           </div>
           <div class="form-group">
             <label for="form-select-subject">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              <span id="form-lbl-subject">SUBJECT</span>
+              <span id="form-lbl-subject">ΘΕΜΑ</span>
             </label>
             <select name="subject" id="form-select-subject" required>
-              <option value="" disabled selected id="form-opt-default">Select a service…</option>
-              <option value="Mechanical Design" id="form-opt-1">Mechanical Design</option>
+              <option value="" disabled selected id="form-opt-default">Επιλέξτε υπηρεσία…</option>
+              <option value="Mechanical Design" id="form-opt-1">Μηχανολογικός Σχεδιασμός</option>
               <option value="3D Printing" id="form-opt-2">3D Printing</option>
               <option value="Laser Cut &amp; Engrave" id="form-opt-3">Laser Cut &amp; Engrave</option>
-              <option value="3D Models / CAD" id="form-opt-4">3D Models / CAD</option>
+              <option value="3D Models / CAD" id="form-opt-4">3D Μοντέλα / CAD</option>
               <option value="Web Design" id="form-opt-5">Web Design</option>
-              <option value="Software" id="form-opt-6">Software</option>
-              <option value="General Enquiry" id="form-opt-7">General Enquiry</option>
+              <option value="Software" id="form-opt-6">Λογισμικό</option>
+              <option value="General Enquiry" id="form-opt-7">Γενική Ερώτηση</option>
             </select>
           </div>
         </div>
@@ -2521,14 +2517,14 @@ rafId=requestAnimationFrame(tick);
         <div class="form-group full-width">
           <label for="form-ph-message">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="13" y2="13"/></svg>
-            <span id="form-lbl-message">MESSAGE</span>
+            <span id="form-lbl-message">ΜΗΝΥΜΑ</span>
           </label>
-          <textarea name="message" rows="6" placeholder="Tell us about your project..." id="form-ph-message" required></textarea>
+          <textarea name="message" rows="6" placeholder="Πείτε μας για το έργο σας..." id="form-ph-message" required></textarea>
         </div>
 
         <button type="submit" id="submitBtn">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          <span id="form-submit-label">SEND MESSAGE</span>
+          <span id="form-submit-label">ΑΠΟΣΤΟΛΗ ΜΗΝΥΜΑΤΟΣ</span>
         </button>
 
         <p id="formStatus"></p>
@@ -2540,7 +2536,7 @@ rafId=requestAnimationFrame(tick);
 </main>
 <footer>
   <div class="footer-contact-bar">
-    <span id="footer-loc-bar">Athens, Greece</span>
+    <span id="footer-loc-bar">Αθήνα, Ελλάδα</span>
     <span class="fc-sep"></span>
     <a href="tel:+302107561836">210 756 1836</a>
     <span class="fc-sep"></span>
@@ -2551,16 +2547,16 @@ rafId=requestAnimationFrame(tick);
   <div class="footer-domain">expertease.eu</div>
   <a href="index.html" class="footer-logo"><img src="images/logo.png" alt="Expertease"></a>
   <div id="footer-copy" style="display:none">© 2026 Expertease Designs</div>
-  <div id="footer-loc" style="display:none">Athens, Greece</div>
+  <div id="footer-loc" style="display:none">Αθήνα, Ελλάδα</div>
 </footer>
 
 <hr class="ec-rule">
 <div class="expertease-credit">
   <div class="ec-layer ec-layer--credit">
-    <span class="ec-copy">© 2026 · All Rights Reserved</span>
+    <span class="ec-copy">© 2026 · Με επιφύλαξη παντός δικαιώματος</span>
     <span class="ec-divider"></span>
     <a href="https://expertease.eu/webdesign" target="_blank" rel="noopener" class="ec-brand">
-      <span class="ec-label">Designed by</span>
+      <span class="ec-label">Σχεδιάστηκε από</span>
       <img src="images/logo.png" alt="Expertease Designs" class="ec-logo">
       <span class="ec-name">Expertease Designs</span>
     </a>
@@ -2570,9 +2566,9 @@ rafId=requestAnimationFrame(tick);
       <div class="ec-ad-logo"><img src="images/logo.png" alt="Expertease Designs"></div>
     </div>
     <div class="ec-ad-text">
-      <span class="ec-ad-question">Like this site?</span>
+      <span class="ec-ad-question">Σας άρεσε το site;</span>
       <a href="https://expertease.eu/webdesign" target="_blank" rel="noopener" class="ec-ad-cta">
-        Let's build yours
+        Φτιάξτε το δικό σας
         <span class="ec-ad-arrow"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="6.5" x2="11" y2="6.5"/><polyline points="7,2.5 11,6.5 7,10.5"/></svg></span>
       </a>
     </div>

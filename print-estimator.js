@@ -136,15 +136,15 @@
 
     function fill() {
       const img = colEl.querySelector('.port-img');
-      if (img) { img.src = p.images[0]; img.alt = p.titleEn; img.style.opacity = '1'; }
+      if (img) { img.src = p.images[0]; img.alt = (document.documentElement.lang==='en'?p.titleEn:(p.titleEl||p.titleEn)); img.style.opacity = '1'; }
       const badge = colEl.querySelector('.port-badge');
       if (badge) { badge.textContent = ''; badge.style.display = 'none'; }
       const cat = colEl.querySelector('.port-cat');
-      if (cat) cat.textContent = p.catEn;
+      if (cat) cat.textContent = (document.documentElement.lang==='en'?p.catEn:(p.catEl||p.catEn));
       const title = colEl.querySelector('.port-title');
-      if (title) title.textContent = p.titleEn;
+      if (title) title.textContent = (document.documentElement.lang==='en'?p.titleEn:(p.titleEl||p.titleEn));
       const desc = colEl.querySelector('.port-desc');
-      if (desc) desc.textContent = p.descEn;
+      if (desc) desc.textContent = (document.documentElement.lang==='en'?p.descEn:(p.descEl||p.descEn));
       colEl.classList.remove('port-fade-out');
       startColCycle(colEl, p);
     }
@@ -171,10 +171,10 @@
       const num = String(i + 1).padStart(2, '0');
       item.innerHTML = `
         <div class="port-thumb-img-wrap">
-          <img class="port-thumb-img" src="${p.images[0]}" alt="${p.titleEn}" loading="lazy">
+          <img class="port-thumb-img" src="${p.images[0]}" alt="${(document.documentElement.lang==='en'?p.titleEn:(p.titleEl||p.titleEn))}" loading="lazy">
         </div>
         <div class="port-thumb-label">
-          <span class="port-thumb-num">${num} &nbsp;</span>${p.titleEn}
+          <span class="port-thumb-num">${num} &nbsp;</span>${(document.documentElement.lang==='en'?p.titleEn:(p.titleEl||p.titleEn))}
         </div>`;
       item.addEventListener('click', () => openModal(i));
       return item;
@@ -246,6 +246,12 @@
     renderCol(document.getElementById('prColRight'), pRight, false);
     updateDots();
     buildThumbStrip();
+  }
+  /* αλλαγή γλώσσας από τα κουμπιά ΕΛ/EN → ξανασχεδιάζονται τίτλοι και περιγραφές */
+  if ('MutationObserver' in window) {
+    let lastLang = document.documentElement.lang;
+    new MutationObserver(() => { if (document.documentElement.lang !== lastLang) { lastLang = document.documentElement.lang; renderAll(); } })
+      .observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   }
 
   /* ── Auto-cycle timer ── */
@@ -448,9 +454,9 @@
 
   function openModal(idx) {
     modalProject = DATA[idx]; modalImgIdx = 0;
-    document.getElementById('prModalCat').textContent   = modalProject.catEn;
-    document.getElementById('prModalTitle').textContent = modalProject.titleEn;
-    document.getElementById('prModalDesc').textContent  = modalProject.descEn;
+    document.getElementById('prModalCat').textContent   = (document.documentElement.lang==='en'?modalProject.catEn:(modalProject.catEl||modalProject.catEn));
+    document.getElementById('prModalTitle').textContent = (document.documentElement.lang==='en'?modalProject.titleEn:(modalProject.titleEl||modalProject.titleEn));
+    document.getElementById('prModalDesc').textContent  = (document.documentElement.lang==='en'?modalProject.descEn:(modalProject.descEl||modalProject.descEn));
     /* build dots */
     const dc = document.getElementById('prModalDots');
     if (dc) {
@@ -544,7 +550,7 @@
       singleColour: 'Single Colour',
     }
   };
-  function estStr(key) { const lang = localStorage.getItem('lang') || 'en'; return (EST_STR[lang] || EST_STR.en)[key] || EST_STR.en[key]; }
+  function estStr(key) { const lang = document.documentElement.lang === 'en' ? 'en' : 'el'; return (EST_STR[lang] || EST_STR.en)[key] || EST_STR.en[key]; }
   /* ── Constants ─────────────────────────────────────────────── */
   const FILAMENT_DENSITY  = 1.25;   // g/cm³  (PLA baseline)
   const WASTE_BUFFER      = 1.20;   // +10% purge/skirt + 10% overestimate buffer

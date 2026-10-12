@@ -579,7 +579,7 @@ function applyLang(lang) {
   document.documentElement.lang = lang === 'el' ? 'el' : 'en';
   const set = (id, val, html=false) => { const el=document.getElementById(id); if(!el)return; html?el.innerHTML=val:el.textContent=val; };
   const isMob = window.innerWidth <= 640;
-  const noArrow = v => (typeof v === 'string' && isMob) ? v.replace(/ →$/, '') : v;
+  const noArrow = v => v; /* ίδιο κείμενο σε κινητό και υπολογιστή — χωρίς αλλαγή μετά τη φόρτωση */
   set('nav-about',t.nav_about); set('nav-projects',t.nav_projects);
   set('nav-software',t.nav_software); set('nav-webdesign',t.nav_webdesign); set('nav-3dprint',t.nav_3dprint); set('nav-experience',t.nav_experience); set('nav-contact',t.nav_contact);
   set('hero-tag',t.hero_tag); set('hero-title',t.hero_title);
@@ -1377,7 +1377,9 @@ function initProcessAnimations() {
 ═══════════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
-  applyLang(localStorage.getItem('lang') || 'el');
+  /* Η σελίδα ανοίγει στη δική της γλώσσα (στατικό HTML)· η αγγλική έχει δικές της σελίδες όπου υπάρχουν.
+     Δεν εφαρμόζεται αποθηκευμένη γλώσσα κατά τη φόρτωση — αλλιώς τα κείμενα αλλάζουν μπροστά στον επισκέπτη. */
+  applyLang(document.documentElement.lang === 'en' ? 'en' : 'el');
   initScroll();
   initHeroExplode();
   initPortfolio();
