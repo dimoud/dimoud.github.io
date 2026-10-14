@@ -43,11 +43,9 @@ const LANG = {
     wd_title:'Κατασκευή Ιστοσελίδων',
     cad_label:'Μηχανολογικός Σχεδιασμός · Αρχεία STEP',
     cad_title:'Μηχανολογικό CAD Σχέδιο & 3D STEP Viewer',
-    wd_desc:'Φτιάχνουμε ιστοσελίδες από το μηδέν, χωρίς έτοιμα θέματα και χωρίς WordPress, για επαγγελματίες και επιχειρήσεις. Κάθε σελίδα γράφεται στο χέρι, φορτώνει γρήγορα στο κινητό και διαβάζεται σωστά από τη Google και το ChatGPT. Η τιμή ξεκινά από 500 € + ΦΠΑ, με γραπτή σταθερή προσφορά. Έδρα η Αθήνα, εξυπηρέτηση πανελλαδικά και στην ΕΕ.',
-    wd_f1:'HTML & CSS στο χέρι', wd_f2:'Διαδραστική κίνηση',
-    wd_f3:'WebGL / 3D στοιχεία', wd_f4:'Σχεδιασμός πρώτα για κινητό',
-    wd_f5:'Δίγλωσσο (EN / EL)', wd_f6:'Δομή έτοιμη για SEO',
-    wd_f7:'Φόρμα επικοινωνίας', wd_f8:'Χωρίς βαρύ CMS',
+    wd_desc:'Ιστοσελίδες γραμμένες από το μηδέν, γρήγορες και φτιαγμένες για να σας βρίσκουν οι πελάτες.',
+    wd_f1:'Χωρίς WordPress και έτοιμα θέματα', wd_f2:'Βελτιστοποιημένη για κινητό',
+    wd_f3:'Ελληνικά και αγγλικά', wd_f4:'Έτοιμη για Google και ChatGPT',
     wd_cta1:'Επικοινωνήστε →', wd_cta2:'Δείτε τα Έργα μας',
     wd_codebox_label:'// Γραμμένο στο χέρι',
     wd_codebox_body:'Έτσι μοιάζει ο κώδικας που γράφουμε: καθαρό HTML, CSS και JavaScript, χωρίς γεννήτριες κώδικα και εργαλεία εξαγωγής. Αυτόν ακριβώς τον κώδικα παραδίδουμε και σε εσάς.',
@@ -328,11 +326,9 @@ const LANG = {
     wd_title:'Web Design & Development',
     cad_label:'Mechanical Design · STEP Files',
     cad_title:'3D CAD Design & STEP Model Viewer',
-    wd_desc:'We build websites from scratch, without templates or WordPress, for professionals and businesses. Every page is hand-coded, loads fast on mobile and reads correctly to Google and ChatGPT. Prices start at €500 + VAT, with a fixed written quote. Based in Athens, working with clients across Greece and the EU.',
-    wd_f1:'Custom HTML & CSS', wd_f2:'Interactive motion',
-    wd_f3:'WebGL / 3D elements', wd_f4:'Mobile-first layout',
-    wd_f5:'Bilingual (EN / EL)', wd_f6:'SEO-ready structure',
-    wd_f7:'Contact form', wd_f8:'No heavy CMS',
+    wd_desc:'Websites written from scratch, fast and built so your clients can find you.',
+    wd_f1:'No WordPress, no templates', wd_f2:'Optimised for mobile',
+    wd_f3:'Greek and English', wd_f4:'Ready for Google and ChatGPT',
     wd_cta1:'Get in Touch →', wd_cta2:'View Our Projects',
     wd_codebox_label:'// Hand-coded',
     wd_codebox_body:'This is what the code we write looks like: plain HTML, CSS and JavaScript, without generators or export tools. It is exactly the code we hand over to you.',
@@ -716,7 +712,7 @@ function applyLang(lang) {
   set('wd-codebox-label',t.wd_codebox_label); set('wd-codebox-body',t.wd_codebox_body);
   set('wd-label',t.wd_label); set('wd-title',t.wd_title); set('wd-desc',t.wd_desc);
   set('cad-label',t.cad_label); set('cad-title',t.cad_title,true);
-  for(let i=1;i<=8;i++) set('wd-f'+i,t['wd_f'+i]);
+  for(let i=1;i<=4;i++) set('wd-f'+i,t['wd_f'+i]);
   set('wd-cta1',noArrow(t.wd_cta1)); set('wd-cta2',noArrow(t.wd_cta2));
   set('wd-off-label',t.wd_off_label);
   set('wd-off1-name',t.wd_off1_name); set('wd-off1-text',t.wd_off1_text);

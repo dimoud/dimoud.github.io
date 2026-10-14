@@ -71,3 +71,16 @@ html.wdk-js:not(.wdk-on) .wdk-ctrl { opacity: 0; }
   .wdk-badge .wdk-lbl-dim { display: none; }
   .wdk-url { font-size: 12px; }
 }
+
+/* κείμενα πρώτης οθόνης (14/10/2026): μία πρόταση, τιμή σε δική της γραμμή, 4 σημεία σε κανονική γραμματοσειρά */
+.wd-page .wd-page-desc { font-size: 18px; line-height: 1.6; color: rgba(255,255,255,.78); margin-bottom: 14px; max-width: 30em; }
+.wd-page-price { font-size: 15px; color: rgba(255,255,255,.62); margin: 0 0 26px; }
+.wd-page-price strong { color: #fff; font-weight: 600; }
+.wd-page .wd-page-features { grid-template-columns: 1fr; gap: 9px; margin-bottom: 32px; }
+.wd-page .wd-page-features li { font-family: inherit; font-size: 15px; letter-spacing: 0; line-height: 1.4; color: rgba(255,255,255,.82); align-items: flex-start; }
+.wd-page .wd-page-features li::before { content: '✓'; font-size: 13px; color: #4ade80; margin-top: 1px; }
+@media (max-width: 960px) {
+  .wd-page .wd-page-desc { font-size: 17px; margin-inline: auto; }
+  .wd-page-price { order: 4; text-align: center; }
+  .wd-page .wd-page-features { grid-template-columns: 1fr; width: auto; justify-self: center; align-self: center; gap: 10px; }
+}
