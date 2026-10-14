@@ -107,6 +107,10 @@ const LANG = {
     wd_proj_6_role:'Δικηγόρος · Αθήνα &amp; Θεσσαλονίκη',
     wd_proj_6_desc:'Ιστοσελίδα δικηγόρου για ακίνητα, συμβάσεις, κληρονομικά και συντάξεις e-ΕΦΚΑ, σε σκούρο, κομψό ύφος με διακριτική κίνηση, στα ελληνικά και στα αγγλικά.',
     wd_proj_6_link:'Δείτε την ιστοσελίδα',
+    wd_proj_7_name:'Τεχνικό Γραφείο Μουδιώτης',
+    wd_proj_7_role:'Μηχανολόγος Μηχανικός · Αθήνα',
+    wd_proj_7_desc:'Ιστοσελίδα τεχνικού γραφείου για εγκρίσεις τύπου, ταξινόμηση οχημάτων και τεχνικές μελέτες, με ξεχωριστή σελίδα για κάθε υπηρεσία, κινούμενα τεχνικά σχέδια και αναζήτηση, στα ελληνικά και στα αγγλικά.',
+    wd_proj_7_link:'Δείτε την ιστοσελίδα',
     wd_cta_label:'// Ας Φτιάξουμε Κάτι',
     wd_cta_title:'Έχετε μια ιστοσελίδα<br>στο μυαλό σας;',
     wd_cta_text:'Πείτε μας για την επιχείρησή σας και τι χρειάζεστε. Θα σχεδιάσουμε και θα φτιάξουμε μια ιστοσελίδα που σας εκφράζει, από το πρώτο σκίτσο ως τη δημοσίευση.',
@@ -388,6 +392,10 @@ const LANG = {
     wd_proj_6_role:'Lawyer · Athens &amp; Thessaloniki',
     wd_proj_6_desc:'Website for a lawyer working on real estate, contracts, inheritance and e-EFKA pensions, in a dark, elegant style with subtle motion, in Greek and English.',
     wd_proj_6_link:'View Site',
+    wd_proj_7_name:'Moudiotis Engineering Office',
+    wd_proj_7_role:'Mechanical Engineer · Athens',
+    wd_proj_7_desc:'Website for an engineering office handling vehicle type approvals, registrations and technical studies, with a dedicated page for each service, animated technical drawings and search, in Greek and English.',
+    wd_proj_7_link:'View Site',
     wd_cta_label:'// Let\'s Build Something',
     wd_cta_title:'Got a website<br>in mind?',
     wd_cta_text:'Tell us about your business and what you need. We will design and build a website that feels like yours, from the first sketch to launch.',
@@ -725,6 +733,7 @@ function applyLang(lang) {
   set('wd-proj-4-name',t.wd_proj_4_name); set('wd-proj-4-role',t.wd_proj_4_role,true); set('wd-proj-4-desc',t.wd_proj_4_desc,true); set('wd-proj-4-link',t.wd_proj_4_link);
   set('wd-proj-5-name',t.wd_proj_5_name); set('wd-proj-5-role',t.wd_proj_5_role,true); set('wd-proj-5-desc',t.wd_proj_5_desc,true); set('wd-proj-5-link',t.wd_proj_5_link);
   set('wd-proj-6-name',t.wd_proj_6_name); set('wd-proj-6-role',t.wd_proj_6_role,true); set('wd-proj-6-desc',t.wd_proj_6_desc,true); set('wd-proj-6-link',t.wd_proj_6_link);
+  set('wd-proj-7-name',t.wd_proj_7_name); set('wd-proj-7-role',t.wd_proj_7_role,true); set('wd-proj-7-desc',t.wd_proj_7_desc,true); set('wd-proj-7-link',t.wd_proj_7_link);
   set('wd-cta-label',t.wd_cta_label); set('wd-cta-title',t.wd_cta_title,true);
   set('wd-cta-text',t.wd_cta_text); set('wd-cta-price-from',t.wd_cta_price_from);
   set('wd-cta-btn1',noArrow(t.wd_cta_btn1)); set('wd-cta-btn2',noArrow(t.wd_cta_btn2));
