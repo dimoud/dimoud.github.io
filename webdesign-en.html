@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>document.documentElement.classList.add('wdk-js');setTimeout(function(){document.documentElement.classList.add('wdk-on')},2500);</script>
 <script>(function(){document.documentElement.lang='en';try{localStorage.setItem('lang','en');}catch(e){}})();</script>
 <script>try{localStorage.setItem('lang',document.documentElement.lang==='en'?'en':'el');}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -278,6 +279,23 @@
      "item": "https://expertease.eu/webdesign-en.html"
     }
    ]
+  },
+  {
+   "@type": "WebPage",
+   "@id": "https://expertease.eu/webdesign-en.html#webpage",
+   "url": "https://expertease.eu/webdesign-en.html",
+   "name": "Custom Web Design & Development · Greece & EU | Expertease",
+   "inLanguage": "en",
+   "dateModified": "2026-10-14",
+   "author": {
+    "@id": "https://expertease.eu/#org"
+   },
+   "publisher": {
+    "@id": "https://expertease.eu/#org"
+   },
+   "about": {
+    "@id": "https://expertease.eu/webdesign.html#service"
+   }
   }
  ]
 }
@@ -298,6 +316,7 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="expertease-credit.css">
 <link rel="stylesheet" href="wd-redesign.css">
+<link rel="stylesheet" href="wd-kinisi.css">
 <style>.expertease-credit{background:var(--navy,#060d1a);}
 @media(max-width:960px){.expertease-credit{margin-bottom:32px;}}</style>
 </head>
@@ -347,7 +366,7 @@
 
     <div class="wd-page-left">
       <h1 class="wd-page-title" id="wd-title">Web Design &amp; Development</h1>
-      <p class="wd-page-desc" id="wd-desc">We build websites from scratch, without templates. We work remotely with clients across Greece and Europe.</p>
+      <p class="wd-page-desc" id="wd-desc">We build websites from scratch, without templates or WordPress, for professionals and businesses. Every page is hand-coded, loads fast on mobile and reads correctly to Google and ChatGPT. Prices start at €500 + VAT, with a fixed written quote. Based in Athens, working with clients across Greece and the EU.</p>
       <ul class="wd-page-features">
         <li id="wd-f1">Custom HTML &amp; CSS</li>
         <li id="wd-f2">Interactive motion</li>
@@ -364,9 +383,62 @@
     </div>
 
     <div class="wd-page-right">
-      <div class="wd-hero-canvas-wrap">
-        <canvas id="wdAnimCanvas"></canvas>
+      <div class="wd-hero-canvas-wrap wdk-wrap">
+      <figure class="wdk" id="wdk" data-lang="en">
+        <svg class="wdk-svg" viewBox="0 0 640 470" role="img" aria-label="A website wireframe becoming the real page, then the same page on a phone">
+          <defs>
+            <pattern id="wdkG" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" class="wdk-grid-minor"/></pattern>
+            <pattern id="wdkG5" width="100" height="100" patternUnits="userSpaceOnUse"><rect width="100" height="100" fill="url(#wdkG)"/><path d="M100 0H0V100" fill="none" class="wdk-grid-major"/></pattern>
+            <clipPath id="wdkDeskClip"><rect x="40" y="68" width="560" height="350"/></clipPath>
+            <clipPath id="wdkPhoneClip"><rect x="251" y="70" width="138" height="299" rx="4"/></clipPath>
+          </defs>
+          <rect width="640" height="470" fill="url(#wdkG5)"/>
+          <text class="wdk-lbl" x="40" y="34">FIG. 01 · FROM WIREFRAME TO PAGE</text>
+          <g class="wdk-scene">
+            <g class="wdk-desk">
+              <rect class="wdk-frame" x="40" y="52" width="560" height="366"/>
+              <rect class="wdk-bar" x="40.5" y="52.5" width="559" height="15"/>
+              <circle class="wdk-dot" cx="50" cy="60" r="2.5"/><circle class="wdk-dot" cx="59" cy="60" r="2.5"/><circle class="wdk-dot" cx="68" cy="60" r="2.5"/>
+              <text class="wdk-url" x="80" y="63" data-wdk-url>malliarisandpartners.gr</text>
+              <image class="wdk-desk-img" x="40" y="68" width="560" height="350" preserveAspectRatio="xMidYMin slice" clip-path="url(#wdkDeskClip)" href="images/site/wd-work-malliaris.webp"/>
+            </g>
+            <g class="wdk-wires">
+              <rect class="wdk-wire" x="52" y="76" width="536" height="20" pathLength="1"/>
+              <rect class="wdk-wire" x="60" y="118" width="220" height="30" pathLength="1"/>
+              <rect class="wdk-wire" x="60" y="158" width="180" height="10" pathLength="1"/>
+              <rect class="wdk-wire" x="60" y="176" width="200" height="10" pathLength="1"/>
+              <rect class="wdk-wire" x="60" y="204" width="90" height="24" pathLength="1"/>
+              <rect class="wdk-wire" x="330" y="112" width="250" height="140" pathLength="1"/>
+              <rect class="wdk-wire" x="52" y="276" width="170" height="110" pathLength="1"/>
+              <rect class="wdk-wire" x="235" y="276" width="170" height="110" pathLength="1"/>
+              <rect class="wdk-wire" x="418" y="276" width="170" height="110" pathLength="1"/>
+            </g>
+            <g class="wdk-phone">
+              <rect class="wdk-frame" x="245" y="56" width="150" height="327" rx="16"/>
+              <rect class="wdk-bar" x="300" y="61" width="40" height="5" rx="2.5"/>
+              <image class="wdk-phone-img" x="251" y="70" width="138" height="299" preserveAspectRatio="xMidYMin slice" clip-path="url(#wdkPhoneClip)" href="images/site/wd-work-malliaris-m.webp"/>
+            </g>
+            <g class="wdk-dim wdk-ok">
+              <line class="wdk-dimline" x1="245" y1="430" x2="395" y2="430"/>
+              <line class="wdk-dimtick wdk-t1" x1="245" y1="424" x2="245" y2="436"/>
+              <line class="wdk-dimtick wdk-t2" x1="395" y1="424" x2="395" y2="436"/>
+              <text class="wdk-dimval" x="320" y="452">390 px</text>
+            </g>
+            <g class="wdk-badge">
+              <text class="wdk-badge-t" x="412" y="214">✓ OPTIMISED<tspan x="412" dy="1.35em">FOR MOBILE</tspan></text>
+              <text class="wdk-lbl wdk-lbl-dim" x="412" y="252">SAME PAGE, SAME CODE</text>
+            </g>
+          </g>
+        </svg>
+        <div class="wdk-ctrl" role="group" aria-label="Projects">
+          <button type="button" class="wdk-tab" aria-pressed="true" data-k="malliaris" data-url="malliarisandpartners.gr">Malliaris</button>
+          <button type="button" class="wdk-tab" aria-pressed="false" data-k="liapis" data-url="vaiosliapis.gr">Liapis</button>
+          <button type="button" class="wdk-tab" aria-pressed="false" data-k="nakou" data-url="expertease.eu/nakou">Nakou</button>
+          <button type="button" class="wdk-again">↻ Replay</button>
         </div>
+        <figcaption class="wdk-cap">Real screenshots of our projects: the same page on a 1440 px desktop screen and a 390 px phone.</figcaption>
+      </figure>
+      </div>
     </div>
 
   </div>
@@ -486,7 +558,7 @@
             <span class="wd-proj-url">malliarisandpartners.gr</span>
           </div>
           <div class="wd-proj-frame-wrap">
-            <iframe src="https://malliarisandpartners.gr/" title="Σταύρος Μάλλιαρης — Τεχνικός Ασφαλείας" loading="lazy" tabindex="-1" scrolling="no" aria-hidden="true"></iframe>
+            <img src="images/site/wd-work-malliaris.webp" width="1200" height="750" loading="lazy" decoding="async" alt="Home page of the Malliaris & Partners website">
             <div class="wd-proj-frame-overlay"></div>
           </div>
         </div>
@@ -518,7 +590,7 @@
             <span class="wd-proj-url">vaiosliapis.gr</span>
           </div>
           <div class="wd-proj-frame-wrap">
-            <iframe src="https://vaiosliapis.gr/" title="Βάϊος Λιάπης — Πολιτικός Μηχανικός" loading="lazy" tabindex="-1" scrolling="no" aria-hidden="true"></iframe>
+            <img src="images/site/wd-work-liapis.webp" width="1200" height="750" loading="lazy" decoding="async" alt="Home page of the Vaios Liapis website">
             <div class="wd-proj-frame-overlay"></div>
           </div>
         </div>
@@ -552,7 +624,7 @@
             <span class="wd-proj-url">www.expertease.eu/nakou/</span>
           </div>
           <div class="wd-proj-frame-wrap">
-            <iframe src="https://www.expertease.eu/nakou/" title="Γεωργία Νάκου — Δικηγόρος Αθήνα · Θεσσαλονίκη" loading="lazy" tabindex="-1" scrolling="no" aria-hidden="true"></iframe>
+            <img src="images/site/wd-work-nakou.webp" width="1200" height="750" loading="lazy" decoding="async" alt="Home page of the Georgia Nakou website">
             <div class="wd-proj-frame-overlay"></div>
           </div>
         </div>
@@ -608,6 +680,7 @@
       <details class="wds-q"><summary data-el="Γιατί χωρίς WordPress;" data-en="Why no WordPress?">Why no WordPress?</summary><p data-el="Γιατί μια ιστοσελίδα παρουσίασης δεν το χρειάζεται. Χωρίς WordPress δεν έχετε πρόσθετα να ενημερώνετε, η σελίδα φορτώνει πιο γρήγορα και έχει πολύ λιγότερα σημεία για επιθέσεις." data-en="Because a business website doesn&#x27;t need it. Without WordPress there are no plugins to keep updating, the site loads faster and there is far less to attack.">Because a business website doesn&#x27;t need it. Without WordPress there are no plugins to keep updating, the site loads faster and there is far less to attack.</p></details>
       <details class="wds-q"><summary data-el="Μπορεί η ιστοσελίδα να είναι δίγλωσση;" data-en="Can the site be bilingual?">Can the site be bilingual?</summary><p data-el="Ναι, και οι περισσότερες που έχουμε φτιάξει είναι, στα ελληνικά και στα αγγλικά. Το κείμενο κάθε γλώσσας γράφεται να διαβάζεται φυσικά, όχι σαν αυτόματη μετάφραση." data-en="Yes, and most of the sites we&#x27;ve built are, in Greek and English. Each language is written to read naturally, not like a machine translation.">Yes, and most of the sites we&#x27;ve built are, in Greek and English. Each language is written to read naturally, not like a machine translation.</p></details>
     </div>
+    <p class="wds-upd">Updated: <time datetime="2026-10-14">14/10/2026</time></p>
   </div>
 </section>
 
@@ -636,7 +709,7 @@
 </main>
 <footer>
   <div class="footer-contact-bar">
-    <span id="footer-loc-bar">Athens, Greece</span>
+    <span id="footer-loc-bar">Athens · Greece-wide &amp; EU</span>
     <span class="fc-sep"></span>
     <a href="tel:+302107561836">210 756 1836</a>
     <span class="fc-sep"></span>
@@ -647,7 +720,7 @@
   <div class="footer-domain">expertease.eu</div>
   <a href="index.html" class="footer-logo"><img src="images/logo.png" alt="Expertease"></a>
   <div id="footer-copy" style="display:none">© 2026 Expertease Designs</div>
-  <div id="footer-loc" style="display:none">Athens, Greece</div>
+  <div id="footer-loc" style="display:none">Athens · Greece-wide &amp; EU</div>
 </footer>
 
 <hr class="ec-rule">
@@ -677,7 +750,7 @@
 
 <script src="main.js" defer></script>
 <script src="redesign.js" defer></script>
-<script src="wd-animation.js" defer></script>
+<script src="wd-kinisi.js" defer></script>
 <script>/* Κουμπί γλώσσας → η άλλη εκδοχή της σελίδας (αγγλική) */
 (function(){var to={l:'el',u:'webdesign.html'};document.querySelectorAll('.lang-btn').forEach(function(b){b.addEventListener('click',function(){if(b.dataset.lang===to.l)location.href=to.u;});});})();</script>
 

@@ -1,0 +1,73 @@
+/* ═══════════════════════════════════════════════════════════════
+   wd-kinisi.css — κίνηση πρώτης οθόνης της Web Design (14/10/2026)
+   Σχέδιο → πραγματική σελίδα → η ίδια σελίδα στο κινητό.
+   Χωρίς JS / με μειωμένη κίνηση: φαίνεται απευθείας το τελικό καρέ.
+═══════════════════════════════════════════════════════════════ */
+.wdk { margin: 0; width: 100%; display: flex; flex-direction: column; gap: 12px; }
+.wdk-svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.wdk-grid-minor { stroke: rgba(96,165,250,.06); }
+.wdk-grid-major { stroke: rgba(96,165,250,.12); }
+.wdk-lbl { font-family: var(--font-mono, 'IBM Plex Mono', monospace); font-size: 10px; letter-spacing: 1.5px; fill: rgba(147,197,253,.75); }
+.wdk-lbl-dim { fill: rgba(147,197,253,.55); }
+
+.wdk-frame { fill: rgba(8,15,30,.85); stroke: rgba(96,165,250,.45); stroke-width: 1; }
+.wdk-bar { fill: rgba(15,29,56,.95); }
+.wdk-dot { fill: rgba(147,197,253,.35); }
+.wdk-url { font-family: var(--font-mono, monospace); font-size: 8px; letter-spacing: .5px; fill: rgba(147,197,253,.7); }
+
+.wdk-wire { fill: none; stroke: #60a5fa; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.wdk-dimline { stroke: #60a5fa; stroke-width: 1; }
+.wdk-dimtick { stroke: #60a5fa; stroke-width: 1.2; }
+.wdk-dimval { font-family: var(--font-mono, monospace); font-size: 11px; letter-spacing: 1px; fill: #93c5fd; text-anchor: middle; }
+.wdk-ok .wdk-dimline, .wdk-ok .wdk-dimtick { stroke: #22c55e; }
+.wdk-ok .wdk-dimval { fill: #4ade80; }
+.wdk-badge-t { font-family: var(--font-mono, monospace); font-size: 10.5px; letter-spacing: 1px; fill: #4ade80; }
+
+/* τελικό καρέ (χωρίς JS) */
+.wdk-desk { opacity: 0; }
+.wdk-wires { opacity: 0; }
+
+/* στοιχεία ελέγχου */
+.wdk-ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.wdk-tab, .wdk-again {
+  font-family: var(--font-mono, monospace); font-size: 11px; letter-spacing: 1px;
+  color: #93c5fd; background: rgba(15,29,56,.6); border: 1px solid rgba(96,165,250,.3);
+  padding: 7px 12px; border-radius: 3px; cursor: pointer; min-height: 32px;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+.wdk-tab:hover, .wdk-again:hover { border-color: rgba(96,165,250,.7); color: #dbeafe; }
+.wdk-tab[aria-pressed="true"] { background: #2563eb; border-color: #2563eb; color: #fff; }
+.wdk-again { margin-left: auto; }
+.wdk-tab:focus-visible, .wdk-again:focus-visible { outline: 2px solid #93c5fd; outline-offset: 2px; }
+.wdk-cap { font-family: var(--font-mono, monospace); font-size: 11px; letter-spacing: .5px; line-height: 1.6; color: rgba(191,219,254,.72); margin: 0; }
+
+/* πριν ξεκινήσει το σενάριο: κρυφή σκηνή (κλάση από τη <head>, επιστροφή σε 2,5 s) */
+html.wdk-js:not(.wdk-on) .wdk-scene { opacity: 0; }
+html.wdk-js:not(.wdk-on) .wdk-ctrl { opacity: 0; }
+
+@media (max-width: 960px) {
+  .wdk-again { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.wdk-js .wdk-scene, html.wdk-js .wdk-ctrl { opacity: 1 !important; }
+}
+
+/* ορατή ημερομηνία ενημέρωσης (GEO) */
+.wds-upd { margin: 28px 0 0; font-family: var(--font-mono, monospace); font-size: 11px; letter-spacing: 1px; color: rgba(191,219,254,.6); }
+
+/* η σκηνή χωρά στην πρώτη οθόνη μαζί με τα κουμπιά */
+.wdk-wrap { justify-content: center; }
+.wdk-svg { max-height: min(60vh, 540px); }
+/* ο τίτλος μένει μέσα στη στήλη του (δεν μπαίνει στη σκηνή) */
+@media (min-width: 961px) { .wd-page .wd-page-title { font-size: clamp(44px, 4.4vw, 64px); } }
+
+/* κινητό: η σκηνή πιάνει όλο το πλάτος· τα κείμενα του SVG ≥ 11 px στο τελικό μέγεθος */
+@media (max-width: 640px) {
+  .wdk-svg { max-height: none; }
+  .wdk-lbl { font-size: 19px; letter-spacing: 1px; }
+  .wdk-dimval { font-size: 22px; }
+  .wdk-badge-t { font-size: 19px; letter-spacing: .5px; }
+  .wdk-badge .wdk-lbl-dim { display: none; }
+  .wdk-url { font-size: 12px; }
+}

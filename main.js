@@ -21,8 +21,8 @@ const LANG = {
     about_heading:'Σχετικά με Εμάς',
     about_quote:'«Η μηχανική είναι η τέχνη να μετατρέπεις μια ιδέα σε κάτι που κρατάς στα χέρια σου.»',
     about_p2:'Σχεδιάζουμε και κατασκευάζουμε μηχανολογικές διατάξεις και εξοπλισμό, από την έρευνα και το CAD ως τον συντονισμό της κατασκευής και τον ποιοτικό έλεγχο. Μαζί με κάθε έργο παραδίδουμε τα σχέδια εξαρτημάτων και συναρμολόγησης, τη λίστα υλικών και τις οδηγίες.',
-    about_p3:'Βάση: <strong><span class="accent-red">Αθήνα</span></strong> &amp; <strong><span class="accent-red">Θεσσαλονίκη</span></strong> · εξυπηρετούμε όλη την Ελλάδα και την Ευρωπαϊκή Ένωση.',
-    about_p5:'Δεν χρειάζεται να είστε στην Αθήνα ή τη Θεσσαλονίκη για να συνεργαστούμε. Ο μηχανολογικός σχεδιασμός, το CAD, οι τεχνικές μελέτες και οι ιστοσελίδες γίνονται εξ αποστάσεως, και τα κομμάτια από 3D εκτύπωση και laser τα στέλνουμε σε όλη την Ελλάδα.',
+    about_p3:'Βάση: <strong><span class="accent-red">Αθήνα</span></strong> · εξυπηρέτηση πανελλαδικά και στην ΕΕ.',
+    about_p5:'Δεν χρειάζεται να είστε στην Αθήνα για να συνεργαστούμε. Ο μηχανολογικός σχεδιασμός, το CAD, οι τεχνικές μελέτες και οι ιστοσελίδες γίνονται εξ αποστάσεως, και τα κομμάτια από 3D εκτύπωση και laser τα στέλνουμε σε όλη την Ελλάδα.',
     about_p4:'Διαλέγουμε υλικά και τρόπο κατασκευής και συναρμολόγησης ώστε το κόστος να μένει λογικό και να μη σπαταλιέται υλικό. Συντονίζουμε τους υπεργολάβους, επιβλέπουμε την κατασκευή και ελέγχουμε ότι το αποτέλεσμα τηρεί τα πρότυπα ποιότητας και ασφάλειας (ISO).',
     val_1_title:'Ακρίβεια', val_1_text:'Επαλήθευση με FEA, έλεγχος ανοχών και δοκιμές σε πραγματικές συνθήκες, πριν από την παράδοση.', val_1_text_mobile:'Επαλήθευση με FEA και έλεγχος ανοχών.',
     val_2_title:'Πλήρης Κύκλος', val_2_text:'Από το σκίτσο ως τη συναρμολόγηση: σχεδιασμός, λίστα υλικών, κατασκευή και παράδοση. Το έργο δεν περνά από χέρι σε χέρι.', val_2_text_mobile:'Σχεδιασμός, λίστα υλικών, κατασκευή, παράδοση, χωρίς ενδιάμεσους.',
@@ -43,7 +43,7 @@ const LANG = {
     wd_title:'Κατασκευή Ιστοσελίδων',
     cad_label:'Μηχανολογικός Σχεδιασμός · Αρχεία STEP',
     cad_title:'Μηχανολογικό CAD Σχέδιο & 3D STEP Viewer',
-    wd_desc:'Φτιάχνουμε ιστοσελίδες από το μηδέν, χωρίς έτοιμα θέματα. Δουλεύουμε εξ αποστάσεως, με πελάτες σε όλη την Ελλάδα και την Ευρώπη.',
+    wd_desc:'Φτιάχνουμε ιστοσελίδες από το μηδέν, χωρίς έτοιμα θέματα και χωρίς WordPress, για επαγγελματίες και επιχειρήσεις. Κάθε σελίδα γράφεται στο χέρι, φορτώνει γρήγορα στο κινητό και διαβάζεται σωστά από τη Google και το ChatGPT. Η τιμή ξεκινά από 500 € + ΦΠΑ, με γραπτή σταθερή προσφορά. Έδρα η Αθήνα, εξυπηρέτηση πανελλαδικά και στην ΕΕ.',
     wd_f1:'HTML & CSS στο χέρι', wd_f2:'Διαδραστική κίνηση',
     wd_f3:'WebGL / 3D στοιχεία', wd_f4:'Σχεδιασμός πρώτα για κινητό',
     wd_f5:'Δίγλωσσο (EN / EL)', wd_f6:'Δομή έτοιμη για SEO',
@@ -236,7 +236,7 @@ const LANG = {
     form_opt_6:'Λογισμικό',
     form_opt_7:'Γενική Ερώτηση',
     form_submit_label:'ΑΠΟΣΤΟΛΗ ΜΗΝΥΜΑΤΟΣ',
-    footer_copy:'© 2026 Expertease Designs', footer_loc:'Αθήνα, Ελλάδα', footer_loc_bar:'Αθήνα, Ελλάδα',
+    footer_copy:'© 2026 Expertease Designs', footer_loc:'Αθήνα · Πανελλαδικά και ΕΕ', footer_loc_bar:'Αθήνα · Πανελλαδικά και ΕΕ',
     ec_ad_question:'Σας άρεσε το site;', ec_ad_cta:'Φτιάξτε το δικό σας', ec_label:'Σχεδιάστηκε από',
     pr_label:'Εξατομικευμένη Κατασκευή · Πανελλαδικά',
     pr_title:'Τρισδιάστατη Εκτύπωση <span class="pr-hero-slash">/ / /</span> Κοπή Laser <span class="pr-hero-slash">/ / /</span> Χάραξη&nbsp;Laser',
@@ -302,8 +302,8 @@ const LANG = {
     about_heading:'About',
     about_quote:'"Engineering is the art of turning an idea into something you can hold in your hands."',
     about_p2:'We design and build mechanical devices, products and equipment, from research and CAD to fabrication coordination and quality control. Every project comes with its part and assembly drawings, bill of materials and instructions.',
-    about_p3:'Based in <strong><span class="accent-red">Athens</span></strong> &amp; <strong><span class="accent-red">Thessaloniki</span></strong> · we work with clients across Greece and the EU.',
-    about_p5:'You don\'t need to be in Athens or Thessaloniki to work with us. Mechanical design, CAD, technical studies and websites are done remotely, and 3D printed and laser-cut parts are shipped anywhere in Greece.',
+    about_p3:'Based in <strong><span class="accent-red">Athens</span></strong> · serving clients across Greece and the EU.',
+    about_p5:'You don\'t need to be in Athens to work with us. Mechanical design, CAD, technical studies and websites are done remotely, and 3D printed and laser-cut parts are shipped anywhere in Greece.',
     about_p4:'We choose materials, fabrication and assembly methods so that cost stays reasonable and material is not wasted. We coordinate subcontractors, supervise fabrication and check that the result meets ISO quality and safety standards.',
     val_1_title:'Precision', val_1_text:'Checked with FEA, tolerance stack-ups and tests in real conditions before delivery.', val_1_text_mobile:'FEA checks and tolerance stack-ups.',
     val_2_title:'Full Lifecycle', val_2_text:'From sketch to assembly: design, BOM, fabrication and handover. The project stays with us from start to finish.', val_2_text_mobile:'Design, BOM, fabrication and handover, with no middlemen.',
@@ -324,7 +324,7 @@ const LANG = {
     wd_title:'Web Design & Development',
     cad_label:'Mechanical Design · STEP Files',
     cad_title:'3D CAD Design & STEP Model Viewer',
-    wd_desc:'We build websites from scratch, without templates. We work remotely with clients across Greece and Europe.',
+    wd_desc:'We build websites from scratch, without templates or WordPress, for professionals and businesses. Every page is hand-coded, loads fast on mobile and reads correctly to Google and ChatGPT. Prices start at €500 + VAT, with a fixed written quote. Based in Athens, working with clients across Greece and the EU.',
     wd_f1:'Custom HTML & CSS', wd_f2:'Interactive motion',
     wd_f3:'WebGL / 3D elements', wd_f4:'Mobile-first layout',
     wd_f5:'Bilingual (EN / EL)', wd_f6:'SEO-ready structure',
@@ -517,7 +517,7 @@ const LANG = {
     form_opt_6:'Software',
     form_opt_7:'General Enquiry',
     form_submit_label:'SEND MESSAGE',
-    footer_copy:'© 2026 Expertease Designs', footer_loc:'Athens, Greece', footer_loc_bar:'Athens, Greece',
+    footer_copy:'© 2026 Expertease Designs', footer_loc:'Athens · Greece-wide & EU', footer_loc_bar:'Athens · Greece-wide & EU',
     ec_ad_question:'Like this site?', ec_ad_cta:'Let\'s build yours', ec_label:'Designed by',
     pr_label:'Custom Fabrication · Across Greece',
     pr_title:'3D Printing <span class="pr-hero-slash">/ / /</span> Laser Cut <span class="pr-hero-slash">/ / /</span> Laser&nbsp;Engrave',
@@ -938,6 +938,7 @@ function setThumbActive(idx) {
 }
 
 function renderPortfolio() {
+  if (typeof PORTFOLIO_DATA === 'undefined') return;
   const L = document.getElementById('portColLeft');
   const R = document.getElementById('portColRight');
   if (L) renderPortfolioCol(L, portLeft);
@@ -1274,6 +1275,7 @@ function addPortImageClickHandlers() {
 }
 
 function initPortfolio() {
+  if (typeof PORTFOLIO_DATA === 'undefined') return;   /* σελίδες χωρίς projects.js (π.χ. Web Design) */
   initPortDots();
   renderPortfolio();
   initPortDrag();

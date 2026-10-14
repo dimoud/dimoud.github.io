@@ -49,7 +49,14 @@
       "Bash(grep -o \".\\\\{300\\\\}CvEng.\\\\{0,400\\\\}\" index.html)",
       "Bash(grep -o \".\\\\{100\\\\}Ioannis Mastrogiorgis.\\\\{0,100\\\\}\" search-index.json)",
       "Bash(python -)",
-      "Bash(node -e \"global.window=global;require\\('./config.js'\\);\")"
+      "Bash(node -e \"global.window=global;require\\('./config.js'\\);\")",
+      "Bash(claude mcp *)",
+      "PowerShell(claude mcp add chrome-devtools --scope user -- cmd /c npx -y chrome-devtools-mcp@latest)",
+      "PowerShell(& \"C:\\\\Users\\\\moudi\\\\.local\\\\bin\\\\claude.exe\" mcp add chrome-devtools --scope user -- cmd /c npx -y chrome-devtools-mcp@latest)",
+      "PowerShell(npx -y skills add lottiefiles/motion-design-skill --skill motion-design --agent claude-code -g)",
+      "PowerShell(git clone https://github.com/OpenAEC-Foundation/Three.js-Claude-Skill-Package.git \"$env:TEMP\\\\threejs-skills\"; Get-ChildItem \"$env:TEMP\\\\threejs-skills\" -Recurse -Filter SKILL.md | Select-Object -ExpandProperty FullName)",
+      "PowerShell(winget install OpenJS.NodeJS.LTS --accept-source-agreements --accept-package-agreements)",
+      "PowerShell($env:Path = [Environment]::GetEnvironmentVariable\\('Path','Machine'\\) + ';' + [Environment]::GetEnvironmentVariable\\('Path','User'\\); & \"C:\\\\Users\\\\moudi\\\\.local\\\\bin\\\\claude.exe\" mcp list)"
     ],
     "additionalDirectories": [
       "a:\\WORK_PROJECTS\\WEBSITES\\github\\malliaris",
