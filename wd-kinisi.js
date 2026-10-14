@@ -19,10 +19,17 @@
   var REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function (s) { return fig.querySelector(s); };
   var desk = $('.wdk-desk'), wires = $('.wdk-wires'), wireEls = fig.querySelectorAll('.wdk-wire');
-  var phone = $('.wdk-phone'), dim = $('.wdk-dim'), badge = $('.wdk-badge'), ctrl = $('.wdk-ctrl');
+  var phone = $('.wdk-phone'), dim = $('.wdk-dim'), badge = $('.wdk-badge');
   var line = $('.wdk-dimline'), t1 = $('.wdk-t1'), t2 = $('.wdk-t2'), val = $('.wdk-dimval');
   var deskImg = $('.wdk-desk-img'), phoneImg = $('.wdk-phone-img'), url = fig.querySelector('[data-wdk-url]');
-  var tabs = fig.querySelectorAll('.wdk-tab'), again = $('.wdk-again');
+  /* 14/10/2026: χωρίς επιλογή από τον επισκέπτη· τα έργα εναλλάσσονται μόνα τους */
+  var WORKS = [
+    { k: 'malliaris', url: 'malliarisandpartners.gr' },
+    { k: 'liapis', url: 'vaiosliapis.gr' },
+    { k: 'nakou', url: 'expertease.eu/nakou' },
+    { k: 'moudiotis', url: 'moudiotis.gr' }
+  ];
+  var cur = 0, HOLD = 2600, CYCLE = 4300 + HOLD, next = 0, visible = false;
 
   /* Γεωμετρία (μονάδες viewBox) */
   var D0 = [40, 600], D1 = [245, 395];          // άκρα γραμμής διάστασης: υπολογιστής → κινητό
@@ -87,7 +94,6 @@
     A(dim, [{ opacity: 0 }, { opacity: 1 }], { delay: 1000, duration: 500, easing: OUT });
     /* 4. λύση */
     A(badge, [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { delay: 3750, duration: 450, easing: OUT });
-    A(ctrl, [{ opacity: 0 }, { opacity: 1 }], { delay: 4250, duration: 400, easing: OUT });
 
     root.classList.add('wdk-on');
     var t0 = performance.now();
@@ -99,15 +105,23 @@
     })(t0);
   }
 
-  function choose(btn) {
-    tabs.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
-    var k = btn.dataset.k;
-    deskImg.setAttribute('href', 'images/site/wd-work-' + k + '.webp');
-    phoneImg.setAttribute('href', 'images/site/wd-work-' + k + '-m.webp');
-    if (url) url.textContent = btn.dataset.url;
+  function show(n) {
+    var w = WORKS[n];
+    deskImg.setAttribute('href', 'images/site/wd-work-' + w.k + '.webp');
+    phoneImg.setAttribute('href', 'images/site/wd-work-' + w.k + '-m.webp');
+    if (url) url.textContent = w.url;
+    var nx = WORKS[(n + 1) % WORKS.length];            /* προφόρτωση του επόμενου */
+    [nx.k, nx.k + '-m'].forEach(function (f) { var im = new Image(); im.src = 'images/site/wd-work-' + f + '.webp'; });
   }
-  tabs.forEach(function (b) { b.addEventListener('click', function () { choose(b); REDUCED ? finalFrame() : run(); }); });
-  again.addEventListener('click', function () { REDUCED ? finalFrame() : run(); });
+  /* Επόμενο έργο μόνο όταν η σκηνή φαίνεται, η καρτέλα είναι ενεργή και δεν έχει πατηθεί «Παύση κίνησης» */
+  function loop() {
+    clearTimeout(next);
+    next = setTimeout(function () {
+      if (!visible || document.hidden || root.classList.contains('motion-paused')) { loop(); return; }
+      cur = (cur + 1) % WORKS.length; show(cur); run(); loop();
+    }, CYCLE);
+  }
+  show(0);
 
   if (REDUCED || !('IntersectionObserver' in window)) { finalFrame(); return; }
 
@@ -115,7 +129,8 @@
   run(); anims.forEach(function (a) { a.pause(); a.currentTime = 0; }); cancelAnimationFrame(raf); setDim(0);
   var io = new IntersectionObserver(function (es) {
     if (!es[0].isIntersecting) return;
-    io.disconnect(); run();
+    io.disconnect(); run(); loop();
   }, { threshold: 0.35 });
   io.observe(fig);
+  new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }, { threshold: 0.2 }).observe(fig);
 })();
