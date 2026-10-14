@@ -2,6 +2,7 @@
 <html lang="el">
 <head>
 <meta charset="UTF-8">
+<script>document.documentElement.classList.add('hk-js');setTimeout(function(){if(!window.__hk)document.documentElement.classList.remove('hk-js')},2500);</script>
 <script>try{localStorage.setItem('lang',document.documentElement.lang==='en'?'en':'el');}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- 3D hero: import map + προφόρτωση νωρίς στο <head>, ώστε η είσοδος του μοντέλου να μην καθυστερεί -->
@@ -131,51 +132,22 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="redesign.css">
 <link rel="stylesheet" href="expertease-credit.css">
+<link rel="stylesheet" href="arxiki-kinisi.css">
 <style>
 /* ── eng-animations hooks ── */
 #progress{position:fixed;top:0;left:0;z-index:2001;height:2px;width:0%;background:linear-gradient(90deg,#2563eb,#60a5fa);pointer-events:none;}
-#scrollElev{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:900;width:2px;height:100px;background:rgba(255,255,255,.06);border-radius:2px;opacity:0;transition:opacity .5s ease;pointer-events:none;}
-#scrollElev.show{opacity:1;}
-#elevFill{position:absolute;bottom:0;left:0;width:100%;height:0%;background:linear-gradient(to top,#60a5fa,#2563eb);border-radius:2px;}
-#elevDot{position:absolute;left:50%;bottom:0%;transform:translateX(-50%) translateY(50%);width:6px;height:6px;border-radius:50%;background:#60a5fa;box-shadow:0 0 8px rgba(96,165,250,.75);}
 html.anim-ready [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease;}
 html.anim-ready [data-reveal].visible{opacity:1;transform:none;}
 html.anim-ready [data-reveal-r]{opacity:0;transform:translateX(22px);transition:opacity .65s ease,transform .65s ease;}
 html.anim-ready [data-reveal-r].visible{opacity:1;transform:none;}
 /* ── credit banner: dark base + clear scroll ruler ── */
-.expertease-credit{background:var(--navy,#060d1a);padding-bottom:calc(72px + 28px);} /* extra 28px for fixed scroll ruler */
+.expertease-credit{background:var(--navy,#060d1a);}
 @media(max-width:960px){.expertease-credit{padding-bottom:32px;}}
 /* ── footer social ── */
 .footer-social{display:flex;gap:10px;align-items:center;}
 .footer-social-link{color:rgba(255,255,255,.28);display:flex;align-items:center;transition:color .3s ease;}
 .footer-social-link:hover{color:rgba(255,255,255,.7);}
-@media(max-width:600px){#scrollElev{display:none;}}
 
-/* ── SCROLL RULER (fixed bottom) ── */
-#scrollRuler{
-  position:fixed;bottom:0;left:0;right:0;z-index:950;
-  padding:4px 24px 6px;
-  background:rgba(8,15,30,.92);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border-top:1px solid rgba(37,99,235,.18);
-  font-family:var(--font-mono);
-  display:flex;flex-direction:column;gap:2px;
-  opacity:0;transform:translateY(10px);
-  transition:opacity .4s ease,transform .4s ease;
-  pointer-events:none;
-  overflow:hidden;
-  max-width:100vw;
-}
-#scrollRuler.show{opacity:1;transform:none;}
-.sr-bar{display:flex;align-items:center;gap:8px;width:100%;}
-.sr-cap{color:rgba(37,99,235,.8);font-size:10px;flex-shrink:0;letter-spacing:0;}
-.sr-track{flex:1;position:relative;height:1px;background:rgba(255,255,255,.07);}
-#srFill{position:absolute;left:0;top:0;height:1px;width:0%;background:linear-gradient(90deg,#1a3d7e,#60a5fa);}
-#srValue{flex-shrink:0;font-size:10px;font-weight:500;color:#60a5fa;letter-spacing:1.5px;min-width:76px;text-align:right;}
-#srTicksRow{display:flex;width:100%;height:6px;align-items:flex-end;}
-.sr-sub{flex:1;border-right:1px solid rgba(96,165,250,.15);height:3px;}
-.sr-sub.maj{height:6px;border-right-color:rgba(96,165,250,.4);}
-@media(max-width:600px){#scrollRuler{display:none;}}
 
 /* ── SECTION MEASUREMENT LINES ── */
 .sec-meas{
@@ -217,8 +189,8 @@ html.anim-ready [data-reveal-r].visible{opacity:1;transform:none;}
 <script src="main.js" defer></script>
 <script src="redesign.js" defer></script>
 <script src="step-viewer.js" defer></script>
-<script src="eng-animations.js" defer></script>
 <script src="contact-form.js" defer></script>
+<script src="arxiki-kinisi.js" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -257,16 +229,6 @@ html.anim-ready [data-reveal-r].visible{opacity:1;transform:none;}
 
 <!-- SCROLL PROGRESS + ELEVATION METER -->
 <div id="progress"></div>
-<div id="scrollElev"><div id="elevFill"></div><div id="elevDot"></div></div>
-<div id="scrollRuler">
-  <div id="srTicksRow"></div>
-  <div class="sr-bar">
-    <span class="sr-cap">◄</span>
-    <div class="sr-track"><div id="srFill"></div></div>
-    <span id="srValue">0.000 m</span>
-    <span class="sr-cap">►</span>
-  </div>
-</div>
 
 <!-- NAV -->
 <nav>

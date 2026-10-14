@@ -821,6 +821,7 @@ function startColImageCycle(colEl, project) {
   colImgIdx[id] = 0;
   if (project.images.length <= 1) return;
   colImgTimers[id] = setInterval(() => {
+    if (!portOn()) return;
     colImgIdx[id] = (colImgIdx[id] + 1) % project.images.length;
     const img = colEl.querySelector('.port-img');
     if (!img) return;
@@ -899,6 +900,7 @@ function buildPortThumbStrip() {
 }
 
 function startThumbAutoScroll(container) {
+  return;   /* 14/10/2026: χωρίς συνεχή αυτόματη κύλιση (setInterval 16 ms). Η λωρίδα κινείται με βέλη και σύρσιμο */
   thumbScrollTimer = setInterval(() => {
     if (thumbScrollPaused) return;
     container.scrollLeft += 1;
@@ -964,8 +966,13 @@ function swapPortCols() {
 
 function resetPortTimer() { clearInterval(portTimer); setTimeout(startPortTimer, 400); }
 
+/* Οι χρονοδιακόπτες του χαρτοφυλακίου τρέχουν μόνο όταν η ενότητα φαίνεται (ΜΗ-37, KN6) */
+function portOn() {
+  return !document.hidden && window.__portVis === true && !document.documentElement.classList.contains('motion-paused');
+}
 function startPortTimer() {
   portTimer = setInterval(() => {
+    if (!portOn()) return;
     const available = PORTFOLIO_DATA.map((_,i) => i).filter(i => i !== portLeft && i !== portRight);
     const newIdx = available[Math.floor(Math.random() * available.length)];
     if (Math.random() < 0.5) {
@@ -1285,6 +1292,8 @@ function addPortImageClickHandlers() {
 
 function initPortfolio() {
   if (typeof PORTFOLIO_DATA === 'undefined') return;   /* σελίδες χωρίς projects.js (π.χ. Web Design) */
+  const projSec = document.getElementById('projects');
+  if (projSec && 'IntersectionObserver' in window) new IntersectionObserver(es => { window.__portVis = es[0].isIntersecting; }, { threshold: 0.15 }).observe(projSec);
   initPortDots();
   renderPortfolio();
   initPortDrag();

@@ -73,7 +73,10 @@
       if (i === active && !force) return;
       active = i;
       const s = STAGES[curLang()][i];
-      root.style.setProperty('--acc', tabs[i].style.getPropertyValue('--acc') || '#4f9dff');
+      /* 14/10/2026: το χρώμα της φάσης μπαίνει μόνο στα στοιχεία που το χρησιμοποιούν, όχι σε όλη την ενότητα
+         (αλλαγή μεταβλητής στη ρίζα = νέος υπολογισμός στυλ και σχεδίαση όλης της ενότητας) */
+      const acc = tabs[i].style.getPropertyValue('--acc') || '#4f9dff';
+      [detail, leader, fill].forEach(el => el && el.style.setProperty('--acc', acc));
       tabs.forEach((b, k) => {
         b.setAttribute('aria-selected', k === i ? 'true' : 'false');
         b.tabIndex = k === i ? 0 : -1;
@@ -85,22 +88,34 @@
       root.querySelector('.wf-deliv-list').innerHTML = s.d.map(d => `<li>${d}</li>`).join('');
       root.querySelectorAll('.wf-meter i').forEach((m, k) => m.classList.toggle('on', k <= i));
       detail.setAttribute('aria-labelledby', tabs[i].id);
-      detail.classList.remove('is-swap'); void detail.offsetWidth; detail.classList.add('is-swap');
-      place();
+      /* 14/10/2026: επανεκκίνηση με Web Animations αντί για εξαναγκασμένη διάταξη (offsetWidth)· η μέτρηση θέσης στο επόμενο καρέ (KN5) */
+      if (!REDUCED && detail.animate) Array.prototype.forEach.call(detail.children, (c, k) => c.animate(
+        [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }],
+        { duration: 450, delay: Math.min(k, 2) * 50, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' }));
+      requestAnimationFrame(place);
     }
 
     /* Γραμμή στο ύψος των κουκκίδων + κάθετος δείκτης προς την περιγραφή */
+    /* 14/10/2026: η γεωμετρία μετριέται μόνο στη φόρτωση/αλλαγή μεγέθους· το place() μόνο γράφει (KN5) */
+    let geo = null;
+    function measure() {
+      const pr = root.getBoundingClientRect(), lr = line.getBoundingClientRect(), dr = detail.getBoundingClientRect();
+      const dots = tabs.map(t => t.querySelector('.wf-dot').getBoundingClientRect());
+      geo = {
+        rail: dots[0].top + dots[0].height / 2 - lr.top - 1,
+        x: dots.map(d => d.left + d.width / 2 - pr.left),
+        top: dots.map(d => d.bottom - pr.top + 2),
+        bot: dr.top - pr.top
+      };
+      rail.style.top = geo.rail + 'px';
+    }
     function place() {
       if (active < 0) return;
-      const pr = root.getBoundingClientRect(), lr = line.getBoundingClientRect();
-      const dot = tabs[0].querySelector('.wf-dot').getBoundingClientRect();
-      rail.style.top = (dot.top + dot.height / 2 - lr.top - 1) + 'px';
-      const ad = tabs[active].querySelector('.wf-dot').getBoundingClientRect();
-      const dr = detail.getBoundingClientRect();
-      const top = ad.bottom - pr.top + 2, bot = dr.top - pr.top;
-      leader.style.transform = `translateX(${ad.left + ad.width / 2 - pr.left}px)`;
+      if (!geo) measure();
+      const top = geo.top[active];
+      leader.style.transform = `translateX(${geo.x[active]}px)`;
       leader.style.top = top + 'px';
-      leader.style.height = Math.max(0, bot - top) + 'px';
+      leader.style.height = Math.max(0, geo.bot - top) + 'px';
     }
 
     function paint() {
@@ -159,19 +174,21 @@
        φαίνεται. Ούτε το ποντίκι ούτε η κύλιση επηρεάζουν τον ρυθμό· ένα κλικ απλώς
        μεταφέρει την εναλλαγή στη φάση που πατήθηκε. */
     const STEP_MS = 1250, RESUME_MS = 0;   // 1→5 σε 5″· το ποντίκι δεν επηρεάζει
-    let visible = false, lockUntil = 0, timer = 0;
+    let visible = false, lockUntil = 0, timer = 0, done = false;
+    /* 14/10/2026: ένας κύκλος 01 → 06 όταν η ενότητα μπει στο κάδρο, στάση στην «Παράδοση» (ΜΗ-37) */
     function tick() {
       if (mobile.matches || !visible) return;
       locked = false; hoverIdx = -1;
-      const n = (active + 1) % N;
+      const n = Math.min(active + 1, N - 1);
       scrollIdx = n; progress = n / (N - 1);
       render(n); paint();
+      if (n === N - 1) { done = true; stopAuto(); }
     }
     function startAuto() { if (!timer && !REDUCED) timer = setInterval(tick, STEP_MS); }
     function stopAuto() { clearInterval(timer); timer = 0; }
     new IntersectionObserver(es => es.forEach(e => {
       visible = e.isIntersecting;
-      if (visible) { if (active === N - 1 && !locked) { scrollIdx = 0; progress = 0; render(0); paint(); } startAuto(); }
+      if (visible) { if (!done) startAuto(); }
       else stopAuto();
     }), { threshold: 0.35 }).observe(line);
 
@@ -180,21 +197,22 @@
       /* χωρίς hover: η εναλλαγή δεν επηρεάζεται από το ποντίκι */
       b.addEventListener('click', () => {
         if (mobile.matches) return;   // στο κινητό το άγγιγμα δεν αλλάζει τίποτα
+        done = true; stopAuto();
         locked = true; lockUntil = performance.now() + RESUME_MS; hoverIdx = -1; scrollIdx = i; progress = i / (N - 1); render(i); paint();
         if (!canHover) b.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
       });
       b.addEventListener('keydown', e => {
         const d = { ArrowRight: 1, ArrowLeft: -1, Home: -99, End: 99 }[e.key];
         if (!d) return;
-        e.preventDefault();
+        e.preventDefault(); done = true; stopAuto();
         const n = Math.max(0, Math.min(N - 1, i + d));
         locked = true; lockUntil = performance.now() + RESUME_MS; scrollIdx = n; progress = n / (N - 1); render(n); paint(); tabs[n].focus();
       });
     });
     new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) locked = false; }), { threshold: 0 }).observe(root);
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', () => { place(); onScroll(); });
-    window.addEventListener('load', place);
+    window.addEventListener('resize', () => { geo = null; place(); onScroll(); });
+    window.addEventListener('load', () => { geo = null; place(); });
 
     render(0, true); onScroll();
     return {
@@ -230,7 +248,9 @@
   /* ── 5. Αρχές στο κινητό: «φερμουάρ» — οι κάρτες έρχονται από τα πλάγια και
         ενώνονται στη μέση όσο κατεβαίνεις· ανοίγουν ξανά όταν ανεβαίνεις ── */
   const zipCards = Array.from(document.querySelectorAll('#process .values-section .value-card, #what-we-build .wd-offer-card, #what-we-do .wd-offer-card'));
-  if (zipCards.length && !REDUCED) {
+  /* 14/10/2026: καταργήθηκε — κίνηση δεμένη στην κύλιση στο κινητό (ΜΗ-35) με getBoundingClientRect ανά κάρτα σε κάθε καρέ (KN5).
+     Οι κάρτες εμφανίζονται πλέον μία φορά με το κοινό σύστημα εμφάνισης. */
+  if (false && zipCards.length && !REDUCED) {
     const zipMq = matchMedia('(max-width: 960px)');
     let zt = false;
     const zip = () => {
