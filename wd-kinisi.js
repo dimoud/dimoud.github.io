@@ -134,3 +134,62 @@
   io.observe(fig);
   new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }, { threshold: 0.2 }).observe(fig);
 })();
+
+/* ═══ «Τι φτιάχνουμε»: είσοδος μία φορά (15/10/2026) ═══
+   Κάρτες με σκούπισμα χρώματος που ξεσκεπάζει την εικόνα, γραμμή τονισμού, σημεία κλιμακωτά,
+   και η τιμή μετρά ως το 500. Μετά την είσοδο τίποτα δεν κινείται εκτός από το hover. */
+(function () {
+  'use strict';
+  var sec = document.getElementById('what-we-build');
+  if (!sec || !('IntersectionObserver' in window)) return;
+  var REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cards = sec.querySelectorAll('.wdo-card');
+  cards.forEach(function (c, i) {
+    c.style.setProperty('--i', i);
+    c.querySelectorAll('.wdo-feats li').forEach(function (li, j) { li.style.setProperty('--j', j); });
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      c.addEventListener('pointermove', function (e) {
+        var r = c.getBoundingClientRect();
+        c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      }, { passive: true });
+    }
+  });
+  sec.querySelectorAll('.wdo-head > *').forEach(function (el, k) { el.style.setProperty('--k', k); });
+
+  /* η τιμή: ο αριθμός σε δικό του στοιχείο, ώστε να μετρά χωρίς να αλλάζει το «€ + ΦΠΑ» */
+  var num = sec.querySelector('.wdo-price-num'), val = null, END = 500;
+  if (num && num.firstChild && num.firstChild.nodeType === 3 && /500/.test(num.firstChild.nodeValue)) {
+    val = document.createElement('span'); val.textContent = '500';
+    val.style.display = 'inline-block'; val.style.minWidth = '3ch'; val.style.textAlign = 'right';
+    num.firstChild.nodeValue = num.firstChild.nodeValue.replace('500', '');
+    num.insertBefore(val, num.firstChild);
+  }
+  if (REDUCED) return;
+
+  sec.classList.add('wde-armed');
+  /* εικόνες: φόρτωση και αποκωδικοποίηση πριν φτάσει ο επισκέπτης, ώστε η είσοδος να μη «κολλήσει» */
+  var pre = new IntersectionObserver(function (es) {
+    if (!es[0].isIntersecting) return;
+    pre.disconnect();
+    sec.querySelectorAll('img').forEach(function (im) { im.loading = 'eager'; if (im.decode) im.decode().catch(function () {}); });
+  }, { rootMargin: '0px 0px 900px 0px' });
+  pre.observe(sec);
+  var io = new IntersectionObserver(function (es) {
+    if (!es[0].isIntersecting) return;
+    io.disconnect();
+    sec.classList.add('wde-go');
+    cards.forEach(function (c, i) { setTimeout(function () { c.classList.add('wde-in'); }, 250 + i * 80); });
+    if (val) {
+      var t0 = performance.now() + 500, D = 900;
+      val.textContent = '0';
+      (function tick(now) {
+        var k = Math.max(0, Math.min(1, (now - t0) / D)), e = 1 - Math.pow(1 - k, 3);
+        val.textContent = String(Math.round(END * e));
+        if (k < 1) requestAnimationFrame(tick);
+      })(performance.now());
+    }
+    setTimeout(function () { sec.classList.remove('wde-armed', 'wde-go'); sec.classList.add('wde-done'); }, 1900);
+  }, { threshold: 0.18 });
+  io.observe(sec);
+})();
