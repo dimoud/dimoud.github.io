@@ -56,7 +56,8 @@
       "PowerShell(npx -y skills add lottiefiles/motion-design-skill --skill motion-design --agent claude-code -g)",
       "PowerShell(git clone https://github.com/OpenAEC-Foundation/Three.js-Claude-Skill-Package.git \"$env:TEMP\\\\threejs-skills\"; Get-ChildItem \"$env:TEMP\\\\threejs-skills\" -Recurse -Filter SKILL.md | Select-Object -ExpandProperty FullName)",
       "PowerShell(winget install OpenJS.NodeJS.LTS --accept-source-agreements --accept-package-agreements)",
-      "PowerShell($env:Path = [Environment]::GetEnvironmentVariable\\('Path','Machine'\\) + ';' + [Environment]::GetEnvironmentVariable\\('Path','User'\\); & \"C:\\\\Users\\\\moudi\\\\.local\\\\bin\\\\claude.exe\" mcp list)"
+      "PowerShell($env:Path = [Environment]::GetEnvironmentVariable\\('Path','Machine'\\) + ';' + [Environment]::GetEnvironmentVariable\\('Path','User'\\); & \"C:\\\\Users\\\\moudi\\\\.local\\\\bin\\\\claude.exe\" mcp list)",
+      "PowerShell(cd 'A:\\\\WORK_PROJECTS\\\\WEBSITES\\\\github\\\\private.github.io'; git status -sb | Select-Object -First 20; git ls-remote origin 2>&1 | Select-Object -First 3; Get-ChildItem -Force | Select-Object Name; \\(Get-ChildItem expertease_private -Recurse -File | Measure-Object Length -Sum\\))"
     ],
     "additionalDirectories": [
       "a:\\WORK_PROJECTS\\WEBSITES\\github\\malliaris",
