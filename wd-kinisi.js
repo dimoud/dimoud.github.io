@@ -127,9 +127,12 @@
 
   /* Αρχική κατάσταση πριν μπει στο κάδρο: μηδέν χρόνου της κίνησης */
   run(); anims.forEach(function (a) { a.pause(); a.currentTime = 0; }); cancelAnimationFrame(raf); setDim(0);
+  var started = false;
+  function start() { if (started) return; started = true; io.disconnect(); run(); loop(); }
   var io = new IntersectionObserver(function (es) {
     if (!es[0].isIntersecting) return;
-    io.disconnect(); run(); loop();
+    if (document.hidden) { document.addEventListener('visibilitychange', function w() { if (!document.hidden) { document.removeEventListener('visibilitychange', w); if (visible) start(); } }); return; }   /* ΜΗ-47: η ταινία δεν παίζει σε κρυμμένη καρτέλα */
+    start();
   }, { threshold: 0.35 });
   io.observe(fig);
   new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }, { threshold: 0.2 }).observe(fig);

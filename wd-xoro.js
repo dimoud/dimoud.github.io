@@ -6,6 +6,10 @@
      2. ο μετρητής της τιμής (ο τελικός αριθμός γράφεται πάντα ακριβής),
      3. ο κανόνας της διαδικασίας, δεμένος με την κύλιση ΜΟΝΟ σε υπολογιστή (ΜΗ-35), με αποθηκευμένη γεωμετρία.
    Χωρίς JS: οι κλάσεις wdx-js / wdx-fail της <head> αφήνουν το τελικό καρέ.
+   ΚΑΝΟΝΑΣ ΟΡΑΤΟΤΗΤΑΣ (ΜΗ-47): καμία κίνηση δεν προχωρά ενώ δεν φαίνεται. Η σκηνή «ανοίγει» όταν πλησιάσει, αλλά
+   κάθε στοιχείο της παίζει μόνο όταν το ίδιο βρεθεί στο κάδρο (πριν από αυτό μένει στο πρώτο καρέ, σε παύση)·
+   ό,τι ο επισκέπτης προσπέρασε χωρίς να το δει τελειώνει αθόρυβα· με κρυμμένη καρτέλα ή ενότητα εκτός οθόνης
+   όλες οι κινήσεις παγώνουν (και οι ατέρμονες διακοσμητικές).
 ═══════════════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -16,8 +20,8 @@
   var paused = function () { return root.classList.contains('motion-paused'); };
 
   /* ── 2. μετρητές: <span data-count="500" data-delay="1450"> ── */
-  function count(el) {
-    var end = parseInt(el.getAttribute('data-count'), 10), delay = parseInt(el.getAttribute('data-delay') || '0', 10);
+  function count(el, elapsed) {
+    var end = parseInt(el.getAttribute('data-count'), 10), delay = Math.max(0, parseInt(el.getAttribute('data-delay') || '0', 10) - (elapsed || 0));
     var k = matchMedia('(max-width: 768px), (hover: none)').matches ? 0.78 : 1;
     var fin = function () { el.textContent = String(end); };
     if (REDUCED || paused() || !window.requestAnimationFrame) { fin(); return; }
@@ -31,10 +35,48 @@
     setTimeout(function () { if (!done) fin(); }, delay * k + D + 600);   /* ασφάλεια: η καρτέλα στο παρασκήνιο δεν δίνει καρέ */
   }
 
+  var GATE = false;                                                  /* ενεργό μόνο όταν ο διακόπτης ορατότητας λειτουργεί */
   function go(s) {
     if (s.classList.contains('wdx-go')) return;
+    s._wx0 = performance.now();
     s.classList.add('wdx-go');
-    [].forEach.call(s.querySelectorAll('[data-count]'), count);
+    if (GATE) (s._wxi || []).forEach(function (el) { if (el._wxv) fire(el); });
+    else [].forEach.call(s.querySelectorAll('[data-count]'), function (el) { count(el, 0); });
+  }
+
+  /* ── Ορατότητα: ένα στοιχείο παίζει μόνο όταν το ίδιο φαίνεται ── */
+  /* «φαίνεται» = μέσα στη ζώνη 5 %–90 % του ύψους της οθόνης, με ορατό τμήμα ≥ 35 % του ύψους του (ή ≥ 28 % της οθόνης) */
+  function qualifies(r) {
+    var vh = innerHeight, h = r.height;
+    if (r.right < 0 || r.left > innerWidth) return false;
+    if (h < 2) return r.top > vh * 0.05 && r.top < vh * 0.92;
+    var vis = Math.min(r.bottom, vh * 0.92) - Math.max(r.top, vh * 0.05);
+    return vis >= Math.min(h * 0.35, vh * 0.28);
+  }
+  function restsInView(r, vh) {
+    if (r.right < 0 || r.left > innerWidth) return false;
+    var vis = Math.min(r.bottom, vh) - Math.max(r.top, 0);
+    return vis > 0 && vis >= Math.min(r.height * 0.3, vh * 0.2);
+  }
+  function anchorOf(el) { var p = el.parentElement; return p && p.classList.contains('wdm') ? p : el; }
+  function fire(el) {                                                /* η σκηνή έχει ανοίξει ΚΑΙ το στοιχείο φαίνεται */
+    if (el._wxf) return; el._wxf = 1;
+    var s = el._wxs, elapsed = performance.now() - (s._wx0 || performance.now());
+    el.classList.add('wdx-seen');
+    if (el.hasAttribute('data-count')) count(el, elapsed);
+    if (elapsed > 60 && el.getAnimations) {                          /* είδαμε το στοιχείο αργά: δεν περιμένει ξανά όλη την καθυστέρησή του */
+      var an = el.classList.contains('wdh-ic') ? el.getAnimations({ subtree: true }) : el.getAnimations().filter(function (a) { return a.effect && a.effect.target === el; });
+      an.forEach(function (a) { try { a.currentTime = Math.min(elapsed, (a.effect.getTiming().delay) || 0); } catch (e) {} });
+    }
+  }
+  function release(el) {                                             /* προσπεράστηκε χωρίς να φανεί: τελειώνει αθόρυβα στο τελικό καρέ */
+    if (el._wxf) return; el._wxf = 1;
+    el.classList.add('wdx-seen');
+    if (el.hasAttribute('data-count')) el.textContent = el.getAttribute('data-count');
+    if (el.getAnimations) {
+      var an = el.classList.contains('wdh-ic') ? el.getAnimations({ subtree: true }) : el.getAnimations().filter(function (a) { return a.effect && a.effect.target === el; });
+      an.forEach(function (a) { try { a.finish(); } catch (e) {} });
+    }
   }
 
   /* αριθμοί ομάδων: --j (σημεία λίστας, ετικέτες) για κλιμάκωση μέσα στην ίδια ομάδα */
@@ -49,6 +91,51 @@
     setupRail(true);
     return;
   }
+
+  /* ── 1β. διακόπτης ορατότητας ανά στοιχείο ── */
+  GATE = true;
+  root.classList.add('wdx-gate');
+  var items = [], byAnchor = new Map();
+  scenes.forEach(function (s) {
+    s._wxi = [].slice.call(s.querySelectorAll('[data-v], .wdh-ic, [data-count]'));
+    s._wxi.forEach(function (el) {
+      el._wxs = s; items.push(el);
+      var a = anchorOf(el); if (!byAnchor.has(a)) byAnchor.set(a, []);
+      byAnchor.get(a).push(el);
+    });
+  });
+  var vio = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!qualifies(e.boundingClientRect)) return;
+      var els = byAnchor.get(e.target) || [];
+      els.forEach(function (el) { el._wxv = 1; if (el._wxs.classList.contains('wdx-go')) fire(el); });
+    });
+  }, { rootMargin: '-5% 0px -8% 0px', threshold: [0, 0.1, 0.2, 0.35, 0.5, 0.75, 1] });
+  byAnchor.forEach(function (v, a) { vio.observe(a); });
+  /* δίχτυ ασφαλείας (IntersectionObserver δεν βλέπει ό,τι κόβεται από γονέα με overflow): έλεγχος γεωμετρίας ανά 400 ms */
+  setInterval(function () {
+    if (document.hidden) return;
+    var vh = innerHeight, end = (innerHeight + (window.pageYOffset || 0)) >= document.documentElement.scrollHeight - 2;
+    items.forEach(function (el) {
+      if (el._wxf || !el._wxs.classList.contains('wdx-go')) return;
+      if (!el.getClientRects().length) { release(el); return; }     /* display:none (π.χ. κινητό): δεν παίζει */
+      var r = anchorOf(el).getBoundingClientRect();
+      if (r.bottom < -40) release(el);                                /* ο επισκέπτης το προσπέρασε */
+      else if (qualifies(r) || (end && r.bottom > 0 && r.top < vh)) { el._wxv = 1; fire(el); }
+      else if ((r.right < 0 || r.left > innerWidth) && r.bottom > 0 && r.top < vh) release(el);   /* σε οριζόντια λωρίδα, εκτός κάδρου: κάθεται στο τελικό καρέ */
+      else if (restsInView(r, vh)) {                                  /* ο επισκέπτης στέκεται και το στοιχείο φαίνεται (π.χ. κάτω άκρη της πρώτης οθόνης): παίζει μετά από 0,4 s */
+        if (!el._wxd) el._wxd = 1; else { el._wxv = 1; fire(el); }
+      } else el._wxd = 0;
+    });
+  }, 400);
+  /* κρυμμένη καρτέλα: όλες οι κινήσεις παγώνουν */
+  var bg = function () { root.classList.toggle('wdx-bg', document.hidden); };
+  document.addEventListener('visibilitychange', bg); bg();
+  /* ενότητα εκτός οθόνης: παγώνουν ακόμη και οι ατέρμονες διακοσμητικές κινήσεις της */
+  var off = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { e.target.classList.toggle('wdx-off', !e.isIntersecting); });
+  }, { rootMargin: '0px', threshold: 0 });
+  [].forEach.call(document.querySelectorAll('section, .ticker, footer, .wdx'), function (n) { off.observe(n); });
 
   /* ── 1. διακόπτης σκηνών ── */
   var hero = document.getElementById('wdx-hero');

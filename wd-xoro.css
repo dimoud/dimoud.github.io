@@ -69,7 +69,7 @@ html.wdx-js:not(.wdx-fail) .wdx:not(.wdx-go) [data-v] { visibility: hidden; }
 .wdh-svc { --r: 10px; --c0: inset(100% 0 0 0 round 10px); --t: .75s; --d: calc(.85s + var(--i) * .09s); }
 .wdh-svc[data-v] { overflow: visible; }
 .wdh-ic svg * { stroke-dasharray: 200; }
-.wdx-go .wdh-ic svg * { animation: wxIcon 1s var(--wx-out) calc((1s + var(--i, 0) * .09s) * var(--wx-k)) backwards; }
+.wdx-go .wdh-ic svg * { animation: wxIcon .9s var(--wx-out) calc((.9s + var(--i, 0) * .09s) * var(--wx-k)) backwards; }
 @keyframes wxIcon { from { stroke-dashoffset: 200; } to { stroke-dashoffset: 0; } }
 
 /* ══════════ 2 · ΤΙ ΦΤΙΑΧΝΟΥΜΕ ══════════
@@ -95,10 +95,6 @@ html.wdx-js:not(.wdx-fail) .wdx:not(.wdx-go) [data-v] { visibility: hidden; }
 .wdo-card .wd-offer-name { --t: .75s; --d: calc(var(--cd) + .46s); }
 .wdo-card .wd-offer-text { --dy: 12px; --t: .6s; --d: calc(var(--cd) + .58s); }
 .wdo-card .wdo-feats li  { --dx: -12px; --t: .5s; --d: calc(var(--cd) + .68s + var(--j, 0) * .07s); }
-.wdo-price { --r: 4px; --t: .8s; --d: .9s; }
-.wdo-price .wdo-price-main { --dy: 12px; --t: .6s; --d: 1.05s; }
-.wdo-price .wdo-price-note { --dy: 12px; --t: .6s; --d: 1.15s; }
-.wdo-price .wdo-price-btn  { --t: .9s; --d: 1.2s; --o: 50% 50%; }
 
 /* — σύνθεση πάνελ + αντικείμενο (μόνιμη, δεν εξαρτάται από την κίνηση) — */
 .wdo-shot { background:
@@ -230,6 +226,13 @@ html.wdx-js:not(.wdx-fail) .wds-steps li:not(.is-on) { border-color: rgba(140,18
 .wd-cta .wd-cta-btn { --t: .9s; --d: .95s; --o: 50% 50%; }
 .wd-cta .wd-cta-perks li { --dx: 16px; --t: .5s; --d: calc(1.1s + var(--j, 0) * .08s); }
 .wd-cta-price-num { animation: none; }       /* αντικαθιστά τον ατέρμονο παλμό (ΜΗ-02): το νούμερο μετρά μία φορά */
+
+/* ΟΡΑΤΟΤΗΤΑ (ΜΗ-47): ό,τι δεν φαίνεται, δεν κινείται. Το wdx-gate μπαίνει μόνο όταν ζει ο διακόπτης του σεναρίου,
+   ώστε χωρίς JS / χωρίς IntersectionObserver να μην μείνει τίποτα παγωμένο στο πρώτο καρέ. */
+html.wdx-gate .wdx-go [data-v]:not(.wdx-seen),
+html.wdx-gate .wdx-go .wdh-ic:not(.wdx-seen) svg * { animation-play-state: paused; }
+html.wdx-bg *, html.wdx-bg *::before, html.wdx-bg *::after,
+.wdx-off, .wdx-off *, .wdx-off *::before, .wdx-off *::after { animation-play-state: paused !important; }
 
 html.motion-paused .wdx [data-v], html.motion-paused .wdx-go .wdh-ic svg * { animation: none !important; }
 html.motion-paused.wdx-js .wdx [data-v] { visibility: visible !important; }
