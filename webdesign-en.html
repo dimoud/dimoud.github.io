@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <script>document.documentElement.classList.add('wdk-js');setTimeout(function(){document.documentElement.classList.add('wdk-on')},2500);</script>
+<script>document.documentElement.classList.add('wdx-js');setTimeout(function(){var r=document.documentElement;if(!r.classList.contains('wdx-ok'))r.classList.add('wdx-fail')},3500);</script>
 <script>(function(){document.documentElement.lang='en';try{localStorage.setItem('lang','en');}catch(e){}})();</script>
 <script>try{localStorage.setItem('lang',document.documentElement.lang==='en'?'en':'el');}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -321,6 +322,7 @@
 <link rel="stylesheet" href="expertease-credit.css">
 <link rel="stylesheet" href="wd-redesign.css">
 <link rel="stylesheet" href="wd-kinisi.css">
+<link rel="stylesheet" href="wd-xoro.css">
 <style>.expertease-credit{background:var(--navy,#060d1a);}
 @media(max-width:960px){.expertease-credit{margin-bottom:32px;}}</style>
 </head>
@@ -365,22 +367,22 @@
 </div>
 
 <!-- ══ HERO ══════════════════════════════════════════════════════ -->
-<div class="wd-page">
+<div class="wd-page wdx" id="wdx-hero">
   <div class="wd-page-inner">
 
     <div class="wd-page-left">
-      <p class="wdh-eyebrow">Design · Build · Visibility</p>
-      <h1 class="wd-page-title" id="wd-title">Web Design &amp; Development</h1>
-      <p class="wd-page-desc" id="wd-desc">A website that sets you apart from your competitors and brings you clients from Google and ChatGPT.</p>
+      <p class="wdh-eyebrow" data-v="slide">Design · Build · Visibility</p>
+      <span class="wdm"><h1 class="wd-page-title" id="wd-title" data-v="mask-up">Web Design &amp; Development</h1></span>
+      <p class="wd-page-desc" id="wd-desc" data-v="rise">A website that sets you apart from your competitors and brings you clients from Google and ChatGPT.</p>
       <div class="wd-page-cta">
-        <a href="contact.html" class="btn-primary" id="wd-cta1">Request a quote →</a>
-        <a href="tel:+302107561836" class="btn-outline wdh-phone"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>210 756 1836</a>
+        <a href="contact.html" class="btn-primary" id="wd-cta1" data-v="rise">Request a quote →</a>
+        <a href="tel:+302107561836" class="btn-outline wdh-phone" data-v="rise"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>210 756 1836</a>
       </div>
     </div>
 
     <div class="wd-page-right">
       <div class="wd-hero-canvas-wrap wdk-wrap">
-      <figure class="wdk" id="wdk" data-lang="en">
+      <figure class="wdk" id="wdk" data-xo-film data-lang="en">
         <svg class="wdk-svg" viewBox="0 0 640 470" role="img" aria-label="A website wireframe becoming the real page, then the same page on a phone">
           <defs>
             <pattern id="wdkG" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" class="wdk-grid-minor"/></pattern>
@@ -430,10 +432,10 @@
 
   </div>
   <ul class="wdh-svcs" aria-label="What is included">
-    <li class="wdh-svc" style="--i:0"><span class="wdh-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="13" rx="1.5"/><path d="M2.5 8h19M8 21h8M12 17v4"/></svg></span><span class="wdh-tx"><strong>A website built from scratch</strong><span>Yours alone, fast, on every screen.</span></span></li>
-    <li class="wdh-svc" style="--i:1"><span class="wdh-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.3 15.3 21 21M7.5 10.5l2 2 3.5-4"/></svg></span><span class="wdh-tx"><strong>Google &amp; ChatGPT</strong><span>Found when people search for you.</span></span></li>
-    <li class="wdh-svc" style="--i:2"><span class="wdh-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18M6 20V12M11 20V7M16 20v-6M20.5 4.5l-5 4-4-2.5-6 4.5"/></svg></span><span class="wdh-tx"><strong>Market analysis</strong><span>What your competitors do and where you can stand out.</span></span></li>
-    <li class="wdh-svc" style="--i:3"><span class="wdh-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a4.5 4.5 0 0 1-.5-9A6 6 0 0 1 18 9.5 4 4 0 0 1 17.5 18z"/><path d="M9.5 13.5l2 2 3.5-4"/></svg></span><span class="wdh-tx"><strong>Hosting with no monthly fee</strong><span>You only pay for your domain name.</span></span></li>
+    <li class="wdh-svc" data-v="build" style="--i:0"><span class="wdh-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="4" width="19" height="13" rx="1.5"/><path d="M2.5 8h19M8 21h8M12 17v4"/></svg></span><span class="wdh-tx"><strong>A website built from scratch</strong><span>Yours alone, fast, on every screen.</span></span></li>
+    <li class="wdh-svc" data-v="build" style="--i:1"><span class="wdh-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.3 15.3 21 21M7.5 10.5l2 2 3.5-4"/></svg></span><span class="wdh-tx"><strong>Google &amp; ChatGPT</strong><span>Found when people search for you.</span></span></li>
+    <li class="wdh-svc" data-v="build" style="--i:2"><span class="wdh-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18M6 20V12M11 20V7M16 20v-6M20.5 4.5l-5 4-4-2.5-6 4.5"/></svg></span><span class="wdh-tx"><strong>Market analysis</strong><span>What your competitors do and where you can stand out.</span></span></li>
+    <li class="wdh-svc" data-v="build" style="--i:3"><span class="wdh-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a4.5 4.5 0 0 1-.5-9A6 6 0 0 1 18 9.5 4 4 0 0 1 17.5 18z"/><path d="M9.5 13.5l2 2 3.5-4"/></svg></span><span class="wdh-tx"><strong>Hosting with no monthly fee</strong><span>You only pay for your domain name.</span></span></li>
   </ul>
 </div>
 
@@ -460,70 +462,78 @@
 </div>
 
 <!-- ══ WHAT WE BUILD (ανανέωση: wd-redesign.css) ═════════════════ -->
-<section class="wd-offerings wdo" id="what-we-build">
+<section class="wd-offerings wdo wdx" id="what-we-build">
   <div class="wd-offerings-inner">
     <div class="wdo-head">
       <div>
-        <div class="wd-offerings-label" id="wd-off-label">// What We Build</div>
-        <h2 class="wdo-title" data-el="Ιστοσελίδες σχεδιασμένες από το μηδέν." data-en="Websites designed from a blank page.">Websites designed from a blank page.</h2>
+        <div class="wd-offerings-label" id="wd-off-label" data-v="slide">// What We Build</div>
+        <span class="wdm"><h2 class="wdo-title" data-v="mask-up" data-el="Ιστοσελίδες σχεδιασμένες από το μηδέν." data-en="Websites designed from a blank page.">Websites designed from a blank page.</h2></span>
       </div>
-      <p class="wdo-lead" data-el="Χωρίς έτοιμα θέματα και page builders. Κάθε σελίδα γράφεται στο χέρι, για να φορτώνει γρήγορα και να δείχνει τη δουλειά σας όπως της αξίζει." data-en="No off-the-shelf themes or page builders. Every page is hand-coded to load fast and show your work the way it deserves.">No off-the-shelf themes or page builders. Every page is hand-coded to load fast and show your work the way it deserves.</p>
+      <p class="wdo-lead" data-v="rise" data-el="Χωρίς έτοιμα θέματα και page builders. Κάθε σελίδα γράφεται στο χέρι, για να φορτώνει γρήγορα και να δείχνει τη δουλειά σας όπως της αξίζει." data-en="No off-the-shelf themes or page builders. Every page is hand-coded to load fast and show your work the way it deserves.">No off-the-shelf themes or page builders. Every page is hand-coded to load fast and show your work the way it deserves.</p>
     </div>
     <div class="wd-offerings-grid">
-      <article class="wd-offer-card wdo-card" style="--acc:#4f9dff">
+      <article class="wd-offer-card wdo-card" style="--i:0;--acc:#4f9dff">
+        <span class="wdo-rule" data-v="grow" aria-hidden="true"></span>
         <div class="wdo-shot wdo-shot--img wdo-shot--biz">
-          <img src="images/site/wd-biz.webp" width="663" height="600" loading="lazy" decoding="async" alt="Business website on desktop and mobile" data-el-alt="Επαγγελματική ιστοσελίδα σε υπολογιστή και κινητό" data-en-alt="Business website on desktop and mobile">
+          <span class="wdo-plate" data-v="build" aria-hidden="true"></span>
+          <img data-v="tilt" src="images/site/wd-biz.webp" width="663" height="600" loading="lazy" decoding="async" alt="Business website on desktop and mobile" data-el-alt="Επαγγελματική ιστοσελίδα σε υπολογιστή και κινητό" data-en-alt="Business website on desktop and mobile">
         </div>
         <div class="wdo-body">
-          <div class="wd-offer-num">01</div>
-          <h3 class="wd-offer-name" id="wd-off1-name">Business Websites</h3>
-          <p class="wd-offer-text" id="wd-off1-text">For professionals and businesses that want to stand out and bring in clients.</p>
-          <ul class="wdo-feats"><li data-el="Σελίδες υπηρεσιών &amp; επικοινωνίας" data-en="Service &amp; contact pages">Service & contact pages</li><li data-el="Φόρμα επικοινωνίας" data-en="Contact form">Contact form</li></ul>
+          <div class="wd-offer-num" data-v="slide">01</div>
+          <span class="wdm"><h3 class="wd-offer-name" data-v="mask-up" id="wd-off1-name">Business Websites</h3></span>
+          <p class="wd-offer-text" data-v="rise" id="wd-off1-text">For professionals and businesses that want to stand out and bring in clients.</p>
+          <ul class="wdo-feats"><li data-v="slide" data-el="Σελίδες υπηρεσιών &amp; επικοινωνίας" data-en="Service &amp; contact pages">Service & contact pages</li><li data-v="slide" data-el="Φόρμα επικοινωνίας" data-en="Contact form">Contact form</li></ul>
         </div>
       </article>
-      <article class="wd-offer-card wdo-card" style="--acc:#a78bfa">
+      <article class="wd-offer-card wdo-card" style="--i:1;--acc:#a78bfa">
+        <span class="wdo-rule" data-v="grow" aria-hidden="true"></span>
         <div class="wdo-shot wdo-shot--img wdo-shot--port">
-          <img src="images/site/wd-port.webp" width="600" height="573" loading="lazy" decoding="async" alt="Project gallery on a desktop screen" data-el-alt="Γκαλερί έργων σε οθόνη υπολογιστή" data-en-alt="Project gallery on a desktop screen">
+          <span class="wdo-plate" data-v="build" aria-hidden="true"></span>
+          <img data-v="on" src="images/site/wd-port.webp" width="600" height="573" loading="lazy" decoding="async" alt="Project gallery on a desktop screen" data-el-alt="Γκαλερί έργων σε οθόνη υπολογιστή" data-en-alt="Project gallery on a desktop screen">
         </div>
         <div class="wdo-body">
-          <div class="wd-offer-num">02</div>
-          <h3 class="wd-offer-name" id="wd-off2-name">Portfolio &amp; Showcase</h3>
-          <p class="wd-offer-text" id="wd-off2-text">Your projects in a gallery, so clients can see them before they call.</p>
-          <ul class="wdo-feats"><li data-el="Συλλογή έργων με φίλτρα" data-en="Filterable project gallery">Filterable project gallery</li><li data-el="Προβολή σε πλήρη οθόνη" data-en="Full-screen viewer">Full-screen viewer</li></ul>
+          <div class="wd-offer-num" data-v="slide">02</div>
+          <span class="wdm"><h3 class="wd-offer-name" data-v="mask-up" id="wd-off2-name">Portfolio &amp; Showcase</h3></span>
+          <p class="wd-offer-text" data-v="rise" id="wd-off2-text">Your projects in a gallery, so clients can see them before they call.</p>
+          <ul class="wdo-feats"><li data-v="slide" data-el="Συλλογή έργων με φίλτρα" data-en="Filterable project gallery">Filterable project gallery</li><li data-v="slide" data-el="Προβολή σε πλήρη οθόνη" data-en="Full-screen viewer">Full-screen viewer</li></ul>
         </div>
       </article>
-      <article class="wd-offer-card wdo-card" style="--acc:#42d392">
+      <article class="wd-offer-card wdo-card" style="--i:2;--acc:#42d392">
+        <span class="wdo-rule" data-v="grow" aria-hidden="true"></span>
         <div class="wdo-shot wdo-shot--img wdo-shot--land">
-          <img src="images/site/wd-land.webp" width="550" height="579" loading="lazy" decoding="async" alt="Megaphone with campaign stats" data-el-alt="Μεγάφωνο με στατιστικά καμπάνιας" data-en-alt="Megaphone with campaign stats">
+          <span class="wdo-plate" data-v="build" aria-hidden="true"></span>
+          <img data-v="pop" src="images/site/wd-land.webp" width="550" height="579" loading="lazy" decoding="async" alt="Megaphone with campaign stats" data-el-alt="Μεγάφωνο με στατιστικά καμπάνιας" data-en-alt="Megaphone with campaign stats">
         </div>
         <div class="wdo-body">
-          <div class="wd-offer-num">03</div>
-          <h3 class="wd-offer-name" id="wd-off3-name">Landing Pages</h3>
-          <p class="wd-offer-text" id="wd-off3-text">One page, one goal: a launch, an event or a campaign.</p>
-          <ul class="wdo-feats"><li data-el="Μία σελίδα, ένας στόχος" data-en="One page, one goal">One page, one goal</li><li data-el="Κουμπί δράσης παντού" data-en="Call-to-action throughout">Call-to-action throughout</li></ul>
+          <div class="wd-offer-num" data-v="slide">03</div>
+          <span class="wdm"><h3 class="wd-offer-name" data-v="mask-up" id="wd-off3-name">Landing Pages</h3></span>
+          <p class="wd-offer-text" data-v="rise" id="wd-off3-text">One page, one goal: a launch, an event or a campaign.</p>
+          <ul class="wdo-feats"><li data-v="slide" data-el="Μία σελίδα, ένας στόχος" data-en="One page, one goal">One page, one goal</li><li data-v="slide" data-el="Κουμπί δράσης παντού" data-en="Call-to-action throughout">Call-to-action throughout</li></ul>
         </div>
       </article>
-      <article class="wd-offer-card wdo-card wd-offer-card--hl" style="--acc:#ff8a4c">
+      <article class="wd-offer-card wdo-card wd-offer-card--hl" style="--i:3;--acc:#ff8a4c">
+        <span class="wdo-rule" data-v="grow" aria-hidden="true"></span>
         <div class="wdo-shot wdo-shot--three" aria-hidden="true">
+          <span class="wdo-plate" data-v="build" aria-hidden="true"></span>
           <span class="wdo-bar"><i></i><i></i><i></i><b>expertease.eu</b></span>
-          <span class="wdo-page"><img src="images/site/gearbox.webp" width="1400" height="700" loading="lazy" decoding="async" alt=""></span>
+          <span class="wdo-page"><img data-v="dock" src="images/site/gearbox.webp" width="1400" height="700" loading="lazy" decoding="async" alt=""></span>
         </div>
         <div class="wdo-body">
-          <div class="wd-offer-num">04</div>
-          <h3 class="wd-offer-name" id="wd-off4-name">3D &amp; Interactive</h3>
-          <p class="wd-offer-text" id="wd-off4-text">Interactive 3D models and scroll-driven motion, like the top of expertease.eu.</p>
-          <ul class="wdo-feats"><li data-el="Διαδραστικά 3D μοντέλα" data-en="Interactive 3D models">Interactive 3D models</li><li data-el="Ανάπτυξη με την κύλιση" data-en="Scroll-driven explode">Scroll-driven explode</li></ul>
+          <div class="wd-offer-num" data-v="slide">04</div>
+          <span class="wdm"><h3 class="wd-offer-name" data-v="mask-up" id="wd-off4-name">3D &amp; Interactive</h3></span>
+          <p class="wd-offer-text" data-v="rise" id="wd-off4-text">Interactive 3D models and scroll-driven motion, like the top of expertease.eu.</p>
+          <ul class="wdo-feats"><li data-v="slide" data-el="Διαδραστικά 3D μοντέλα" data-en="Interactive 3D models">Interactive 3D models</li><li data-v="slide" data-el="Ανάπτυξη με την κύλιση" data-en="Scroll-driven explode">Scroll-driven explode</li></ul>
         </div>
       </article>
     </div>
 
-    <div class="wdo-price">
-      <div class="wdo-price-main">
+    <div class="wdo-price" data-v="build">
+      <div class="wdo-price-main" data-v="rise">
         <span class="wdo-price-from" data-el="Κάθε ιστοσελίδα ξεκινά από" data-en="Every website starts from">Every website starts from</span>
-        <span class="wdo-price-num">500&nbsp;€ <small data-el="+ ΦΠΑ" data-en="+ VAT">+ VAT</small></span>
+        <span class="wdo-price-num"><span class="wdx-num" data-count="500" data-delay="1100">500</span>&nbsp;€ <small data-el="+ ΦΠΑ" data-en="+ VAT">+ VAT</small></span>
       </div>
-      <p class="wdo-price-note" data-el="Η τελική τιμή εξαρτάται από τον αριθμό των σελίδων, τις γλώσσες και τις ειδικές λειτουργίες. Σας στέλνουμε σταθερή προσφορά πριν ξεκινήσουμε." data-en="The final price depends on the number of pages, languages and special features. You get a fixed quote before we start.">The final price depends on the number of pages, languages and special features. You get a fixed quote before we start.</p>
-      <a class="wdo-price-btn" href="contact.html" data-el="Ζητήστε προσφορά →" data-en="Request a quote →">Request a quote →</a>
+      <p class="wdo-price-note" data-v="rise" data-el="Η τελική τιμή εξαρτάται από τον αριθμό των σελίδων, τις γλώσσες και τις ειδικές λειτουργίες. Σας στέλνουμε σταθερή προσφορά πριν ξεκινήσουμε." data-en="The final price depends on the number of pages, languages and special features. You get a fixed quote before we start.">The final price depends on the number of pages, languages and special features. You get a fixed quote before we start.</p>
+      <a class="wdo-price-btn" data-v="pop" href="contact.html" data-el="Ζητήστε προσφορά →" data-en="Request a quote →">Request a quote →</a>
     </div>
   </div>
 </section>
@@ -533,71 +543,73 @@
 <section class="wd-work">
   <div class="wd-work-inner">
 
-    <div class="wd-work-header">
-      <div class="wd-work-label" id="wd-work-label">// Our Work</div>
-      <h2 class="wd-work-title" id="wd-work-title">Sites We've Built</h2>
-      <p class="wd-work-sub" id="wd-work-sub">Every one is hand-coded, each with its own design.</p>
+    <div class="wd-work-header wdx">
+      <div class="wd-work-label" id="wd-work-label" data-v="slide">// Our Work</div>
+      <span class="wdm"><h2 class="wd-work-title" id="wd-work-title" data-v="mask-up">Sites We've Built</h2></span>
+      <p class="wd-work-sub" id="wd-work-sub" data-v="rise">Every one is hand-coded, each with its own design.</p>
     </div>
 
     <!-- CARD 01 — Malliaris -->
-    <article class="wd-project-card reveal-up" id="wd-proj-1">
+    <article class="wd-project-card wdx" id="wd-proj-1">
       <div class="wd-proj-preview">
         <a href="https://malliarisandpartners.gr/" target="_blank" rel="noopener" class="wd-proj-browser-link" aria-label="View Σταύρος Μάλλιαρης site">
-        <div class="wd-proj-browser">
+        <div class="wd-proj-browser" data-v="window">
           <div class="wd-proj-bar">
-            <span class="wd-proj-dot wd-dot-r"></span>
-            <span class="wd-proj-dot wd-dot-y"></span>
-            <span class="wd-proj-dot wd-dot-g"></span>
-            <span class="wd-proj-url">malliarisandpartners.gr</span>
+            <span class="wd-proj-dot wd-dot-r" data-v="pop"></span>
+            <span class="wd-proj-dot wd-dot-y" data-v="pop"></span>
+            <span class="wd-proj-dot wd-dot-g" data-v="pop"></span>
+            <span class="wd-proj-url" data-v="type">malliarisandpartners.gr</span>
           </div>
           <div class="wd-proj-frame-wrap">
             <img src="images/site/wd-work-malliaris.webp" width="1200" height="750" loading="lazy" decoding="async" alt="Home page of the Malliaris & Partners website">
+            <img class="wd-proj-tall" data-v="tour" src="images/site/wd-tall-malliaris.webp" width="1000" height="2400" loading="lazy" decoding="async" alt="" aria-hidden="true">
             <div class="wd-proj-frame-overlay"></div>
           </div>
         </div>
         </a>
       </div>
       <div class="wd-proj-info">
-        <div class="wd-proj-num">01</div>
+        <div class="wd-proj-num" data-v="rise">01</div>
         <h3 class="wd-proj-name" id="wd-proj-1-name">Stavros Malliaris</h3>
-        <p class="wd-proj-role" id="wd-proj-1-role">Safety Engineer · Health &amp; Safety Consulting</p>
-        <p class="wd-proj-desc" id="wd-proj-1-desc">Website for a certified safety engineer, in Greek and English, with clean typography and services laid out so they are easy to find.</p>
+        <p class="wd-proj-role" data-v="slide" id="wd-proj-1-role">Safety Engineer · Health &amp; Safety Consulting</p>
+        <p class="wd-proj-desc" data-v="rise" id="wd-proj-1-desc">Website for a certified safety engineer, in Greek and English, with clean typography and services laid out so they are easy to find.</p>
         <ul class="wd-proj-tags">
-          <li>Custom HTML/CSS</li><li>Bilingual</li><li>SEO</li><li>Mobile-first</li>
+          <li data-v="rise">Custom HTML/CSS</li><li data-v="rise">Bilingual</li><li data-v="rise">SEO</li><li data-v="rise">Mobile-first</li>
         </ul>
-        <a href="https://malliarisandpartners.gr/" target="_blank" rel="noopener" class="wd-proj-link">
+        <a href="https://malliarisandpartners.gr/" target="_blank" rel="noopener" class="wd-proj-link" data-v="slide">
           <span id="wd-proj-1-link">View Site</span> <span class="wd-proj-arrow">→</span>
         </a>
       </div>
     </article>
 
     <!-- CARD 02 — Liapis -->
-    <article class="wd-project-card wd-project-card--rev reveal-up" id="wd-proj-2">
+    <article class="wd-project-card wd-project-card--rev wdx" id="wd-proj-2">
       <div class="wd-proj-preview">
         <a href="https://vaiosliapis.gr/" target="_blank" rel="noopener" class="wd-proj-browser-link" aria-label="View Βάϊος Λιάπης site">
-        <div class="wd-proj-browser">
+        <div class="wd-proj-browser" data-v="window">
           <div class="wd-proj-bar">
-            <span class="wd-proj-dot wd-dot-r"></span>
-            <span class="wd-proj-dot wd-dot-y"></span>
-            <span class="wd-proj-dot wd-dot-g"></span>
-            <span class="wd-proj-url">vaiosliapis.gr</span>
+            <span class="wd-proj-dot wd-dot-r" data-v="pop"></span>
+            <span class="wd-proj-dot wd-dot-y" data-v="pop"></span>
+            <span class="wd-proj-dot wd-dot-g" data-v="pop"></span>
+            <span class="wd-proj-url" data-v="type">vaiosliapis.gr</span>
           </div>
           <div class="wd-proj-frame-wrap">
             <img src="images/site/wd-work-liapis.webp" width="1200" height="750" loading="lazy" decoding="async" alt="Home page of the Vaios Liapis website">
+            <img class="wd-proj-tall" data-v="tour" src="images/site/wd-tall-liapis.webp" width="1000" height="2400" loading="lazy" decoding="async" alt="" aria-hidden="true">
             <div class="wd-proj-frame-overlay"></div>
           </div>
         </div>
         </a>
       </div>
       <div class="wd-proj-info">
-        <div class="wd-proj-num">02</div>
+        <div class="wd-proj-num" data-v="rise">02</div>
         <h3 class="wd-proj-name" id="wd-proj-2-name">Vaios Liapis</h3>
-        <p class="wd-proj-role" id="wd-proj-2-role">Civil Engineer · Athens</p>
-        <p class="wd-proj-desc" id="wd-proj-2-desc">Website and project portfolio for a civil engineer, with a clear service structure and a design that shows his experience at a glance.</p>
+        <p class="wd-proj-role" data-v="slide" id="wd-proj-2-role">Civil Engineer · Athens</p>
+        <p class="wd-proj-desc" data-v="rise" id="wd-proj-2-desc">Website and project portfolio for a civil engineer, with a clear service structure and a design that shows his experience at a glance.</p>
         <ul class="wd-proj-tags">
-          <li>Custom HTML/CSS</li><li>Portfolio</li><li>Bilingual</li><li>SEO</li>
+          <li data-v="rise">Custom HTML/CSS</li><li data-v="rise">Portfolio</li><li data-v="rise">Bilingual</li><li data-v="rise">SEO</li>
         </ul>
-        <a href="https://vaiosliapis.gr/" target="_blank" rel="noopener" class="wd-proj-link">
+        <a href="https://vaiosliapis.gr/" target="_blank" rel="noopener" class="wd-proj-link" data-v="slide">
           <span id="wd-proj-2-link">View Site</span> <span class="wd-proj-arrow">→</span>
         </a>
       </div>
@@ -606,63 +618,65 @@
     <!-- CARD 04 — Gkouvelis -->
 
     <!-- CARD 06 — Nakou -->
-    <article class="wd-project-card reveal-up" id="wd-proj-6">
+    <article class="wd-project-card wdx" id="wd-proj-6">
       <div class="wd-proj-preview">
         <a href="https://www.expertease.eu/nakou/" target="_blank" rel="noopener" class="wd-proj-browser-link" aria-label="View Γεωργία Νάκου Δικηγόρος site">
-        <div class="wd-proj-browser">
+        <div class="wd-proj-browser" data-v="window">
           <div class="wd-proj-bar">
-            <span class="wd-proj-dot wd-dot-r"></span>
-            <span class="wd-proj-dot wd-dot-y"></span>
-            <span class="wd-proj-dot wd-dot-g"></span>
-            <span class="wd-proj-url">www.expertease.eu/nakou/</span>
+            <span class="wd-proj-dot wd-dot-r" data-v="pop"></span>
+            <span class="wd-proj-dot wd-dot-y" data-v="pop"></span>
+            <span class="wd-proj-dot wd-dot-g" data-v="pop"></span>
+            <span class="wd-proj-url" data-v="type">www.expertease.eu/nakou/</span>
           </div>
           <div class="wd-proj-frame-wrap">
             <img src="images/site/wd-work-nakou.webp" width="1200" height="750" loading="lazy" decoding="async" alt="Home page of the Georgia Nakou website">
+            <img class="wd-proj-tall" data-v="tour" src="images/site/wd-tall-nakou.webp" width="1000" height="2400" loading="lazy" decoding="async" alt="" aria-hidden="true">
             <div class="wd-proj-frame-overlay"></div>
           </div>
         </div>
         </a>
       </div>
       <div class="wd-proj-info">
-        <div class="wd-proj-num">03</div>
+        <div class="wd-proj-num" data-v="rise">03</div>
         <h3 class="wd-proj-name" id="wd-proj-6-name">Georgia Nakou</h3>
-        <p class="wd-proj-role" id="wd-proj-6-role">Lawyer · Athens &amp; Thessaloniki</p>
-        <p class="wd-proj-desc" id="wd-proj-6-desc">Website for a lawyer working on real estate, contracts, inheritance and e-EFKA pensions, in a dark, elegant style with subtle motion, in Greek and English.</p>
+        <p class="wd-proj-role" data-v="slide" id="wd-proj-6-role">Lawyer · Athens &amp; Thessaloniki</p>
+        <p class="wd-proj-desc" data-v="rise" id="wd-proj-6-desc">Website for a lawyer working on real estate, contracts, inheritance and e-EFKA pensions, in a dark, elegant style with subtle motion, in Greek and English.</p>
         <ul class="wd-proj-tags">
-          <li>React / JSX</li><li>Luxury Design</li><li>Animations</li><li>SEO</li>
+          <li data-v="rise">React / JSX</li><li data-v="rise">Luxury Design</li><li data-v="rise">Animations</li><li data-v="rise">SEO</li>
         </ul>
-        <a href="https://www.expertease.eu/nakou/" target="_blank" rel="noopener" class="wd-proj-link">
+        <a href="https://www.expertease.eu/nakou/" target="_blank" rel="noopener" class="wd-proj-link" data-v="slide">
           <span id="wd-proj-6-link">View Site</span> <span class="wd-proj-arrow">→</span>
         </a>
       </div>
     </article>
     <!-- CARD 07 — Moudiotis -->
-    <article class="wd-project-card wd-project-card--rev reveal-up" id="wd-proj-7">
+    <article class="wd-project-card wd-project-card--rev wdx" id="wd-proj-7">
       <div class="wd-proj-preview">
         <a href="https://moudiotis.gr/" target="_blank" rel="noopener" class="wd-proj-browser-link" aria-label="View the Moudiotis Engineering Office site">
-        <div class="wd-proj-browser">
+        <div class="wd-proj-browser" data-v="window">
           <div class="wd-proj-bar">
-            <span class="wd-proj-dot wd-dot-r"></span>
-            <span class="wd-proj-dot wd-dot-y"></span>
-            <span class="wd-proj-dot wd-dot-g"></span>
-            <span class="wd-proj-url">moudiotis.gr</span>
+            <span class="wd-proj-dot wd-dot-r" data-v="pop"></span>
+            <span class="wd-proj-dot wd-dot-y" data-v="pop"></span>
+            <span class="wd-proj-dot wd-dot-g" data-v="pop"></span>
+            <span class="wd-proj-url" data-v="type">moudiotis.gr</span>
           </div>
           <div class="wd-proj-frame-wrap">
             <img src="images/site/wd-work-moudiotis.webp" width="1200" height="750" loading="lazy" decoding="async" alt="Home page of the Moudiotis Engineering Office website">
+            <img class="wd-proj-tall" data-v="tour" src="images/site/wd-tall-moudiotis.webp" width="1000" height="2400" loading="lazy" decoding="async" alt="" aria-hidden="true">
             <div class="wd-proj-frame-overlay"></div>
           </div>
         </div>
         </a>
       </div>
       <div class="wd-proj-info">
-        <div class="wd-proj-num">04</div>
+        <div class="wd-proj-num" data-v="rise">04</div>
         <h3 class="wd-proj-name" id="wd-proj-7-name">Moudiotis Engineering Office</h3>
-        <p class="wd-proj-role" id="wd-proj-7-role">Mechanical Engineer · Athens</p>
-        <p class="wd-proj-desc" id="wd-proj-7-desc">Website for an engineering office handling vehicle type approvals, registrations and technical studies, with a dedicated page for each service, animated technical drawings and search, in Greek and English.</p>
+        <p class="wd-proj-role" data-v="slide" id="wd-proj-7-role">Mechanical Engineer · Athens</p>
+        <p class="wd-proj-desc" data-v="rise" id="wd-proj-7-desc">Website for an engineering office handling vehicle type approvals, registrations and technical studies, with a dedicated page for each service, animated technical drawings and search, in Greek and English.</p>
         <ul class="wd-proj-tags">
-          <li>Custom HTML/CSS</li><li>Bilingual</li><li>SEO / GEO</li><li>Animations</li>
+          <li data-v="rise">Custom HTML/CSS</li><li data-v="rise">Bilingual</li><li data-v="rise">SEO / GEO</li><li data-v="rise">Animations</li>
         </ul>
-        <a href="https://moudiotis.gr/" target="_blank" rel="noopener" class="wd-proj-link">
+        <a href="https://moudiotis.gr/" target="_blank" rel="noopener" class="wd-proj-link" data-v="slide">
           <span id="wd-proj-7-link">View Site</span> <span class="wd-proj-arrow">→</span>
         </a>
       </div>
@@ -675,57 +689,57 @@
 <!-- ══ ΠΩΣ ΔΟΥΛΕΥΟΥΜΕ — εξ αποστάσεως (SEO/GEO 2026-09) ═════════ -->
 <section class="wds wds-how" id="remote" aria-labelledby="wds-how-title">
   <div class="wds-inner">
-    <div class="wds-head">
-      <div class="wd-offerings-label wds-label" data-el="// Πώς δουλεύουμε" data-en="// How we work">// How we work</div>
+    <div class="wds-head wdx">
+      <div class="wd-offerings-label wds-label" data-v="slide" data-el="// Πώς δουλεύουμε" data-en="// How we work">// How we work</div>
       <h2 class="wds-title" id="wds-how-title" data-el="Από όπου κι αν είστε." data-en="Wherever you are.">Wherever you are.</h2>
       <p class="wds-lead" data-el="Όλη η δουλειά γίνεται εξ αποστάσεως. Δεν χρειάζεται να έρθετε στο γραφείο: αρκούν ένα τηλεφώνημα, μερικά email και ένας σύνδεσμος για να βλέπετε την πρόοδο." data-en="The whole project runs remotely. You don't need to visit our office: a phone call, a few emails and a preview link are enough.">The whole project runs remotely. You don't need to visit our office: a phone call, a few emails and a preview link are enough.</p>
     </div>
-    <ol class="wds-steps">
-      <li><span class="wds-n">01</span><h3 data-el="Γνωριμία" data-en="Intro call">Intro call</h3><p data-el="Μια κλήση ή βιντεοκλήση για την επιχείρησή σας, τους πελάτες σας και τι θέλετε να κάνει η σελίδα." data-en="A phone or video call about your business, your customers and what the site needs to do.">A phone or video call about your business, your customers and what the site needs to do.</p></li>
-      <li><span class="wds-n">02</span><h3 data-el="Γραπτή προσφορά" data-en="Written quote">Written quote</h3><p data-el="Τιμή, σελίδες και χρόνος παράδοσης, γραμμένα πριν ξεκινήσουμε." data-en="Price, pages and delivery time, in writing, before we start.">Price, pages and delivery time, in writing, before we start.</p></li>
-      <li><span class="wds-n">03</span><h3 data-el="Σχέδιο και προεπισκόπηση" data-en="Design and preview">Design and preview</h3><p data-el="Βλέπετε τη σελίδα να στήνεται σε δικό σας σύνδεσμο, από κινητό ή υπολογιστή, και μας λέτε τι αλλάζει." data-en="You watch the site take shape on a private link, on your phone or laptop, and tell us what to change.">You watch the site take shape on a private link, on your phone or laptop, and tell us what to change.</p></li>
-      <li><span class="wds-n">04</span><h3 data-el="Δημοσίευση" data-en="Launch">Launch</h3><p data-el="Ανεβαίνει στο δικό σας domain και τη δηλώνουμε στη Google και στο Bing, για να αρχίσει να εμφανίζεται στις αναζητήσεις." data-en="It goes live on your own domain and we submit it to Google and Bing so it starts showing up in search.">It goes live on your own domain and we submit it to Google and Bing so it starts showing up in search.</p></li>
-    </ol>
+    <div class="wds-track"><span class="wds-rail" aria-hidden="true"></span><span class="wds-rail-fill" aria-hidden="true"></span><ol class="wds-steps">
+      <li class="wdx"><span class="wds-node" aria-hidden="true"></span><span class="wds-ill" aria-hidden="true"><svg viewBox="0 0 64 64"><path class="a1 fa" data-v="pop" d="M8 6h28a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H18l-8 7v-7H8a4 4 0 0 1-4-4V10a4 4 0 0 1 4-4z"/><path class="a3" data-v="draw" pathLength="1" d="M11 13h20M11 19h12"/><path class="a2 okf" data-v="pop" d="M28 32h28a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4h-2v6l-8-6H28a4 4 0 0 1-4-4V36a4 4 0 0 1 4-4z"/><circle class="a4 ok" data-v="rise" style="--k:0" cx="34" cy="43" r="1.7"/><circle class="a4 ok" data-v="rise" style="--k:1" cx="42" cy="43" r="1.7"/><circle class="a4 ok" data-v="rise" style="--k:2" cx="50" cy="43" r="1.7"/></svg></span><span class="wds-n" data-v="slide">01</span><span class="wdm"><h3 data-v="mask-up" data-el="Γνωριμία" data-en="Intro call">Intro call</h3></span><p data-v="rise" data-el="Μια κλήση ή βιντεοκλήση για την επιχείρησή σας, τους πελάτες σας και τι θέλετε να κάνει η σελίδα." data-en="A phone or video call about your business, your customers and what the site needs to do.">A phone or video call about your business, your customers and what the site needs to do.</p></li>
+      <li class="wdx"><span class="wds-node" aria-hidden="true"></span><span class="wds-ill" aria-hidden="true"><svg viewBox="0 0 64 64"><path class="a1 fa" data-v="draw" pathLength="1" d="M14 6h26l12 12v40H14zM40 6v12h12"/><path class="a3" data-v="grow" style="--k:0" d="M22 28h22"/><path class="a3" data-v="grow" style="--k:1" d="M22 36h18"/><path class="a3" data-v="grow" style="--k:2" d="M22 44h10"/><g class="a2" data-v="pop"><circle class="okf" cx="46" cy="47" r="10"/><path class="ok" d="M41.5 47l3.2 3.2 5.8-6.4"/></g></svg></span><span class="wds-n" data-v="slide">02</span><span class="wdm"><h3 data-v="mask-up" data-el="Γραπτή προσφορά" data-en="Written quote">Written quote</h3></span><p data-v="rise" data-el="Τιμή, σελίδες και χρόνος παράδοσης, γραμμένα πριν ξεκινήσουμε." data-en="Price, pages and delivery time, in writing, before we start.">Price, pages and delivery time, in writing, before we start.</p></li>
+      <li class="wdx"><span class="wds-node" aria-hidden="true"></span><span class="wds-ill" aria-hidden="true"><svg viewBox="0 0 64 64"><g class="a1" data-v="build"><rect class="fa" x="6" y="10" width="52" height="42" rx="3"/><path d="M6 19h52M11 14.5h.01M15.5 14.5h.01"/></g><rect class="a2" data-v="dock" style="--k:0" x="11" y="24" width="20" height="14" rx="1.5"/><rect class="a2" data-v="dock" style="--k:1" x="36" y="24" width="17" height="6" rx="1.5"/><rect class="a2" data-v="dock" style="--k:2" x="36" y="33" width="17" height="5" rx="1.5"/><path class="a3 ok" data-v="slide" d="M40 38v14l4-4 3 7 3-1.5-3-7h5.5z"/></svg></span><span class="wds-n" data-v="slide">03</span><span class="wdm"><h3 data-v="mask-up" data-el="Σχέδιο και προεπισκόπηση" data-en="Design and preview">Design and preview</h3></span><p data-v="rise" data-el="Βλέπετε τη σελίδα να στήνεται σε δικό σας σύνδεσμο, από κινητό ή υπολογιστή, και μας λέτε τι αλλάζει." data-en="You watch the site take shape on a private link, on your phone or laptop, and tell us what to change.">You watch the site take shape on a private link, on your phone or laptop, and tell us what to change.</p></li>
+      <li class="wdx"><span class="wds-node" aria-hidden="true"></span><span class="wds-ill" aria-hidden="true"><svg viewBox="0 0 64 64"><circle class="a1 fa" data-v="draw" pathLength="1" cx="30" cy="32" r="20"/><path class="a2" data-v="draw" pathLength="1" style="--k:0" d="M10 32h40"/><ellipse class="a2" data-v="draw" pathLength="1" style="--k:1" cx="30" cy="32" rx="9" ry="20"/><g class="a3" data-v="pop"><circle class="okf" cx="48" cy="48" r="10"/></g><path class="a4 ok" data-v="draw" pathLength="1" d="M43.5 48l3.2 3.2 5.8-6.4"/></svg></span><span class="wds-n" data-v="slide">04</span><span class="wdm"><h3 data-v="mask-up" data-el="Δημοσίευση" data-en="Launch">Launch</h3></span><p data-v="rise" data-el="Ανεβαίνει στο δικό σας domain και τη δηλώνουμε στη Google και στο Bing, για να αρχίσει να εμφανίζεται στις αναζητήσεις." data-en="It goes live on your own domain and we submit it to Google and Bing so it starts showing up in search.">It goes live on your own domain and we submit it to Google and Bing so it starts showing up in search.</p></li>
+    </ol></div>
     <p class="wds-area"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span data-el="Όλη η Ελλάδα, η Κύπρος και η υπόλοιπη Ευρωπαϊκή Ένωση · στα ελληνικά και στα αγγλικά" data-en="All of Greece, Cyprus and the rest of the European Union · in Greek and English">All of Greece, Cyprus and the rest of the European Union · in Greek and English</span></p>
   </div>
 </section>
 
 <!-- ══ ΣΥΧΝΕΣ ΕΡΩΤΗΣΕΙΣ (ίδιο κείμενο με το FAQPage στο JSON-LD) ═ -->
 <section class="wds wds-faq" id="faq" aria-labelledby="wds-faq-title">
-  <div class="wds-inner">
+  <div class="wds-inner wdx">
     <div class="wds-head">
-      <div class="wd-offerings-label wds-label" data-el="// Συχνές ερωτήσεις" data-en="// FAQ">// FAQ</div>
-      <h2 class="wds-title" id="wds-faq-title" data-el="Τι ρωτάνε συνήθως πριν ξεκινήσουμε." data-en="What people usually ask before we start.">What people usually ask before we start.</h2>
+      <div class="wd-offerings-label wds-label" data-v="slide" data-el="// Συχνές ερωτήσεις" data-en="// FAQ">// FAQ</div>
+      <span class="wdm"><h2 class="wds-title" id="wds-faq-title" data-v="mask-up" data-el="Τι ρωτάνε συνήθως πριν ξεκινήσουμε." data-en="What people usually ask before we start.">What people usually ask before we start.</h2></span>
     </div>
     <div class="wds-qa">
-      <details class="wds-q" open><summary data-el="Πόσο κοστίζει η κατασκευή μιας ιστοσελίδας;" data-en="How much does a website cost?">How much does a website cost?</summary><p data-el="Από 500 € + ΦΠΑ. Η τελική τιμή εξαρτάται από τον αριθμό των σελίδων, τις γλώσσες και τις ειδικές λειτουργίες, όπως κρατήσεις ή 3D μοντέλα. Πριν ξεκινήσουμε παίρνετε γραπτή, σταθερή προσφορά." data-en="From €500 + VAT. The final price depends on the number of pages, the languages and any special features, such as bookings or 3D models. You get a fixed written quote before we start.">From €500 + VAT. The final price depends on the number of pages, the languages and any special features, such as bookings or 3D models. You get a fixed written quote before we start.</p></details>
-      <details class="wds-q"><summary data-el="Δουλεύετε με πελάτες εκτός Αθήνας;" data-en="Do you work with clients outside Greece?">Do you work with clients outside Greece?</summary><p data-el="Ναι. Όλη η δουλειά γίνεται εξ αποστάσεως, με τηλέφωνο, βιντεοκλήση και email. Δουλεύουμε με πελάτες σε όλη την Ελλάδα, στην Κύπρο και στην υπόλοιπη Ευρωπαϊκή Ένωση, στα ελληνικά ή στα αγγλικά." data-en="Yes. Everything runs remotely, by phone, video call and email. We work with clients across Greece, Cyprus and the rest of the European Union, in Greek or English.">Yes. Everything runs remotely, by phone, video call and email. We work with clients across Greece, Cyprus and the rest of the European Union, in Greek or English.</p></details>
-      <details class="wds-q"><summary data-el="Πόσο χρόνο παίρνει μια ιστοσελίδα;" data-en="How long does it take?">How long does it take?</summary><p data-el="Εξαρτάται από το μέγεθος. Μια σελίδα παρουσίασης θέλει λιγότερο χρόνο από έναν δίγλωσσο ιστότοπο με πολλές υπηρεσίες. Την ημερομηνία παράδοσης τη γράφουμε στην προσφορά." data-en="It depends on the size. A one-page site takes less time than a bilingual site with many service pages. The delivery date is written into the quote.">It depends on the size. A one-page site takes less time than a bilingual site with many service pages. The delivery date is written into the quote.</p></details>
-      <details class="wds-q"><summary data-el="Θα εμφανίζεται η ιστοσελίδα στη Google και στο ChatGPT;" data-en="Will my site show up on Google and ChatGPT?">Will my site show up on Google and ChatGPT?</summary><p data-el="Τη φτιάχνουμε ώστε να τη διαβάζουν σωστά και οι μηχανές αναζήτησης και τα εργαλεία τεχνητής νοημοσύνης: γρήγορη φόρτωση, σωστοί τίτλοι, δομημένα δεδομένα και κείμενο που φαίνεται και χωρίς JavaScript. Μετά τη δημοσίευση τη δηλώνουμε στη Google και στο Bing. Πρώτη θέση δεν μπορεί να υποσχεθεί κανείς σοβαρά, ξεκινάτε όμως από σωστή βάση." data-en="We build it so search engines and AI tools can read it properly: fast loading, clear titles, structured data and text that is visible without JavaScript. After launch we submit it to Google and Bing. Nobody can honestly promise the first position, but you start from a solid base.">We build it so search engines and AI tools can read it properly: fast loading, clear titles, structured data and text that is visible without JavaScript. After launch we submit it to Google and Bing. Nobody can honestly promise the first position, but you start from a solid base.</p></details>
-      <details class="wds-q"><summary data-el="Γιατί χωρίς WordPress;" data-en="Why no WordPress?">Why no WordPress?</summary><p data-el="Γιατί μια ιστοσελίδα παρουσίασης δεν το χρειάζεται. Χωρίς WordPress δεν έχετε πρόσθετα να ενημερώνετε, η σελίδα φορτώνει πιο γρήγορα και έχει πολύ λιγότερα σημεία για επιθέσεις." data-en="Because a business website doesn&#x27;t need it. Without WordPress there are no plugins to keep updating, the site loads faster and there is far less to attack.">Because a business website doesn&#x27;t need it. Without WordPress there are no plugins to keep updating, the site loads faster and there is far less to attack.</p></details>
-      <details class="wds-q"><summary data-el="Μπορεί η ιστοσελίδα να είναι δίγλωσση;" data-en="Can the site be bilingual?">Can the site be bilingual?</summary><p data-el="Ναι, και οι περισσότερες που έχουμε φτιάξει είναι, στα ελληνικά και στα αγγλικά. Το κείμενο κάθε γλώσσας γράφεται να διαβάζεται φυσικά, όχι σαν αυτόματη μετάφραση." data-en="Yes, and most of the sites we&#x27;ve built are, in Greek and English. Each language is written to read naturally, not like a machine translation.">Yes, and most of the sites we&#x27;ve built are, in Greek and English. Each language is written to read naturally, not like a machine translation.</p></details>
+      <details class="wds-q" data-v="build" style="--j:0" open><summary data-el="Πόσο κοστίζει η κατασκευή μιας ιστοσελίδας;" data-en="How much does a website cost?">How much does a website cost?</summary><p data-el="Από 500 € + ΦΠΑ. Η τελική τιμή εξαρτάται από τον αριθμό των σελίδων, τις γλώσσες και τις ειδικές λειτουργίες, όπως κρατήσεις ή 3D μοντέλα. Πριν ξεκινήσουμε παίρνετε γραπτή, σταθερή προσφορά." data-en="From €500 + VAT. The final price depends on the number of pages, the languages and any special features, such as bookings or 3D models. You get a fixed written quote before we start.">From €500 + VAT. The final price depends on the number of pages, the languages and any special features, such as bookings or 3D models. You get a fixed written quote before we start.</p></details>
+      <details class="wds-q" data-v="slide" style="--j:1"><summary data-el="Δουλεύετε με πελάτες εκτός Αθήνας;" data-en="Do you work with clients outside Greece?">Do you work with clients outside Greece?</summary><p data-el="Ναι. Όλη η δουλειά γίνεται εξ αποστάσεως, με τηλέφωνο, βιντεοκλήση και email. Δουλεύουμε με πελάτες σε όλη την Ελλάδα, στην Κύπρο και στην υπόλοιπη Ευρωπαϊκή Ένωση, στα ελληνικά ή στα αγγλικά." data-en="Yes. Everything runs remotely, by phone, video call and email. We work with clients across Greece, Cyprus and the rest of the European Union, in Greek or English.">Yes. Everything runs remotely, by phone, video call and email. We work with clients across Greece, Cyprus and the rest of the European Union, in Greek or English.</p></details>
+      <details class="wds-q" data-v="build" style="--j:2"><summary data-el="Πόσο χρόνο παίρνει μια ιστοσελίδα;" data-en="How long does it take?">How long does it take?</summary><p data-el="Εξαρτάται από το μέγεθος. Μια σελίδα παρουσίασης θέλει λιγότερο χρόνο από έναν δίγλωσσο ιστότοπο με πολλές υπηρεσίες. Την ημερομηνία παράδοσης τη γράφουμε στην προσφορά." data-en="It depends on the size. A one-page site takes less time than a bilingual site with many service pages. The delivery date is written into the quote.">It depends on the size. A one-page site takes less time than a bilingual site with many service pages. The delivery date is written into the quote.</p></details>
+      <details class="wds-q" data-v="slide" style="--j:3"><summary data-el="Θα εμφανίζεται η ιστοσελίδα στη Google και στο ChatGPT;" data-en="Will my site show up on Google and ChatGPT?">Will my site show up on Google and ChatGPT?</summary><p data-el="Τη φτιάχνουμε ώστε να τη διαβάζουν σωστά και οι μηχανές αναζήτησης και τα εργαλεία τεχνητής νοημοσύνης: γρήγορη φόρτωση, σωστοί τίτλοι, δομημένα δεδομένα και κείμενο που φαίνεται και χωρίς JavaScript. Μετά τη δημοσίευση τη δηλώνουμε στη Google και στο Bing. Πρώτη θέση δεν μπορεί να υποσχεθεί κανείς σοβαρά, ξεκινάτε όμως από σωστή βάση." data-en="We build it so search engines and AI tools can read it properly: fast loading, clear titles, structured data and text that is visible without JavaScript. After launch we submit it to Google and Bing. Nobody can honestly promise the first position, but you start from a solid base.">We build it so search engines and AI tools can read it properly: fast loading, clear titles, structured data and text that is visible without JavaScript. After launch we submit it to Google and Bing. Nobody can honestly promise the first position, but you start from a solid base.</p></details>
+      <details class="wds-q" data-v="build" style="--j:4"><summary data-el="Γιατί χωρίς WordPress;" data-en="Why no WordPress?">Why no WordPress?</summary><p data-el="Γιατί μια ιστοσελίδα παρουσίασης δεν το χρειάζεται. Χωρίς WordPress δεν έχετε πρόσθετα να ενημερώνετε, η σελίδα φορτώνει πιο γρήγορα και έχει πολύ λιγότερα σημεία για επιθέσεις." data-en="Because a business website doesn&#x27;t need it. Without WordPress there are no plugins to keep updating, the site loads faster and there is far less to attack.">Because a business website doesn&#x27;t need it. Without WordPress there are no plugins to keep updating, the site loads faster and there is far less to attack.</p></details>
+      <details class="wds-q" data-v="slide" style="--j:5"><summary data-el="Μπορεί η ιστοσελίδα να είναι δίγλωσση;" data-en="Can the site be bilingual?">Can the site be bilingual?</summary><p data-el="Ναι, και οι περισσότερες που έχουμε φτιάξει είναι, στα ελληνικά και στα αγγλικά. Το κείμενο κάθε γλώσσας γράφεται να διαβάζεται φυσικά, όχι σαν αυτόματη μετάφραση." data-en="Yes, and most of the sites we&#x27;ve built are, in Greek and English. Each language is written to read naturally, not like a machine translation.">Yes, and most of the sites we&#x27;ve built are, in Greek and English. Each language is written to read naturally, not like a machine translation.</p></details>
     </div>
-    <p class="wds-upd">Updated: <time datetime="2026-10-14">14/10/2026</time></p>
+    <p class="wds-upd" data-v="rise">Updated: <time datetime="2026-10-14">14/10/2026</time></p>
   </div>
 </section>
 
 <!-- ══ CTA ══════════════════════════════════════════════════════ -->
-<section class="wd-cta">
-  <div class="wd-cta-card">
+<section class="wd-cta wdx">
+  <div class="wd-cta-card" data-v="rise">
     <div class="wd-cta-left">
-      <div class="wd-cta-label" id="wd-cta-label">// Let's Build Something</div>
-      <h2 class="wd-cta-title" id="wd-cta-title">Got a website<br>in mind?</h2>
-      <p class="wd-cta-text" id="wd-cta-text">Tell us about your business and what you need. We will design and build a website that feels like yours, from the first sketch to launch.</p>
+      <div class="wd-cta-label" data-v="slide" id="wd-cta-label">// Let's Build Something</div>
+      <span class="wdm"><h2 class="wd-cta-title" id="wd-cta-title" data-v="mask-up">Got a website<br>in mind?</h2></span>
+      <p class="wd-cta-text" data-v="rise" id="wd-cta-text">Tell us about your business and what you need. We will design and build a website that feels like yours, from the first sketch to launch.</p>
     </div>
-    <div class="wd-cta-right">
-      <div class="wd-cta-price-block">
+    <div class="wd-cta-right" data-v="build">
+      <div class="wd-cta-price-block" data-v="rise">
         <span class="wd-cta-price-from" id="wd-cta-price-from">Starting from</span>
-        <span class="wd-cta-price-num">500&nbsp;€ <small class="wd-cta-vat" data-el="+ ΦΠΑ" data-en="+ VAT">+ VAT</small></span>
+        <span class="wd-cta-price-num"><span class="wdx-num" data-count="500" data-delay="700">500</span>&nbsp;€ <small class="wd-cta-vat" data-el="+ ΦΠΑ" data-en="+ VAT">+ VAT</small></span>
       </div>
-      <a href="contact.html" class="wd-cta-btn" id="wd-cta-btn1">Get in Touch →</a>
+      <a href="contact.html" class="wd-cta-btn" data-v="pop" id="wd-cta-btn1">Get in Touch →</a>
       <ul class="wd-cta-perks">
-        <li id="wd-cta-perk1">✓ Your own design, no templates</li>
-        <li id="wd-cta-perk2">✓ Mobile-first &amp; fast</li>
+        <li data-v="slide" id="wd-cta-perk1">✓ Your own design, no templates</li>
+        <li data-v="slide" id="wd-cta-perk2">✓ Mobile-first &amp; fast</li>
       </ul>
     </div>
   </div>
@@ -776,6 +790,7 @@
 <script src="main.js" defer></script>
 <script src="redesign.js" defer></script>
 <script src="wd-kinisi.js" defer></script>
+<script src="wd-xoro.js" defer></script>
 <script>/* Κουμπί γλώσσας → η άλλη εκδοχή της σελίδας (αγγλική) */
 (function(){var to={l:'el',u:'webdesign.html'};document.querySelectorAll('.lang-btn').forEach(function(b){b.addEventListener('click',function(){if(b.dataset.lang===to.l)location.href=to.u;});});})();</script>
 

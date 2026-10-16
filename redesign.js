@@ -245,9 +245,10 @@
     io.observe(dims);
   }
 
+  /* (16/10/2026: το #what-we-build της Web Design δεν ανήκει πια στο φερμουάρ — έχει δική του χορογραφία, wd-xoro.js· ΜΗ-35) */
   /* ── 5. Αρχές στο κινητό: «φερμουάρ» — οι κάρτες έρχονται από τα πλάγια και
         ενώνονται στη μέση όσο κατεβαίνεις· ανοίγουν ξανά όταν ανεβαίνεις ── */
-  const zipCards = Array.from(document.querySelectorAll('#process .values-section .value-card, #what-we-build .wd-offer-card, #what-we-do .wd-offer-card'));
+  const zipCards = Array.from(document.querySelectorAll('#process .values-section .value-card, #what-we-do .wd-offer-card'));
   /* 14/10/2026: καταργήθηκε — κίνηση δεμένη στην κύλιση στο κινητό (ΜΗ-35) με getBoundingClientRect ανά κάρτα σε κάθε καρέ (KN5).
      Οι κάρτες εμφανίζονται πλέον μία φορά με το κοινό σύστημα εμφάνισης. */
   if (false && zipCards.length && !REDUCED) {

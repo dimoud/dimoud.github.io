@@ -112,12 +112,7 @@ html.wdk-js:not(.wdk-on) .wdk-ctrl { opacity: 0; }
 .wdh-svc:last-child .wdh-ic { background: rgba(34,197,94,.14); border-color: rgba(74,222,128,.35); }
 .wdh-svc:last-child .wdh-ic svg { stroke: #4ade80; }
 
-/* είσοδος μία φορά: οι κάρτες ανεβαίνουν κλιμακωτά, τα εικονίδια χαράσσονται */
-html.wdk-js .wdh-svc { opacity: 0; translate: 0 14px; }
-html.wdk-js.wdk-on .wdh-svc { animation: wdhIn .7s cubic-bezier(.2,.7,.2,1) calc(.35s + var(--i) * 90ms) both; }
-html.wdk-js.wdk-on .wdh-ic svg * { stroke-dasharray: 80; stroke-dashoffset: 80; animation: wdhDraw 1.1s ease calc(.6s + var(--i) * 90ms) forwards; }
-@keyframes wdhIn { from { opacity: 0; translate: 0 14px; } to { opacity: 1; translate: 0 0; } }
-@keyframes wdhDraw { to { stroke-dashoffset: 0; } }
+/* η είσοδος των καρτών και των εικονιδίων ζει στο wd-xoro.css (ρήμα «build» + χάραξη εικονιδίων) */
 
 @media (max-width: 1100px) { .wdh-svcs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 960px) {
@@ -127,75 +122,12 @@ html.wdk-js.wdk-on .wdh-ic svg * { stroke-dasharray: 80; stroke-dashoffset: 80; 
   .wdh-svcs { padding: 0 16px 40px; grid-template-columns: 1fr; gap: 10px; }
   .wdh-svc { padding: 14px 14px 16px; }
 }
-@media (prefers-reduced-motion: reduce) {
-  html.wdk-js .wdh-svc { opacity: 1; translate: none; animation: none !important; }
-  html.wdk-js .wdh-ic svg * { animation: none !important; stroke-dashoffset: 0; }
-}
 @media (min-width: 961px) {
   .wd-page .wd-page-inner { grid-template-columns: minmax(400px, 540px) 1fr; padding-top: 48px; padding-bottom: 36px; }
   .wd-page .wd-page-cta { flex-wrap: nowrap; }
 }
 .wd-page .wd-page-title { background: linear-gradient(100deg, #fff 0%, #fff 45%, #9cc8ff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: .08em; }
 
-/* ═══ Κίνηση v3 (15/10/2026): γρήγορη είσοδος για τις κάρτες της πρώτης οθόνης και το «Τι φτιάχνουμε» ═══
-   Μία φορά, ≤ 1,2 s, μόνο transform/opacity. Καμπύλη εξόδου «expo» για ορμή, ελατήριο μόνο στο εικονίδιο. */
-:root { --wde-out: cubic-bezier(.16,1,.3,1); --wde-pop: cubic-bezier(.34,1.56,.64,1); }
-
-/* Α. Κάρτες πρώτης οθόνης: λάμψη που περνά μία φορά + εικονίδιο που «κουμπώνει» */
-.wdh-svc { position: relative; overflow: hidden; }
-.wdh-svc::after { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0;
-  background: linear-gradient(105deg, transparent 30%, rgba(147,197,253,.16) 50%, transparent 70%); transform: translateX(-110%); }
-html.wdk-js.wdk-on .wdh-svc::after { animation: wdeSheen .9s var(--wde-out) calc(.55s + var(--i) * 90ms) 1 both; }
-html.wdk-js.wdk-on .wdh-ic { animation: wdePop .55s var(--wde-pop) calc(.45s + var(--i) * 90ms) both; }
-@keyframes wdeSheen { 0% { opacity: 1; transform: translateX(-110%); } 100% { opacity: 1; transform: translateX(110%); } }
-@keyframes wdePop { from { transform: scale(.4) rotate(-12deg); opacity: 0; } to { transform: none; opacity: 1; } }
-
-/* Β. «Τι φτιάχνουμε» */
+/* 16/10/2026: ό,τι έμεινε από το v3 — μόνο στατική διάταξη· η κίνηση είναι στο wd-xoro.css */
+.wdk-badge { display: none; }   /* χωρίς επιγραφή δίπλα στο κινητό */
 .wdo-card { position: relative; }
-.wdo-card::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; z-index: 3; background: var(--acc);
-  transform-origin: left; transform: scaleX(0); transition: transform .7s var(--wde-out); }
-.wdo-card.wde-in::before, .wdo-card:hover::before { transform: scaleX(1); }
-.wdo-shot::after { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; transform-origin: right; transform: scaleX(0);
-  background: linear-gradient(90deg, color-mix(in srgb, var(--acc) 85%, #0b1630), color-mix(in srgb, var(--acc) 55%, #0b1630)); }
-
-.wde-armed .wdo-head > *, .wde-armed .wdo-card, .wde-armed .wdo-price { opacity: 0; transform: translateY(26px); }
-.wde-armed .wdo-shot::after { transform: scaleX(1); }
-.wde-armed .wdo-shot img { transform: scale(1.18); }
-.wde-armed .wdo-feats li { opacity: 0; transform: translateX(-10px); }
-
-.wde-go .wdo-head > * { animation: wdeUp .6s var(--wde-out) calc(var(--k, 0) * 80ms) both; }
-.wde-go .wdo-card { animation: wdeUp .7s var(--wde-out) calc(.12s + var(--i) * 80ms) both; }
-.wde-go .wdo-shot::after { animation: wdeWipe .65s cubic-bezier(.77,0,.18,1) calc(.22s + var(--i) * 80ms) both; }
-.wde-go .wdo-shot img { animation: wdeZoom 1.1s var(--wde-out) calc(.3s + var(--i) * 80ms) both; }
-.wde-go .wdo-shot--three img { animation-name: wdeZoom3; }
-.wde-go .wdo-feats li { animation: wdeSide .45s var(--wde-out) calc(.55s + var(--i) * 80ms + var(--j, 0) * 60ms) both; }
-.wde-go .wdo-price { animation: wdeUp .7s var(--wde-out) .5s both; }
-@keyframes wdeUp { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
-@keyframes wdeWipe { from { transform: scaleX(1); } to { transform: scaleX(0); } }
-@keyframes wdeZoom { from { transform: scale(1.18); } to { transform: none; } }
-@keyframes wdeZoom3 { from { transform: scale(1.6); } to { transform: scale(1.35); } }
-@keyframes wdeSide { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: none; } }
-/* μετά την είσοδο οι κάρτες ξαναπαίρνουν το hover τους (το animation δεν κρατά transform) */
-.wde-done .wdo-card, .wde-done .wdo-head > *, .wde-done .wdo-price, .wde-done .wdo-feats li, .wde-done .wdo-shot img { animation: none; opacity: 1; }
-.wde-done .wdo-shot::after { animation: none; transform: scaleX(0); }
-.wde-done .wdo-card { transform: none; }
-.wde-done .wdo .wd-offer-card:hover, .wde-done .wd-offer-card:hover { transform: translateY(-6px); }
-
-/* φως που ακολουθεί τον δείκτη (μόνο με ποντίκι) */
-@media (hover: hover) and (pointer: fine) {
-  .wdo-card .wdo-body { position: relative; }
-  .wdo-card::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; transition: opacity .3s;
-    background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--acc) 16%, transparent), transparent 60%); }
-  .wdo-card:hover::after { opacity: 1; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .wdh-svc::after { display: none; }
-  html.wdk-js.wdk-on .wdh-ic { animation: none; }
-  .wde-armed .wdo-head > *, .wde-armed .wdo-card, .wde-armed .wdo-price, .wde-armed .wdo-feats li { opacity: 1; transform: none; animation: none !important; }
-  .wde-armed .wdo-shot::after { transform: scaleX(0); animation: none !important; }
-  .wde-armed .wdo-shot img { transform: none; animation: none !important; }
-  .wde-armed .wdo-shot--three img { transform: scale(1.35); }
-}
-.wdk-badge { display: none; }   /* 15/10/2026: χωρίς επιγραφή δίπλα στο κινητό */
-.wde-go .wdo-card, .wde-go .wdo-shot::after, .wde-go .wdo-shot img { will-change: transform, opacity; }
