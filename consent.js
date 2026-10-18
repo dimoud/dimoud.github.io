@@ -6,6 +6,10 @@
  * -------------------------------------------------------- */
 
 (function () {
+    /* Ασφαλής αποθήκευση (κανόνας 11 istoselides, 18/10/2026): σε ιδιωτική περιήγηση το localStorage πετά εξαίρεση
+       και το σενάριο σταματούσε — η μπάρα έμενε ανοιχτή και τα κουμπιά δεν δούλευαν. */
+    function _lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function _lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* χωρίς αποθήκευση: ξαναρωτά στην επόμενη σελίδα */ } }
     var STORAGE_KEY = 'expertease_consent';
     var GA_ID       = 'G-D0D3NLGVTS';
 
@@ -136,7 +140,7 @@
     /* Public helper — call from anywhere to safely send GA4 events.
      * Events are queued until consent is granted, then fired. */
     window.ccEvent = function (eventName, params) {
-        var stored = localStorage.getItem(STORAGE_KEY);
+        var stored = _lsGet(STORAGE_KEY);
         if (stored === 'granted' && typeof gtag === 'function') {
             gtag('event', eventName, params || {});
         } else if (stored !== 'denied') {
@@ -146,7 +150,7 @@
 
     /* ── dismiss ── */
     function dismiss(choice) {
-        localStorage.setItem(STORAGE_KEY, choice);
+        _lsSet(STORAGE_KEY, choice);
         banner.classList.add('cc-hidden');
         if (choice === 'granted') {
             gtagGrant();
@@ -156,7 +160,7 @@
     }
 
     /* ── check existing choice ── */
-    var stored = localStorage.getItem(STORAGE_KEY);
+    var stored = _lsGet(STORAGE_KEY);
 
     if (stored === 'granted') {
         gtagGrant();

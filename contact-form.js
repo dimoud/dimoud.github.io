@@ -68,6 +68,8 @@
           setStatus(status, T('success'), 'success');
           form.reset();
           if (window.ccEvent) ccEvent('form_submit', { form_id: 'clientContactForm' });
+          /* προτεινόμενο συμβάν GA4 για επαφή (όπως στο lib του istoselides)· το form_submit μένει για την υπάρχουσα μέτρηση */
+          if (window.ccEvent) ccEvent('generate_lead', { form_id: 'clientContactForm' });
           done();
         })
         .catch(function (err) {
