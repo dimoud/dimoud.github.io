@@ -5,9 +5,9 @@
 <script>document.documentElement.classList.add('hk-js');setTimeout(function(){if(!window.__hk)document.documentElement.classList.remove('hk-js')},2500);</script>
 <script>try{localStorage.setItem('lang',document.documentElement.lang==='en'?'en':'el');}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- 3D hero: ο μειωτήρας αποδίδεται σε Web Worker (gearbox-v2/worker.js) — η βιβλιοθήκη three.js φορτώνεται από εκεί -->
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<!-- 3D hero: ο μειωτήρας αποδίδεται σε Web Worker (gearbox-v2/worker.js)· η three.js είναι τοπικά (gearbox-v2/three.module.min.js) -->
 <link rel="modulepreload" href="gearbox-v2/hero.js">
+<link rel="preload" as="image" href="gearbox-v2/poster.webp" type="image/webp" media="(min-width: 961px)" fetchpriority="high">
 <title>Mechanical Engineering Studio | Expertease Designs — Greece</title>
 <meta name="description" content="Expertease Designs — mechanical engineering, 3D printing, laser cutting, CAD design & web development, serving clients across Greece. Get a quote today.">
 <link rel="canonical" href="https://expertease.eu/">

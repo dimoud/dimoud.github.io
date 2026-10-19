@@ -13,6 +13,14 @@ self.onmessage = async (e) => {
       /* έλεγχος WebGL πριν από οτιδήποτε άλλο — αν λείπει, η σελίδα περνά στο κύριο νήμα */
       const gl = m.canvas.getContext('webgl2', { alpha: true, antialias: m.opts.dpr < 1.5 });
       if (!gl) { emit('fail'); return; }
+      /* Χωρίς κάρτα γραφικών (απόδοση από τον επεξεργαστή): όταν υπάρχει αφίσα, δεν χτίζεται
+         τίποτα — η σελίδα κρατά την αφίσα. Μηδενικό κόστος για τον επισκέπτη. */
+      let gpu = '';
+      try { const ext = gl.getExtension('WEBGL_debug_renderer_info'); gpu = gl.getParameter(ext ? ext.UNMASKED_RENDERER_WEBGL : gl.RENDERER) || ''; } catch (e) {}
+      if (m.opts.poster && /swiftshader|basic render|llvmpipe|softpipe|software|warp/i.test(gpu)) {
+        const lc = gl.getExtension('WEBGL_lose_context'); if (lc) lc.loseContext();
+        emit('ready', { lite: true, gpu }); return;
+      }
       api = await createGearbox(m.canvas, m.opts, emit);
       queue.splice(0).forEach(run);
     } catch (err) { emit('fail', String(err && err.message || err)); }

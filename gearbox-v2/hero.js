@@ -1,20 +1,43 @@
 /* ═══════════════════════════════════════════════════════════════
    gearbox-v2 / hero.js — ελεγκτής του μειωτήρα στην αρχική σελίδα (κύριο νήμα)
-   Η ΑΠΟΔΟΣΗ γίνεται σε Web Worker (worker.js → scene.js) με OffscreenCanvas:
-   κατασκευή γεωμετρίας, μεταγλώττιση shaders και καρέ δεν αγγίζουν το κύριο
-   νήμα, οπότε η αρχική φόρτωση, η χάραξη του σχεδίου και η κύλιση μένουν ομαλές.
-   Εδώ μένουν μόνο τα γεγονότα (ποντίκι, αφή, κύλιση, μέγεθος, ορατότητα).
-   Αν ο φυλλομετρητής δεν υποστηρίζει WebGL σε worker, το scene.js τρέχει στο
-   κύριο νήμα, αλλά ΜΟΝΟ αφού φορτώσει η σελίδα και ηρεμήσει (requestIdleCallback).
+
+   Ροή στον υπολογιστή:
+   1. Εμφανίζεται ΑΜΕΣΩΣ η εικόνα-αφίσα (poster.webp, ~110 KB) στην ακριβή θέση του
+      μοντέλου και κάνει την είσοδο με ολίσθηση (CSS) — καμία αναμονή, κανένα βάρος.
+   2. Μετά τη φόρτωση της σελίδας ξεκινά το 3D σε Web Worker (worker.js → scene.js,
+      OffscreenCanvas): γεωμετρία, shaders και καρέ εκτός κύριου νήματος.
+   3. Όταν είναι έτοιμο, το ζωντανό 3D (ίδιο ακριβώς πρώτο καρέ) αντικαθιστά την αφίσα.
+   Χωρίς κάρτα γραφικών (απόδοση από τον επεξεργαστή) ή με πολύ αργή κάρτα, μένει η
+   αφίσα και δεν αποδίδεται κανένα καρέ 3D.
+   Στο κινητό (καμβάς σταθερός στο φόντο) δεν χρησιμοποιείται αφίσα.
    Ίδια global ονόματα: initThree, setScrollExplode, setMode, resetModel.
 ═══════════════════════════════════════════════════════════════ */
 const IS_MOBILE = window.matchMedia('(max-width: 960px)').matches;
 const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-let started = false, ready = false;
+/* Θέση της αφίσας σε μονάδες του μοντέλου, ως προς το κέντρο του μειωτήρα
+   (μετρημένη από απόδοση 3200×1800 με το scene.js — ταυτίζεται σε κάθε αναλογία οθόνης) */
+const POSTER = { src: new URL('./poster.webp', import.meta.url).href,
+  offX: -4.350488, offY: -4.706590, wU: 9.073402, hU: 9.119655 };
+const INTRO_DIST = 5;            // μονάδες ολίσθησης εισόδου (ίδιο με scene.js)
+
+let started = false;
 let send = null;                 // (μήνυμα) → worker ή απευθείας κλήση στο κύριο νήμα
 const pending = {};              // τελευταία τιμή ανά τύπο, πριν είναι έτοιμος ο μειωτήρας
 const post = m => { if (send) send(m); else pending[m.type] = m; };
+
+/* Ίδια προβολή με την κάμερα του scene.js (θέση 0,2.5,20 → στόχος 0,0.5,0, fov 38°):
+   κέντρο του μειωτήρα στην οθόνη και εικονοστοιχεία ανά μονάδα */
+function project(W, H) {
+  const t = Math.tan(19 * Math.PI / 180);
+  const X = t * 20 * (W / H) * 0.5 - 1.0;
+  const fy = -2, fz = -20, fn = Math.hypot(fy, fz);
+  const f = [0, fy / fn, fz / fn], u = [0, -f[2], f[1]];      // r = (1,0,0)
+  const v = [X, -2.5, -20];
+  const xc = v[0], yc = v[1] * u[1] + v[2] * u[2], zc = v[1] * f[1] + v[2] * f[2];
+  const nx = xc / (zc * t * (W / H)), ny = yc / (zc * t);
+  return { cx: (nx + 1) / 2 * W, cy: (1 - ny) / 2 * H, ppu: H / (2 * t * zc) };
+}
 
 function initThree() {
   if (started) return;
@@ -24,11 +47,46 @@ function initThree() {
   const parent = canvas.parentElement;
   const size = () => ({ w: parent.clientWidth || 1280, h: parent.clientHeight || 700 });
   const { w, h } = size();
-  const opts = { width: w, height: h, dpr: window.devicePixelRatio || 1, mobile: IS_MOBILE, reduced: REDUCED };
+  const usePoster = !IS_MOBILE;
+  const opts = { width: w, height: h, dpr: window.devicePixelRatio || 1, mobile: IS_MOBILE, reduced: REDUCED,
+                 noIntro: usePoster, poster: usePoster };
 
-  const onReady = () => {
-    ready = true;
-    canvas.classList.add('is-ready');                  // ομαλή εμφάνιση (CSS)
+  /* ── Αφίσα ── */
+  let poster = null;
+  function placePoster() {
+    if (!poster) return;
+    const s = size(), p = project(s.w, s.h);
+    poster.style.left = (p.cx + POSTER.offX * p.ppu) + 'px';
+    poster.style.top = (p.cy + POSTER.offY * p.ppu) + 'px';
+    poster.style.width = (POSTER.wU * p.ppu) + 'px';
+    poster.style.height = (POSTER.hU * p.ppu) + 'px';
+    poster.style.setProperty('--gb-dx', (INTRO_DIST * p.ppu) + 'px');
+  }
+  if (usePoster) {
+    poster = new Image();
+    poster.id = 'hero3d-poster'; poster.alt = ''; poster.setAttribute('aria-hidden', 'true');
+    poster.decoding = 'async'; poster.src = POSTER.src;
+    parent.insertBefore(poster, canvas);
+    placePoster();
+    const go = () => poster.classList.add('gb-in');
+    (poster.decode ? poster.decode() : Promise.resolve()).then(go, go);
+  }
+
+  let liteMode = false;
+  const goLite = () => {                               // χωρίς (ή με πολύ αργή) κάρτα γραφικών
+    liteMode = true;
+    canvas.classList.add('is-lite');
+    if (poster) { poster.style.display = ''; canvas.classList.remove('is-ready'); }
+  };
+  const onReady = (t) => {
+    window.__gearbox = t;                               // διάγνωση: χρόνοι φόρτωσης (ms) → __gearbox στην κονσόλα
+    if (t && t.lite) {
+      if (poster) { goLite(); return; }                // μένει η αφίσα — μηδενικό κόστος
+      canvas.classList.add('is-lite', 'lite-intro');    // κινητό χωρίς κάρτα: ένα καρέ, είσοδος με CSS
+    }
+    if (poster) canvas.classList.add('from-poster');
+    canvas.classList.add('is-ready');
+    if (poster) setTimeout(() => { if (!liteMode) poster.style.display = 'none'; }, 450);
     const ind = document.getElementById('model-indicator');
     if (ind) ind.textContent = 'PLANETARY GEARBOX';
   };
@@ -36,42 +94,50 @@ function initThree() {
     document.querySelectorAll('.vctrl').forEach(b => b.classList.remove('active'));
     const b = document.getElementById('btn-' + mode); if (b) b.classList.add('active');
   };
+  const onMsg = (type, data) => {
+    if (type === 'ready') onReady(data);
+    else if (type === 'mode') onMode(data);
+    else if (type === 'lite') goLite();
+  };
   const flush = () => Object.values(pending).forEach(m => send(m));
+
+  /* Με αφίσα, το 3D ξεκινά μετά τη φόρτωση της σελίδας (δεν ανταγωνίζεται τα υπόλοιπα)·
+     χωρίς αφίσα (κινητό) ξεκινά αμέσως */
+  const whenLoaded = fn => {
+    if (!usePoster || document.readyState === 'complete') fn();
+    else window.addEventListener('load', fn, { once: true });
+  };
 
   /* ── 1. Προτιμώμενη διαδρομή: Web Worker + OffscreenCanvas ── */
   const canWorker = 'transferControlToOffscreen' in HTMLCanvasElement.prototype && typeof Worker === 'function';
   if (canWorker) {
-    let worker;
-    try { worker = new Worker(new URL('./worker.js', import.meta.url), { type: 'module' }); }
-    catch (e) { worker = null; }
-    if (worker) {
+    whenLoaded(() => {
+      let worker;
+      try { worker = new Worker(new URL('./worker.js', import.meta.url), { type: 'module' }); }
+      catch (e) { worker = null; }
+      if (!worker) { startMainThread(); return; }
       const off = canvas.transferControlToOffscreen();
       worker.onmessage = e => {
         const { type, data } = e.data;
-        if (type === 'ready') onReady();
-        else if (type === 'mode') onMode(data);
-        else if (type === 'fail') {                    // χωρίς WebGL στον worker → νέος καμβάς, κύριο νήμα
+        if (type === 'fail') {                         // χωρίς WebGL στον worker → νέος καμβάς, κύριο νήμα
           worker.terminate(); send = null;
           const fresh = canvas.cloneNode(false); canvas.replaceWith(fresh); canvas = fresh;
           startMainThread();
-        }
+        } else onMsg(type, data);
       };
       worker.onerror = () => worker.onmessage({ data: { type: 'fail' } });
       worker.postMessage({ type: 'init', canvas: off, opts }, [off]);
       send = m => worker.postMessage(m);
       flush();
-      wire();
-      return;
-    }
-  }
-  startMainThread();
+    });
+  } else startMainThread();
   wire();
 
   /* ── 2. Εναλλακτική: κύριο νήμα, μετά τη φόρτωση και σε στιγμή ηρεμίας ── */
   function startMainThread() {
     const go = async () => {
       const { createGearbox } = await import('./scene.js');
-      const api = await createGearbox(canvas, opts, (t, d) => t === 'ready' ? onReady() : t === 'mode' && onMode(d));
+      const api = await createGearbox(canvas, opts, onMsg);
       send = m => {
         switch (m.type) {
           case 'resize': api.resize(m.w, m.h); break;
@@ -90,7 +156,7 @@ function initThree() {
     if (document.readyState === 'complete') idle(); else window.addEventListener('load', idle, { once: true });
   }
 
-  /* ── Γεγονότα σελίδας (ίδια λογική με πριν) ── */
+  /* ── Γεγονότα σελίδας ── */
   function wire() {
     const dragEl = document.getElementById('hero3d-drag') || canvas;
     let msx = 0, msy = 0, didDrag = false, isDragging = false, prev = { x: 0, y: 0 };
@@ -122,7 +188,7 @@ function initThree() {
     let rz = 0;
     window.addEventListener('resize', () => {
       cancelAnimationFrame(rz);
-      rz = requestAnimationFrame(() => { const s = size(); post({ type: 'resize', w: s.w, h: s.h }); });
+      rz = requestAnimationFrame(() => { const s = size(); placePoster(); post({ type: 'resize', w: s.w, h: s.h }); });
     });
 
     /* Παύση όταν η καρτέλα δεν φαίνεται ή όταν το hero βγει από την οθόνη (όχι στο κινητό: σταθερός καμβάς) */
@@ -143,5 +209,6 @@ function setScrollExplode(t) { post({ type: 'scroll', t }); }
 
 Object.assign(window, { initThree, setScrollExplode, setMode, resetModel });
 
-/* Αν το main.js έχει ήδη τρέξει, ξεκίνα μόνο του */
-if (document.readyState !== 'loading') setTimeout(initThree, 150);
+/* Εκκίνηση αμέσως (η αφίσα εμφανίζεται χωρίς αναμονή)· το main.js το ξανακαλεί χωρίς επίδραση */
+if (document.readyState !== 'loading') initThree();
+else document.addEventListener('DOMContentLoaded', initThree, { once: true });

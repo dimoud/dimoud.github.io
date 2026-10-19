@@ -32,8 +32,9 @@ function mkCanvas(n) {
 const SPUN = (() => {
   const S = 512, c = mkCanvas(S);
   const g = c.getContext('2d'); g.fillStyle = '#6a6a6a'; g.fillRect(0, 0, S, S);
+  let seed = 20240917; const rnd = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);   // σταθερός «θόρυβος»: ίδια υφή κάθε φορά (= αφίσα)
   for (let r = 1; r < S * 0.72; r += 1) {
-    const v = 118 + Math.round((Math.random() - 0.5) * 50 + Math.sin(r * 0.21) * 12);
+    const v = 118 + Math.round((rnd() - 0.5) * 50 + Math.sin(r * 0.21) * 12);
     g.strokeStyle = `rgb(${v},${v},${v})`; g.lineWidth = 1.2;
     g.beginPath(); g.arc(S / 2, S / 2, r, 0, Math.PI * 2); g.stroke();
   }
@@ -86,7 +87,21 @@ function mat(comp, kind, arg) {
 }
 
 /* ═══════════════ Βοηθοί γεωμετρίας ═══════════════ */
-function circlePath(x, y, r, cw = true) { const p = new THREE.Path(); p.absarc(x, y, r, 0, Math.PI * 2, cw); return p; }
+/* Πλήθος τμημάτων κύκλου ανάλογο του μεγέθους (≈ ίδιο οπτικό σφάλμα σε κάθε ακτίνα).
+   Οι μικρές οπές έπαιρναν 192 σημεία η καθεμία — εκεί πήγαινε το μεγαλύτερο μέρος των τριγώνων. */
+const segsFor = (r, span = Math.PI * 2) => Math.max(8, Math.ceil(Math.max(24, 64 * Math.sqrt(r)) * span / (Math.PI * 2)));
+/* Τόξο ως πολύγωνο (lineTo) με segsFor τμήματα */
+function arcPoly(p, x, y, r, a0, a1, first) {
+  const n = segsFor(r, Math.abs(a1 - a0));
+  for (let i = 0; i <= n; i++) { const a = a0 + (a1 - a0) * i / n, px = x + Math.cos(a) * r, py = y + Math.sin(a) * r; (first && i === 0) ? p.moveTo(px, py) : p.lineTo(px, py); }
+  return p;
+}
+function circlePath(x, y, r, cw = true) {
+  const p = new THREE.Path();
+  if (r < 1.5) { arcPoly(p, x, y, r, 0, cw ? -Math.PI * 2 : Math.PI * 2, true); p.closePath(); }   // μικρές οπές: πολύγωνο
+  else p.absarc(x, y, r, 0, Math.PI * 2, cw);                                                        // μεγάλοι κύκλοι: όπως πριν
+  return p;
+}
 function annulus(rOut, rIn, extra = []) {
   const s = new THREE.Shape(); s.absarc(0, 0, rOut, 0, Math.PI * 2, false);
   if (rIn > 0) s.holes.push(circlePath(0, 0, rIn));
@@ -158,7 +173,7 @@ function externalGear(N, holes, handK, rTwistIn) {
   const rp = N * MOD / 2;
   const s = new THREE.Shape(gearOutline(N, rp + ADD, rp - DED, 0.012, 0));
   holes.forEach(h => s.holes.push(h));
-  const g = slab(s, Z0, Z1, { bevel: 0.022, segs: 1, curve: 24, steps: 7 });
+  const g = slab(s, Z0, Z1, { bevel: 0.022, segs: 1, curve: 24, steps: 3 });   // συστροφή ≈6°: 3 βήματα αρκούν
   return twist(g, handK / rp, rTwistIn, rp - DED);
 }
 
@@ -222,7 +237,7 @@ function build() {
   comp('ring', root, 0, 99);
   const rs = annulus(5.6, 0);
   rs.holes.push(new THREE.Path(gearOutline(NR, RP_R + DED, RP_R - ADD, -0.012, Math.PI / NR)));
-  const rg = slab(rs, 0, 0.8, { bevel: 0.022, segs: 1, curve: 160, steps: 7 });
+  const rg = slab(rs, 0, 0.8, { bevel: 0.022, segs: 1, curve: 96, steps: 3 });
   add('ring', twist(rg, -TANB / RP_R), mat('ring', 'ring'), null, { edges: outline(rs, 0, 0.8, { curve: 160, k: -TANB / RP_R }) });
 
   /* ── Εμπρόσθιο καπάκι: μεταλλική φλάντζα + κρύσταλλο ── */
@@ -284,7 +299,7 @@ function build() {
   const pinHoles = () => PLANET_A.map(a => circlePath(Math.cos(a) * OR, Math.sin(a) * OR, 0.28));
   const windows = () => [0, 1, 2].map(i => {             // παράθυρα ελάφρυνσης ανάμεσα στους άξονες
     const c = Math.PI / 3 + i * 2 * Math.PI / 3, w = 0.42, p = new THREE.Path();
-    p.absarc(0, 0, 2.75, c - w, c + w, false); p.absarc(0, 0, 1.55, c + w, c - w, true); p.closePath(); return p;
+    arcPoly(p, 0, 0, 2.75, c - w, c + w, true); arcPoly(p, 0, 0, 1.55, c + w, c - w, false); p.closePath(); return p;
   });
   comp('carrierF', carrierRot, 5.2, 3);
   {  // λεπτός δακτύλιος αξόνων + 3 ακτίνες προς κεντρικό κολάρο (φαίνονται τα γρανάζια)

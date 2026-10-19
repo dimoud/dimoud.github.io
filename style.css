@@ -287,6 +287,20 @@ nav {
 /* Ο μειωτήρας εμφανίζεται ομαλά μόλις είναι έτοιμο το πρώτο καρέ (gearbox-v2/hero.js) */
 #hero3d { transition: opacity .6s ease; }
 #hero3d:not(.is-ready) { opacity: 0 !important; }
+/* Ελαφριά λειτουργία (χωρίς κάρτα γραφικών): σταθερό καρέ, είσοδος με ολίσθηση από δεξιά όπως η 3D */
+#hero3d.lite-intro { animation: gbLiteIn .7s cubic-bezier(.215,.61,.355,1) both; }
+@keyframes gbLiteIn { from { transform: translateX(36vh); } to { transform: none; } }
+#hero3d.is-lite ~ #hero3d-drag { display: none; }
+/* Εικόνα-αφίσα του μειωτήρα (gearbox-v2/poster.webp): εμφανίζεται αμέσως και κάνει την είσοδο·
+   το ζωντανό 3D την αντικαθιστά μόλις είναι έτοιμο (ίδιο ακριβώς καρέ) */
+#hero3d-poster { position: absolute; z-index: 5; pointer-events: none; user-select: none; opacity: 0; max-width: none; }
+#hero3d-poster.gb-in { animation: gbPosterIn .55s cubic-bezier(.215,.61,.355,1) .15s both, gbPosterFade .6s ease both; }
+@keyframes gbPosterIn { from { transform: translateX(var(--gb-dx, 300px)); } to { transform: none; } }
+@keyframes gbPosterFade { from { opacity: 0; } to { opacity: 1; } }
+#hero3d.from-poster { transition: opacity .3s ease; }
+@media (max-width: 960px) { #hero3d-poster { display: none !important; } }
+@media (prefers-reduced-motion: reduce) { #hero3d-poster.gb-in { animation: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { #hero3d.lite-intro { animation: none; } }
 #hero3d-drag {
   position: absolute; right: 0; top: 0; width: 50%; height: 100%; z-index: 6;
   cursor: default;
