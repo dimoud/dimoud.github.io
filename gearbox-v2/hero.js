@@ -1,238 +1,147 @@
 /* ═══════════════════════════════════════════════════════════════
-   gearbox-v2 / hero.js — ο πλανητικός μειωτήρας v2 στην αρχική σελίδα
-   Αντικαθιστά το models.js (v1) στο #hero3d. Κρατά ΑΥΤΟΥΣΙΑ τη συμπεριφορά
-   της v1: είσοδος με ολίσθηση, αργή αυτόματη περιστροφή, σύρσιμο με το
-   ποντίκι, κλικ = ανάπτυξη / επαναφορά, ανάπτυξη με την κύλιση
-   (setScrollExplode από το main.js), ίδιες ταχύτητες και ίδιοι χρόνοι.
-   Εκθέτει τα ίδια global ονόματα: initThree, setScrollExplode, setMode, resetModel.
+   gearbox-v2 / hero.js — ελεγκτής του μειωτήρα στην αρχική σελίδα (κύριο νήμα)
+   Η ΑΠΟΔΟΣΗ γίνεται σε Web Worker (worker.js → scene.js) με OffscreenCanvas:
+   κατασκευή γεωμετρίας, μεταγλώττιση shaders και καρέ δεν αγγίζουν το κύριο
+   νήμα, οπότε η αρχική φόρτωση, η χάραξη του σχεδίου και η κύλιση μένουν ομαλές.
+   Εδώ μένουν μόνο τα γεγονότα (ποντίκι, αφή, κύλιση, μέγεθος, ορατότητα).
+   Αν ο φυλλομετρητής δεν υποστηρίζει WebGL σε worker, το scene.js τρέχει στο
+   κύριο νήμα, αλλά ΜΟΝΟ αφού φορτώσει η σελίδα και ηρεμήσει (requestIdleCallback).
+   Ίδια global ονόματα: initThree, setScrollExplode, setMode, resetModel.
 ═══════════════════════════════════════════════════════════════ */
-import * as THREE from 'three';
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { assembly, applyModelExplode, applyModelKinematics, setExplodeScale } from './model.js';
-
-/* ── Ρυθμίσεις (ίδιες τιμές με τη v1 όπου υπάρχει αντιστοιχία) ── */
-const GEAR_OFFSET_X    = 1.0;    // μετατόπιση προς τα αριστερά στον υπολογιστή
-const GEAR_INTRO_DELAY = 0.15;   // s πριν ξεκινήσει η ολίσθηση
-const GEAR_INTRO_DUR   = 0.55;   // s διάρκεια ολίσθησης
-const GEAR_INTRO_DIST  = 5;      // μονάδες απόστασης ολίσθησης
-const GEAR_INTRO_FROM  = +1;     // +1: μπαίνει από ΔΕΞΙΑ προς τα αριστερά (όπως η v1) · −1: από αριστερά
-const MODEL_SCALE      = 0.66;   // v2 Ø138 mm έναντι Ø120 της v1 → ίδιο οπτικό μέγεθος με 0.76 της v1
-const SUN_SPEED        = 0.18;   // rad/s ηλιακού — ίδιο με τη v1
-setExplodeScale(0.8);            // λίγο πιο μαζεμένη ανάπτυξη για να χωρά στο μισό της οθόνης
-
-let scene, camera, renderer, clock, rotGroup;
-let explodeT = 0, exploding = false, isDragging = false;
-let prevMouse = { x: 0, y: 0 }, floatT = 0, theta = 0;
-let currentMode = 'rotate';
-let rightHalfX = 4.5;
-let scrollExplodeActive = false, scrollExplodeT = 0, scrollTargetY = 0;
-let animRunning = false, started = false;
-let gearIntroT = 0, gearIntroElapsed = 0, introStart = 0;
-/* ── Ελαφρύτερη απόδοση ──
-   · χωρίς σκιές (PCFSoft = δεύτερο πέρασμα απόδοσης σε κάθε καρέ)
-   · pixel ratio ≤ 1.25 στον υπολογιστή, 1 στο κινητό
-   · 30 καρέ/s όταν απλώς περιστρέφεται (ελάχιστη διαφορά στο μάτι, μισό φορτίο)
-   · παύση όταν η καρτέλα δεν φαίνεται · στατικό καρέ με prefers-reduced-motion */
 const IS_MOBILE = window.matchMedia('(max-width: 960px)').matches;
 const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const IDLE_FPS  = 30;
-let frameAcc = 0;
-const BASE_RX = 0.32, BASE_RY = -(25 * Math.PI / 180);
 
-function calcRightHalfX(W, H) { return Math.tan(19 * Math.PI / 180) * 20 * (W / H) * 0.5 - GEAR_OFFSET_X; }
+let started = false, ready = false;
+let send = null;                 // (μήνυμα) → worker ή απευθείας κλήση στο κύριο νήμα
+const pending = {};              // τελευταία τιμή ανά τύπο, πριν είναι έτοιμος ο μειωτήρας
+const post = m => { if (send) send(m); else pending[m.type] = m; };
 
-/* ═══════════════ Εκκίνηση (καλείται από το main.js) ═══════════════ */
 function initThree() {
   if (started) return;
-  const canvas = document.getElementById('hero3d');
+  let canvas = document.getElementById('hero3d');
   if (!canvas) return;
-  started = true; animRunning = true;
-  const parent = canvas.parentElement, W = parent.clientWidth || 1280, H = parent.clientHeight || 700;
-  const dragEl = document.getElementById('hero3d-drag') || canvas;
+  started = true;
+  const parent = canvas.parentElement;
+  const size = () => ({ w: parent.clientWidth || 1280, h: parent.clientHeight || 700 });
+  const { w, h } = size();
+  const opts = { width: w, height: h, dpr: window.devicePixelRatio || 1, mobile: IS_MOBILE, reduced: REDUCED };
 
-  const dpr = window.devicePixelRatio || 1;
-  renderer = new THREE.WebGLRenderer({ canvas, antialias: dpr < 1.5, alpha: true, powerPreference: 'default' });
-  renderer.setPixelRatio(Math.min(dpr, IS_MOBILE ? 1 : 1.25));
-  renderer.setSize(W, H); renderer.setClearColor(0x000000, 0);
-  renderer.toneMapping = THREE.NeutralToneMapping;
-  renderer.toneMappingExposure = 1.05;
-  renderer.shadowMap.enabled = false;               // οι σκιές ήταν το ακριβότερο κομμάτι κάθε καρέ
+  const onReady = () => {
+    ready = true;
+    canvas.classList.add('is-ready');                  // ομαλή εμφάνιση (CSS)
+    const ind = document.getElementById('model-indicator');
+    if (ind) ind.textContent = 'PLANETARY GEARBOX';
+  };
+  const onMode = mode => {
+    document.querySelectorAll('.vctrl').forEach(b => b.classList.remove('active'));
+    const b = document.getElementById('btn-' + mode); if (b) b.classList.add('active');
+  };
+  const flush = () => Object.values(pending).forEach(m => send(m));
 
-  scene = new THREE.Scene();
-  const pmrem = new THREE.PMREMGenerator(renderer);
-  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.035).texture;
-  scene.environmentIntensity = 0.75;
-  addLights(scene);
+  /* ── 1. Προτιμώμενη διαδρομή: Web Worker + OffscreenCanvas ── */
+  const canWorker = 'transferControlToOffscreen' in HTMLCanvasElement.prototype && typeof Worker === 'function';
+  if (canWorker) {
+    let worker;
+    try { worker = new Worker(new URL('./worker.js', import.meta.url), { type: 'module' }); }
+    catch (e) { worker = null; }
+    if (worker) {
+      const off = canvas.transferControlToOffscreen();
+      worker.onmessage = e => {
+        const { type, data } = e.data;
+        if (type === 'ready') onReady();
+        else if (type === 'mode') onMode(data);
+        else if (type === 'fail') {                    // χωρίς WebGL στον worker → νέος καμβάς, κύριο νήμα
+          worker.terminate(); send = null;
+          const fresh = canvas.cloneNode(false); canvas.replaceWith(fresh); canvas = fresh;
+          startMainThread();
+        }
+      };
+      worker.onerror = () => worker.onmessage({ data: { type: 'fail' } });
+      worker.postMessage({ type: 'init', canvas: off, opts }, [off]);
+      send = m => worker.postMessage(m);
+      flush();
+      wire();
+      return;
+    }
+  }
+  startMainThread();
+  wire();
 
-  camera = new THREE.PerspectiveCamera(38, W / H, .1, 300);
-  camera.position.set(0, 2.5, 20); camera.lookAt(0, .5, 0);
-  rightHalfX = calcRightHalfX(W, H);
-  clock = new THREE.Clock();
+  /* ── 2. Εναλλακτική: κύριο νήμα, μετά τη φόρτωση και σε στιγμή ηρεμίας ── */
+  function startMainThread() {
+    const go = async () => {
+      const { createGearbox } = await import('./scene.js');
+      const api = await createGearbox(canvas, opts, (t, d) => t === 'ready' ? onReady() : t === 'mode' && onMode(d));
+      send = m => {
+        switch (m.type) {
+          case 'resize': api.resize(m.w, m.h); break;
+          case 'dragging': api.dragging(m.on); break;
+          case 'drag': api.drag(m.dx, m.dy); break;
+          case 'click': api.click(); break;
+          case 'mode': api.setMode(m.mode); break;
+          case 'reset': api.resetModel(); break;
+          case 'scroll': api.setScrollExplode(m.t); break;
+          case 'run': api.run(m.on); break;
+        }
+      };
+      flush();
+    };
+    const idle = () => ('requestIdleCallback' in window) ? requestIdleCallback(go, { timeout: 1500 }) : setTimeout(go, 300);
+    if (document.readyState === 'complete') idle(); else window.addEventListener('load', idle, { once: true });
+  }
 
-  rotGroup = new THREE.Group();
-  assembly.rotation.set(0, 0, 0);                   // άξονας μηχανισμού = τοπικό Z (όπως η v1)
-  rotGroup.add(assembly);
-  rotGroup.rotation.x = BASE_RX; rotGroup.rotation.y = BASE_RY;
-  rotGroup.scale.setScalar(MODEL_SCALE);
-  gearIntroT = 0; gearIntroElapsed = 0;
-  rotGroup.position.x = rightHalfX + GEAR_INTRO_FROM * GEAR_INTRO_DIST;
-  scene.add(rotGroup);
-  assembly.traverse(o => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = false; } });
-  if (REDUCED) { gearIntroT = 1; rotGroup.position.x = rightHalfX; }
-  applyModelExplode(0);
-  applyModelKinematics(0);
+  /* ── Γεγονότα σελίδας (ίδια λογική με πριν) ── */
+  function wire() {
+    const dragEl = document.getElementById('hero3d-drag') || canvas;
+    let msx = 0, msy = 0, didDrag = false, isDragging = false, prev = { x: 0, y: 0 };
+    dragEl.addEventListener('mousedown', e => {
+      isDragging = true; didDrag = false; msx = e.clientX; msy = e.clientY; prev = { x: e.clientX, y: e.clientY };
+      post({ type: 'dragging', on: true });
+    });
+    window.addEventListener('mouseup', () => { if (isDragging) { isDragging = false; post({ type: 'dragging', on: false }); } });
+    window.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      if (Math.abs(e.clientX - msx) > 4 || Math.abs(e.clientY - msy) > 4) didDrag = true;
+      post({ type: 'drag', dx: e.clientX - prev.x, dy: e.clientY - prev.y });
+      prev = { x: e.clientX, y: e.clientY };
+    }, { passive: true });
+    dragEl.addEventListener('click', () => {
+      if (didDrag) { didDrag = false; return; }
+      post({ type: 'click' });
+    });
+    dragEl.addEventListener('touchstart', e => {
+      isDragging = true; prev = { x: e.touches[0].clientX, y: e.touches[0].clientY }; post({ type: 'dragging', on: true });
+    }, { passive: true });
+    window.addEventListener('touchend', () => { if (isDragging) { isDragging = false; post({ type: 'dragging', on: false }); } });
+    window.addEventListener('touchmove', e => {
+      if (!isDragging) return;
+      post({ type: 'drag', dx: e.touches[0].clientX - prev.x, dy: 0 });
+      prev = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }, { passive: true });
 
-  const ind = document.getElementById('model-indicator');
-  if (ind) ind.textContent = 'PLANETARY GEARBOX';
+    let rz = 0;
+    window.addEventListener('resize', () => {
+      cancelAnimationFrame(rz);
+      rz = requestAnimationFrame(() => { const s = size(); post({ type: 'resize', w: s.w, h: s.h }); });
+    });
 
-  setupDrag(dragEl, parent);
-  if (REDUCED) { applyModelKinematics(0); renderer.render(scene, camera); animRunning = false; return; }
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) animRunning = false;
-    else if (!animRunning && !REDUCED) { animRunning = true; clock.getDelta(); animate(); }
-  });
-  /* Προ-μεταγλώττιση shaders ΠΡΙΝ ξεκινήσει η ολίσθηση: αλλιώς το πρώτο καρέ «κολλάει»
-     για μερικά εκατοστά του δευτερολέπτου και η είσοδος φαίνεται να καθυστερεί */
-  renderer.compile(scene, camera);
-  renderer.render(scene, camera);
-  requestAnimationFrame(() => { introStart = performance.now(); clock.getDelta(); animate(); });
-
-  /* Παύση όταν το hero βγει από την οθόνη (όχι στο κινητό, όπου ο καμβάς είναι σταθερός) */
-  const heroSection = document.getElementById('hero');
-  if (heroSection) {
-    new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        if (!animRunning && !document.hidden) { animRunning = true; clock.getDelta(); animate(); }
-      } else if (window.innerWidth > 960) animRunning = false;
-    }, { threshold: 0 }).observe(heroSection);
+    /* Παύση όταν η καρτέλα δεν φαίνεται ή όταν το hero βγει από την οθόνη (όχι στο κινητό: σταθερός καμβάς) */
+    let inView = true;
+    const update = () => post({ type: 'run', on: !document.hidden && (inView || window.innerWidth <= 960) });
+    document.addEventListener('visibilitychange', update);
+    const hero = document.getElementById('hero');
+    if (hero && 'IntersectionObserver' in window) {
+      new IntersectionObserver(es => { inView = es[0].isIntersecting; update(); }, { threshold: 0 }).observe(hero);
+    }
   }
 }
 
-function addLights(s) {
-  const key = new THREE.DirectionalLight(0xc4dcff, 1.9);
-  key.position.set(8, 14, 14);
-  s.add(key);
-  const rim = new THREE.DirectionalLight(0xffb27c, 1.7); rim.position.set(-12, 6, -12); s.add(rim);
-  const rim2 = new THREE.DirectionalLight(0xffd2a8, 0.6); rim2.position.set(10, 3, -14); s.add(rim2);
-  const fill = new THREE.DirectionalLight(0x6a94ff, 0.7); fill.position.set(-8, -4, 10); s.add(fill);
-  s.add(new THREE.HemisphereLight(0xa8c6ff, 0x0a1430, 0.45));
-}
-
-/* ═══════════════ Σύρσιμο / κλικ (ίδια λογική με τη v1) ═══════════════ */
-function setupDrag(dragEl, parent) {
-  let msx = 0, msy = 0, didDrag = false;
-  dragEl.addEventListener('mousedown', e => { isDragging = true; didDrag = false; msx = e.clientX; msy = e.clientY; prevMouse = { x: e.clientX, y: e.clientY }; });
-  window.addEventListener('mouseup', () => { isDragging = false; });
-  window.addEventListener('mousemove', e => {
-    if (!isDragging) return;
-    if (Math.abs(e.clientX - msx) > 4 || Math.abs(e.clientY - msy) > 4) didDrag = true;
-    rotGroup.rotation.y += (e.clientX - prevMouse.x) * .010;
-    rotGroup.rotation.x += (e.clientY - prevMouse.y) * .007;
-    rotGroup.rotation.x = Math.max(-.9, Math.min(.9, rotGroup.rotation.x));
-    prevMouse = { x: e.clientX, y: e.clientY };
-  }, { passive: true });
-  dragEl.addEventListener('click', () => {
-    if (didDrag) { didDrag = false; return; }
-    if (scrollExplodeActive) return;
-    if (explodeT < 0.01 && !exploding) setMode('explode'); else resetModel();
-  });
-  dragEl.addEventListener('touchstart', e => { isDragging = true; prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY }; }, { passive: true });
-  window.addEventListener('touchend', () => isDragging = false);
-  window.addEventListener('touchmove', e => { if (!isDragging) return; rotGroup.rotation.y += (e.touches[0].clientX - prevMouse.x) * .010; prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY }; }, { passive: true });
-  window.addEventListener('resize', () => {
-    const W2 = parent.clientWidth || 1280, H2 = parent.clientHeight || 700;
-    camera.aspect = W2 / H2; camera.updateProjectionMatrix(); renderer.setSize(W2, H2);
-    rightHalfX = calcRightHalfX(W2, H2);
-    if (rotGroup && !scrollExplodeActive) rotGroup.position.x = rightHalfX;
-  });
-}
-
-/* ═══════════════ Βρόχος (ίδιοι ρυθμοί με τη v1) ═══════════════ */
-function animate() {
-  if (!animRunning) return;
-  requestAnimationFrame(animate);
-  let dt = clock.getDelta();
-  /* Σε ηρεμία (μόνο αργή περιστροφή) αποδίδουμε στα 30 καρέ/s */
-  const idle = gearIntroT >= 1 && !isDragging && !exploding && explodeT === 0 && !scrollExplodeActive;
-  if (idle) {
-    frameAcc += dt;
-    if (frameAcc < 1 / IDLE_FPS) return;
-    dt = frameAcc; frameAcc = 0;
-  } else frameAcc = 0;
-  dt = Math.min(dt, .05);
-  floatT += dt;
-
-  if (gearIntroT < 1) {
-    gearIntroElapsed = (performance.now() - introStart) / 1000;   // πραγματικός χρόνος: δεν «σέρνεται» αν χαθούν καρέ
-    const t = Math.max(0, (gearIntroElapsed - GEAR_INTRO_DELAY) / GEAR_INTRO_DUR);
-    gearIntroT = Math.min(1, 1 - Math.pow(1 - Math.min(t, 1), 3));   // ease-out cubic
-  }
-  const gearIntroOffset = (1 - gearIntroT) * GEAR_INTRO_DIST * GEAR_INTRO_FROM;
-
-  if (scrollExplodeActive) {
-    rotGroup.rotation.y += (scrollTargetY - rotGroup.rotation.y) * Math.min(1, dt * 14);
-    rotGroup.position.y = 0;
-    rotGroup.position.x = rightHalfX + gearIntroOffset;
-  } else if (!isDragging && currentMode === 'rotate') {
-    rotGroup.rotation.y += .0007;
-    rotGroup.position.y = Math.sin(floatT * .52) * .04;
-    rotGroup.position.x = rightHalfX + gearIntroOffset;
-  }
-
-  /* Κινηματική: ο ηλιακός γυρίζει συνεχώς, φορέας και δορυφόροι ακολουθούν σωστά */
-  theta += SUN_SPEED * dt;
-  applyModelKinematics(theta);
-
-  if (scrollExplodeActive) {
-    if (explodeT !== scrollExplodeT) { explodeT = scrollExplodeT; applyModelExplode(explodeT); }
-  } else if (exploding && explodeT < 1) {
-    explodeT = Math.min(1, explodeT + dt * .55); applyModelExplode(explodeT);
-  } else if (!exploding && explodeT > 0) {
-    /* Κλιμακωτή συναρμολόγηση όπως η v1: γρήγορα όταν απέχουν, πολύ αργά στο τελικό κάθισμα */
-    let assembleBase;
-    if (explodeT > 0.4) assembleBase = 1.4;
-    else if (explodeT > 0.15) assembleBase = 0.45 + ((explodeT - 0.15) / 0.25) * 0.95;
-    else assembleBase = 0.15;
-    const assembleSpeed = assembleBase * (0.10 + 0.90 * explodeT);
-    explodeT = Math.max(0, explodeT - dt * assembleSpeed); applyModelExplode(explodeT);
-  }
-
-  renderer.render(scene, camera);
-}
-
-/* ═══════════════ Δημόσιο API (ίδιο με τη v1) ═══════════════ */
-function setMode(mode) {
-  currentMode = mode; if (mode === 'explode') exploding = true;
-  document.querySelectorAll('.vctrl').forEach(b => b.classList.remove('active'));
-  const b = document.getElementById('btn-' + mode); if (b) b.classList.add('active');
-}
-function resetModel() {
-  exploding = false; currentMode = 'rotate'; scrollExplodeActive = false; scrollExplodeT = 0;
-  if (rotGroup) { rotGroup.rotation.set(BASE_RX, BASE_RY, 0); rotGroup.position.set(rightHalfX, 0, 0); }
-  document.querySelectorAll('.vctrl').forEach(b => b.classList.remove('active'));
-  const rb = document.getElementById('btn-rotate'); if (rb) rb.classList.add('active');
-}
-function setScrollExplode(t) {
-  const SPIN_END = 0.15;   /* πρώτο 15 % της κύλισης = στροφή */
-  const TARGET_Y = -1.27;  /* ~−73° πριν ανοίξει */
-  if (t < 0.005) {
-    scrollExplodeActive = false; exploding = false;
-    scrollExplodeT = 0; scrollTargetY = 0;
-    return;
-  }
-  scrollExplodeActive = true;
-  if (t <= SPIN_END) {
-    const sp = t / SPIN_END;
-    const ease = sp < 0.5 ? 2 * sp * sp : -1 + (4 - 2 * sp) * sp;
-    scrollTargetY = ease * TARGET_Y;
-    scrollExplodeT = 0;
-  } else {
-    scrollTargetY = TARGET_Y;
-    scrollExplodeT = Math.min(1, (t - SPIN_END) / (1 - SPIN_END));
-  }
-}
+/* ═══════════════ Δημόσιο API (ίδιο με πριν) ═══════════════ */
+function setMode(mode) { post({ type: 'mode', mode }); }
+function resetModel() { post({ type: 'reset' }); }
+function setScrollExplode(t) { post({ type: 'scroll', t }); }
 
 Object.assign(window, { initThree, setScrollExplode, setMode, resetModel });
 
-/* Αν το main.js έχει ήδη τρέξει (π.χ. αργό δίκτυο στο CDN), ξεκίνα μόνο του */
+/* Αν το main.js έχει ήδη τρέξει, ξεκίνα μόνο του */
 if (document.readyState !== 'loading') setTimeout(initThree, 150);

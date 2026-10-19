@@ -284,6 +284,9 @@ nav {
   position: absolute; left: 0; top: 0; width: 100%; height: 100%;
   pointer-events: none; z-index: 5; display: block;
 }
+/* Ο μειωτήρας εμφανίζεται ομαλά μόλις είναι έτοιμο το πρώτο καρέ (gearbox-v2/hero.js) */
+#hero3d { transition: opacity .6s ease; }
+#hero3d:not(.is-ready) { opacity: 0 !important; }
 #hero3d-drag {
   position: absolute; right: 0; top: 0; width: 50%; height: 100%; z-index: 6;
   cursor: default;

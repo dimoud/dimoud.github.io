@@ -3,7 +3,7 @@
    του πλανητικού μειωτήρα. Κοινό για τη σελίδα προβολής (app.js)
    και για την αρχική σελίδα (hero.js). Χωρίς σκηνή, κάμερα ή DOM.
 ═══════════════════════════════════════════════════════════════ */
-import * as THREE from 'three';
+import * as THREE from './three.js';
 
 export const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 export const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
@@ -22,9 +22,15 @@ export const PLANET_A = [0, 2 * Math.PI / 3, 4 * Math.PI / 3];
 export const BOLT_R = 6.3, BOLT_N = 8, OUT_R = 6.9;
 export const RATIO = 1 + NR / NS;                 // 4
 
+/* Καμβάς που δουλεύει και μέσα σε Web Worker (OffscreenCanvas) */
+function mkCanvas(n) {
+  if (typeof document === 'undefined') return new OffscreenCanvas(n, n);
+  const c = document.createElement('canvas'); c.width = c.height = n; return c;
+}
+
 /* Τορνευμένη (ομόκεντρη) επιφάνεια: χάρτης τραχύτητας + χάρτης ανισοτροπίας εφαπτομενικά */
 const SPUN = (() => {
-  const S = 512, c = document.createElement('canvas'); c.width = c.height = S;
+  const S = 512, c = mkCanvas(S);
   const g = c.getContext('2d'); g.fillStyle = '#6a6a6a'; g.fillRect(0, 0, S, S);
   for (let r = 1; r < S * 0.72; r += 1) {
     const v = 118 + Math.round((Math.random() - 0.5) * 50 + Math.sin(r * 0.21) * 12);
@@ -32,7 +38,7 @@ const SPUN = (() => {
     g.beginPath(); g.arc(S / 2, S / 2, r, 0, Math.PI * 2); g.stroke();
   }
   const rough = new THREE.CanvasTexture(c);
-  const a = document.createElement('canvas'); a.width = a.height = 256;
+  const a = mkCanvas(256);
   const ag = a.getContext('2d'), id = ag.createImageData(256, 256);
   for (let y = 0; y < 256; y++) for (let x = 0; x < 256; x++) {
     const dx = x - 127.5, dy = (255 - y) - 127.5, l = Math.hypot(dx, dy) || 1;
