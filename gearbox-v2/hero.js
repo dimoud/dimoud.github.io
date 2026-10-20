@@ -20,6 +20,10 @@ const REDUCED   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const POSTER = { src: new URL('./poster.webp', import.meta.url).href,
   offX: -4.350488, offY: -4.706590, wU: 9.073402, hU: 9.119655 };
 const INTRO_DIST = 5;            // μονάδες ολίσθησης εισόδου (ίδιο με scene.js)
+/* Ελαφριά λειτουργία: 24 έτοιμα καρέ ανάπτυξης (gearbox-v2/seq/00–23.webp, ~1,5 MB, φορτώνονται
+   ΜΟΝΟ όταν δεν υπάρχει κάρτα γραφικών). Καρέ 0–4: στροφή, 4–23: ανάπτυξη. */
+const SEQ = { base: new URL('./seq/', import.meta.url).href, n: 24,
+  offX: -8.574977, offY: -4.937858, wU: 15.787873, hU: 11.070013 };
 
 let started = false;
 let send = null;                 // (μήνυμα) → worker ή απευθείας κλήση στο κύριο νήμα
@@ -74,10 +78,65 @@ function initThree() {
 
   let liteMode = false;
   const goLite = () => {                               // χωρίς (ή με πολύ αργή) κάρτα γραφικών
+    if (liteMode) return;
     liteMode = true;
     canvas.classList.add('is-lite');
-    if (poster) { poster.style.display = ''; canvas.classList.remove('is-ready'); }
+    if (poster) { poster.style.display = ''; canvas.classList.remove('is-ready'); startSeq(); }
   };
+
+  /* ── Ελαφριά λειτουργία: άνοιγμα/κλείσιμο με έτοιμα καρέ (καμία απόδοση 3D) ── */
+  let seq = null;
+  function placeSeq() {
+    if (!seq) return;
+    const s = size(), p = project(s.w, s.h), el = seq.el.style;
+    el.left = (p.cx + SEQ.offX * p.ppu) + 'px'; el.top = (p.cy + SEQ.offY * p.ppu) + 'px';
+    el.width = (SEQ.wU * p.ppu) + 'px'; el.height = (SEQ.hU * p.ppu) + 'px';
+  }
+  function startSeq() {
+    const el = document.createElement('div');
+    el.id = 'hero3d-seq'; el.setAttribute('aria-hidden', 'true');
+    const imgs = [];
+    for (let i = 0; i < SEQ.n; i++) {
+      const im = new Image(); im.alt = ''; im.decoding = 'async';
+      im.src = SEQ.base + String(i).padStart(2, '0') + '.webp';
+      el.appendChild(im); imgs.push(im);
+    }
+    parent.insertBefore(el, canvas);
+    seq = { el, imgs, shown: -1, p: 0, target: 0, scrollT: 0, clickOpen: false, raf: 0 };
+    placeSeq();
+    /* θέση t της κύλισης (ίδια λογική με το 3D) → αριθμός καρέ */
+    const frameOf = t => t <= 0.15 ? t / 0.15 * 4 : 4 + (t - 0.15) / 0.85 * (SEQ.n - 5);
+    const show = f => {
+      const k = Math.max(0, Math.min(SEQ.n - 1, Math.round(f)));
+      if (k === seq.shown) return;
+      if (seq.shown >= 0) imgs[seq.shown].classList.remove('on');
+      imgs[k].classList.add('on'); seq.shown = k;
+    };
+    let last = 0;
+    const tick = now => {                              // ομαλή μετάβαση προς τον στόχο (άνοιγμα 1,8 s, κλείσιμο 2 s, με βάση τον χρόνο)
+      const dt = Math.min((now - last) / 1000, 0.25); last = now;
+      const d = seq.target - seq.p, step = dt / (seq.target > seq.p ? 1.8 : 2.0);
+      if (Math.abs(d) <= step) { seq.p = seq.target; seq.raf = 0; }
+      else { seq.p += Math.sign(d) * step; seq.raf = requestAnimationFrame(tick); }
+      show(frameOf(seq.p));
+    };
+    const go = () => { if (!seq.raf) { last = performance.now(); seq.raf = requestAnimationFrame(tick); } };
+    seq.handle = m => {
+      if (m.type === 'scroll') {
+        seq.scrollT = m.t;
+        if (m.t >= 0.005) { seq.clickOpen = false; cancelAnimationFrame(seq.raf); seq.raf = 0; seq.p = seq.target = m.t; show(frameOf(m.t)); }
+        else if (!seq.clickOpen) { seq.target = 0; go(); }
+      } else if (m.type === 'click') {
+        if (seq.scrollT >= 0.005) return;
+        seq.clickOpen = !seq.clickOpen; seq.target = seq.clickOpen ? 1 : 0; go();
+      } else if (m.type === 'reset') { seq.clickOpen = false; seq.target = 0; go(); }
+    };
+    send = seq.handle;
+    /* Όταν φορτώσουν όλα τα καρέ, το καρέ 0 (ίδιο με την αφίσα) παίρνει τη θέση της */
+    Promise.all(imgs.map(im => im.decode ? im.decode().catch(() => {}) : Promise.resolve())).then(() => {
+      el.classList.add('ready'); show(frameOf(seq.p)); poster.style.display = 'none';
+    });
+  }
   const onReady = (t) => {
     window.__gearbox = t;                               // διάγνωση: χρόνοι φόρτωσης (ms) → __gearbox στην κονσόλα
     if (t && t.lite) {
@@ -159,36 +218,13 @@ function initThree() {
   /* ── Γεγονότα σελίδας ── */
   function wire() {
     const dragEl = document.getElementById('hero3d-drag') || canvas;
-    let msx = 0, msy = 0, didDrag = false, isDragging = false, prev = { x: 0, y: 0 };
-    dragEl.addEventListener('mousedown', e => {
-      isDragging = true; didDrag = false; msx = e.clientX; msy = e.clientY; prev = { x: e.clientX, y: e.clientY };
-      post({ type: 'dragging', on: true });
-    });
-    window.addEventListener('mouseup', () => { if (isDragging) { isDragging = false; post({ type: 'dragging', on: false }); } });
-    window.addEventListener('mousemove', e => {
-      if (!isDragging) return;
-      if (Math.abs(e.clientX - msx) > 4 || Math.abs(e.clientY - msy) > 4) didDrag = true;
-      post({ type: 'drag', dx: e.clientX - prev.x, dy: e.clientY - prev.y });
-      prev = { x: e.clientX, y: e.clientY };
-    }, { passive: true });
-    dragEl.addEventListener('click', () => {
-      if (didDrag) { didDrag = false; return; }
-      post({ type: 'click' });
-    });
-    dragEl.addEventListener('touchstart', e => {
-      isDragging = true; prev = { x: e.touches[0].clientX, y: e.touches[0].clientY }; post({ type: 'dragging', on: true });
-    }, { passive: true });
-    window.addEventListener('touchend', () => { if (isDragging) { isDragging = false; post({ type: 'dragging', on: false }); } });
-    window.addEventListener('touchmove', e => {
-      if (!isDragging) return;
-      post({ type: 'drag', dx: e.touches[0].clientX - prev.x, dy: 0 });
-      prev = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-    }, { passive: true });
+    /* Μόνο κλικ = άνοιγμα / κλείσιμο. Η περιστροφή με το ποντίκι ή την αφή έχει καταργηθεί. */
+    dragEl.addEventListener('click', () => post({ type: 'click' }));
 
     let rz = 0;
     window.addEventListener('resize', () => {
       cancelAnimationFrame(rz);
-      rz = requestAnimationFrame(() => { const s = size(); placePoster(); post({ type: 'resize', w: s.w, h: s.h }); });
+      rz = requestAnimationFrame(() => { const s = size(); placePoster(); placeSeq(); post({ type: 'resize', w: s.w, h: s.h }); });
     });
 
     /* Παύση όταν η καρτέλα δεν φαίνεται ή όταν το hero βγει από την οθόνη (όχι στο κινητό: σταθερός καμβάς) */

@@ -236,6 +236,11 @@ export async function createGearbox(canvas, o, emit) {
         scrollExplodeT = Math.min(1, (t - SPIN_END) / (1 - SPIN_END));
       }
     },
+    /* Στατική πόζα (για την παραγωγή των καρέ της ελαφριάς λειτουργίας — tools/) */
+    pose(rotY, eT) {
+      rotGroup.rotation.set(BASE_RX, rotY, 0); rotGroup.position.set(0, 0, 0);
+      applyModelKinematics(0); applyModelExplode(eT); render();
+    },
     run(on) { if (lite) return; wantRun = !!on; if (wantRun) startLoop(); }
   };
 

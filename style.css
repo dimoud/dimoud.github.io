@@ -290,7 +290,11 @@ nav {
 /* Ελαφριά λειτουργία (χωρίς κάρτα γραφικών): σταθερό καρέ, είσοδος με ολίσθηση από δεξιά όπως η 3D */
 #hero3d.lite-intro { animation: gbLiteIn .7s cubic-bezier(.215,.61,.355,1) both; }
 @keyframes gbLiteIn { from { transform: translateX(36vh); } to { transform: none; } }
-#hero3d.is-lite ~ #hero3d-drag { display: none; }
+/* Ελαφριά λειτουργία στον υπολογιστή: άνοιγμα/κλείσιμο με έτοιμα καρέ (gearbox-v2/seq/) */
+#hero3d-seq { position: absolute; z-index: 5; pointer-events: none; user-select: none; }
+#hero3d-seq img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; opacity: 0; }
+#hero3d-seq.ready img.on { opacity: 1; }
+@media (max-width: 960px) { #hero3d-seq { display: none !important; } }
 /* Εικόνα-αφίσα του μειωτήρα (gearbox-v2/poster.webp): εμφανίζεται αμέσως και κάνει την είσοδο·
    το ζωντανό 3D την αντικαθιστά μόλις είναι έτοιμο (ίδιο ακριβώς καρέ) */
 #hero3d-poster { position: absolute; z-index: 5; pointer-events: none; user-select: none; opacity: 0; max-width: none; }
