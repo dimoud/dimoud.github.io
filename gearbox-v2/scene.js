@@ -171,10 +171,16 @@ export async function createGearbox(canvas, o, emit) {
       else b = 0.15;
       explodeT = Math.max(0, explodeT - dt * b * (0.10 + 0.90 * explodeT)); applyModelExplode(explodeT);
     }
+    /* Ανάπτυξη με κλικ: η σελίδα μεγεθύνει τον μειωτήρα πέρα από το hero (hero.js) */
+    if (!scrollExplodeActive && (Math.abs(explodeT - lastOpen) > 0.004 || (explodeT === 0 && lastOpen !== 0))) { lastOpen = explodeT; emit('open', explodeT); }
+    /* Όταν είναι ανοιχτός και μεγεθυμένος, περισσότερα εικονοστοιχεία ώστε να μη θολώνει */
+    const pr = explodeT > 0.01 ? 1.4 : 1;
+    if (pr !== curPR) { curPR = pr; renderer.setPixelRatio(pr); }
     render();
   }
 
   const probe = [];
+  let lastOpen = 0, curPR = 1;
   let rzT = 0;
   function goLite() {
     lite = still = true; wantRun = false; looping = false;

@@ -85,5 +85,22 @@
   window.addEventListener('resize', function () { measure(); paint(); });
   window.addEventListener('load', function () { measure(); paint(); });
 
+  /* ── 7. «Σχετικά»: κάρτες αξιών — είσοδος, γραμμή χρώματος, σχεδίαση και κίνηση εικονιδίου (CSS §10) ── */
+  var vg = document.querySelector('#about .values-grid');
+  if (vg) {
+    vg.querySelectorAll('.value-item').forEach(function (it, i) {
+      it.style.setProperty('--vi', i);
+      it.querySelectorAll('.value-icon circle, .value-icon line, .value-icon path, .value-icon polyline, .value-icon polygon, .value-icon rect, .value-icon ellipse')
+        .forEach(function (s) { s.setAttribute('pathLength', '1'); s.classList.add('vi-s'); });
+    });
+    if (REDUCED) vg.classList.add('vi-go');
+    else {
+      var vio = new IntersectionObserver(function (es) {
+        if (es[0].isIntersecting) { vg.classList.add('vi-go'); vio.disconnect(); }
+      }, { threshold: 0.3 });
+      vio.observe(vg);
+    }
+  }
+
   done();
 })();
