@@ -26,11 +26,6 @@ const SEQ = { base: new URL('./seq/', import.meta.url).href, n: 24,
   offX: -8.574977, offY: -4.937858, wU: 15.787873, hU: 11.070013 };
 
 let started = false;
-/* ── Μεγέθυνση στο άνοιγμα: ο μειωτήρας μεγαλώνει (έως ×1,55) και βγαίνει κάτω από το hero,
-   πάνω από τον επόμενο τίτλο, με σβήσιμο προς τα κάτω ── */
-const OPEN_SCALE = 0.55;          // ×1,55 στο πλήρες άνοιγμα
-const OPEN_ORIGIN_Y = 0.30;       // κέντρο μεγέθυνσης ψηλά (30 % του hero): μεγαλώνει κυρίως προς τα κάτω
-let openClick = 0, openScroll = 0, scrollActive = false, applyOpen = () => {};
 let send = null;                 // (μήνυμα) → worker ή απευθείας κλήση στο κύριο νήμα
 const pending = {};              // τελευταία τιμή ανά τύπο, πριν είναι έτοιμος ο μειωτήρας
 const post = m => { if (send) send(m); else pending[m.type] = m; };
@@ -60,32 +55,6 @@ function initThree() {
   const opts = { width: w, height: h, dpr: window.devicePixelRatio || 1, mobile: IS_MOBILE, reduced: REDUCED,
                  noIntro: usePoster, poster: usePoster };
 
-  /* ── Μεγέθυνση/σβήσιμο κατά το άνοιγμα ── */
-  let openRaf = 0;
-  const smooth = x => x * x * (3 - 2 * x);
-  function styleOpen(el, left, top, h, o, H, s) {
-    if (!el) return;
-    if (s <= 1.001) { el.style.transform = ''; el.style.webkitMaskImage = el.style.maskImage = ''; return; }
-    const ox = o.cx - left, oy = OPEN_ORIGIN_Y * H - top;
-    const yl = oy + (H - top - oy) / s;                  // τοπικό y που πέφτει στο κάτω όριο του hero
-    const m = `linear-gradient(to bottom, #000 0, #000 ${yl.toFixed(1)}px, rgba(0,0,0,.08) ${h.toFixed(1)}px)`;
-    el.style.transformOrigin = `${ox.toFixed(1)}px ${oy.toFixed(1)}px`;
-    el.style.transform = `scale(${s.toFixed(4)})`;
-    el.style.webkitMaskImage = el.style.maskImage = m;
-  }
-  applyOpen = () => {
-    if (openRaf || IS_MOBILE) return;
-    openRaf = requestAnimationFrame(() => {
-      openRaf = 0;
-      const v = scrollActive ? openScroll : openClick, s = 1 + OPEN_SCALE * smooth(Math.max(0, Math.min(1, v)));
-      const sz = size(), o = project(sz.w, sz.h);
-      parent.classList.toggle('gb-open', s > 1.001);
-      styleOpen(canvas, 0, 0, sz.h, o, sz.h, s);
-      if (poster && poster.style.display !== 'none') styleOpen(poster, parseFloat(poster.style.left), parseFloat(poster.style.top), parseFloat(poster.style.height), o, sz.h, s);
-      if (seq) styleOpen(seq.el, parseFloat(seq.el.style.left), parseFloat(seq.el.style.top), parseFloat(seq.el.style.height), o, sz.h, s);
-    });
-  };
-
   /* ── Αφίσα ── */
   let poster = null;
   function placePoster() {
@@ -103,8 +72,6 @@ function initThree() {
     poster.decoding = 'async'; poster.src = POSTER.src;
     parent.insertBefore(poster, canvas);
     placePoster();
-    /* μετά την είσοδο, η κίνηση CSS αφαιρείται ώστε να μπορεί να μεγεθυνθεί στο άνοιγμα */
-    poster.addEventListener('animationend', e => { if (e.animationName === 'gbPosterIn') { poster.style.opacity = '1'; poster.classList.remove('gb-in'); } });
     const go = () => poster.classList.add('gb-in');
     (poster.decode ? poster.decode() : Promise.resolve()).then(go, go);
   }
@@ -152,7 +119,6 @@ function initThree() {
       if (Math.abs(d) <= step) { seq.p = seq.target; seq.raf = 0; }
       else { seq.p += Math.sign(d) * step; seq.raf = requestAnimationFrame(tick); }
       show(frameOf(seq.p));
-      if (!scrollActive) { openClick = Math.max(0, (seq.p - 0.15) / 0.85); applyOpen(); }
     };
     const go = () => { if (!seq.raf) { last = performance.now(); seq.raf = requestAnimationFrame(tick); } };
     seq.handle = m => {
@@ -191,7 +157,6 @@ function initThree() {
     if (type === 'ready') onReady(data);
     else if (type === 'mode') onMode(data);
     else if (type === 'lite') goLite();
-    else if (type === 'open') { openClick = data; applyOpen(); }
   };
   const flush = () => Object.values(pending).forEach(m => send(m));
 
@@ -259,7 +224,7 @@ function initThree() {
     let rz = 0;
     window.addEventListener('resize', () => {
       cancelAnimationFrame(rz);
-      rz = requestAnimationFrame(() => { const s = size(); placePoster(); placeSeq(); post({ type: 'resize', w: s.w, h: s.h }); applyOpen(); });
+      rz = requestAnimationFrame(() => { const s = size(); placePoster(); placeSeq(); post({ type: 'resize', w: s.w, h: s.h }); });
     });
 
     /* Παύση όταν η καρτέλα δεν φαίνεται ή όταν το hero βγει από την οθόνη (όχι στο κινητό: σταθερός καμβάς) */
@@ -276,13 +241,7 @@ function initThree() {
 /* ═══════════════ Δημόσιο API (ίδιο με πριν) ═══════════════ */
 function setMode(mode) { post({ type: 'mode', mode }); }
 function resetModel() { post({ type: 'reset' }); }
-function setScrollExplode(t) {
-  post({ type: 'scroll', t });
-  scrollActive = t >= 0.005;
-  openScroll = Math.max(0, (t - 0.15) / 0.85);
-  if (scrollActive) openClick = 0;                    // η κύλιση ακυρώνει το άνοιγμα με κλικ (όπως το 3D)
-  applyOpen();
-}
+function setScrollExplode(t) { post({ type: 'scroll', t }); }
 
 Object.assign(window, { initThree, setScrollExplode, setMode, resetModel });
 
